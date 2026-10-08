@@ -14,6 +14,7 @@ export const SOUND_CUES = [
   ]),
   ['hatch', 'Close hatch', 'Hatch closed.'],
   ['tick', 'Timer tick', 'Time is running short.'],
+  ['alarm-b', 'B-class alarm sample', 'GAME alarm: B-class example.'],
   ['alarm-c', 'C-class alarm sample', 'GAME alarm: C-class example.'],
   ['alarm-m', 'M-class alarm sample', 'GAME alarm: M-class example.'],
   ['alarm-x', 'X-class alarm sample', 'GAME alarm: X-class example.'],
@@ -144,7 +145,9 @@ export function synthesize(id, sampleRate = 22050) {
         tone(i * 0.14, 0.17, base * ratio, base * ratio * 1.02, 0.22),
       );
   } else if (id.startsWith('alarm-')) {
-    const level = { 'alarm-c': 0, 'alarm-m': 1, 'alarm-x': 2 }[id];
+    const level = { 'alarm-b': -1, 'alarm-c': 0, 'alarm-m': 1, 'alarm-x': 2 }[
+      id
+    ];
     for (let i = 0; i <= level + 1; i++)
       tone(
         i * 0.24,

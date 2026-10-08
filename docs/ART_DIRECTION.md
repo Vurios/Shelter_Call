@@ -58,9 +58,9 @@ Journal textures are a repeating grid, torn tape and simple leaf/star stickers. 
 
 ## Sound
 
-All 27 effects and three music loops are original deterministic Web Audio synthesis. No audio pack, runtime CDN, audio file download or additional synthesis dependency. Every buffer uses a short attack/release envelope and a peak at or below 0.45 before bus gains.
+All 28 effects and three music loops are original deterministic Web Audio synthesis. No audio pack, runtime CDN, audio file download or additional synthesis dependency. Every buffer uses a short attack/release envelope and a peak at or below 0.45 before bus gains.
 
-Effects cover hop, landing, pickup, deposit, eight crew chirps, hatch, tick, three C/M/X alarm samples, particle whoosh, radio static/beeps, stamp, page, drag, drop, tap and three ending jingles. Each crew has a different pitch/rhythm signature. Alarm pitch and intensity rise with the explicit C/M/X input. These are GAME sounds, not physical sounds measured in space.
+Effects cover hop, landing, pickup, deposit, eight crew chirps, hatch, tick, four B/C/M/X alarm samples, particle whoosh, radio static/beeps, stamp, page, drag, drop, tap and three ending jingles. Each crew has a different pitch/rhythm signature. Alarm pitch and intensity rise with the explicit B/C/M/X input. These are GAME sounds, not physical sounds measured in space. The prompt 3 follow-up found four B-class records in the shipped archive; B has the gentlest cue, and an integration test checks every archived class against the audio API.
 
 Music loops are **Warm windows** (title), **Little moon steps** (scramble), and **A quiet room** (shelter). Switches crossfade over 0.6 seconds. Scramble playback rate rises from 0.85 to 1.7 as the GAME timer falls. Tick spacing falls from 1 to 0.16 seconds. Shelter filtering and gain thin as the GAME shield falls. Loop ends are silent and smooth at the wrap.
 
@@ -86,6 +86,6 @@ Fonts are committed; ordinary generation and builds need no network. `.gitattrib
 
 ## Evidence and limits
 
-Asset checks load every GLB, verify ground pivots/normals/no textures, enforce counts and hashes, inspect actual font glyphs and calculate palette contrast. Unit tests verify every PCM buffer, distinct chirps, urgency mapping, gesture gating, mute, voice caps, crossfades and cleanup. The browser suite exercises all 27 sound buttons, all loops and settings, reduced motion, unavailable WebGL and offline reloads at 1280×720 and 360×640. Screenshots include every model, every crew mood, plant moods, endings, icons, textures and typography.
+Asset checks load every GLB, verify ground pivots/normals/no textures, enforce counts and hashes, inspect actual font glyphs and calculate palette contrast. Unit tests verify every PCM buffer, distinct chirps, urgency mapping, archived flare-class compatibility, gesture gating, mute, voice caps, crossfades and cleanup. The browser suite exercises all 28 sound buttons, all loops and settings, reduced motion, unavailable WebGL and offline reloads at 1280×720 and 360×640. Screenshots include every model, every crew mood, plant moods, endings, icons, textures and typography.
 
 A real OfflineAudioContext renders an eight-effect-plus-music stress mix at maximum master/SFX gain through the compressor. Local peak is 0.8873 and all samples are finite, below clipping. This proves buffer/mix headroom for that case. It does not establish loudness on physical phone speakers, Android frame rate, real-phone installation, or Safari/in-app-browser playback. Those require device checks later. Interactive scramble, shelter and reveal remain prompts 5–7.

@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
+import episodes from '../../public/data/episodes.json';
 import {
   SOUND_CUES,
   THEMES,
@@ -47,6 +48,7 @@ describe('original audio buffers', () => {
       synthesize(id).samples.reduce((sum, sample) => sum + sample ** 2, 0);
     expect(energy('alarm-x')).toBeGreaterThan(energy('alarm-m'));
     expect(energy('alarm-m')).toBeGreaterThan(energy('alarm-c'));
+    expect(energy('alarm-c')).toBeGreaterThan(energy('alarm-b'));
     expect(timerInterval(1)).toBeLessThan(timerInterval(60));
     expect(tempoRate(1)).toBeGreaterThan(tempoRate(60));
     expect(() => synthesize('unknown')).toThrow();
@@ -102,6 +104,22 @@ function fakeContext() {
   };
 }
 describe('gesture-owned controller', () => {
+  it('supports every real flare class in the archived engine data', () => {
+    const examples = new Map(
+      episodes.flares.map((flare) => [flare.class[0], flare.class]),
+    );
+    const caption = vi.fn();
+    const audio = createAudio({ onCaption: caption });
+    for (const [prefix, flareClass] of examples) {
+      expect(
+        () => audio.alarm(flareClass),
+        `Archived ${flareClass} must have a GAME cue`,
+      ).not.toThrow();
+      expect(caption).toHaveBeenLastCalledWith(
+        `GAME alarm: ${prefix}-class example.`,
+      );
+    }
+  });
   it('stays silent before unlock and under mute while retaining captions', async () => {
     const context = fakeContext(),
       factory = vi.fn(() => context),
@@ -143,7 +161,7 @@ describe('gesture-owned controller', () => {
     expect(() => audio.setTimer(Infinity)).toThrow();
     expect(() => audio.setShield(NaN)).toThrow();
     expect(() => audio.setTheme('missing')).toThrow();
-    expect(() => audio.alarm('B')).toThrow();
+    expect(() => audio.alarm('unknown')).toThrow();
     expect(audio.alarm('M2.4')).toBe(true);
     audio.stopAll();
     expect(

@@ -59,736 +59,6 @@
     "flareMemoryHours": 12,
     "alertMemoryHours": 48
   },
-  "startingConfig": {
-    "timerMax": 90,
-    "timerMin": 15,
-    "dose": [
-      0,
-      2,
-      5,
-      10
-    ],
-    "duration": [
-      0,
-      2,
-      4,
-      6
-    ],
-    "sick": 25,
-    "medevac": 50,
-    "water": 1,
-    "food": 1,
-    "startPower": 8,
-    "solar": 1.5,
-    "science": 2,
-    "greenhouse": 2,
-    "drill": 1,
-    "initialFood": 40,
-    "initialWater": 40,
-    "eventEvery": 3,
-    "eventPower": 1,
-    "eventScience": 1,
-    "eventMorale": 2,
-    "shieldMax": 0.9,
-    "shieldMassScale": 8,
-    "wallSlots": 8,
-    "allClearLevel": 0.5,
-    "moraleStart": 6,
-    "moraleMax": 10,
-    "moraleWeak": 3,
-    "moraleOutput": 0.8,
-    "medicReduction": 10,
-    "medicInterval": 6,
-    "medReduction": 20,
-    "batteryPower": 8,
-    "chefFood": 1.5,
-    "solarDaily": 3,
-    "lifePower": 1,
-    "seedPower": 1,
-    "radioPower": 1,
-    "boltPower": 1,
-    "boltOutput": 0.5,
-    "powerMax": 30,
-    "powerGrace": 2,
-    "eventRepair": 1,
-    "eventPlant": 1,
-    "flareMemoryHours": 12,
-    "alertMemoryHours": 48
-  },
-  "final": {
-    "Cadet": {
-      "AlwaysShelter": {
-        "runs": 5000,
-        "winRate": 1,
-        "medevacRate": 0,
-        "scienceLegendRate": 0,
-        "score": 190.35805447439134,
-        "science": 0,
-        "dose": 35.99684692382813,
-        "shifts": 18,
-        "scramble": 90,
-        "endings": {
-          "Kamote Kingdom": 5000
-        }
-      },
-      "NeverShelter": {
-        "runs": 5000,
-        "winRate": 0.3252,
-        "medevacRate": 0.6748,
-        "scienceLegendRate": 0.0704,
-        "score": 146.19576320701643,
-        "science": 191.80555555555554,
-        "dose": 273.8420138888889,
-        "shifts": 10,
-        "scramble": 90,
-        "endings": {
-          "Early Ride Home": 3374,
-          "Forecast Whisperer": 341,
-          "Mission Complete": 933,
-          "Science Legend": 352
-        }
-      },
-      "TrustForecast": {
-        "runs": 5000,
-        "winRate": 0.8804,
-        "medevacRate": 0.1196,
-        "scienceLegendRate": 0.3412,
-        "score": 251.3317068256401,
-        "science": 179.94791666666669,
-        "dose": 144.27821119520397,
-        "shifts": 18,
-        "scramble": 90,
-        "endings": {
-          "Close Call": 668,
-          "Early Ride Home": 598,
-          "Forecast Whisperer": 454,
-          "Mission Complete": 1574,
-          "Science Legend": 1706
-        }
-      },
-      "Cautious": {
-        "runs": 5000,
-        "winRate": 1,
-        "medevacRate": 0,
-        "scienceLegendRate": 0.677,
-        "score": 261.7847487896641,
-        "science": 55.38541666666666,
-        "dose": 94.2022827148438,
-        "shifts": 18,
-        "scramble": 90,
-        "endings": {
-          "Close Call": 1160,
-          "Forecast Whisperer": 165,
-          "Kamote Kingdom": 290,
-          "Science Legend": 3385
-        }
-      },
-      "Greedy": {
-        "runs": 5000,
-        "winRate": 0.3252,
-        "medevacRate": 0.6748,
-        "scienceLegendRate": 0.0704,
-        "score": 146.19576320701643,
-        "science": 191.80555555555554,
-        "dose": 273.8420138888889,
-        "shifts": 10,
-        "scramble": 90,
-        "endings": {
-          "Early Ride Home": 3374,
-          "Forecast Whisperer": 341,
-          "Mission Complete": 933,
-          "Science Legend": 352
-        }
-      },
-      "Random": {
-        "runs": 5000,
-        "winRate": 0.73,
-        "medevacRate": 0.27,
-        "scienceLegendRate": 0.3498,
-        "score": 214.78239024084507,
-        "science": 55.08680555555555,
-        "dose": 153.36084248860675,
-        "shifts": 18,
-        "scramble": 90,
-        "endings": {
-          "Close Call": 506,
-          "Early Ride Home": 1350,
-          "Forecast Whisperer": 226,
-          "Mission Complete": 1169,
-          "Science Legend": 1749
-        }
-      }
-    },
-    "Commander": {
-      "AlwaysShelter": {
-        "runs": 5000,
-        "winRate": 1,
-        "medevacRate": 0,
-        "scienceLegendRate": 0,
-        "score": 190.3060330984153,
-        "science": 0,
-        "dose": 39.08295355902777,
-        "shifts": 22,
-        "scramble": 60,
-        "endings": {
-          "Kamote Kingdom": 5000
-        }
-      },
-      "NeverShelter": {
-        "runs": 5000,
-        "winRate": 0.0968,
-        "medevacRate": 0.9032,
-        "scienceLegendRate": 0.0388,
-        "score": 125.93679798269521,
-        "science": 130.83333333333331,
-        "dose": 185.77499999999998,
-        "shifts": 7,
-        "scramble": 60,
-        "endings": {
-          "Early Ride Home": 4516,
-          "Forecast Whisperer": 145,
-          "Mission Complete": 145,
-          "Science Legend": 194
-        }
-      },
-      "TrustForecast": {
-        "runs": 5000,
-        "winRate": 0.564,
-        "medevacRate": 0.436,
-        "scienceLegendRate": 0.1594,
-        "score": 207.18526394604507,
-        "science": 154.27083333333334,
-        "dose": 141.95227701822915,
-        "shifts": 21,
-        "scramble": 60,
-        "endings": {
-          "Close Call": 172,
-          "Early Ride Home": 2180,
-          "Forecast Whisperer": 430,
-          "Mission Complete": 1421,
-          "Science Legend": 797
-        }
-      },
-      "Cautious": {
-        "runs": 5000,
-        "winRate": 0.9862,
-        "medevacRate": 0.0138,
-        "scienceLegendRate": 0.5132,
-        "score": 262.91384406570967,
-        "science": 55.385416666666664,
-        "dose": 79.48927191840275,
-        "shifts": 22,
-        "scramble": 60,
-        "endings": {
-          "Close Call": 1036,
-          "Early Ride Home": 69,
-          "Forecast Whisperer": 220,
-          "Kamote Kingdom": 255,
-          "Mission Complete": 854,
-          "Science Legend": 2566
-        }
-      },
-      "Greedy": {
-        "runs": 5000,
-        "winRate": 0.0968,
-        "medevacRate": 0.9032,
-        "scienceLegendRate": 0.0388,
-        "score": 125.93679798269521,
-        "science": 130.83333333333331,
-        "dose": 185.77499999999998,
-        "shifts": 7,
-        "scramble": 60,
-        "endings": {
-          "Early Ride Home": 4516,
-          "Forecast Whisperer": 145,
-          "Mission Complete": 145,
-          "Science Legend": 194
-        }
-      },
-      "Random": {
-        "runs": 5000,
-        "winRate": 0.489,
-        "medevacRate": 0.511,
-        "scienceLegendRate": 0.2102,
-        "score": 177.3185041950531,
-        "science": 49.546875,
-        "dose": 154.49614583333334,
-        "shifts": 20.5,
-        "scramble": 60,
-        "endings": {
-          "Close Call": 60,
-          "Early Ride Home": 2555,
-          "Forecast Whisperer": 230,
-          "Mission Complete": 1104,
-          "Science Legend": 1051
-        }
-      }
-    },
-    "Flight Director": {
-      "AlwaysShelter": {
-        "runs": 5000,
-        "winRate": 1,
-        "medevacRate": 0,
-        "scienceLegendRate": 0,
-        "score": 190.68823268742292,
-        "science": 0,
-        "dose": 44.795654296875,
-        "shifts": 26,
-        "scramble": 60,
-        "endings": {
-          "Kamote Kingdom": 5000
-        }
-      },
-      "NeverShelter": {
-        "runs": 5000,
-        "winRate": 0.0968,
-        "medevacRate": 0.9032,
-        "scienceLegendRate": 0.0238,
-        "score": 131.8367442673616,
-        "science": 117.17013888888887,
-        "dose": 155.6416666666667,
-        "shifts": 6,
-        "scramble": 60,
-        "endings": {
-          "Early Ride Home": 4516,
-          "Forecast Whisperer": 145,
-          "Mission Complete": 220,
-          "Science Legend": 119
-        }
-      },
-      "TrustForecast": {
-        "runs": 5000,
-        "winRate": 0.3474,
-        "medevacRate": 0.6526,
-        "scienceLegendRate": 0.059,
-        "score": 173.05040516595514,
-        "science": 129.99305555555554,
-        "dose": 142.2075,
-        "shifts": 15,
-        "scramble": 60,
-        "endings": {
-          "Early Ride Home": 3263,
-          "Forecast Whisperer": 350,
-          "Mission Complete": 1092,
-          "Science Legend": 295
-        }
-      },
-      "Cautious": {
-        "runs": 5000,
-        "winRate": 0.9862,
-        "medevacRate": 0.0138,
-        "scienceLegendRate": 0.5118,
-        "score": 270.34353740965685,
-        "science": 57.22222222222222,
-        "dose": 65.57396240234375,
-        "shifts": 26,
-        "scramble": 60,
-        "endings": {
-          "Close Call": 1153,
-          "Early Ride Home": 69,
-          "Forecast Whisperer": 295,
-          "Kamote Kingdom": 138,
-          "Mission Complete": 786,
-          "Science Legend": 2559
-        }
-      },
-      "Greedy": {
-        "runs": 5000,
-        "winRate": 0.0968,
-        "medevacRate": 0.9032,
-        "scienceLegendRate": 0.0238,
-        "score": 131.8367442673616,
-        "science": 117.17013888888887,
-        "dose": 155.6416666666667,
-        "shifts": 6,
-        "scramble": 60,
-        "endings": {
-          "Early Ride Home": 4516,
-          "Forecast Whisperer": 145,
-          "Mission Complete": 220,
-          "Science Legend": 119
-        }
-      },
-      "Random": {
-        "runs": 5000,
-        "winRate": 0.3792,
-        "medevacRate": 0.6208,
-        "scienceLegendRate": 0.17,
-        "score": 158.41408438046443,
-        "science": 43.13368055555556,
-        "dose": 141.73333333333335,
-        "shifts": 12,
-        "scramble": 60,
-        "endings": {
-          "Close Call": 25,
-          "Early Ride Home": 3103,
-          "Forecast Whisperer": 216,
-          "Mission Complete": 805,
-          "Science Legend": 850,
-          "Snack Attack": 1
-        }
-      }
-    }
-  },
-  "before": {
-    "AlwaysShelter": {
-      "runs": 5000,
-      "winRate": 0.6202,
-      "medevacRate": 0.3798,
-      "scienceLegendRate": 0,
-      "score": 116.8075657523097,
-      "science": 0,
-      "dose": 29.05219809061031,
-      "shifts": 22,
-      "scramble": 90,
-      "endings": {
-        "Early Ride Home": 1899,
-        "Kamote Kingdom": 3101
-      }
-    },
-    "NeverShelter": {
-      "runs": 5000,
-      "winRate": 0.1832,
-      "medevacRate": 0.8168,
-      "scienceLegendRate": 0.0534,
-      "score": 138.29206888422277,
-      "science": 78.44444444444443,
-      "dose": 173.08020833333333,
-      "shifts": 10,
-      "scramble": 90,
-      "endings": {
-        "Early Ride Home": 4084,
-        "Forecast Whisperer": 161,
-        "Mission Complete": 488,
-        "Science Legend": 267
-      }
-    },
-    "TrustForecast": {
-      "runs": 5000,
-      "winRate": 0.6312,
-      "medevacRate": 0.3688,
-      "scienceLegendRate": 0.3598,
-      "score": 201.21214347624093,
-      "science": 55.59027777777778,
-      "dose": 79.66282714843747,
-      "shifts": 22,
-      "scramble": 90,
-      "endings": {
-        "Close Call": 332,
-        "Early Ride Home": 1844,
-        "Forecast Whisperer": 366,
-        "Mission Complete": 659,
-        "Science Legend": 1799
-      }
-    },
-    "Cautious": {
-      "runs": 5000,
-      "winRate": 0.6368,
-      "medevacRate": 0.3632,
-      "scienceLegendRate": 0.3638,
-      "score": 175.4953637031304,
-      "science": 31.579166666666666,
-      "dose": 75.44850365154424,
-      "shifts": 22,
-      "scramble": 90,
-      "endings": {
-        "Close Call": 804,
-        "Early Ride Home": 1816,
-        "Forecast Whisperer": 149,
-        "Kamote Kingdom": 33,
-        "Mission Complete": 379,
-        "Science Legend": 1819
-      }
-    },
-    "Greedy": {
-      "runs": 5000,
-      "winRate": 0.1526,
-      "medevacRate": 0.8474,
-      "scienceLegendRate": 0.0364,
-      "score": 132.18217056477843,
-      "science": 78.44444444444443,
-      "dose": 173.08020833333333,
-      "shifts": 10,
-      "scramble": 90,
-      "endings": {
-        "Early Ride Home": 4237,
-        "Forecast Whisperer": 107,
-        "Mission Complete": 474,
-        "Science Legend": 182
-      }
-    },
-    "Random": {
-      "runs": 5000,
-      "winRate": 0.6116,
-      "medevacRate": 0.3884,
-      "scienceLegendRate": 0.3422,
-      "score": 171.41110694814066,
-      "science": 25.10138888888889,
-      "dose": 92.32704345703125,
-      "shifts": 22,
-      "scramble": 90,
-      "endings": {
-        "Close Call": 206,
-        "Early Ride Home": 1937,
-        "Forecast Whisperer": 296,
-        "Mission Complete": 845,
-        "Science Legend": 1711,
-        "Snack Attack": 5
-      }
-    }
-  },
-  "items": {
-    "water": {
-      "runs": 5000,
-      "winRate": 0.9862,
-      "medevacRate": 0.0138,
-      "scienceLegendRate": 0.5132,
-      "score": 262.32378851015386,
-      "science": 55.38541666666666,
-      "dose": 79.48927191840275,
-      "shifts": 22,
-      "scramble": 60,
-      "endings": {
-        "Close Call": 1036,
-        "Early Ride Home": 69,
-        "Forecast Whisperer": 220,
-        "Kamote Kingdom": 255,
-        "Mission Complete": 854,
-        "Science Legend": 2566
-      },
-      "benefitPoints": 0
-    },
-    "food": {
-      "runs": 5000,
-      "winRate": 0.9862,
-      "medevacRate": 0.0138,
-      "scienceLegendRate": 0.5132,
-      "score": 262.32378851015386,
-      "science": 55.38541666666666,
-      "dose": 79.48927191840275,
-      "shifts": 22,
-      "scramble": 60,
-      "endings": {
-        "Close Call": 1036,
-        "Early Ride Home": 69,
-        "Forecast Whisperer": 220,
-        "Kamote Kingdom": 255,
-        "Mission Complete": 854,
-        "Science Legend": 2566
-      },
-      "benefitPoints": 0
-    },
-    "radio": {
-      "runs": 5000,
-      "winRate": 0.977,
-      "medevacRate": 0.023,
-      "scienceLegendRate": 0,
-      "score": 278.86738578373433,
-      "science": 82.04861111111111,
-      "dose": 85.61320529513888,
-      "shifts": 22,
-      "scramble": 60,
-      "endings": {
-        "Blind Luck": 4885,
-        "Early Ride Home": 115
-      },
-      "benefitPoints": 0.9199999999999986
-    },
-    "dosimeter": {
-      "runs": 5000,
-      "winRate": 0.9862,
-      "medevacRate": 0.0138,
-      "scienceLegendRate": 0.4398,
-      "score": 274.3023717749485,
-      "science": 71.54166666666667,
-      "dose": 81.9891459147135,
-      "shifts": 22,
-      "scramble": 60,
-      "endings": {
-        "Close Call": 1154,
-        "Early Ride Home": 69,
-        "Forecast Whisperer": 285,
-        "Kamote Kingdom": 71,
-        "Mission Complete": 1222,
-        "Science Legend": 2199
-      },
-      "benefitPoints": 0
-    },
-    "seeds": {
-      "runs": 5000,
-      "winRate": 0.9862,
-      "medevacRate": 0.0138,
-      "scienceLegendRate": 0.5132,
-      "score": 280.2615871212643,
-      "science": 81.25,
-      "dose": 79.48927191840275,
-      "shifts": 22,
-      "scramble": 60,
-      "endings": {
-        "Close Call": 1036,
-        "Early Ride Home": 69,
-        "Forecast Whisperer": 220,
-        "Kamote Kingdom": 255,
-        "Mission Complete": 854,
-        "Science Legend": 2566
-      },
-      "benefitPoints": 0
-    },
-    "repair": {
-      "runs": 5000,
-      "winRate": 0.9862,
-      "medevacRate": 0.0138,
-      "scienceLegendRate": 0.5132,
-      "score": 262.91384406570967,
-      "science": 55.385416666666664,
-      "dose": 79.48927191840275,
-      "shifts": 22,
-      "scramble": 60,
-      "endings": {
-        "Close Call": 1036,
-        "Early Ride Home": 69,
-        "Forecast Whisperer": 220,
-        "Kamote Kingdom": 255,
-        "Mission Complete": 854,
-        "Science Legend": 2566
-      },
-      "benefitPoints": 0
-    },
-    "med": {
-      "runs": 5000,
-      "winRate": 0.9862,
-      "medevacRate": 0.0138,
-      "scienceLegendRate": 0.5052,
-      "score": 260.35168441796657,
-      "science": 55.38541666666666,
-      "dose": 88.89378906249998,
-      "shifts": 22,
-      "scramble": 60,
-      "endings": {
-        "Close Call": 1036,
-        "Early Ride Home": 69,
-        "Forecast Whisperer": 220,
-        "Kamote Kingdom": 255,
-        "Mission Complete": 894,
-        "Science Legend": 2526
-      },
-      "benefitPoints": 0
-    },
-    "battery": {
-      "runs": 5000,
-      "winRate": 0.9862,
-      "medevacRate": 0.0138,
-      "scienceLegendRate": 0.5132,
-      "score": 262.91384406570967,
-      "science": 55.385416666666664,
-      "dose": 79.48927191840275,
-      "shifts": 22,
-      "scramble": 60,
-      "endings": {
-        "Close Call": 1036,
-        "Early Ride Home": 69,
-        "Forecast Whisperer": 220,
-        "Kamote Kingdom": 255,
-        "Mission Complete": 854,
-        "Science Legend": 2566
-      },
-      "benefitPoints": 0
-    },
-    "guitar": {
-      "runs": 5000,
-      "winRate": 0.9862,
-      "medevacRate": 0.0138,
-      "scienceLegendRate": 0.5132,
-      "score": 262.91384406570967,
-      "science": 55.385416666666664,
-      "dose": 79.48927191840275,
-      "shifts": 22,
-      "scramble": 60,
-      "endings": {
-        "Close Call": 1036,
-        "Early Ride Home": 69,
-        "Forecast Whisperer": 220,
-        "Kamote Kingdom": 255,
-        "Mission Complete": 854,
-        "Science Legend": 2566
-      },
-      "benefitPoints": 0
-    },
-    "game": {
-      "runs": 5000,
-      "winRate": 0.9862,
-      "medevacRate": 0.0138,
-      "scienceLegendRate": 0.5132,
-      "score": 262.91384406570967,
-      "science": 55.385416666666664,
-      "dose": 79.48927191840275,
-      "shifts": 22,
-      "scramble": 60,
-      "endings": {
-        "Close Call": 1036,
-        "Early Ride Home": 69,
-        "Forecast Whisperer": 220,
-        "Kamote Kingdom": 255,
-        "Mission Complete": 854,
-        "Science Legend": 2566
-      },
-      "benefitPoints": 0
-    },
-    "bolt": {
-      "runs": 5000,
-      "winRate": 0.9862,
-      "medevacRate": 0.0138,
-      "scienceLegendRate": 0.4996,
-      "score": 257.3544135101546,
-      "science": 49.99999999999999,
-      "dose": 79.48927191840275,
-      "shifts": 22,
-      "scramble": 60,
-      "endings": {
-        "Close Call": 1036,
-        "Early Ride Home": 69,
-        "Forecast Whisperer": 220,
-        "Kamote Kingdom": 255,
-        "Mission Complete": 922,
-        "Science Legend": 2498
-      },
-      "benefitPoints": 0
-    }
-  },
-  "variety": {
-    "runs": 1000,
-    "winRate": 0.51,
-    "medevacRate": 0.49,
-    "scienceLegendRate": 0.143,
-    "score": 176.73869559218994,
-    "science": 91.05902777777777,
-    "dose": 150.1316067843967,
-    "shifts": 21,
-    "scramble": 60,
-    "endings": {
-      "Blind Luck": 33,
-      "Close Call": 25,
-      "Early Ride Home": 490,
-      "Forecast Whisperer": 19,
-      "Kamote Kingdom": 163,
-      "Mission Complete": 100,
-      "Science Legend": 143,
-      "Skeleton Crew": 27
-    }
-  },
-  "targets": {
-    "alwaysShelter": true,
-    "neverShelter": true,
-    "trustForecast": true,
-    "score": true,
-    "variety": true,
-    "length": true,
-    "scramble": true,
-    "difficulties": true,
-    "items": true,
-    "blindLuck": true,
-    "radioStrongest": true
-  },
   "difficultySettings": {
     "Cadet": {
       "days": 10,
@@ -868,5 +138,734 @@
       "slots": 2,
       "mass": 1
     }
+  },
+  "startingConfig": {
+    "timerMax": 90,
+    "timerMin": 15,
+    "dose": [
+      0,
+      2,
+      5,
+      10
+    ],
+    "duration": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "sick": 25,
+    "medevac": 50,
+    "water": 1,
+    "food": 1,
+    "startPower": 8,
+    "solar": 1.5,
+    "science": 2,
+    "greenhouse": 2,
+    "drill": 1,
+    "initialFood": 40,
+    "initialWater": 40,
+    "eventEvery": 3,
+    "eventPower": 1,
+    "eventScience": 1,
+    "eventMorale": 2,
+    "shieldMax": 0.9,
+    "shieldMassScale": 8,
+    "wallSlots": 8,
+    "allClearLevel": 0.5,
+    "moraleStart": 6,
+    "moraleMax": 10,
+    "moraleWeak": 3,
+    "moraleOutput": 0.8,
+    "medicReduction": 10,
+    "medicInterval": 6,
+    "medReduction": 20,
+    "batteryPower": 8,
+    "chefFood": 1.5,
+    "solarDaily": 3,
+    "lifePower": 1,
+    "seedPower": 1,
+    "radioPower": 1,
+    "boltPower": 1,
+    "boltOutput": 0.5,
+    "powerMax": 30,
+    "powerGrace": 2,
+    "eventRepair": 1,
+    "eventPlant": 1,
+    "flareMemoryHours": 12,
+    "alertMemoryHours": 48
+  },
+  "final": {
+    "Cadet": {
+      "AlwaysShelter": {
+        "runs": 5000,
+        "winRate": 1,
+        "medevacRate": 0,
+        "scienceLegendRate": 0,
+        "score": 190.48103622356655,
+        "science": 0,
+        "dose": 35.99427978515625,
+        "shifts": 18,
+        "scramble": 90,
+        "endings": {
+          "Kamote Kingdom": 5000
+        }
+      },
+      "NeverShelter": {
+        "runs": 5000,
+        "winRate": 0.3364,
+        "medevacRate": 0.6636,
+        "scienceLegendRate": 0.0744,
+        "score": 147.90113807610308,
+        "science": 191.80555555555554,
+        "dose": 273.8420138888889,
+        "shifts": 10,
+        "scramble": 90,
+        "endings": {
+          "Early Ride Home": 3318,
+          "Forecast Whisperer": 337,
+          "Mission Complete": 973,
+          "Science Legend": 372
+        }
+      },
+      "TrustForecast": {
+        "runs": 5000,
+        "winRate": 0.8862,
+        "medevacRate": 0.1138,
+        "scienceLegendRate": 0.3448,
+        "score": 252.45819222125635,
+        "science": 171.48784722222229,
+        "dose": 143.2101128472222,
+        "shifts": 18,
+        "scramble": 90,
+        "endings": {
+          "Close Call": 682,
+          "Early Ride Home": 569,
+          "Forecast Whisperer": 454,
+          "Mission Complete": 1571,
+          "Science Legend": 1724
+        }
+      },
+      "Cautious": {
+        "runs": 5000,
+        "winRate": 1,
+        "medevacRate": 0,
+        "scienceLegendRate": 0.6734,
+        "score": 261.7826967096188,
+        "science": 55.38541666666666,
+        "dose": 93.88948811848958,
+        "shifts": 18,
+        "scramble": 90,
+        "endings": {
+          "Close Call": 1184,
+          "Forecast Whisperer": 141,
+          "Kamote Kingdom": 308,
+          "Science Legend": 3367
+        }
+      },
+      "Greedy": {
+        "runs": 5000,
+        "winRate": 0.3364,
+        "medevacRate": 0.6636,
+        "scienceLegendRate": 0.0744,
+        "score": 147.90113807610308,
+        "science": 191.80555555555554,
+        "dose": 273.8420138888889,
+        "shifts": 10,
+        "scramble": 90,
+        "endings": {
+          "Early Ride Home": 3318,
+          "Forecast Whisperer": 337,
+          "Mission Complete": 973,
+          "Science Legend": 372
+        }
+      },
+      "Random": {
+        "runs": 5000,
+        "winRate": 0.7372,
+        "medevacRate": 0.2628,
+        "scienceLegendRate": 0.3688,
+        "score": 215.66681332209026,
+        "science": 54.079861111111114,
+        "dose": 150.8280745442708,
+        "shifts": 17,
+        "scramble": 90,
+        "endings": {
+          "Close Call": 528,
+          "Early Ride Home": 1314,
+          "Forecast Whisperer": 176,
+          "Mission Complete": 1138,
+          "Science Legend": 1844
+        }
+      }
+    },
+    "Commander": {
+      "AlwaysShelter": {
+        "runs": 5000,
+        "winRate": 1,
+        "medevacRate": 0,
+        "scienceLegendRate": 0,
+        "score": 190.36026469985867,
+        "science": 0,
+        "dose": 38.82981119791666,
+        "shifts": 22,
+        "scramble": 60,
+        "endings": {
+          "Kamote Kingdom": 5000
+        }
+      },
+      "NeverShelter": {
+        "runs": 5000,
+        "winRate": 0.0968,
+        "medevacRate": 0.9032,
+        "scienceLegendRate": 0.0434,
+        "score": 125.97640443712235,
+        "science": 130.83333333333331,
+        "dose": 185.77499999999998,
+        "shifts": 7,
+        "scramble": 60,
+        "endings": {
+          "Early Ride Home": 4516,
+          "Forecast Whisperer": 145,
+          "Mission Complete": 122,
+          "Science Legend": 217
+        }
+      },
+      "TrustForecast": {
+        "runs": 5000,
+        "winRate": 0.5702,
+        "medevacRate": 0.4298,
+        "scienceLegendRate": 0.1734,
+        "score": 208.38265904825917,
+        "science": 152.29166666666666,
+        "dose": 139.2994523111979,
+        "shifts": 21,
+        "scramble": 60,
+        "endings": {
+          "Close Call": 188,
+          "Early Ride Home": 2149,
+          "Forecast Whisperer": 381,
+          "Mission Complete": 1415,
+          "Science Legend": 867
+        }
+      },
+      "Cautious": {
+        "runs": 5000,
+        "winRate": 0.9862,
+        "medevacRate": 0.0138,
+        "scienceLegendRate": 0.5132,
+        "score": 262.8603321324197,
+        "science": 55.385416666666664,
+        "dose": 78.84322428385417,
+        "shifts": 22,
+        "scramble": 60,
+        "endings": {
+          "Close Call": 1036,
+          "Early Ride Home": 69,
+          "Forecast Whisperer": 220,
+          "Kamote Kingdom": 255,
+          "Mission Complete": 854,
+          "Science Legend": 2566
+        }
+      },
+      "Greedy": {
+        "runs": 5000,
+        "winRate": 0.0968,
+        "medevacRate": 0.9032,
+        "scienceLegendRate": 0.0434,
+        "score": 125.97640443712235,
+        "science": 130.83333333333331,
+        "dose": 185.77499999999998,
+        "shifts": 7,
+        "scramble": 60,
+        "endings": {
+          "Early Ride Home": 4516,
+          "Forecast Whisperer": 145,
+          "Mission Complete": 122,
+          "Science Legend": 217
+        }
+      },
+      "Random": {
+        "runs": 5000,
+        "winRate": 0.4978,
+        "medevacRate": 0.5022,
+        "scienceLegendRate": 0.2162,
+        "score": 178.67601982866876,
+        "science": 48.76215277777777,
+        "dose": 152.87099670410157,
+        "shifts": 20,
+        "scramble": 60,
+        "endings": {
+          "Close Call": 63,
+          "Early Ride Home": 2511,
+          "Forecast Whisperer": 202,
+          "Mission Complete": 1143,
+          "Science Legend": 1081
+        }
+      }
+    },
+    "Flight Director": {
+      "AlwaysShelter": {
+        "runs": 5000,
+        "winRate": 1,
+        "medevacRate": 0,
+        "scienceLegendRate": 0,
+        "score": 190.71123353698982,
+        "science": 0,
+        "dose": 44.656898656853514,
+        "shifts": 26,
+        "scramble": 60,
+        "endings": {
+          "Kamote Kingdom": 5000
+        }
+      },
+      "NeverShelter": {
+        "runs": 5000,
+        "winRate": 0.0968,
+        "medevacRate": 0.9032,
+        "scienceLegendRate": 0.0238,
+        "score": 131.86524595616362,
+        "science": 117.17013888888887,
+        "dose": 155.6416666666667,
+        "shifts": 6,
+        "scramble": 60,
+        "endings": {
+          "Early Ride Home": 4516,
+          "Forecast Whisperer": 145,
+          "Mission Complete": 220,
+          "Science Legend": 119
+        }
+      },
+      "TrustForecast": {
+        "runs": 5000,
+        "winRate": 0.3474,
+        "medevacRate": 0.6526,
+        "scienceLegendRate": 0.0682,
+        "score": 173.03847375305705,
+        "science": 129.99305555555554,
+        "dose": 142.2075,
+        "shifts": 15,
+        "scramble": 60,
+        "endings": {
+          "Early Ride Home": 3263,
+          "Forecast Whisperer": 350,
+          "Mission Complete": 1046,
+          "Science Legend": 341
+        }
+      },
+      "Cautious": {
+        "runs": 5000,
+        "winRate": 0.9862,
+        "medevacRate": 0.0138,
+        "scienceLegendRate": 0.5126,
+        "score": 270.35300155487244,
+        "science": 57.22222222222222,
+        "dose": 65.57396240234375,
+        "shifts": 26,
+        "scramble": 60,
+        "endings": {
+          "Close Call": 1153,
+          "Early Ride Home": 69,
+          "Forecast Whisperer": 295,
+          "Kamote Kingdom": 138,
+          "Mission Complete": 782,
+          "Science Legend": 2563
+        }
+      },
+      "Greedy": {
+        "runs": 5000,
+        "winRate": 0.0968,
+        "medevacRate": 0.9032,
+        "scienceLegendRate": 0.0238,
+        "score": 131.86524595616362,
+        "science": 117.17013888888887,
+        "dose": 155.6416666666667,
+        "shifts": 6,
+        "scramble": 60,
+        "endings": {
+          "Early Ride Home": 4516,
+          "Forecast Whisperer": 145,
+          "Mission Complete": 220,
+          "Science Legend": 119
+        }
+      },
+      "Random": {
+        "runs": 5000,
+        "winRate": 0.383,
+        "medevacRate": 0.617,
+        "scienceLegendRate": 0.1762,
+        "score": 159.0238509046527,
+        "science": 43.44270833333334,
+        "dose": 141.63611111111112,
+        "shifts": 12,
+        "scramble": 60,
+        "endings": {
+          "Close Call": 26,
+          "Early Ride Home": 3085,
+          "Forecast Whisperer": 198,
+          "Mission Complete": 810,
+          "Science Legend": 881
+        }
+      }
+    }
+  },
+  "before": {
+    "AlwaysShelter": {
+      "runs": 5000,
+      "winRate": 0.7426,
+      "medevacRate": 0.2574,
+      "scienceLegendRate": 0,
+      "score": 141.37630486076492,
+      "science": 0,
+      "dose": 28.43007304359604,
+      "shifts": 22,
+      "scramble": 90,
+      "endings": {
+        "Early Ride Home": 1287,
+        "Kamote Kingdom": 3713
+      }
+    },
+    "NeverShelter": {
+      "runs": 5000,
+      "winRate": 0.2072,
+      "medevacRate": 0.7928,
+      "scienceLegendRate": 0.0554,
+      "score": 143.11496344552955,
+      "science": 78.44444444444443,
+      "dose": 173.08020833333333,
+      "shifts": 10,
+      "scramble": 90,
+      "endings": {
+        "Early Ride Home": 3964,
+        "Forecast Whisperer": 173,
+        "Mission Complete": 586,
+        "Science Legend": 277
+      }
+    },
+    "TrustForecast": {
+      "runs": 5000,
+      "winRate": 0.7156,
+      "medevacRate": 0.2844,
+      "scienceLegendRate": 0.393,
+      "score": 218.1325611006821,
+      "science": 55.59027777777778,
+      "dose": 80.18222638531786,
+      "shifts": 22,
+      "scramble": 90,
+      "endings": {
+        "Close Call": 376,
+        "Early Ride Home": 1422,
+        "Forecast Whisperer": 439,
+        "Mission Complete": 798,
+        "Science Legend": 1965
+      }
+    },
+    "Cautious": {
+      "runs": 5000,
+      "winRate": 0.7568,
+      "medevacRate": 0.2432,
+      "scienceLegendRate": 0.43,
+      "score": 199.5536619572593,
+      "science": 31.579166666666666,
+      "dose": 75.4329927190515,
+      "shifts": 22,
+      "scramble": 90,
+      "endings": {
+        "Close Call": 912,
+        "Early Ride Home": 1216,
+        "Forecast Whisperer": 183,
+        "Kamote Kingdom": 54,
+        "Mission Complete": 485,
+        "Science Legend": 2150
+      }
+    },
+    "Greedy": {
+      "runs": 5000,
+      "winRate": 0.1892,
+      "medevacRate": 0.8108,
+      "scienceLegendRate": 0.046,
+      "score": 139.51496344552945,
+      "science": 78.44444444444443,
+      "dose": 173.08020833333333,
+      "shifts": 10,
+      "scramble": 90,
+      "endings": {
+        "Early Ride Home": 4054,
+        "Forecast Whisperer": 144,
+        "Mission Complete": 572,
+        "Science Legend": 230
+      }
+    },
+    "Random": {
+      "runs": 5000,
+      "winRate": 0.655,
+      "medevacRate": 0.345,
+      "scienceLegendRate": 0.3536,
+      "score": 178.3650071981613,
+      "science": 24.796527777777776,
+      "dose": 92.41696922011559,
+      "shifts": 21,
+      "scramble": 90,
+      "endings": {
+        "Close Call": 261,
+        "Early Ride Home": 1724,
+        "Forecast Whisperer": 274,
+        "Mission Complete": 972,
+        "Science Legend": 1768,
+        "Snack Attack": 1
+      }
+    }
+  },
+  "items": {
+    "water": {
+      "runs": 5000,
+      "winRate": 0.9862,
+      "medevacRate": 0.0138,
+      "scienceLegendRate": 0.5132,
+      "score": 262.36069324353065,
+      "science": 55.38541666666666,
+      "dose": 78.84322428385417,
+      "shifts": 22,
+      "scramble": 60,
+      "endings": {
+        "Close Call": 1036,
+        "Early Ride Home": 69,
+        "Forecast Whisperer": 220,
+        "Kamote Kingdom": 255,
+        "Mission Complete": 854,
+        "Science Legend": 2566
+      },
+      "benefitPoints": 0
+    },
+    "food": {
+      "runs": 5000,
+      "winRate": 0.9862,
+      "medevacRate": 0.0138,
+      "scienceLegendRate": 0.5132,
+      "score": 262.36069324353065,
+      "science": 55.38541666666666,
+      "dose": 78.84322428385417,
+      "shifts": 22,
+      "scramble": 60,
+      "endings": {
+        "Close Call": 1036,
+        "Early Ride Home": 69,
+        "Forecast Whisperer": 220,
+        "Kamote Kingdom": 255,
+        "Mission Complete": 854,
+        "Science Legend": 2566
+      },
+      "benefitPoints": 0
+    },
+    "radio": {
+      "runs": 5000,
+      "winRate": 0.977,
+      "medevacRate": 0.023,
+      "scienceLegendRate": 0,
+      "score": 278.8697348928973,
+      "science": 81.52777777777777,
+      "dose": 85.71078776041668,
+      "shifts": 22,
+      "scramble": 60,
+      "endings": {
+        "Blind Luck": 4885,
+        "Early Ride Home": 115
+      },
+      "benefitPoints": 0.9199999999999986
+    },
+    "dosimeter": {
+      "runs": 5000,
+      "winRate": 0.9862,
+      "medevacRate": 0.0138,
+      "scienceLegendRate": 0.4228,
+      "score": 274.31957179352986,
+      "science": 71.54166666666667,
+      "dose": 81.0559452311198,
+      "shifts": 22,
+      "scramble": 60,
+      "endings": {
+        "Close Call": 1154,
+        "Early Ride Home": 69,
+        "Forecast Whisperer": 264,
+        "Kamote Kingdom": 71,
+        "Mission Complete": 1328,
+        "Science Legend": 2114
+      },
+      "benefitPoints": 0
+    },
+    "seeds": {
+      "runs": 5000,
+      "winRate": 0.9862,
+      "medevacRate": 0.0138,
+      "scienceLegendRate": 0.5132,
+      "score": 280.221491854641,
+      "science": 81.22916666666666,
+      "dose": 78.84322428385417,
+      "shifts": 22,
+      "scramble": 60,
+      "endings": {
+        "Close Call": 1036,
+        "Early Ride Home": 69,
+        "Forecast Whisperer": 220,
+        "Kamote Kingdom": 255,
+        "Mission Complete": 854,
+        "Science Legend": 2566
+      },
+      "benefitPoints": 0
+    },
+    "repair": {
+      "runs": 5000,
+      "winRate": 0.9862,
+      "medevacRate": 0.0138,
+      "scienceLegendRate": 0.5132,
+      "score": 262.8603321324197,
+      "science": 55.385416666666664,
+      "dose": 78.84322428385417,
+      "shifts": 22,
+      "scramble": 60,
+      "endings": {
+        "Close Call": 1036,
+        "Early Ride Home": 69,
+        "Forecast Whisperer": 220,
+        "Kamote Kingdom": 255,
+        "Mission Complete": 854,
+        "Science Legend": 2566
+      },
+      "benefitPoints": 0
+    },
+    "med": {
+      "runs": 5000,
+      "winRate": 0.9862,
+      "medevacRate": 0.0138,
+      "scienceLegendRate": 0.5052,
+      "score": 260.38834479431216,
+      "science": 55.38541666666666,
+      "dose": 88.89378906249998,
+      "shifts": 22,
+      "scramble": 60,
+      "endings": {
+        "Close Call": 1036,
+        "Early Ride Home": 69,
+        "Forecast Whisperer": 220,
+        "Kamote Kingdom": 255,
+        "Mission Complete": 894,
+        "Science Legend": 2526
+      },
+      "benefitPoints": 0
+    },
+    "battery": {
+      "runs": 5000,
+      "winRate": 0.9862,
+      "medevacRate": 0.0138,
+      "scienceLegendRate": 0.5132,
+      "score": 262.8603321324197,
+      "science": 55.385416666666664,
+      "dose": 78.84322428385417,
+      "shifts": 22,
+      "scramble": 60,
+      "endings": {
+        "Close Call": 1036,
+        "Early Ride Home": 69,
+        "Forecast Whisperer": 220,
+        "Kamote Kingdom": 255,
+        "Mission Complete": 854,
+        "Science Legend": 2566
+      },
+      "benefitPoints": 0
+    },
+    "guitar": {
+      "runs": 5000,
+      "winRate": 0.9862,
+      "medevacRate": 0.0138,
+      "scienceLegendRate": 0.5132,
+      "score": 262.8603321324197,
+      "science": 55.385416666666664,
+      "dose": 78.84322428385417,
+      "shifts": 22,
+      "scramble": 60,
+      "endings": {
+        "Close Call": 1036,
+        "Early Ride Home": 69,
+        "Forecast Whisperer": 220,
+        "Kamote Kingdom": 255,
+        "Mission Complete": 854,
+        "Science Legend": 2566
+      },
+      "benefitPoints": 0
+    },
+    "game": {
+      "runs": 5000,
+      "winRate": 0.9862,
+      "medevacRate": 0.0138,
+      "scienceLegendRate": 0.5132,
+      "score": 262.8603321324197,
+      "science": 55.385416666666664,
+      "dose": 78.84322428385417,
+      "shifts": 22,
+      "scramble": 60,
+      "endings": {
+        "Close Call": 1036,
+        "Early Ride Home": 69,
+        "Forecast Whisperer": 220,
+        "Kamote Kingdom": 255,
+        "Mission Complete": 854,
+        "Science Legend": 2566
+      },
+      "benefitPoints": 0
+    },
+    "bolt": {
+      "runs": 5000,
+      "winRate": 0.9862,
+      "medevacRate": 0.0138,
+      "scienceLegendRate": 0.4996,
+      "score": 257.27131824353097,
+      "science": 49.99999999999999,
+      "dose": 78.84322428385417,
+      "shifts": 22,
+      "scramble": 60,
+      "endings": {
+        "Close Call": 1036,
+        "Early Ride Home": 69,
+        "Forecast Whisperer": 220,
+        "Kamote Kingdom": 255,
+        "Mission Complete": 922,
+        "Science Legend": 2498
+      },
+      "benefitPoints": 0
+    }
+  },
+  "variety": {
+    "runs": 1000,
+    "winRate": 0.507,
+    "medevacRate": 0.493,
+    "scienceLegendRate": 0.142,
+    "score": 176.43018657979295,
+    "science": 90.08680555555554,
+    "dose": 150.5607332356771,
+    "shifts": 20,
+    "scramble": 60,
+    "endings": {
+      "Blind Luck": 33,
+      "Close Call": 27,
+      "Early Ride Home": 493,
+      "Forecast Whisperer": 20,
+      "Kamote Kingdom": 163,
+      "Mission Complete": 95,
+      "Science Legend": 142,
+      "Skeleton Crew": 27
+    }
+  },
+  "targets": {
+    "alwaysShelter": true,
+    "neverShelter": true,
+    "trustForecast": true,
+    "score": true,
+    "variety": true,
+    "length": true,
+    "scramble": true,
+    "difficulties": true,
+    "items": true,
+    "blindLuck": true,
+    "radioStrongest": true
   }
 }

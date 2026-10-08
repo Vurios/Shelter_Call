@@ -520,3 +520,9 @@ Forecasts optionally carry `kpRange: [min, max] | null`: the first WSA run's non
 The starting 15-90-second timer remains the baseline; the tuned Commander cap is 60 seconds (Cadet multiplies by 1.5). All actual countdown minutes remain unchanged. See `src/core/config.js` and `tools/balance-report.md` for the starting/final GAME values and reproducible evidence. Actual NASA records and association rates are never tuned.
 
 `getShiftView` also carries dosimeter-gated GAME `particleLevel` and `allClear`, and run achievements. A pure `src/core/collections.js` ledger accepts previous progress and explicit mode/window/daily-date metadata for cross-run achievements; a later UI owns persistence. Resupply stays within the last two hidden UTC mission days.
+
+### Prompt 3 review clarifications
+
+Journal days follow the hidden UTC calendar, including a partial first day. A run ending at a shift boundary displays the day and shift just completed. Resupply uses four shift-end boundaries across the last two UTC mission days. Flare recall interrupts require a human crew member outside; dosimeter onset alarms still work while everyone is sheltered. Missing flare-class particle-association rates stay `null` and display as unknown.
+
+The final reality timeline includes source-backed context before the mission onset used by the countdown, radio and initial exposure, with no reality event after the ending. The archive contains 1,289 distinct source IDs; 1,266 can appear in a legal mission reveal. Almanac percentages use those 1,266 collectible IDs, derived from all windows and the latest permitted UTC mission ending. The remaining 23 late context IDs remain in the archive and source-integrity checks. Unknown, duplicate or unreachable legacy cards cannot inflate collection percentages. Counts describe the current archive, not hardcoded rules.

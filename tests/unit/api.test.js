@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import * as api from '../../src/core/api.js';
 import { CONFIG, CREW, ITEM_TYPES } from '../../src/core/config.js';
-import { HOUR, windows, windowData, timeline } from '../../src/core/data.js';
+import {
+  HOUR,
+  windows,
+  windowData,
+  timeline,
+  stats,
+} from '../../src/core/data.js';
 import { shield, integrate, expose } from '../../src/core/dose.js';
 import { ENDINGS, ending, achievements } from '../../src/core/endings.js';
 import { EVENT_DECK, choose } from '../../src/core/events.js';
@@ -128,6 +134,62 @@ describe('real engine contract', () => {
     }
     expect(buildReveal(finish(a))).toEqual(buildReveal(finish(b)));
   });
+  it('advances journal days at UTC midnight, including a partial PM first shift', () => {
+    const s = shelter({ windowId: '2011-09-24T20:45:00-WINDOW-001' });
+    expect(getShiftView(s)).toMatchObject({ day: 1, shift: 'PM' });
+    resolveShift(s);
+    expect(getShiftView(s)).toMatchObject({ day: 2, shift: 'AM' });
+    s.resupply = s.now + 12 * HOUR;
+    finish(s);
+    expect(getShiftView(s)).toMatchObject({ day: 2, shift: 'AM' });
+    const endingAtMidnight = shelter();
+    endingAtMidnight.now =
+      (Math.floor(endingAtMidnight.now / (24 * HOUR)) + 1) * 24 * HOUR;
+    endingAtMidnight.phase = 'ending';
+    expect(getShiftView(endingAtMidnight)).toMatchObject({
+      day: 1,
+      shift: 'PM',
+    });
+  });
+  it('flares only interrupt an active human EVA, while sheltered dosimeter alarms remain visible', () => {
+    const options = { windowId: '2011-09-24T20:45:00-WINDOW-001' };
+    const safe = shelter(options);
+    const outside = clone(safe);
+    act(outside, { type: 'assignCrew', crewId: 'ria', task: 'science' });
+    resolveShift(safe);
+    resolveShift(outside);
+    resolveShift(safe);
+    resolveShift(outside);
+    expect(safe.interrupt).toBeNull();
+    expect(safe.shiftIndex).toBe(2);
+    expect(safe.log.filter((e) => e.text === 'Flare M8.8.')).toHaveLength(1);
+    expect(outside.interrupt).toMatchObject({ kind: 'flare', class: 'M8.8' });
+    const detectorWindow = windows.find((id) => {
+      const w = windowData(id);
+      return w.sepEvents.some(
+        (e) =>
+          Date.parse(e.onset) > Date.parse(w.start) &&
+          Date.parse(e.onset) < Date.parse(w.start) + 24 * HOUR,
+      );
+    });
+    expect(detectorWindow).toBeTruthy();
+    const detector = shelter({ windowId: detectorWindow });
+    for (
+      let i = 0;
+      i < 200 && !detector.interrupt && detector.phase === 'shelter';
+      i++
+    ) {
+      if (detector.pendingEvent)
+        act(detector, {
+          type: 'chooseEvent',
+          eventId: detector.pendingEvent.id,
+          choice: 1,
+        });
+      resolveShift(detector);
+    }
+    expect(detector.interrupt).toMatchObject({ kind: 'particles' });
+    expect(detector.crew.every((c) => c.assignment === 'shelter')).toBe(true);
+  });
   it('gates radio, dosimeter, issue times, Kp and reveal without future leakage', () => {
     const s = shelter({ crewIds: ['mara', 'iggy', 'sol', 'pip'] });
     const view = getShiftView(s);
@@ -154,6 +216,31 @@ describe('real engine contract', () => {
     getShiftView(s).crew[0].name = 'changed';
     expect(s.crew[0].name).toBe('Mara');
     expect(() => buildReveal(s)).toThrow();
+  });
+  it('keeps an uncomputed B-class particle association unknown in messages and interrupts', () => {
+    const s = shelter({ windowId: '2017-09-04T23:52:00-WINDOW-001' });
+    const events = timeline(s.windowId);
+    const index = events.findIndex(
+      (e) => e.kind === 'flare' && e.row.class[0] === 'B',
+    );
+    const event = events[index];
+    s.now = event.time;
+    const message = getShiftView(s).radioMessages.find(
+      (m) => m.donkiId === event.donkiId,
+    );
+    expect(message.associationRate).toBeNull();
+    expect(message.hint).toContain('no particle-rate estimate');
+    const known = getShiftView(s).radioMessages.find((m) =>
+      m.class?.startsWith('X'),
+    );
+    expect(known.associationRate).toBe(stats.flareSepRate.X);
+    s.cursor = index;
+    act(s, { type: 'assignCrew', crewId: 'ria', task: 'science' });
+    resolveShift(s);
+    expect(s.interrupt).toMatchObject({
+      class: event.row.class,
+      associationRate: null,
+    });
   });
   it('consuming wall mass changes shielding immediately and validates moves', () => {
     const s = shelter();
@@ -503,7 +590,7 @@ it('bounds resupply to the last two UTC days and rejects invalid medicine target
   for (const difficulty of ['Cadet', 'Commander', 'Flight Director'])
     for (let seed = 0; seed < 100; seed++) {
       const s = createRun({ seed, difficulty });
-      const base = Math.floor(s.now / (12 * HOUR)) * 12 * HOUR;
+      const base = Math.floor(s.now / (24 * HOUR)) * 24 * HOUR;
       expect(s.resupply - base).toBeGreaterThanOrEqual(
         (s.rules.days * 2 - 3) * 12 * HOUR,
       );

@@ -1,6 +1,18 @@
 import { expect, it } from 'vitest';
 import { collect } from '../../src/core/collections.js';
-import { allRealIds, windows } from '../../src/core/data.js';
+import {
+  allRealIds,
+  collectibleRealIds,
+  windows,
+  windowData,
+  HOUR,
+} from '../../src/core/data.js';
+import {
+  createRun,
+  applyScrambleResult,
+  buildReveal,
+} from '../../src/core/api.js';
+import { DIFFICULTIES } from '../../src/core/config.js';
 const reveal = {
   ending: 'Mission Complete',
   achievements: ['Full House'],
@@ -58,4 +70,74 @@ it('tracks all collection achievements without storage or a current clock', () =
   });
   short = collect(short, partial, { mode: 'daily', dailyDate: '2024-01-03' });
   expect(short.achievements).not.toContain('Sun Streak');
+});
+
+it('can complete the Almanac from legal reveal boundaries without future or invented cards', () => {
+  let ledger;
+  const reached = new Set();
+  const longest = Math.max(...Object.values(DIFFICULTIES).map((d) => d.days));
+  for (const windowId of windows) {
+    const start = Date.parse(windowData(windowId).start);
+    const latestEnd = (Math.floor(start / (24 * HOUR)) + longest) * 24 * HOUR;
+    let s;
+    for (let seed = 0; seed < 100; seed++) {
+      const candidate = createRun({
+        seed,
+        windowId,
+        difficulty: 'Flight Director',
+      });
+      if (candidate.resupply === latestEnd) {
+        s = candidate;
+        break;
+      }
+    }
+    expect(s).toBeDefined();
+    applyScrambleResult(s, {
+      itemsSaved: s.items.map((i) => i.id),
+      crewSaved: s.crew.map((c) => c.id),
+      crewExposed: [],
+      timeLeft: 0,
+    });
+    // Evaluate the final-reveal contract at a legal end; survival balance is tested separately.
+    s.now = s.resupply;
+    s.phase = 'ending';
+    const r = buildReveal(s);
+    for (const row of r.timeline.reality) {
+      expect(Date.parse(row.utc)).toBeLessThanOrEqual(latestEnd);
+      expect(allRealIds).toContain(row.donkiId);
+      reached.add(row.donkiId);
+    }
+    const linkedFlare = windowData(windowId).sep.flareId;
+    expect(r.timeline.reality.some((e) => e.donkiId === linkedFlare)).toBe(
+      true,
+    );
+    ledger = collect(ledger, r);
+  }
+  expect([...reached].sort()).toEqual(collectibleRealIds);
+  expect(collectibleRealIds.length).toBeLessThan(allRealIds.length);
+  expect(ledger.achievements).toContain('Almanac 100%');
+});
+
+it('ignores duplicate, unreachable and unknown legacy cards when awarding percentages', () => {
+  const partial = {
+    ...reveal,
+    timeline: { reality: [] },
+  };
+  const old = {
+    cards: [
+      collectibleRealIds[0],
+      collectibleRealIds[0],
+      ...allRealIds.filter((id) => !collectibleRealIds.includes(id)),
+      ...Array.from(
+        { length: collectibleRealIds.length },
+        (_, n) => `old-unknown-${n}`,
+      ),
+    ],
+    endings: [],
+    achievements: [],
+    historic: [],
+    dailyWins: [],
+  };
+  expect(collect(old, partial).achievements).not.toContain('Almanac 25%');
+  expect(old.achievements).toEqual([]);
 });

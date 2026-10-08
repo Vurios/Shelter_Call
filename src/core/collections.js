@@ -1,4 +1,4 @@
-import { allRealIds, windows } from './data.js';
+import { allRealIds, collectibleRealIds, windows } from './data.js';
 /** Pure achievement ledger. Caller owns persistence and supplies daily UTC date. */
 export function collect(
   previous,
@@ -46,8 +46,11 @@ export function collect(
     if (streak >= 7) result.achievements.push('Sun Streak');
   }
   if (result.historic.length >= 5) result.achievements.push('Historian');
+  const collected = result.cards.filter((id) =>
+    collectibleRealIds.includes(id),
+  ).length;
   for (const percent of [25, 50, 100])
-    if (result.cards.length / allRealIds.length >= percent / 100)
+    if (collected / collectibleRealIds.length >= percent / 100)
       result.achievements.push(`Almanac ${percent}%`);
   result.achievements = unique(result.achievements);
   return result;

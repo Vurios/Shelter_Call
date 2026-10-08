@@ -51,9 +51,9 @@ export function create(options) {
       : windows[Math.floor(draw(state) * windows.length)]);
   const w = windowData(state.windowId);
   state.now = Date.parse(w.start);
-  // Last-two-days resupply, aligned to a UTC shift boundary after the partial first shift.
+  // Four shift-end boundaries in the last two UTC mission days, including a partial first day.
   state.resupply =
-    Math.floor(state.now / (12 * HOUR)) * (12 * HOUR) +
+    Math.floor(state.now / (24 * HOUR)) * (24 * HOUR) +
     (state.rules.days * 2 - 3 + Math.floor(draw(state) * 4)) * 12 * HOUR;
   Object.assign(state, {
     phase: 'scramble',

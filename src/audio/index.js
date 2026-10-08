@@ -146,8 +146,8 @@ export function createAudio({
   }
   function alarm(flareClass) {
     const letter = String(flareClass).toLowerCase()[0];
-    if (!['c', 'm', 'x'].includes(letter))
-      throw new Error('Flare class must start with C, M, or X.');
+    if (!['b', 'c', 'm', 'x'].includes(letter))
+      throw new Error('Flare class must start with B, C, M, or X.');
     return play(`alarm-${letter}`);
   }
   function setTheme(id) {

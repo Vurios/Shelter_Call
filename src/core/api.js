@@ -111,11 +111,19 @@ export function applyScrambleResult(state, result) {
 }
 export function getShiftView(state) {
   const dosimeter = has(state, 'dosimeter');
+  // At an ending boundary the journal shows the shift just completed.
+  const journalTime =
+    state.phase === 'ending' && state.now % (12 * HOUR) === 0
+      ? state.now - 1
+      : state.now;
   return copy({
     source: 'GAME',
     phase: state.phase,
-    day: Math.floor(state.shiftIndex / 2) + 1,
-    shift: Math.floor(state.now / (12 * HOUR)) % 2 ? 'PM' : 'AM',
+    day:
+      Math.floor(journalTime / (24 * HOUR)) -
+      Math.floor(Date.parse(windowData(state.windowId).start) / (24 * HOUR)) +
+      1,
+    shift: Math.floor(journalTime / (12 * HOUR)) % 2 ? 'PM' : 'AM',
     shiftIndex: state.shiftIndex,
     radio: has(state, 'radio'),
     blind: !has(state, 'radio'),
@@ -350,7 +358,11 @@ export function resolveShift(state) {
     )
       state.morale = Math.min(state.config.moraleMax, state.morale + 1);
     if (
-      (event.kind === 'flare' && has(state, 'radio')) ||
+      (event.kind === 'flare' &&
+        has(state, 'radio') &&
+        state.crew.some(
+          (c) => c.status !== 'medevac' && c.assignment !== 'shelter',
+        )) ||
       (event.kind === 'particles' && has(state, 'dosimeter'))
     ) {
       state.interrupt = {
@@ -360,7 +372,7 @@ export function resolveShift(state) {
         class: event.row.class ?? null,
         associationRate:
           event.kind === 'flare'
-            ? (stats.flareSepRate[event.row.class[0]] ?? 0)
+            ? (stats.flareSepRate[event.row.class[0]] ?? null)
             : null,
         hour: (state.now / HOUR) % 24,
         text:
@@ -446,7 +458,7 @@ export function buildReveal(state) {
         .filter((f) => Date.parse(f.issued) <= state.now)
         .map((f) => ({ ...f, source: 'REAL', donkiId: f.id })),
       reality: timeline(state.windowId)
-        .filter((e) => e.time >= Date.parse(w.start) && e.time <= state.now)
+        .filter((e) => e.time <= state.now)
         .map(({ donkiId, utc, kind }) => ({
           source: 'REAL',
           donkiId,

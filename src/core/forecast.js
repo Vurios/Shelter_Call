@@ -31,8 +31,11 @@ export function messages(state) {
         hoursAgo: (state.now - Date.parse(f.begin)) / HOUR,
         text: `Flare ${f.class}.`,
         class: f.class,
-        associationRate: stats.flareSepRate[f.class[0]] ?? 0,
-        hint: `About ${Math.round((stats.flareSepRate[f.class[0]] ?? 0) * 100)} in 100 ${f.class[0]}-class flares in this archive were linked to particles.`,
+        associationRate: stats.flareSepRate[f.class[0]] ?? null,
+        hint:
+          stats.flareSepRate[f.class[0]] == null
+            ? `This archive has no particle-rate estimate for ${f.class[0]}-class flares.`
+            : `About ${Math.round(stats.flareSepRate[f.class[0]] * 100)} in 100 ${f.class[0]}-class flares in this archive were linked to particles.`,
       })),
     ...w.sepEvents
       .filter((s) => s.alertTime && Date.parse(s.alertTime) <= state.now)

@@ -35,11 +35,11 @@ The simulator assumes every pickup was saved. Its single-item ablations remove o
 
 The eight synchronous engine calls remain in `src/core/api.js`. Save/reload the JSON run state to preserve RNG, timeline cursor and paused decisions. After `resolveShift`, handle a pending GAME event with `chooseEvent` or a REAL interrupt with `recallAll` / `keepWorking`, then continue the same shift. Views hide future arrivals, observed forecast outcomes, UTC dates, and exact dose without a dosimeter. `buildReveal` requires the ending phase.
 
-`src/core/collections.js` tracks all collection achievements without storage or a clock; a future UI supplies prior progress and a UTC daily date. No live fetch or persistence UI is included yet.
+`src/core/collections.js` tracks all collection achievements without storage or a clock; a future UI supplies prior progress and a UTC daily date. The final reveal includes prior source context used by the mission, with no reality events after its ending. Almanac completion counts 1,266 reachable IDs from the current 1,289-record archive; 23 late context records remain available for source checks. No live fetch or persistence UI is included yet.
 
 ## Art and sound
 
-Open `/?gallery=1` locally. Every model rotates in a shared WebGL renderer; reduced motion pauses rotation. The gallery has all crew/plant moods, ending illustrations, icons, palette/type samples, 27 sound buttons, three music loops, volume/mute, captions and stop controls. No sound starts without input. If WebGL is unavailable, the SVG and sound journal stays usable.
+Open `/?gallery=1` locally. Every model rotates in a shared WebGL renderer; reduced motion pauses rotation. The gallery has all crew/plant moods, ending illustrations, icons, palette/type samples, 28 sound buttons, three music loops, volume/mute, captions and stop controls. Alarms support the B/C/M/X flare classes present in the archive. No sound starts without input. If WebGL is unavailable, the SVG and sound journal stays usable.
 
 `npm run art` regenerates the original kit offline from sources and committed fonts. `python tools/fetch-fonts.py` restores the five pinned font/license files if needed. `npm run art:check` validates every model and manifest hash, asset counts, contrast, Filipino glyphs and the <15 MB budget. The complete asset folder is 994,765 bytes including metadata. See [art direction](docs/ART_DIRECTION.md) and [credits](CREDITS.md).
 

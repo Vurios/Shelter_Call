@@ -1,4 +1,5 @@
 import episodes from '../../public/data/episodes.json' with { type: 'json' };
+import { DIFFICULTIES } from './config.js';
 // Read-only module input; exports return new arrays, never the archived objects.
 export const HOUR = 3600000;
 export const windows = episodes.windows.map((w) => w.id);
@@ -83,3 +84,25 @@ export function timeline(id) {
   timelineCache.set(id, result);
   return result;
 }
+
+// The shipped archive also contains late context rows beyond any legal mission end.
+// Collection percentages count only records reachable by at least one mission.
+const longestMissionDays = Math.max(
+  ...Object.values(DIFFICULTIES).map((d) => d.days),
+);
+export const collectibleRealIds = Object.freeze(
+  [
+    ...new Set(
+      windows.flatMap((id) => {
+        const latestEnd =
+          (Math.floor(Date.parse(windowData(id).start) / (24 * HOUR)) +
+            longestMissionDays) *
+          24 *
+          HOUR;
+        return timeline(id)
+          .filter((e) => e.time <= latestEnd)
+          .map((e) => e.donkiId);
+      }),
+    ),
+  ].sort(),
+);

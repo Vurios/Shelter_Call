@@ -14,7 +14,7 @@ export function writeReport(result) {
       .join('\n');
   writeFileSync(
     'tools/balance-report.md',
-    `# Headless balance report\n\nReproduce: npm run sim (${result.samples} paired seeds per bot per difficulty, no network/browser).\n\n${result.loadout}\n\nFixed GAME score: ${result.score}. Bots consume filtered views; no observed arrival or future event feeds their decisions. Starting dose/duration/science/supply values and the 90-second timer cap are reproduced in the before table; final GAME config is stored alongside. The scramble proxy does not establish achievable 3D pickup capacity. NASA records and associations are unchanged.\n\n` +
+    `# Headless balance report\n\nReproduce: npm run sim (${result.samples} paired seeds per bot per difficulty, no network/browser).\n\n${result.loadout}\n\nFixed GAME score: ${result.score}. Bots consume filtered views; no observed arrival or future event feeds their decisions. Starting dose/duration/science/supply values and the 90-second timer cap are reproduced in the before table; final GAME config is stored alongside. Both configuration tables use the corrected UTC-day/resupply rules and EVA flare interrupts; the starting table is not a replay of the historical engine. The scramble proxy does not establish achievable 3D pickup capacity. NASA records and associations are unchanged.\n\n` +
       Object.entries(result.final)
         .map(([d, data]) => `## ${d}\n\n${table(data)}\n`)
         .join('\n') +
