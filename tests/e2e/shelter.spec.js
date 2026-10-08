@@ -88,6 +88,13 @@ test('journal plays three days (two-day regression), updates wall and uses keybo
   await expect(page.locator('.journal-announcement')).toContainText(
     'we ate part of the wall',
   );
+  expect(
+    await page
+      .locator('.journal-announcement')
+      .evaluate(
+        (el) => Math.abs(el.getBoundingClientRect().bottom - innerHeight) < 1,
+      ),
+  ).toBe(true);
   for (const type of ['water', 'food', 'seeds']) {
     await page.locator(`[data-key="pantry-${type}"]`).click();
     await page
