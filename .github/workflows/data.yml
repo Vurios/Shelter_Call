@@ -1,52 +1,44 @@
-name: NASA data pipeline
+﻿name: NASA data pipeline
 on:
   workflow_dispatch:
+    inputs:
+      start:
+        description: First UTC date
+        default: '2010-01-01'
+        required: true
+      end:
+        description: Last UTC date
+        default: '2026-10-08'
+        required: true
 permissions:
   contents: read
+concurrency:
+  group: nasa-data
+  cancel-in-progress: false
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Probe official NASA endpoints
-        run: |
-          python -u - <<'PY'
-          import json, pathlib, urllib.request, urllib.error, time
-          output = pathlib.Path('data-pipeline/raw/probe')
-          output.mkdir(parents=True, exist_ok=True)
-          bases = ['https://ccmc.gsfc.nasa.gov/DONKI-API/get/', 'https://kauai.ccmc.gsfc.nasa.gov/DONKI/WS/get/']
-          worked = False
-          for base in bases:
-              try:
-                  url = base + 'SEP?startDate=2024-05-01&endDate=2024-05-31'
-                  with urllib.request.urlopen(url, timeout=25) as response:
-                      content = response.read()
-                      rows = json.loads(content)
-                      if not isinstance(rows, list):
-                          raise ValueError('Expected JSON array')
-                      (output / 'SEP.json').write_bytes(content)
-                      print(base, 'SUCCESS', len(rows), 'rows', flush=True)
-                      (output / 'source.txt').write_text(base)
-                      worked = True
-                      break
-              except Exception as error:
-                  print(base, type(error).__name__, str(error), flush=True)
-          if not worked:
-              raise SystemExit('Neither official CCMC endpoint returned data.')
-          for endpoint in ['FLR', 'CME', 'IPS', 'WSAEnlilSimulations', 'notifications']:
-              time.sleep(1)
-              with urllib.request.urlopen(base + endpoint + '?startDate=2024-05-01&endDate=2024-05-31', timeout=45) as response:
-                  content = response.read()
-                  rows = json.loads(content)
-                  (output / (endpoint + '.json')).write_bytes(content)
-                  print(endpoint, len(rows), 'rows', flush=True)
-          PY
+      - uses: actions/cache@v4
+        with:
+          path: data-pipeline/raw
+          key: donki-v1-${{ inputs.start }}-${{ inputs.end }}-${{ github.run_id }}
+          restore-keys: donki-v1-${{ inputs.start }}-
+      - run: pip install 'requests>=2.32,<3'
+      - name: Fetch official DONKI records
+        env:
+          FIRST_DATE: ${{ inputs.start }}
+          LAST_DATE: ${{ inputs.end }}
+          NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
+        run: python -u data-pipeline/fetch_donki.py --start "$FIRST_DATE" --end "$LAST_DATE"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: nasa-raw-probe
-          path: data-pipeline/raw/probe/
+          name: nasa-raw-cache
+          path: data-pipeline/raw/
+          retention-days: 30
