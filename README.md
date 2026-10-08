@@ -2,9 +2,9 @@
 
 A lunar-outpost game for ages 10–14: gather crew and supplies, decide when to shelter, then compare your calls with the Sun's history.
 
-**Current stage: prompt 4 art and audio kit.** Runs use verified NASA windows and deterministic GAME survival rules. Explore original crew, models, portraits, ending cards, fonts and sounds in the offline art journal at `/?gallery=1`. The title still shows real mission setup. Interactive scramble, shelter journal and full game loop arrive in prompts 5-7.
+**Current stage: prompt 4 art and audio kit.** Runs use verified NASA windows and deterministic GAME survival rules. Explore original crew, models, portraits, ending cards, fonts and sounds in [the offline art journal](https://shelter-call.pages.dev/?gallery=1). The title still shows real mission setup. Interactive scramble, shelter journal and full game loop arrive in prompts 5-7.
 
-[GitHub repository](https://github.com/Vurios/Shelter_Call). Cloudflare Pages project: `shelter-call`; production URL will be confirmed after its first successful deployment.
+[Open the production preview](https://shelter-call.pages.dev/) · [GitHub repository](https://github.com/Vurios/Shelter_Call)
 
 ## Run locally
 
