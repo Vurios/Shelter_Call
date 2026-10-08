@@ -1,4 +1,5 @@
 node_modules
+.venv
 dist
 package-lock.json
 test-results
@@ -9,3 +10,6 @@ CLAUDE_CODE_PROMPTS.md
 docs/DESIGN.md
 docs/CLAUDE_CODE_PROMPTS.md
 CLAUDE.md
+public/data/*.json
+data-pipeline/report/*.json
+data-pipeline/REPORT.md

@@ -6,6 +6,7 @@ export default [
     ignores: [
       'dist/**',
       'node_modules/**',
+      '.venv/**',
       'test-results/**',
       'playwright-report/**',
     ],

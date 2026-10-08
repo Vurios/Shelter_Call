@@ -308,7 +308,7 @@ Outguessed the Model · Trusted the Forecast · Blind Luck · Full House (all cr
 ## 9. Data spec (DONKI → `public/data/episodes.json`)
 
 **Source:** CCMC DONKI web services, no key needed.
-- URL pattern: `https://kauai.ccmc.gsfc.nasa.gov/DONKI/WS/get/{FLR|SEP|CME|IPS|WSAEnlilSimulations|notifications}?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD`
+- URL pattern: `https://ccmc.gsfc.nasa.gov/DONKI-API/get/{FLR|SEP|CME|IPS|WSAEnlilSimulations|notifications}?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD`
 - Fallback: `api.nasa.gov/DONKI/*` with a key (1,000 req/h).
 - Query in 30-day chunks from 2010-01-01 to the present; cache raw responses.
 
@@ -333,6 +333,8 @@ Outguessed the Model · Trusted the Forecast · Blind Luck · Full House (all cr
 - **Playable window:** starts at an SEP event with a valid countdown, and the next 14 days contain ≥1 CME forecast (issued inside the window). Windows may overlap. Months are kept only for grouping and labels.
 - **Sanity test:** 2024-05-11 flare 01:10Z → GOES >100 MeV onset 02:10Z → alert 02:30Z ⇒ countdown 60 min, alert lag +20 min.
 
+**Pipeline clarification (October 8, 2026):** NASA moved the public API September 30. GitHub Actions transports verified official-source raw cache when local HTTPS fails. An actual linked arrival outside the 30-hour band is a timing `miss`, not a `false_alarm`. Missing times/errors/rates are `null`. Window IDs retain the SEP timestamp and suffix; showcase entries add `windowId` and `eventId`. Shared multi-CME simulations appear once, with input aliases/revisions in the audit. Statistics use the full archive; shipped records are the union needed by playable windows.
+
 ### 9.2 Schema (compact)
 ```json
 {
@@ -340,7 +342,7 @@ Outguessed the Model · Trusted the Forecast · Blind Luck · Full House (all cr
   "stats": {"cmeErrorHours": {"median": 0, "p25": 0, "p75": 0}, "flareSepRate": {"C": 0, "M": 0, "X": 0}},
   "flares": [{"id":"","begin":"","peak":"","class":"X1.5"}],
   "sepEvents": [{"id":"","onset":"","tier":1,"flareId":"","countdownMin":0,"alertTime":"","alertLagMin":0,"modelLeadMin":null,"instruments":[]}],
-  "cmeForecasts": [{"id":"","cmeId":"","issued":"","predicted":"","actual":"","outcome":"hit|false_alarm","errorH":0}],
+  "cmeForecasts": [{"id":"","cmeId":"","issued":"","predicted":"","actual":"","outcome":"hit|miss|false_alarm","errorH":0}],
   "surpriseArrivals": [{"id":"","time":""}],
   "windows": [{"id":"2012-03-07","sepId":"","start":"","end":"","refs":{"flares":[],"sepEvents":[],"cmeForecasts":[],"surpriseArrivals":[]}}],
   "showcase": [{"key":"","why":"biggest miss | near-perfect | false alarm | alert after onset | ..."}]
@@ -497,7 +499,7 @@ We build without a clock. Quality beats speed, but we still build in layers so t
 
 ## 16. References (verified during research, Sept 26, 2026)
 - CCMC DONKI web services & WSA-Enlil fields: https://ccmc.gsfc.nasa.gov/tools/DONKI/
-- DONKI SEP records, May 2024 (sanity case): https://kauai.ccmc.gsfc.nasa.gov/DONKI/WS/get/SEP?startDate=2024-05-01&endDate=2024-05-31
+- DONKI SEP records, May 2024 (sanity case): https://ccmc.gsfc.nasa.gov/DONKI-API/get/SEP?startDate=2024-05-01&endDate=2024-05-31
 - CME Scoreboard forecast error analysis (Riley et al.): https://arxiv.org/abs/1810.07289
 - WSA-Enlil real-time verification (±30 h hit convention): https://arxiv.org/pdf/1801.07818
 - Warning-time gap for Artemis Moon crews: https://www.astronomy.com/space-exploration/space-weather-forecasting-needs-an-upgrade-to-protect-future-artemis-astronauts/

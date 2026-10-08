@@ -24,6 +24,15 @@ test('title loads, mission setup opens, and screenshots are saved', async ({
   await page.keyboard.press('Enter');
   await expect(button).toHaveAttribute('aria-expanded', 'true');
   await expect(page.getByText('60 seconds')).toBeVisible();
+  const episodes = await page.evaluate(async () => {
+    const response = await fetch(
+      new URL('./data/episodes.json', document.baseURI),
+    );
+    if (!response.ok) throw new Error('Real episode data did not load.');
+    return response.json();
+  });
+  expect(episodes.meta.source).toBe('NASA/CCMC DONKI');
+  expect(episodes.windows.length).toBeGreaterThanOrEqual(30);
   await page.screenshot({
     path: testInfo.outputPath('mission-setup.png'),
     fullPage: true,
@@ -44,6 +53,13 @@ test('title loads, mission setup opens, and screenshots are saved', async ({
   ).toBeVisible();
   await page.getByRole('button', { name: 'Check mission setup' }).click();
   await expect(page.getByText('60 seconds')).toBeVisible();
+  const offlineSource = await page.evaluate(async () => {
+    const response = await fetch(
+      new URL('./data/episodes.json', document.baseURI),
+    );
+    return (await response.json()).meta.source;
+  });
+  expect(offlineSource).toBe('NASA/CCMC DONKI');
   await page.context().setOffline(false);
   expect(errors).toEqual([]);
 });

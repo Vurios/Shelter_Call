@@ -10,7 +10,7 @@
 7. Food and water can be shelter walls, so consuming them costs shielding.
 8. A saved radio will relay verified NASA forecasts and warnings.
 9. Reveal will compare player choices, forecasts, and actual events.
-10. Prompt 1 is a foundation with synthetic fixtures; the real pipeline and engine come next.
+10. Prompt 2 provides verified real data; gameplay still uses the mock engine until prompt 3.
 
 ===== AUTHORIZATION & RULES (copy verbatim into CLAUDE.md) =====
 AUTONOMY

@@ -1,0 +1,112 @@
+{
+  "FLR": [
+    {
+      "flrID": "2024-05-11T01:10:00-FLR-001",
+      "catalog": "M2M_CATALOG",
+      "instruments": [
+        {
+          "displayName": "GOES-P: EXIS 1.0-8.0"
+        }
+      ],
+      "beginTime": "2024-05-11T01:10Z",
+      "peakTime": "2024-05-11T01:23Z",
+      "endTime": "2024-05-11T01:39Z",
+      "classType": "X5.8",
+      "sourceLocation": "S17W47",
+      "activeRegionNum": 13664,
+      "note": "",
+      "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/FLR/30711/-1",
+      "linkedEvents": [
+        {
+          "activityID": "2024-05-11T01:36:00-CME-001"
+        },
+        {
+          "activityID": "2024-05-11T02:10:00-SEP-001"
+        },
+        {
+          "activityID": "2024-05-11T04:07:00-SEP-001"
+        }
+      ],
+      "sentNotifications": [
+        {
+          "messageID": "20240511-AL-004",
+          "messageIssueTime": "2024-05-11T01:27Z",
+          "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30712/1"
+        },
+        {
+          "messageID": "20240511-AL-005",
+          "messageIssueTime": "2024-05-11T01:49Z",
+          "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30713/1"
+        }
+      ],
+      "submissionTime": "2024-05-11T02:34Z",
+      "versionId": 3
+    }
+  ],
+  "SEP": [
+    {
+      "sepID": "2024-05-11T02:10:00-SEP-001",
+      "eventTime": "2024-05-11T02:10Z",
+      "instruments": [
+        {
+          "displayName": "GOES-P: SEISS >100 MeV"
+        }
+      ],
+      "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/SEP/30714/-1",
+      "linkedEvents": [
+        {
+          "activityID": "2024-05-11T01:10:00-FLR-001"
+        },
+        {
+          "activityID": "2024-05-11T01:36:00-CME-001"
+        }
+      ],
+      "sentNotifications": [
+        {
+          "messageID": "20240511-AL-006",
+          "messageIssueTime": "2024-05-11T02:30Z",
+          "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30715/1"
+        },
+        {
+          "messageID": "20240511-AL-007",
+          "messageIssueTime": "2024-05-11T02:46Z",
+          "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30716/1"
+        }
+      ],
+      "submissionTime": "2024-05-11T02:30Z",
+      "versionId": 1
+    },
+    {
+      "sepID": "2024-05-11T04:07:00-SEP-001",
+      "eventTime": "2024-05-11T04:07Z",
+      "instruments": [
+        {
+          "displayName": "STEREO A: IMPACT 13-100 MeV"
+        }
+      ],
+      "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/SEP/30717/-1",
+      "linkedEvents": [
+        {
+          "activityID": "2024-05-11T01:10:00-FLR-001"
+        },
+        {
+          "activityID": "2024-05-11T01:36:00-CME-001"
+        }
+      ],
+      "sentNotifications": [
+        {
+          "messageID": "20240511-AL-008",
+          "messageIssueTime": "2024-05-11T04:13Z",
+          "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30718/1"
+        },
+        {
+          "messageID": "20240511-AL-013",
+          "messageIssueTime": "2024-05-11T15:03Z",
+          "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30728/1"
+        }
+      ],
+      "submissionTime": "2024-05-11T04:13Z",
+      "versionId": 1
+    }
+  ]
+}
