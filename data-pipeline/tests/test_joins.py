@@ -136,3 +136,26 @@ def test_window_keeps_boundary_hazards_but_needs_inside_issue():
     assert windows[0]["refs"]["cmeForecasts"] == ["old", "new"]
     assert windows[0]["refs"]["flares"] == ["flare"]
     assert build_windows(seps, flares, [inside], [], dt("2024-05-20")) == []
+
+
+def test_forecast_kp_range_uses_first_scenarios_only_and_unknown_stays_null():
+    sims, cmes, shocks = forecast_inputs()
+    result, _, _ = forecasts_for(sims, cmes, shocks)
+    assert result[0]["kpRange"] is None
+    sims[0].update(kp_18=2, kp_90=None, kp_135=7.5, kp_180=4)
+    later = {**sims[0], "simulationID": "WSA-ENLIL/test/2", "modelCompletionTime": "2024-05-03T00:00Z", "kp_18": 9}
+    result, _, _ = forecasts_for([later, *sims], cmes, shocks)
+    assert result[0]["kpRange"] == [2.0, 7.5]
+    sims[0].update(kp_18=-1, kp_90=True, kp_135=10, kp_180="5")
+    assert forecasts_for(sims, cmes, shocks)[0][0]["kpRange"] is None
+
+
+def test_archived_kp_bounds_are_exact_source_scenarios():
+    raw = json.loads((Path(__file__).parent / "fixtures/kp-may-2024.json").read_text(encoding="utf-8"))
+    full, _, _, _ = transform(raw, "2024-05-31")
+    assert full["cmeForecasts"], "Fixture must exercise a real linked forecast"
+    source = {row["simulationID"]: row for row in raw["WSAEnlilSimulations"]}
+    for forecast in full["cmeForecasts"]:
+        values = [source[forecast["id"]].get(key) for key in ("kp_18", "kp_90", "kp_135", "kp_180")]
+        values = [value for value in values if isinstance(value, (int, float)) and not isinstance(value, bool) and 0 <= value <= 9]
+        assert forecast["kpRange"] == ([min(values), max(values)] if values else None)

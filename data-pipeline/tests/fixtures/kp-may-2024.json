@@ -1,0 +1,241 @@
+{
+  "WSAEnlilSimulations": [
+    {
+      "simulationID": "WSA-ENLIL/30411/1",
+      "modelCompletionTime": "2024-05-03T13:14Z",
+      "au": 2.0,
+      "cmeInputs": [
+        {
+          "cmeStartTime": "2024-05-03T02:48Z",
+          "latitude": 29.0,
+          "longitude": -14.0,
+          "speed": 841.0,
+          "halfAngle": 43.0,
+          "time21_5": "2024-05-03T06:52Z",
+          "featureCode": "SH",
+          "isMostAccurate": true,
+          "levelOfData": 0,
+          "ipsList": [
+            {
+              "catalog": null,
+              "activityID": "2024-05-05T11:30:00-IPS-001",
+              "location": "Earth",
+              "eventTime": "2024-05-05T11:30Z",
+              "instruments": [
+                {
+                  "displayName": "DSCOVR: PLASMAG"
+                },
+                {
+                  "displayName": "ACE: SWEPAM"
+                },
+                {
+                  "displayName": "ACE: MAG"
+                }
+              ],
+              "linkedEvents": [],
+              "sentNotifications": [],
+              "link": null,
+              "submissionTime": null,
+              "versionId": 0
+            }
+          ],
+          "CMEID": "2024-05-03T02:48:00-CME-001"
+        }
+      ],
+      "estimatedShockArrivalTime": "2024-05-05T15:47Z",
+      "isEarthGB": false,
+      "isEarthMinorImpact": false,
+      "rmin_re": 5.9,
+      "kp_18": null,
+      "kp_90": 5,
+      "kp_135": 6,
+      "kp_180": 7,
+      "estimatedDuration": 24.0,
+      "impactList": [
+        {
+          "location": "STEREO A",
+          "arrivalTime": "2024-05-05T16:21Z",
+          "isGlancingBlow": false,
+          "isMinorImpact": false
+        }
+      ],
+      "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/WSA-ENLIL/30411/-1"
+    }
+  ],
+  "CME": [
+    {
+      "activityID": "2024-05-03T02:48:00-CME-001",
+      "catalog": "M2M_CATALOG",
+      "startTime": "2024-05-03T02:48Z",
+      "instruments": [
+        {
+          "displayName": "SOHO: LASCO/C2"
+        },
+        {
+          "displayName": "SOHO: LASCO/C3"
+        },
+        {
+          "displayName": "STEREO A: SECCHI/COR2"
+        }
+      ],
+      "sourceLocation": "N26E05",
+      "activeRegionNum": 13643,
+      "note": "A relatively faint CME with a narrow brighter and seemingly faster front with filamentary structures (likely the bulk front) and a wider fainter but slower front (likely the shock). The source is an impulsive X1.6 class flare (N26E05) from AR 3663 peaking at 2024-05-03T02:22Z, associated with an eruption with a faint relatively wide dimming mostly NE of the active region and with very gradually rising post-eruptive arcades seen in AIA 193. There is likely a faint EUV wave in AIA 193 but it is not clear.",
+      "cmeAnalyses": [
+        {
+          "isMostAccurate": true,
+          "levelOfData": 0,
+          "time21_5": "2024-05-03T06:52Z",
+          "latitude": 29.0,
+          "longitude": -14.0,
+          "halfAngle": 43.0,
+          "speed": 841.0,
+          "type": "C",
+          "featureCode": "SH",
+          "imageType": "running difference",
+          "measurementTechnique": "SWPC_CAT",
+          "note": "Somewhat speculative analysis of the fainter wider front, based on the fit in SOHO LASCO and STEREO COR2 and on the location of the source. Latitude/longtitude and the half width of the fit may vary, so the speed is approximate.",
+          "minorHalfWidth": null,
+          "speedMeasuredAtHeight": null,
+          "tilt": null,
+          "submissionTime": "2024-05-03T15:13Z",
+          "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/CMEAnalysis/30410/-1",
+          "enlilList": [
+            {
+              "modelCompletionTime": "2024-05-03T13:14Z",
+              "au": 2.0,
+              "estimatedShockArrivalTime": "2024-05-05T15:47Z",
+              "isEarthGB": false,
+              "isEarthMinorImpact": false,
+              "rmin_re": 5.9,
+              "kp_18": null,
+              "kp_90": 5,
+              "kp_135": 6,
+              "kp_180": 7,
+              "estimatedDuration": 24.0,
+              "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/WSA-ENLIL/30411/-1",
+              "impactList": [
+                {
+                  "location": "STEREO A",
+                  "arrivalTime": "2024-05-05T16:21Z",
+                  "isGlancingBlow": false,
+                  "isMinorImpact": false
+                }
+              ],
+              "cmeIDs": ["2024-05-03T02:48:00-CME-001"]
+            }
+          ]
+        },
+        {
+          "isMostAccurate": true,
+          "levelOfData": 0,
+          "time21_5": "2024-05-03T06:05Z",
+          "latitude": 33.0,
+          "longitude": -20.0,
+          "halfAngle": 18.0,
+          "speed": 972.0,
+          "type": "C",
+          "featureCode": "LE",
+          "imageType": "direct",
+          "measurementTechnique": "SWPC_CAT",
+          "note": "Analysis of the narrower slightly brighter part of the CME which has filamentary structures. It is likely the bulk of the CME (while the wider fainter front is its shock). This analysis is based on the fit between the front seen in STEREO and SOHO coronagraph imagery and indicates a possible deflection of the CME from the location of the flare towards the northeast.",
+          "minorHalfWidth": null,
+          "speedMeasuredAtHeight": null,
+          "tilt": null,
+          "submissionTime": "2024-05-03T15:16Z",
+          "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/CMEAnalysis/30413/-1",
+          "enlilList": [
+            {
+              "modelCompletionTime": "2024-05-03T13:26Z",
+              "au": 2.0,
+              "estimatedShockArrivalTime": "2024-05-06T06:00Z",
+              "isEarthGB": true,
+              "isEarthMinorImpact": false,
+              "rmin_re": null,
+              "kp_18": null,
+              "kp_90": 2,
+              "kp_135": 3,
+              "kp_180": 4,
+              "estimatedDuration": null,
+              "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/WSA-ENLIL/30412/-1",
+              "impactList": [
+                {
+                  "location": "STEREO A",
+                  "arrivalTime": "2024-05-06T08:00Z",
+                  "isGlancingBlow": true,
+                  "isMinorImpact": false
+                }
+              ],
+              "cmeIDs": ["2024-05-03T02:48:00-CME-001"]
+            },
+            {
+              "modelCompletionTime": "2024-05-03T17:26Z",
+              "au": 2.0,
+              "estimatedShockArrivalTime": null,
+              "isEarthGB": false,
+              "isEarthMinorImpact": false,
+              "rmin_re": null,
+              "kp_18": null,
+              "kp_90": null,
+              "kp_135": null,
+              "kp_180": null,
+              "estimatedDuration": null,
+              "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/WSA-ENLIL/30418/-1",
+              "impactList": [],
+              "cmeIDs": [
+                "2024-05-03T02:48:00-CME-001",
+                "2024-05-03T09:24:00-CME-001"
+              ]
+            }
+          ]
+        }
+      ],
+      "linkedEvents": [
+        {
+          "activityID": "2024-05-03T02:11:00-FLR-001"
+        },
+        {
+          "activityID": "2024-05-05T11:30:00-IPS-001"
+        }
+      ],
+      "sentNotifications": [
+        {
+          "messageID": "20240503-AL-003",
+          "messageIssueTime": "2024-05-03T15:33Z",
+          "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30414/1"
+        }
+      ],
+      "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/CME/30409/-1",
+      "submissionTime": "2024-05-03T16:22Z",
+      "versionId": 3
+    }
+  ],
+  "IPS": [
+    {
+      "catalog": "M2M_CATALOG",
+      "activityID": "2024-05-05T11:30:00-IPS-001",
+      "location": "Earth",
+      "eventTime": "2024-05-05T11:30Z",
+      "instruments": [
+        {
+          "displayName": "DSCOVR: PLASMAG"
+        },
+        {
+          "displayName": "ACE: SWEPAM"
+        },
+        {
+          "displayName": "ACE: MAG"
+        }
+      ],
+      "linkedEvents": [
+        {
+          "activityID": "2024-05-03T02:48:00-CME-001"
+        }
+      ],
+      "sentNotifications": null,
+      "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/IPS/30502/-1",
+      "submissionTime": "2024-05-07T10:15Z",
+      "versionId": 2
+    }
+  ]
+}

@@ -6,6 +6,13 @@ export const MOCK_RUN = {
   end: '2030-01-13T00:00:00Z',
   days: 12,
   countdownMin: 60,
+  pendingEvent: {
+    id: 'mock-choice',
+    source: 'GAME',
+    text: 'Kamote sprouted!',
+    choices: ['Take a picture', 'Write in the journal'],
+  },
+  interrupt: null,
   flares: [
     {
       id: 'mock-flare-1',
@@ -42,6 +49,13 @@ export const MOCK_RUN = {
       flareId: 'mock-flare-1',
       tier: 3,
       countdownMin: 60,
+      pendingEvent: {
+        id: 'mock-choice',
+        source: 'GAME',
+        text: 'Kamote sprouted!',
+        choices: ['Take a picture', 'Write in the journal'],
+      },
+      interrupt: null,
       alertTime: '2030-01-01T01:20:00Z',
       alertLagMin: 20,
     },

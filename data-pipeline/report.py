@@ -112,6 +112,7 @@ def write_report(full, shipped, raw, manifest, audit, detail, directory, size):
     lines += ["", "## May 11, 2024 source sanity check", "",
               f"Joined source record: {may11}." if may11 else "Required source record was not found. Tests separately enforce the archived must-pass case.", "",
               "## Assumptions and data problems", "",
+                "- Forecast kpRange is the minimum and maximum non-null numeric kp_18/kp_90/kp_135/kp_180 estimates from the selected first simulation. It is an IMF-scenario forecast range, not measured Kp; missing estimates stay null.",
               "- NASA moved the public API September 30, 2026. Local HTTPS requests time out; the official API works from GitHub Actions. The old api.nasa.gov DONKI route redirects to an announcement rather than JSON. No network or firewall settings were changed.",
               "- Fetch six endpoints in inclusive 30-day chunks, with at least one second between request starts, four attempts and exponential backoff. Reject HTML and redirects; never log API credentials. An interrupted cache cannot pass the coverage gate.",
               "- Duplicate IDs retain the newest version/submission. Current archive records may be revised long after the event; these are not immutable contemporaneous snapshots.",

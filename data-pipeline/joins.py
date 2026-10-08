@@ -189,7 +189,10 @@ def build_forecasts(sim_rows, cme_rows, ips_rows, cutoff, audit, detail):
         error = round(raw_error, 4) if actual else None
         outcome = "hit" if actual and abs(raw_error) <= 30 else "miss" if actual else "false_alarm"
         # A shared multi-CME simulation is one prediction, not duplicate evidence.
-        forecasts.append({"id": identity, "cmeId": sorted(input_ids)[0], "issued": iso(issued), "predicted": iso(predicted), "actual": iso(actual), "outcome": outcome, "errorH": error})
+        kp_values = [simulations[identity].get(key) for key in ("kp_18", "kp_90", "kp_135", "kp_180")]
+        kp_values = [float(value) for value in kp_values if isinstance(value, (int, float)) and not isinstance(value, bool) and 0 <= value <= 9]
+        kp_range = [min(kp_values), max(kp_values)] if kp_values else None
+        forecasts.append({"id": identity, "cmeId": sorted(input_ids)[0], "issued": iso(issued), "predicted": iso(predicted), "actual": iso(actual), "outcome": outcome, "errorH": error, "kpRange": kp_range})
         detail["forecastJoins"].append({"id": identity, "cmeIds": sorted(input_ids), "ipsId": actual_id})
         if actual_id:
             covered_ips.add(actual_id)

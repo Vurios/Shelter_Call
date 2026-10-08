@@ -13,7 +13,7 @@ test('title loads, mission setup opens, and screenshots are saved', async ({
     page.getByRole('heading', { name: 'SHELTER CALL' }),
   ).toBeVisible();
   await expect(
-    page.getByText('not NASA records', { exact: false }),
+    page.getByText('verified NASA records', { exact: false }),
   ).toBeVisible();
   await page.screenshot({
     path: testInfo.outputPath('title.png'),
@@ -24,6 +24,7 @@ test('title loads, mission setup opens, and screenshots are saved', async ({
   await page.keyboard.press('Enter');
   await expect(button).toHaveAttribute('aria-expanded', 'true');
   await expect(page.getByText('60 seconds')).toBeVisible();
+  await expect(page.getByText('60 minutes')).toBeVisible();
   const episodes = await page.evaluate(async () => {
     const response = await fetch(
       new URL('./data/episodes.json', document.baseURI),
@@ -53,6 +54,7 @@ test('title loads, mission setup opens, and screenshots are saved', async ({
   ).toBeVisible();
   await page.getByRole('button', { name: 'Check mission setup' }).click();
   await expect(page.getByText('60 seconds')).toBeVisible();
+  await expect(page.getByText('60 minutes')).toBeVisible();
   const offlineSource = await page.evaluate(async () => {
     const response = await fetch(
       new URL('./data/episodes.json', document.baseURI),

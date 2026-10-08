@@ -5,12 +5,12 @@
 2. Primary players are ages 10–14; everyone can play.
 3. The run has Scramble, Shelter Days, and Reveal phases.
 4. Scramble uses Three.js with moon hops and a seeded layout.
-5. Its timer will come from a verified flare-to-particle countdown.
+5. Its timer comes from a verified flare-to-particle countdown.
 6. Shelter Days uses accessible HTML, CSS, and SVG.
 7. Food and water can be shelter walls, so consuming them costs shielding.
-8. A saved radio will relay verified NASA forecasts and warnings.
-9. Reveal will compare player choices, forecasts, and actual events.
-10. Prompt 2 provides verified real data; gameplay still uses the mock engine until prompt 3.
+8. A saved radio relays verified NASA forecasts and warnings.
+9. Reveal compares player choices, forecasts, and actual events.
+10. Prompt 3 provides the pure headless engine; full interactive gameplay arrives in prompts 5-7.
 
 ===== AUTHORIZATION & RULES (copy verbatim into CLAUDE.md) =====
 AUTONOMY
@@ -71,8 +71,9 @@ CLAUDE.md  CREDITS.md  README.md
 - `npm run build`: build offline assets into `dist/`.
 - `npm run preview`: serve `dist/` locally.
 - `npm test`: run Vitest unit tests.
+- `npm run test:coverage`: enforce at least 90% statements, branches, functions and lines in real core code.
 - `npm run e2e`: test the production build with Playwright; build first.
-- `npm run sim`: run `node tools/balance.mjs` (implemented in prompt 3).
+- `npm run sim`: run `node tools/balance.mjs` (headless Monte Carlo; see tools/balance-report.md).
 - `npm run data`: run `python data-pipeline/run.py` (implemented in prompt 2).
 - `npm run lint`: run ESLint.
 - `npm run format:check`: check formatting.
@@ -122,6 +123,6 @@ We build without a clock. Quality beats speed, but we still build in layers so t
 ---
 
 
-Rule: never start a layer until the one below is playable. Prompt 1 only establishes the foundation.
+Rule: never start a layer until the one below is playable. Prompt 3 establishes headless rules; the full playable UI remains later work.
 
 @docs/DESIGN.md

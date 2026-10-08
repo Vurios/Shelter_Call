@@ -440,7 +440,7 @@ The UI and the Scramble talk to the engine only through these functions. Prompt 
 | `getScrambleSetup(state)` | Real countdown (seconds, real minutes, clamp note), layout seed, item/crew spawn tables |
 | `applyScrambleResult(state, result)` | Takes `ScrambleResult {itemsSaved[], crewSaved[], crewExposed[], timeLeft}` |
 | `getShiftView(state)` | Everything the UI shows: day/shift, radio messages (REAL-stamped), forecast cards with bands, crew status, wall/pantry, shield %, power, food, water, science |
-| `act(state, action)` | `assignCrew`, `moveItem` (wall↔pantry), `consume`, `useItem`, `recallAll`, `keepWorking`, `endShift` |
+| `act(state, action)` | `assignCrew`, `moveItem` (wall↔pantry), `consume`, `useItem`, `recallAll`, `keepWorking`, `chooseEvent` ({eventId, choice: 0 or 1}), `endShift` |
 | `resolveShift(state)` | Event log. REAL events: `{source:"REAL", donkiId, utc}`. GAME events: `{source:"GAME"}` |
 | `checkEnding(state)` | Ending id or null |
 | `buildReveal(state)` | Real dates, 3-lane timeline data (player calls / NASA forecast / reality), stats, ending, approximations used |
@@ -508,3 +508,15 @@ We build without a clock. Quality beats speed, but we still build in layers so t
 - Artemis II shelter procedure, gradual rise: https://science.nasa.gov/missions/artemis/artemis-2/to-protect-artemis-ii-astronauts-nasa-experts-keep-eyes-on-sun/
 - 60 Parsecs! (inspiration and what not to copy): https://robotgentleman.com/presskit/60Parsecs.htm ; luck critique: https://www.cubed3.com/games/reviews/pc/60-parsecs
 - Space Apps project submission guide (AI allowed; no NASA branding in generated content): https://www.spaceappschallenge.org/resources/project-submission-guide/
+
+### Prompt 3 contract clarifications
+
+Forecasts optionally carry `kpRange: [min, max] | null`: the first WSA run's non-null IMF-scenario Kp estimates, not measured storm strength. Mara can decode this range.
+
+`getShiftView` includes `pendingEvent: {id, source: "GAME", text, choices: [string, string]} | null` and `interrupt: {source: "REAL", donkiId, kind, text, hour} | null`. Choose events with `chooseEvent`; interrupts pause resolution until `recallAll` or `keepWorking`. Repeat `resolveShift` to continue the same shift. Absolute UTC, hidden dose, future records and observed forecast outcomes stay outside the play view. Reveal is available only after the run ends.
+
+### Prompt 3 GAME tuning and achievement ledger
+
+The starting 15-90-second timer remains the baseline; the tuned Commander cap is 60 seconds (Cadet multiplies by 1.5). All actual countdown minutes remain unchanged. See `src/core/config.js` and `tools/balance-report.md` for the starting/final GAME values and reproducible evidence. Actual NASA records and association rates are never tuned.
+
+`getShiftView` also carries dosimeter-gated GAME `particleLevel` and `allClear`, and run achievements. A pure `src/core/collections.js` ledger accepts previous progress and explicit mode/window/daily-date metadata for cross-run achievements; a later UI owns persistence. Resupply stays within the last two hidden UTC mission days.

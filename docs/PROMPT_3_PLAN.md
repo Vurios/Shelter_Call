@@ -1,6 +1,6 @@
 # Prompt 3 implementation plan
 
-Status: prepared for approval. Engine and simulator implementation have not started.
+Status: approved by the user on October 8, 2026. Implementation and local validation complete. Deployment checks are tracked in the repository Pages workflow.
 
 ## Result
 
@@ -67,4 +67,4 @@ Replace the mock engine with a deterministic, headless game driven by the verifi
 
 The build playbook marks prompt 3 with a compass and says: “start in plan mode, read the plan, approve, then let it run.”
 
-Approve this plan to begin implementation, including the event-choice contract, real Kp field extension, and game-only timer-cap tuning.
+Approved October 8, 2026. The event-choice contract, real Kp field extension, and GAME-only timer tuning are implemented. All balance gates pass; see tools/balance-report.md. Prompt 4 has not started.

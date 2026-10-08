@@ -1,9 +1,15 @@
-import { MOCK_RUN } from './mock-run.js';
+import { create } from './state.js';
 import { createRng } from './rng.js';
-
+import { TASKS } from './config.js';
+import { HOUR, windowData, timeline, stats } from './data.js';
+import { shield, expose, integrate } from './dose.js';
+import { has, inventory, remove, produce, upkeep } from './rules.js';
+import { forecasts, messages } from './forecast.js';
+import { nextEvent, choose } from './events.js';
+import { ending, achievements } from './endings.js';
 /**
- * Prompt 1 mock adapter for DESIGN §12.1. Every result is GAME fixture data.
- * No real radiation, production, crew traits, balance, or NASA joins run here.
+ * Deterministic real-data engine for DESIGN API contract.
+ * Radiation, resources and traits are labeled GAME approximations.
  * Mutators update the supplied state and return it; views are detached copies.
  * @typedef {'Cadet'|'Commander'|'Flight Director'} Difficulty
  * @typedef {'normal'|'daily'|'live'|'historic'|'judge'} Mode
@@ -11,207 +17,276 @@ import { createRng } from './rng.js';
  * @typedef {{id:string, name:string, trait:string, dose:number, hunger:number, thirst:number, status:string, assignment:string}} Crew
  * @typedef {{id:string, type:string, name:string, slots:number, mass:number}} Item
  * @typedef {{itemsSaved:string[], crewSaved:string[], crewExposed:string[], timeLeft:number}} ScrambleResult
- * @typedef {{type:'assignCrew', crewId:string, task:string}|{type:'moveItem', itemId:string, to:'wall'|'pantry'}|{type:'consume'|'useItem', itemId:string}|{type:'recallAll'|'keepWorking'|'endShift'}} Action
+ * @typedef {{type:'assignCrew', crewId:string, task:string}|{type:'moveItem', itemId:string, to:'wall'|'pantry'}|{type:'consume'|'useItem', itemId:string, crewId?:string}|{type:'recallAll'|'keepWorking'|'endShift'}|{type:'chooseEvent',eventId:string,choice:0|1}} Action
+ * @typedef {{id:string,source:'GAME',text:string,choices:string[],kind?:string}} PendingEvent
+ * @typedef {{source:'REAL',donkiId:string,kind:string,class:string|null,associationRate:number|null,hour:number,text:string}} Interrupt
  * @typedef {{source:'REAL', donkiId:string, utc:string, text:string}|{source:'GAME', utc?:string, text:string}} EventLog
- * @typedef {{seed:string|number, difficulty:Difficulty, mode:Mode, windowId:string, phase:string, shiftIndex:number, crew:Crew[], items:Item[], wall:Item[], pantry:Item[], power:number, science:number, calls:Object[], log:EventLog[], scrambleResult:ScrambleResult|null}} RunState
+ * @typedef {{seed:string|number, difficulty:Difficulty, mode:Mode, windowId:string, phase:string, shiftIndex:number, crew:Crew[], items:Item[], wall:Item[], pantry:Item[], power:number, science:number, calls:Object[], log:EventLog[], scrambleResult:ScrambleResult|null, pendingEvent:PendingEvent|null, interrupt:Interrupt|null, rng:number, cursor:number, now:number, achievements:string[]}} RunState
  */
 
 const copy = (value) => structuredClone(value);
-const utcAt = (state) =>
-  new Date(
-    Date.parse(MOCK_RUN.start) + state.shiftIndex * 12 * 3600000,
-  ).toISOString();
-const hasRadio = (state) =>
-  [...state.wall, ...state.pantry].some((item) => item.type === 'radio');
-
-/** @param {RunOptions} options @returns {RunState} */
-export function createRun({
-  seed,
-  difficulty = 'Commander',
-  windowId = MOCK_RUN.id,
-  crewIds = MOCK_RUN.crew.map((crew) => crew.id),
-  mode = 'normal',
-}) {
-  if (seed === undefined) throw new Error('A seed is required.');
-  if (windowId !== MOCK_RUN.id)
-    throw new Error('Only the mock window exists in prompt 1.');
-  if (!['Cadet', 'Commander', 'Flight Director'].includes(difficulty))
-    throw new Error('Unknown difficulty.');
-  if (!['normal', 'daily', 'live', 'historic', 'judge'].includes(mode))
-    throw new Error('Unknown mode.');
-  if (
-    crewIds.length !== 4 ||
-    new Set(crewIds).size !== 4 ||
-    crewIds.some((id) => !MOCK_RUN.crew.some((crew) => crew.id === id))
-  )
-    throw new Error('Choose the four mock crew members.');
-  return {
-    seed,
-    difficulty,
-    mode,
-    windowId,
-    phase: 'scramble',
-    shiftIndex: 0,
-    crew: crewIds.map((id) => ({
-      ...copy(MOCK_RUN.crew.find((crew) => crew.id === id)),
-      dose: 0,
-      hunger: 0,
-      thirst: 0,
-      status: 'waiting',
-      assignment: 'shelter',
-    })),
-    items: copy(MOCK_RUN.items),
-    wall: [],
-    pantry: [],
-    power: 8,
-    science: 0,
-    calls: [],
-    log: [],
-    scrambleResult: null,
-  };
+const utc = (state) => new Date(state.now).toISOString();
+export function createRun(options) {
+  return create(options);
 }
-
-/** @param {RunState} state @returns {{source:'GAME',seconds:number,realMinutes:number,clampNote:string|null,layoutSeed:string|number,itemSpawns:Object[],crewSpawns:Object[]}} */
 export function getScrambleSetup(state) {
-  const random = createRng(state.seed);
+  const random = createRng(`${state.seed}:layout`);
   const position = () => ({
     x: Math.round((random() - 0.5) * 20),
     z: Math.round((random() - 0.5) * 20),
   });
+  const minutes = windowData(state.windowId).sep.countdownMin;
+  const seconds =
+    Math.max(state.config.timerMin, Math.min(state.config.timerMax, minutes)) *
+    state.rules.timer;
   return {
-    source: 'GAME',
-    seconds: MOCK_RUN.countdownMin * (state.difficulty === 'Cadet' ? 1.5 : 1),
-    // Contract field name retained; these minutes are synthetic until prompt 3.
-    realMinutes: MOCK_RUN.countdownMin,
-    clampNote: null,
+    source: 'REAL',
+    seconds,
+    realMinutes: minutes,
+    clampNote:
+      seconds / state.rules.timer === minutes
+        ? null
+        : `GAME timer clamped to ${seconds} seconds; real countdown ${minutes} minutes.`,
     layoutSeed: state.seed,
-    itemSpawns: state.items.map((item) => ({ ...copy(item), ...position() })),
-    crewSpawns: state.crew.map((crew) => ({ ...copy(crew), ...position() })),
+    itemSpawns: state.items.map((i) => ({ ...copy(i), ...position() })),
+    crewSpawns: state.crew.map((c) => ({
+      ...copy(c),
+      ...position(),
+      hopMultiplier: c.trait === 'Rover Pilot' ? 1.3 : 1,
+    })),
   };
 }
-
-/** @param {RunState} state @param {ScrambleResult} result @returns {RunState} */
 export function applyScrambleResult(state, result) {
   if (state.phase !== 'scramble')
     throw new Error('Scramble already completed.');
-  const knownCrew = new Set(state.crew.map((crew) => crew.id));
-  const knownItems = new Set(state.items.map((item) => item.id));
-  if (
-    result.itemsSaved.some((id) => !knownItems.has(id)) ||
-    [...result.crewSaved, ...result.crewExposed].some(
-      (id) => !knownCrew.has(id),
+  for (const key of ['itemsSaved', 'crewSaved', 'crewExposed'])
+    if (
+      !Array.isArray(result[key]) ||
+      new Set(result[key]).size !== result[key].length
     )
+      throw new Error('Duplicate or invalid scramble pickups.');
+  if (
+    result.itemsSaved.some((id) => !state.items.some((i) => i.id === id)) ||
+    result.crewSaved
+      .concat(result.crewExposed)
+      .some((id) => !state.crew.some((c) => c.id === id))
   )
     throw new Error('Unknown scramble pickup.');
-  if (result.crewSaved.some((id) => result.crewExposed.includes(id)))
-    throw new Error('Crew cannot be both saved and exposed.');
+  if (
+    result.crewSaved.some((id) => result.crewExposed.includes(id)) ||
+    result.crewSaved.length + result.crewExposed.length !== 4
+  )
+    throw new Error('Partition all four crew into saved or exposed.');
+  if (
+    !Number.isFinite(result.timeLeft) ||
+    result.timeLeft < 0 ||
+    result.timeLeft > getScrambleSetup(state).seconds
+  )
+    throw new Error('Invalid time left.');
   state.scrambleResult = copy(result);
   state.pantry = copy(
-    state.items.filter((item) => result.itemsSaved.includes(item.id)),
+    state.items.filter((i) => result.itemsSaved.includes(i.id)),
   );
-  state.crew.forEach((crew) => {
-    crew.status = result.crewSaved.includes(crew.id) ? 'sheltered' : 'exposed';
-  });
   state.phase = 'shelter';
+  state.flags.radioEver = has(state, 'radio');
+  const tier = windowData(state.windowId).sep.tier;
+  state.crew.forEach((c) => {
+    c.status = 'healthy';
+    if (result.crewExposed.includes(c.id)) {
+      c.dose = state.config.dose[tier];
+      c.status =
+        c.dose >= state.config.sick * state.rules.tolerance
+          ? 'rad-sick'
+          : 'healthy';
+    }
+  });
+  state.log.push({
+    source: 'REAL',
+    donkiId: windowData(state.windowId).sep.id,
+    utc: utc(state),
+    text: 'Particles detected. Relative GAME storm tier ' + tier + '.',
+  });
+  state.achievements = achievements(state);
   return state;
 }
-
-/** @param {RunState} state @returns {Object} UI snapshot; synthetic messages never receive a REAL stamp. */
 export function getShiftView(state) {
-  const inventory = [...state.wall, ...state.pantry];
-  const radio = hasRadio(state);
-  const now = utcAt(state);
+  const dosimeter = has(state, 'dosimeter');
   return copy({
     source: 'GAME',
+    phase: state.phase,
     day: Math.floor(state.shiftIndex / 2) + 1,
-    shift: state.shiftIndex % 2 ? 'PM' : 'AM',
-    radio,
-    blind: !radio,
-    radioMessages: radio
-      ? MOCK_RUN.flares
-          .filter((flare) => Date.parse(flare.begin) <= Date.parse(now))
-          .map((flare) => ({
-            source: 'GAME',
-            text: `Test flare ${flare.class}`,
-            utc: flare.begin,
-          }))
-      : [],
-    forecastCards: radio
-      ? MOCK_RUN.cmeForecasts
-          .filter((forecast) => Date.parse(forecast.issued) <= Date.parse(now))
-          .map((forecast) => ({
-            ...forecast,
-            bandHours:
-              state.difficulty === 'Flight Director'
-                ? null
-                : forecast.bandHours,
-          }))
-      : [],
-    crew: state.crew,
+    shift: Math.floor(state.now / (12 * HOUR)) % 2 ? 'PM' : 'AM',
+    shiftIndex: state.shiftIndex,
+    radio: has(state, 'radio'),
+    blind: !has(state, 'radio'),
+    dosimeter,
+    particleLevel: dosimeter
+      ? Math.round(integrate(state, state.now, state.now + HOUR) * 12 * 100) /
+        100
+      : null,
+    allClear: dosimeter
+      ? integrate(state, state.now, state.now + HOUR) * 12 <
+        state.config.allClearLevel
+      : null,
+    radioMessages: messages(state),
+    forecastCards: forecasts(state),
+    crew: state.crew.map((c) => ({
+      id: c.id,
+      name: c.name,
+      trait: c.trait,
+      status: c.status,
+      assignment: c.assignment,
+      dose: dosimeter ? Math.round(c.dose * 100) / 100 : null,
+      hunger: c.hunger,
+      thirst: c.thirst,
+      symptoms:
+        c.status === 'rad-sick'
+          ? 'Needs a rest'
+          : c.hunger || c.thirst
+            ? 'Feeling weak'
+            : 'Feeling well',
+    })),
     wall: state.wall,
     pantry: state.pantry,
-    // GAME approximation from DESIGN §10.1, not a physical dose model.
-    shield: Math.min(
-      0.9,
-      1 - Math.exp(-state.wall.reduce((mass, item) => mass + item.mass, 0) / 8),
-    ),
+    shield: shield(state),
     power: state.power,
-    food: inventory.filter((item) => item.type === 'food').length,
-    water: inventory.filter((item) => item.type === 'water').length,
+    food: inventory(state).filter((i) => i.type === 'food').length,
+    water: inventory(state).filter((i) => i.type === 'water').length,
     science: state.science,
+    morale: state.morale,
+    plant: state.plant,
+    broken: state.broken,
+    achievements: state.achievements,
     daysUntilResupply: Math.max(
       0,
-      MOCK_RUN.days - Math.floor(state.shiftIndex / 2),
+      Math.ceil((state.resupply - state.now) / (24 * HOUR)),
     ),
+    pendingEvent: state.pendingEvent,
+    interrupt: state.interrupt,
+    boltTask: has(state, 'bolt') ? state.boltTask : null,
   });
 }
-
-/** @param {RunState} state @param {Action} action @returns {RunState} */
+/** @param {RunState} state @param {Action} action */
 export function act(state, action) {
   if (state.phase !== 'shelter')
     throw new Error('Actions require the shelter phase.');
+  if (state.pendingEvent && action.type !== 'chooseEvent')
+    throw new Error('Choose the pending event first.');
+  if (state.interrupt && !['recallAll', 'keepWorking'].includes(action.type))
+    throw new Error('Answer the interrupt first.');
+  if (state.shift && !state.interrupt && action.type !== 'endShift')
+    throw new Error('Continue resolving the current shift.');
   switch (action.type) {
     case 'assignCrew': {
-      const crew = state.crew.find((member) => member.id === action.crewId);
-      if (!crew) throw new Error('Unknown crew member.');
+      if (!TASKS.includes(action.task)) throw new Error('Unknown task.');
+      if (action.crewId === 'bolt') {
+        if (!has(state, 'bolt')) throw new Error('BOLT was not saved.');
+        state.boltTask = action.task;
+        break;
+      }
+      const crew = state.crew.find((c) => c.id === action.crewId);
+      if (!crew || crew.status === 'medevac')
+        throw new Error('Crew unavailable.');
       crew.assignment = action.task;
+      if (action.task !== 'shelter') state.flags.eva = true;
       break;
     }
     case 'moveItem': {
       if (!['wall', 'pantry'].includes(action.to))
         throw new Error('Move to wall or pantry.');
       const from = action.to === 'wall' ? 'pantry' : 'wall';
-      const index = state[from].findIndex((item) => item.id === action.itemId);
+      const index = state[from].findIndex((i) => i.id === action.itemId);
       if (index < 0) throw new Error('Item is not in the source inventory.');
-      if (action.to === 'wall' && state.wall.length >= 8)
+      if (action.to === 'wall' && state.wall.length >= state.config.wallSlots)
         throw new Error('Wall is full.');
       state[action.to].push(...state[from].splice(index, 1));
       break;
     }
-    case 'consume':
-    case 'useItem': {
-      const location = state.wall.some((item) => item.id === action.itemId)
-        ? 'wall'
-        : 'pantry';
-      const index = state[location].findIndex(
-        (item) => item.id === action.itemId,
-      );
-      if (index < 0) throw new Error('Unknown inventory item.');
-      if (
-        action.type === 'consume' &&
-        !['food', 'water'].includes(state[location][index].type)
-      )
+    case 'consume': {
+      const item = inventory(state).find((i) => i.id === action.itemId);
+      if (!item || !['water', 'food'].includes(item.type))
         throw new Error('Only food and water can be consumed.');
-      // Stub removes the item only; upkeep and item effects arrive in prompt 3.
-      state[location].splice(index, 1);
+      if (
+        action.crewId !== undefined &&
+        !state.crew.some(
+          (c) => c.id === action.crewId && c.status !== 'medevac',
+        )
+      )
+        throw new Error('Crew unavailable.');
+      const crew =
+        state.crew.find((c) => c.id === action.crewId) ??
+        state.crew.find((c) => c.status !== 'medevac');
+      if (!crew || crew.status === 'medevac')
+        throw new Error('Crew unavailable.');
+      const type = remove(state, item.id).type;
+      crew[type === 'food' ? 'fedFood' : 'fedWater'] +=
+        type === 'food' &&
+        state.crew.some((c) => c.trait === 'Chef' && c.status !== 'medevac')
+          ? state.config.chefFood
+          : 1;
       break;
     }
-    case 'recallAll':
-      state.crew.forEach((crew) => {
-        crew.assignment = 'shelter';
+    case 'useItem': {
+      const item = inventory(state).find((i) => i.id === action.itemId);
+      if (
+        !item ||
+        !['repair', 'med', 'battery', 'guitar', 'game'].includes(item.type)
+      )
+        throw new Error('Item cannot be used this way.');
+      if (
+        action.crewId !== undefined &&
+        !state.crew.some(
+          (c) => c.id === action.crewId && c.status !== 'medevac',
+        )
+      )
+        throw new Error('Crew unavailable.');
+      const crew =
+        state.crew.find((c) => c.id === action.crewId) ??
+        state.crew
+          .filter((c) => c.status !== 'medevac')
+          .sort((a, b) => b.dose - a.dose)[0];
+      if (item.type === 'med' && (!crew || crew.status === 'medevac'))
+        throw new Error('Crew unavailable.');
+      remove(state, item.id);
+      if (item.type === 'repair') state.broken = false;
+      if (item.type === 'battery') state.power += state.config.batteryPower;
+      if (item.type === 'med') {
+        crew.dose = Math.max(0, crew.dose - state.config.medReduction);
+        crew.status =
+          crew.dose >= state.config.sick * state.rules.tolerance
+            ? 'rad-sick'
+            : 'healthy';
+      }
+      if (['guitar', 'game'].includes(item.type))
+        state.morale = Math.min(state.config.moraleMax, state.morale + 3);
+      break;
+    }
+    case 'chooseEvent':
+      if (
+        !state.pendingEvent ||
+        action.eventId !== state.pendingEvent.id ||
+        ![0, 1].includes(action.choice)
+      )
+        throw new Error('Invalid event choice.');
+      choose(state, action.choice);
+      state.log.push({
+        source: 'GAME',
+        utc: utc(state),
+        text:
+          state.pendingEvent.text +
+          ' ' +
+          state.pendingEvent.choices[action.choice],
       });
+      state.pendingEvent = null;
+      break;
+    case 'recallAll':
+      state.crew.forEach((c) => {
+        c.assignment = 'shelter';
+      });
+      state.interrupt = null;
       break;
     case 'keepWorking':
+      state.interrupt = null;
       break;
     case 'endShift':
       resolveShift(state);
@@ -219,75 +294,184 @@ export function act(state, action) {
     default:
       throw new Error(`Unknown action: ${action.type}`);
   }
-  state.calls.push({ ...copy(action), utc: utcAt(state) });
+  state.calls.push({ ...copy(action), utc: utc(state) });
   return state;
 }
-
-/** @param {RunState} state @returns {EventLog[]} */
+function segment(state, to) {
+  const from = state.now;
+  // Production accrues before dose thresholds crossed in this segment; no end-of-shift hindsight.
+  state.crew
+    .filter((c) => c.status !== 'medevac')
+    .forEach((c) => produce(state, c, (to - from) / (12 * HOUR)));
+  expose(state, from, to);
+  state.now = to;
+}
 export function resolveShift(state) {
   if (state.phase !== 'shelter')
     throw new Error('Shift requires the shelter phase.');
-  const utc = utcAt(state);
-  const nextUtc = new Date(Date.parse(utc) + 12 * 3600000).toISOString();
-  const log = [
-    {
-      source: 'GAME',
-      utc,
-      text: 'Practice shift complete. Kamote is rooting for you.',
-    },
-  ];
-  for (const flare of MOCK_RUN.flares) {
-    if (
-      Date.parse(flare.begin) >= Date.parse(utc) &&
-      Date.parse(flare.begin) < Date.parse(nextUtc)
-    )
-      log.push({
-        source: 'GAME',
-        utc: flare.begin,
-        text: `Test flare ${flare.class}.`,
-      });
+  if (state.pendingEvent || state.interrupt)
+    throw new Error('Resolve the pending decision.');
+  const firstLog = state.log.length;
+  if (!state.shift) {
+    state.shift = {
+      end: (Math.floor(state.now / (12 * HOUR)) + 1) * 12 * HOUR,
+      start: state.now,
+    };
+    state.calls.push({ type: 'endShift', utc: utc(state) });
   }
-  state.calls.push({ type: 'endShift', utc });
-  state.log.push(...log);
-  state.shiftIndex += 1;
-  if (state.shiftIndex >= MOCK_RUN.days * 2) state.phase = 'ending';
-  return copy(log);
+  const events = timeline(state.windowId);
+  while (
+    state.cursor < events.length &&
+    events[state.cursor].time < state.shift.end
+  ) {
+    const event = events[state.cursor++];
+    if (event.time < state.now) continue;
+    segment(state, event.time);
+    state.log.push({
+      source: 'REAL',
+      donkiId: event.donkiId,
+      utc: event.utc,
+      text:
+        event.kind === 'flare' ? `Flare ${event.row.class}.` : event.kind + '.',
+    });
+    if (event.kind === 'particles' || event.kind === 'shock') {
+      const tier = event.kind === 'shock' ? 1 : event.row.tier;
+      state.hazards.push({
+        id: event.donkiId,
+        time: event.time,
+        tier,
+        duration: event.kind === 'shock' ? 1 : state.config.duration[tier],
+      });
+    }
+    if (
+      event.kind === 'forecast' &&
+      has(state, 'radio') &&
+      state.crew.some((c) => c.trait === 'Comms Officer')
+    )
+      state.morale = Math.min(state.config.moraleMax, state.morale + 1);
+    if (
+      (event.kind === 'flare' && has(state, 'radio')) ||
+      (event.kind === 'particles' && has(state, 'dosimeter'))
+    ) {
+      state.interrupt = {
+        source: 'REAL',
+        donkiId: event.donkiId,
+        kind: event.kind,
+        class: event.row.class ?? null,
+        associationRate:
+          event.kind === 'flare'
+            ? (stats.flareSepRate[event.row.class[0]] ?? 0)
+            : null,
+        hour: (state.now / HOUR) % 24,
+        text:
+          event.kind === 'flare'
+            ? `Flare ${event.row.class}. Recall crew or keep working?`
+            : 'Dosimeter alarm. Recall crew or keep working?',
+      };
+      return copy(state.log.slice(firstLog));
+    }
+  }
+  segment(state, state.shift.end);
+  for (const forecast of windowData(state.windowId).cmeForecasts) {
+    const predicted = Date.parse(forecast.predicted);
+    const actual = forecast.actual ? Date.parse(forecast.actual) : null;
+    const evaluated = actual ?? predicted + 30 * HOUR;
+    if (
+      evaluated <= state.now &&
+      !state.forecastResults.includes(forecast.id)
+    ) {
+      state.forecastResults.push(forecast.id);
+      // Score the call at arrival, not a later recall in the same shift.
+      const assignments = Object.fromEntries(
+        state.crew.map((c) => [c.id, 'shelter']),
+      );
+      for (const call of state.calls.filter(
+        (c) => Date.parse(c.utc) <= evaluated,
+      )) {
+        if (call.type === 'assignCrew' && call.crewId !== 'bolt')
+          assignments[call.crewId] = call.task;
+        if (call.type === 'recallAll')
+          Object.keys(assignments).forEach((id) => {
+            assignments[id] = 'shelter';
+          });
+      }
+      const sheltered = Object.values(assignments).every(
+        (task) => task === 'shelter',
+      );
+      if (
+        has(state, 'radio') &&
+        sheltered &&
+        actual &&
+        Math.abs(actual - predicted) <= 30 * HOUR
+      )
+        state.flags.trusted++;
+      if (
+        has(state, 'radio') &&
+        ((!actual && !sheltered) ||
+          (actual && Math.abs(actual - predicted) > 12 * HOUR && sheltered))
+      )
+        state.flags.outguessed++;
+    }
+  }
+  upkeep(state, state.now);
+  state.shiftIndex++;
+  state.shift = null;
+  state.flags.radioEver ||= has(state, 'radio');
+  state.log.push({
+    source: 'GAME',
+    utc: utc(state),
+    text: 'Shift complete. Resources and relative dose use GAME rules.',
+  });
+  if (
+    state.phase === 'shelter' &&
+    state.shiftIndex % state.config.eventEvery === 0
+  )
+    state.pendingEvent = nextEvent(state);
+  state.achievements = achievements(state);
+  return copy(state.log.slice(firstLog));
 }
-
-/** @param {RunState} state @returns {string|null} Placeholder ending, not survival evaluation. */
 export function checkEnding(state) {
-  return state.phase === 'ending' ? 'Mission Complete' : null;
+  return ending(state);
 }
-
-/** @param {RunState} state @returns {Object} */
 export function buildReveal(state) {
+  if (state.phase !== 'ending')
+    throw new Error('Finish the run before revealing hidden records.');
+  const w = windowData(state.windowId);
   return copy({
     source: 'GAME',
-    dates: { start: MOCK_RUN.start, end: MOCK_RUN.end },
+    dates: { start: w.start, end: utc(state) },
     timeline: {
       playerCalls: state.calls,
-      nasaForecast: MOCK_RUN.cmeForecasts,
-      reality: [
-        ...MOCK_RUN.flares,
-        ...MOCK_RUN.sepEvents,
-        ...MOCK_RUN.cmeForecasts.map((forecast) => ({
-          source: 'GAME',
-          id: forecast.id,
-          time: forecast.actual,
+      nasaForecast: w.cmeForecasts
+        .filter((f) => Date.parse(f.issued) <= state.now)
+        .map((f) => ({ ...f, source: 'REAL', donkiId: f.id })),
+      reality: timeline(state.windowId)
+        .filter((e) => e.time >= Date.parse(w.start) && e.time <= state.now)
+        .map(({ donkiId, utc, kind }) => ({
+          source: 'REAL',
+          donkiId,
+          utc,
+          kind,
         })),
-      ],
     },
     stats: {
-      crewHome: state.crew.filter((crew) => crew.status === 'sheltered').length,
+      crewHome: state.crew.filter((c) => c.status !== 'medevac').length,
       science: state.science,
-      totalDose: state.crew.reduce((total, crew) => total + crew.dose, 0),
+      totalDose: state.crew.reduce((n, c) => n + c.dose, 0),
       shifts: state.shiftIndex,
+      outguessed: state.flags.outguessed,
+      trusted: state.flags.trusted,
+      wallSuppliesConsumed: state.wallConsumed ?? 0,
     },
-    ending: checkEnding(state),
+    ending: ending(state),
+    achievements: achievements(state),
     approximations: [
-      'All dates, flares, particle events, forecasts and statistics are invented test fixtures.',
-      'Shielding uses a GAME mass approximation.',
-      'No dose, upkeep, production, forecast scoring or survival rules are implemented yet.',
+      'GAME relative rad units, storm tiers, half-shift decay and shock surge; never mSv.',
+      'GAME shielding: min(90%, 1-exp(-wall mass/8)); consuming wall supplies immediately removes mass.',
+      'GAME food, water, power, morale, production, crew traits, medevac and resupply rules.',
+      'GAME scramble seconds and clamp; source countdown stays in real minutes.',
+      'NASA near-Earth measurements proxy Moon timing; not a Moon dosimetry model.',
+      'GAME flare interrupts and dosimeter alarms, partial first shift, and UTC-midnight upkeep.',
     ],
   });
 }

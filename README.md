@@ -2,7 +2,7 @@
 
 A lunar-outpost game for ages 10–14: gather crew and supplies, decide when to shelter, then compare your calls with the Sun's history.
 
-**Current stage: prompt 2 data pipeline.** Real NASA episodes are built and validated. The title screen and mission-setup check still use made-up GAME fixtures until the prompt 3 engine replaces them. Full gameplay comes later.
+**Current stage: prompt 3 headless engine.** Runs use verified NASA windows and deterministic GAME survival rules. The development preview shows real mission setup; the interactive scramble, journal and full game loop arrive in prompts 5-7.
 
 [Open the development preview](https://vurios.github.io/Shelter_Call/) · [GitHub repository](https://github.com/Vurios/Shelter_Call)
 
@@ -20,7 +20,7 @@ npm run dev
 ```sh
 npm run lint
 npm run format:check
-npm test
+npm run test:coverage
 npm run build
 npm run e2e
 npm run preview
@@ -28,7 +28,13 @@ npm run preview
 
 Playwright automatically uses detected local Chrome/Edge/Chromium. To specify another executable, set `PLAYWRIGHT_EXECUTABLE_PATH`. If none exists, run `npx playwright install chromium`. Screenshots at 1280×720 and 360×640 are written under `test-results/`.
 
-`npm run sim` is reserved for the balance simulator in prompt 3.
+`npm run sim` reproduces [the balance report](tools/balance-report.md): 5,000 runs for each of six bots on each difficulty, starting/final Commander tables, and paired item checks. It uses local data and four isolated CPU workers. Allow several minutes. `npm run sim -- --quick --runs 500` is a faster exploratory check and does not replace final acceptance.
+
+The simulator assumes every pickup was saved. Its single-item ablations remove one instance, so one water brick is compared with one water brick, not an entire mission's water. These headless results do not establish achievable pickup capacity in the future 3D scramble. The report labels its loadout, fixed score and policies.
+
+The eight synchronous engine calls remain in `src/core/api.js`. Save/reload the JSON run state to preserve RNG, timeline cursor and paused decisions. After `resolveShift`, handle a pending GAME event with `chooseEvent` or a REAL interrupt with `recallAll` / `keepWorking`, then continue the same shift. Views hide future arrivals, observed forecast outcomes, UTC dates, and exact dose without a dosimeter. `buildReveal` requires the ending phase.
+
+`src/core/collections.js` tracks all collection achievements without storage or a clock; a future UI supplies prior progress and a UTC daily date. No live fetch or persistence UI is included yet.
 
 ## NASA data pipeline
 
@@ -45,7 +51,7 @@ The pipeline uses recorded flare starts, near-Earth particle detections, attache
 
 ## Deploy
 
-The GitHub Action validates changes and deploys `main` to GitHub Pages using the repository base path. Pages must use GitHub Actions as its publishing source. The production placeholder is precached for offline reloads after first load; a full offline game and installable app come later.
+The GitHub Action validates changes and deploys `main` to GitHub Pages using the repository base path. Pages must use GitHub Actions as its publishing source. The production preview and NASA JSON are precached for offline reloads after first load; a full offline game and installable app come later.
 
 ## Project notes
 
@@ -55,4 +61,4 @@ The GitHub Action validates changes and deploys `main` to GitHub Pages using the
 - [Decision log](docs/DECISIONS.md)
 - [Credits](CREDITS.md)
 
-Original root Markdown files remain for existing IDE tabs; use the `docs/` copies for future specification edits. Prompt 1 was built with OpenAI Codex assistance. No agency insignia or commercial-game assets are used.
+Original root Markdown files remain for existing IDE tabs; use the `docs/` copies for future specification edits. Prompts 1-3 were built with OpenAI Codex assistance. No agency insignia or commercial-game assets are used.

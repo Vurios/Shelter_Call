@@ -11,5 +11,14 @@ export default defineConfig({
       workbox: { globPatterns: ['**/*.{js,css,html,svg,json}'] },
     }),
   ],
-  test: { include: ['tests/unit/**/*.test.js'], environment: 'node' },
+  test: {
+    include: ['tests/unit/**/*.test.js'],
+    environment: 'node',
+    coverage: {
+      provider: 'v8',
+      include: ['src/core/**/*.js'],
+      exclude: ['src/core/mock-run.js'],
+      thresholds: { lines: 90, statements: 90, functions: 90, branches: 90 },
+    },
+  },
 });

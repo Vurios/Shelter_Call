@@ -18,7 +18,7 @@ All 1230 cached chunks have SHA-256 provenance. Raw cache remains ignored by Git
 | windows | 74 | 74 |
 | Independent linked Earth arrivals | 393 | 124 |
 
-episodes.json: 238,079 bytes; limit <1,500,000 bytes. Flare association rates and forecast-error percentiles use the full archive, not the playable subset.
+episodes.json: 243,264 bytes; limit <1,500,000 bytes. Flare association rates and forecast-error percentiles use the full archive, not the playable subset.
 
 ## Counts per year
 
@@ -94,6 +94,7 @@ Joined source record: {'id': '2024-05-11T02:10:00-SEP-001', 'onset': '2024-05-11
 
 ## Assumptions and data problems
 
+- Forecast kpRange is the minimum and maximum non-null numeric kp_18/kp_90/kp_135/kp_180 estimates from the selected first simulation. It is an IMF-scenario forecast range, not measured Kp; missing estimates stay null.
 - NASA moved the public API September 30, 2026. Local HTTPS requests time out; the official API works from GitHub Actions. The old api.nasa.gov DONKI route redirects to an announcement rather than JSON. No network or firewall settings were changed.
 - Fetch six endpoints in inclusive 30-day chunks, with at least one second between request starts, four attempts and exponential backoff. Reject HTML and redirects; never log API credentials. An interrupted cache cannot pass the coverage gate.
 - Duplicate IDs retain the newest version/submission. Current archive records may be revised long after the event; these are not immutable contemporaneous snapshots.

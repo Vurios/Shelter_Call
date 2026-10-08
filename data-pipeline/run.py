@@ -116,7 +116,7 @@ def main():
             print("Local NASA HTTPS route unavailable. Using official-source GitHub runner cache.", flush=True)
             cloud_cache(args.start, args.end, args.raw)
     _, summary = build(args.raw)
-    print("NASA pipeline finished. Game engine remains the prompt 1 mock until prompt 3.", flush=True)
+    print("NASA pipeline finished. Verified episodes are ready for the real-data engine.", flush=True)
     raise SystemExit(0 if summary["go"] else 2)
 
 

@@ -13,3 +13,6 @@ CLAUDE.md
 public/data/*.json
 data-pipeline/report/*.json
 data-pipeline/REPORT.md
+
+docs/balance/*.json
+tools/balance-report.md
