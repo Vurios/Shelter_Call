@@ -46,7 +46,10 @@ it('returns uncached JSON errors for bad upstream responses', async () => {
   const fetch = vi
     .fn()
     .mockResolvedValueOnce(new Response('unavailable', { status: 503 }))
+    .mockResolvedValueOnce(new Response('unavailable', { status: 503 }))
     .mockResolvedValueOnce(new Response('<html>not JSON</html>'))
+    .mockResolvedValueOnce(new Response('<html>not JSON</html>'))
+    .mockRejectedValueOnce(new Error('network failure'))
     .mockRejectedValueOnce(new Error('network failure'));
   const cache = { match: vi.fn(), put: vi.fn() };
   vi.stubGlobal('fetch', fetch);
@@ -58,4 +61,22 @@ it('returns uncached JSON errors for bad upstream responses', async () => {
     expect((await response.json()).error).toBeTruthy();
   }
   expect(cache.put).not.toHaveBeenCalled();
+});
+
+it('uses the official replacement when the requested legacy API stops returning JSON', async () => {
+  const rows = [{ flrID: 'source-id' }];
+  const fetch = vi
+    .fn()
+    .mockResolvedValueOnce(new Response('<html>API moved</html>'))
+    .mockResolvedValueOnce(Response.json(rows));
+  vi.stubGlobal('fetch', fetch);
+  vi.stubGlobal('caches', {});
+  const response = await onRequest(context());
+  expect(String(fetch.mock.calls[1][0])).toBe(
+    'https://ccmc.gsfc.nasa.gov/DONKI-API/get/FLR?startDate=2024-05-01&endDate=2024-05-31',
+  );
+  expect(await response.json()).toEqual(rows);
+  expect(response.headers.get('X-DONKI-Source')).toBe(
+    'https://ccmc.gsfc.nasa.gov/DONKI-API/get/',
+  );
 });

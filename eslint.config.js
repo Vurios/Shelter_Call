@@ -10,6 +10,7 @@ export default [
       '.venv/**',
       'test-results/**',
       'playwright-report/**',
+      '.wrangler/**',
     ],
   },
   js.configs.recommended,

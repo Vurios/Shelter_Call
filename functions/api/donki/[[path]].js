@@ -26,27 +26,34 @@ export async function onRequest({ request, params, waitUntil }) {
   const path = Array.isArray(params.path) ? params.path.join('/') : params.path;
   if (!ENDPOINTS.has(path)) return error(404, 'Unknown DONKI endpoint.');
   const url = new URL(request.url);
-  const upstream = new URL(
-    `https://kauai.ccmc.gsfc.nasa.gov/DONKI/WS/get/${path}`,
-  );
-  upstream.search = url.search;
   // Cache successful JSON for one hour at the edge, not in the service worker.
   const key = new Request(url.toString(), { method: 'GET' });
   const cache = globalThis.caches?.default;
   const cached = await cache?.match(key);
   if (cached) return cached;
-  try {
-    const response = await fetch(upstream, {
-      headers: { Accept: 'application/json' },
-      signal: AbortSignal.timeout(25000),
-    });
-    if (!response.ok)
-      return error(502, `DONKI returned HTTP ${response.status}.`);
-    const body = await response.json();
-    const result = Response.json(body, { headers });
-    if (cache) waitUntil(cache.put(key, result.clone()));
-    return result;
-  } catch {
-    return error(502, 'DONKI is unavailable or did not return JSON.');
+  // NASA replaced the requested legacy API on September 30, 2026.
+  // Try that route first, then the documented public replacement; never fake data.
+  for (const base of [
+    'https://kauai.ccmc.gsfc.nasa.gov/DONKI/WS/get/',
+    'https://ccmc.gsfc.nasa.gov/DONKI-API/get/',
+  ]) {
+    const upstream = new URL(path, base);
+    upstream.search = url.search;
+    try {
+      const response = await fetch(upstream, {
+        headers: { Accept: 'application/json' },
+        signal: AbortSignal.timeout(12000),
+      });
+      if (!response.ok) continue;
+      const body = await response.json();
+      const result = Response.json(body, {
+        headers: { ...headers, 'X-DONKI-Source': base },
+      });
+      if (cache) waitUntil(cache.put(key, result.clone()));
+      return result;
+    } catch {
+      // A retired route may return HTML or fail TLS; try the other official route.
+    }
   }
+  return error(502, 'DONKI is unavailable or did not return JSON.');
 }

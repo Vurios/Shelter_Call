@@ -4,6 +4,7 @@ dist
 package-lock.json
 test-results
 playwright-report
+.wrangler
 data-pipeline/raw
 DESIGN.md
 CLAUDE_CODE_PROMPTS.md

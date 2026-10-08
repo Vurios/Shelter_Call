@@ -8,6 +8,7 @@
 - `.github/workflows/deploy.yml` retains lint, format, coverage, assets, Python and browser gates, builds once at the root path, and deploys each push to `main` with `cloudflare/wrangler-action`. `npm run deploy` performs the same direct production upload locally.
 - Cache hashed `/bundles/*` for one year; revalidate HTML and service-worker scripts. GLBs and JSON receive explicit types. Only `/api/donki/*` invokes Functions; static/offline traffic remains on Pages assets.
 - Optional live GET relay forwards only the six permitted DONKI endpoint names to the requested CCMC URL, preserving query parameters. Successful JSON is cached at the edge for one hour, errors are uncached JSON, and CORS permits public reads. Service-worker API requests use NetworkOnly and cannot fall through to cached HTML.
+- Live verification reproduced a 502 from the requested legacy NASA route. NASA's [September 30 API migration](https://ccmc.gsfc.nasa.gov/news/major-updates/) replaced it with `https://ccmc.gsfc.nasa.gov/DONKI-API/get/`. The relay tries the requested URL first, then the official replacement with the same endpoint/query; `X-DONKI-Source` identifies the successful source. Neither errors nor invented fallback records enter the cache.
 - `src/data/live.js` does not exist yet. Its future endpoint is `/api/donki/`; no new live-data UI or transforms are introduced during hosting migration. Archived core inputs are unchanged.
 - Real deployment, title screenshots at 1280x720 and 360x640, and the May 2024 FLR relay check are verified separately after upload.
 
