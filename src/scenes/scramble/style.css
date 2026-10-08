@@ -738,7 +738,8 @@
   .deposit-pop {
     animation: none;
   }
-  .storm-overlay {
+  .storm-overlay,
+  .timer-warning .storm-overlay {
     transition: none;
     animation: none;
   }
