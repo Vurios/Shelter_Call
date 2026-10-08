@@ -16,3 +16,5 @@ data-pipeline/REPORT.md
 
 docs/balance/*.json
 tools/balance-report.md
+public/assets/
+public/favicon.svg

@@ -11,6 +11,8 @@
     "e2e": "playwright test",
     "sim": "node tools/balance.mjs",
     "data": "python data-pipeline/run.py",
+    "art": "python tools/generate-icons.py && node tools/generate-art.mjs",
+    "art:check": "node tools/check-art.mjs",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

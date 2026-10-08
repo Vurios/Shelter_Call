@@ -2,13 +2,13 @@
 
 A lunar-outpost game for ages 10–14: gather crew and supplies, decide when to shelter, then compare your calls with the Sun's history.
 
-**Current stage: prompt 3 headless engine.** Runs use verified NASA windows and deterministic GAME survival rules. The development preview shows real mission setup; the interactive scramble, journal and full game loop arrive in prompts 5-7.
+**Current stage: prompt 4 art and audio kit.** Runs use verified NASA windows and deterministic GAME survival rules. Explore original crew, models, portraits, ending cards, fonts and sounds in [the offline art journal](https://vurios.github.io/Shelter_Call/?gallery=1). The title still shows real mission setup. Interactive scramble, shelter journal and full game loop arrive in prompts 5-7.
 
 [Open the development preview](https://vurios.github.io/Shelter_Call/) · [GitHub repository](https://github.com/Vurios/Shelter_Call)
 
 ## Run locally
 
-Use Node.js 22.12+ (Node 24 recommended) and Python 3 for the later data pipeline.
+Use Node.js 22.12+ (Node 24 recommended) and Python 3 for the data and art pipelines.
 
 ```sh
 npm ci
@@ -21,6 +21,7 @@ npm run dev
 npm run lint
 npm run format:check
 npm run test:coverage
+npm run art:check
 npm run build
 npm run e2e
 npm run preview
@@ -35,6 +36,14 @@ The simulator assumes every pickup was saved. Its single-item ablations remove o
 The eight synchronous engine calls remain in `src/core/api.js`. Save/reload the JSON run state to preserve RNG, timeline cursor and paused decisions. After `resolveShift`, handle a pending GAME event with `chooseEvent` or a REAL interrupt with `recallAll` / `keepWorking`, then continue the same shift. Views hide future arrivals, observed forecast outcomes, UTC dates, and exact dose without a dosimeter. `buildReveal` requires the ending phase.
 
 `src/core/collections.js` tracks all collection achievements without storage or a clock; a future UI supplies prior progress and a UTC daily date. No live fetch or persistence UI is included yet.
+
+## Art and sound
+
+Open `/?gallery=1` locally. Every model rotates in a shared WebGL renderer; reduced motion pauses rotation. The gallery has all crew/plant moods, ending illustrations, icons, palette/type samples, 27 sound buttons, three music loops, volume/mute, captions and stop controls. No sound starts without input. If WebGL is unavailable, the SVG and sound journal stays usable.
+
+`npm run art` regenerates the original kit offline from sources and committed fonts. `python tools/fetch-fonts.py` restores the five pinned font/license files if needed. `npm run art:check` validates every model and manifest hash, asset counts, contrast, Filipino glyphs and the <15 MB budget. The complete asset folder is 994,765 bytes including metadata. See [art direction](docs/ART_DIRECTION.md) and [credits](CREDITS.md).
+
+Browser screenshots include each model, crew moods, plant moods, ending grid, icons, textures, type and section views in `test-results/`. Generated files preserve exact bytes on Windows and Linux. Audio tests establish deterministic finite samples and local offline mix headroom; physical phone speaker loudness and Android/Safari acceptance are not yet verified.
 
 ## NASA data pipeline
 
@@ -51,7 +60,7 @@ The pipeline uses recorded flare starts, near-Earth particle detections, attache
 
 ## Deploy
 
-The GitHub Action validates changes and deploys `main` to GitHub Pages using the repository base path. Pages must use GitHub Actions as its publishing source. The production preview and NASA JSON are precached for offline reloads after first load; a full offline game and installable app come later.
+The GitHub Action validates changes and deploys `main` to GitHub Pages using the repository base path. Pages must use GitHub Actions as its publishing source. After the first service-worker cache completes, the title, gallery, all original art, local fonts, synthesis and NASA JSON work offline. The PWA manifest has original regular/maskable icons; physical-phone installation and the full offline gameplay loop remain later checks.
 
 ## Project notes
 
@@ -59,6 +68,7 @@ The GitHub Action validates changes and deploys `main` to GitHub Pages using the
 - [Build prompts](docs/CLAUDE_CODE_PROMPTS.md)
 - [Agent instructions](CLAUDE.md)
 - [Decision log](docs/DECISIONS.md)
+- [Art and sound direction](docs/ART_DIRECTION.md)
 - [Credits](CREDITS.md)
 
-Original root Markdown files remain for existing IDE tabs; use the `docs/` copies for future specification edits. Prompts 1-3 were built with OpenAI Codex assistance. No agency insignia or commercial-game assets are used.
+Original root Markdown files remain for existing IDE tabs; use the `docs/` copies for future specification edits. Prompts 1-4 were built with OpenAI Codex assistance. No agency insignia or commercial-game assets are used.

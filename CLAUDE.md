@@ -10,7 +10,7 @@
 7. Food and water can be shelter walls, so consuming them costs shielding.
 8. A saved radio relays verified NASA forecasts and warnings.
 9. Reveal compares player choices, forecasts, and actual events.
-10. Prompt 3 provides the pure headless engine; full interactive gameplay arrives in prompts 5-7.
+10. Prompt 4 adds original art, audio, an offline gallery and install icons; full interactive gameplay arrives in prompts 5-7.
 
 ===== AUTHORIZATION & RULES (copy verbatim into CLAUDE.md) =====
 AUTONOMY
@@ -75,6 +75,8 @@ CLAUDE.md  CREDITS.md  README.md
 - `npm run e2e`: test the production build with Playwright; build first.
 - `npm run sim`: run `node tools/balance.mjs` (headless Monte Carlo; see tools/balance-report.md).
 - `npm run data`: run `python data-pipeline/run.py` (implemented in prompt 2).
+- `npm run art`: regenerate original art and its manifest using committed fonts.
+- `npm run art:check`: verify the full asset kit, hashes, models, contrast, glyphs and budget.
 - `npm run lint`: run ESLint.
 - `npm run format:check`: check formatting.
 - `npm run format`: format project files.
@@ -86,7 +88,7 @@ CLAUDE.md  CREDITS.md  README.md
 - Preserve DESIGN §12.1 API exports. Prompt 1 mutators update and return state; views return detached snapshots.
 - Never mark mock fixture events REAL. Real records must originate in `public/data/episodes.json`.
 - Canonical specifications live in `docs/`; root source copies remain for the user's existing IDE tabs.
-- Stop after each requested prompt. Ask the user before starting the next prompt.
+- Plan and complete each requested prompt autonomously. The user waived separate plan approval on October 9, 2026. Stop after that prompt and ask before starting the next prompt.
 
 ## Definition of done
 For every task: it runs, tests pass, you checked it visually with headless Playwright screenshots at 1280×720 and 360×640, `docs/DECISIONS.md` is updated if you made a choice, and it is committed.

@@ -1,0 +1,1496 @@
+{
+  "version": 1,
+  "provenance": "Original project art except licensed fonts",
+  "models": [
+    {
+      "id": "crew-ria",
+      "name": "Ria",
+      "path": "assets/models/crew-ria.glb",
+      "category": "Crew"
+    },
+    {
+      "id": "crew-dom",
+      "name": "Dom",
+      "path": "assets/models/crew-dom.glb",
+      "category": "Crew"
+    },
+    {
+      "id": "crew-aiko",
+      "name": "Aiko",
+      "path": "assets/models/crew-aiko.glb",
+      "category": "Crew"
+    },
+    {
+      "id": "crew-tunde",
+      "name": "Tunde",
+      "path": "assets/models/crew-tunde.glb",
+      "category": "Crew"
+    },
+    {
+      "id": "crew-mara",
+      "name": "Mara",
+      "path": "assets/models/crew-mara.glb",
+      "category": "Crew"
+    },
+    {
+      "id": "crew-iggy",
+      "name": "Iggy",
+      "path": "assets/models/crew-iggy.glb",
+      "category": "Crew"
+    },
+    {
+      "id": "crew-sol",
+      "name": "Sol",
+      "path": "assets/models/crew-sol.glb",
+      "category": "Crew"
+    },
+    {
+      "id": "crew-pip",
+      "name": "Pip",
+      "path": "assets/models/crew-pip.glb",
+      "category": "Crew"
+    },
+    {
+      "id": "bolt",
+      "name": "bolt",
+      "path": "assets/models/bolt.glb",
+      "category": "Companions & terrain"
+    },
+    {
+      "id": "kamote",
+      "name": "kamote",
+      "path": "assets/models/kamote.glb",
+      "category": "Companions & terrain"
+    },
+    {
+      "id": "station-hatch",
+      "name": "hatch",
+      "path": "assets/models/station-hatch.glb",
+      "category": "Stations"
+    },
+    {
+      "id": "station-greenhouse",
+      "name": "greenhouse",
+      "path": "assets/models/station-greenhouse.glb",
+      "category": "Stations"
+    },
+    {
+      "id": "station-solar",
+      "name": "solar",
+      "path": "assets/models/station-solar.glb",
+      "category": "Stations"
+    },
+    {
+      "id": "station-drill",
+      "name": "drill",
+      "path": "assets/models/station-drill.glb",
+      "category": "Stations"
+    },
+    {
+      "id": "station-lander",
+      "name": "lander",
+      "path": "assets/models/station-lander.glb",
+      "category": "Stations"
+    },
+    {
+      "id": "station-rover-bay",
+      "name": "rover bay",
+      "path": "assets/models/station-rover-bay.glb",
+      "category": "Stations"
+    },
+    {
+      "id": "station-lab",
+      "name": "lab",
+      "path": "assets/models/station-lab.glb",
+      "category": "Stations"
+    },
+    {
+      "id": "item-water",
+      "name": "Water brick",
+      "path": "assets/models/item-water.glb",
+      "category": "Supplies"
+    },
+    {
+      "id": "item-food",
+      "name": "Food pack",
+      "path": "assets/models/item-food.glb",
+      "category": "Supplies"
+    },
+    {
+      "id": "item-radio",
+      "name": "Sun Watch radio",
+      "path": "assets/models/item-radio.glb",
+      "category": "Supplies"
+    },
+    {
+      "id": "item-dosimeter",
+      "name": "Dosimeter",
+      "path": "assets/models/item-dosimeter.glb",
+      "category": "Supplies"
+    },
+    {
+      "id": "item-seeds",
+      "name": "Seed cartridge",
+      "path": "assets/models/item-seeds.glb",
+      "category": "Supplies"
+    },
+    {
+      "id": "item-repair",
+      "name": "Repair kit",
+      "path": "assets/models/item-repair.glb",
+      "category": "Supplies"
+    },
+    {
+      "id": "item-med",
+      "name": "Med kit",
+      "path": "assets/models/item-med.glb",
+      "category": "Supplies"
+    },
+    {
+      "id": "item-battery",
+      "name": "Battery pack",
+      "path": "assets/models/item-battery.glb",
+      "category": "Supplies"
+    },
+    {
+      "id": "item-guitar",
+      "name": "Guitar",
+      "path": "assets/models/item-guitar.glb",
+      "category": "Supplies"
+    },
+    {
+      "id": "item-game",
+      "name": "Board game",
+      "path": "assets/models/item-game.glb",
+      "category": "Supplies"
+    },
+    {
+      "id": "rock",
+      "name": "rock",
+      "path": "assets/models/rock.glb",
+      "category": "Companions & terrain"
+    },
+    {
+      "id": "crater",
+      "name": "crater",
+      "path": "assets/models/crater.glb",
+      "category": "Companions & terrain"
+    }
+  ],
+  "portraits": [
+    {
+      "id": "ria-calm",
+      "name": "Ria · calm",
+      "crew": "ria",
+      "mood": "calm",
+      "path": "assets/portraits/ria-calm.svg"
+    },
+    {
+      "id": "ria-happy",
+      "name": "Ria · happy",
+      "crew": "ria",
+      "mood": "happy",
+      "path": "assets/portraits/ria-happy.svg"
+    },
+    {
+      "id": "ria-worried",
+      "name": "Ria · worried",
+      "crew": "ria",
+      "mood": "worried",
+      "path": "assets/portraits/ria-worried.svg"
+    },
+    {
+      "id": "ria-tired",
+      "name": "Ria · tired",
+      "crew": "ria",
+      "mood": "tired",
+      "path": "assets/portraits/ria-tired.svg"
+    },
+    {
+      "id": "dom-calm",
+      "name": "Dom · calm",
+      "crew": "dom",
+      "mood": "calm",
+      "path": "assets/portraits/dom-calm.svg"
+    },
+    {
+      "id": "dom-happy",
+      "name": "Dom · happy",
+      "crew": "dom",
+      "mood": "happy",
+      "path": "assets/portraits/dom-happy.svg"
+    },
+    {
+      "id": "dom-worried",
+      "name": "Dom · worried",
+      "crew": "dom",
+      "mood": "worried",
+      "path": "assets/portraits/dom-worried.svg"
+    },
+    {
+      "id": "dom-tired",
+      "name": "Dom · tired",
+      "crew": "dom",
+      "mood": "tired",
+      "path": "assets/portraits/dom-tired.svg"
+    },
+    {
+      "id": "aiko-calm",
+      "name": "Aiko · calm",
+      "crew": "aiko",
+      "mood": "calm",
+      "path": "assets/portraits/aiko-calm.svg"
+    },
+    {
+      "id": "aiko-happy",
+      "name": "Aiko · happy",
+      "crew": "aiko",
+      "mood": "happy",
+      "path": "assets/portraits/aiko-happy.svg"
+    },
+    {
+      "id": "aiko-worried",
+      "name": "Aiko · worried",
+      "crew": "aiko",
+      "mood": "worried",
+      "path": "assets/portraits/aiko-worried.svg"
+    },
+    {
+      "id": "aiko-tired",
+      "name": "Aiko · tired",
+      "crew": "aiko",
+      "mood": "tired",
+      "path": "assets/portraits/aiko-tired.svg"
+    },
+    {
+      "id": "tunde-calm",
+      "name": "Tunde · calm",
+      "crew": "tunde",
+      "mood": "calm",
+      "path": "assets/portraits/tunde-calm.svg"
+    },
+    {
+      "id": "tunde-happy",
+      "name": "Tunde · happy",
+      "crew": "tunde",
+      "mood": "happy",
+      "path": "assets/portraits/tunde-happy.svg"
+    },
+    {
+      "id": "tunde-worried",
+      "name": "Tunde · worried",
+      "crew": "tunde",
+      "mood": "worried",
+      "path": "assets/portraits/tunde-worried.svg"
+    },
+    {
+      "id": "tunde-tired",
+      "name": "Tunde · tired",
+      "crew": "tunde",
+      "mood": "tired",
+      "path": "assets/portraits/tunde-tired.svg"
+    },
+    {
+      "id": "mara-calm",
+      "name": "Mara · calm",
+      "crew": "mara",
+      "mood": "calm",
+      "path": "assets/portraits/mara-calm.svg"
+    },
+    {
+      "id": "mara-happy",
+      "name": "Mara · happy",
+      "crew": "mara",
+      "mood": "happy",
+      "path": "assets/portraits/mara-happy.svg"
+    },
+    {
+      "id": "mara-worried",
+      "name": "Mara · worried",
+      "crew": "mara",
+      "mood": "worried",
+      "path": "assets/portraits/mara-worried.svg"
+    },
+    {
+      "id": "mara-tired",
+      "name": "Mara · tired",
+      "crew": "mara",
+      "mood": "tired",
+      "path": "assets/portraits/mara-tired.svg"
+    },
+    {
+      "id": "iggy-calm",
+      "name": "Iggy · calm",
+      "crew": "iggy",
+      "mood": "calm",
+      "path": "assets/portraits/iggy-calm.svg"
+    },
+    {
+      "id": "iggy-happy",
+      "name": "Iggy · happy",
+      "crew": "iggy",
+      "mood": "happy",
+      "path": "assets/portraits/iggy-happy.svg"
+    },
+    {
+      "id": "iggy-worried",
+      "name": "Iggy · worried",
+      "crew": "iggy",
+      "mood": "worried",
+      "path": "assets/portraits/iggy-worried.svg"
+    },
+    {
+      "id": "iggy-tired",
+      "name": "Iggy · tired",
+      "crew": "iggy",
+      "mood": "tired",
+      "path": "assets/portraits/iggy-tired.svg"
+    },
+    {
+      "id": "sol-calm",
+      "name": "Sol · calm",
+      "crew": "sol",
+      "mood": "calm",
+      "path": "assets/portraits/sol-calm.svg"
+    },
+    {
+      "id": "sol-happy",
+      "name": "Sol · happy",
+      "crew": "sol",
+      "mood": "happy",
+      "path": "assets/portraits/sol-happy.svg"
+    },
+    {
+      "id": "sol-worried",
+      "name": "Sol · worried",
+      "crew": "sol",
+      "mood": "worried",
+      "path": "assets/portraits/sol-worried.svg"
+    },
+    {
+      "id": "sol-tired",
+      "name": "Sol · tired",
+      "crew": "sol",
+      "mood": "tired",
+      "path": "assets/portraits/sol-tired.svg"
+    },
+    {
+      "id": "pip-calm",
+      "name": "Pip · calm",
+      "crew": "pip",
+      "mood": "calm",
+      "path": "assets/portraits/pip-calm.svg"
+    },
+    {
+      "id": "pip-happy",
+      "name": "Pip · happy",
+      "crew": "pip",
+      "mood": "happy",
+      "path": "assets/portraits/pip-happy.svg"
+    },
+    {
+      "id": "pip-worried",
+      "name": "Pip · worried",
+      "crew": "pip",
+      "mood": "worried",
+      "path": "assets/portraits/pip-worried.svg"
+    },
+    {
+      "id": "pip-tired",
+      "name": "Pip · tired",
+      "crew": "pip",
+      "mood": "tired",
+      "path": "assets/portraits/pip-tired.svg"
+    },
+    {
+      "id": "bolt",
+      "name": "BOLT · ready",
+      "path": "assets/portraits/bolt.svg"
+    }
+  ],
+  "plant": [
+    {
+      "id": "sprout",
+      "name": "Kamote · sprout",
+      "path": "assets/plant/sprout.svg"
+    },
+    {
+      "id": "content",
+      "name": "Kamote · content",
+      "path": "assets/plant/content.svg"
+    },
+    {
+      "id": "cheerful",
+      "name": "Kamote · cheerful",
+      "path": "assets/plant/cheerful.svg"
+    },
+    {
+      "id": "thirsty",
+      "name": "Kamote · thirsty",
+      "path": "assets/plant/thirsty.svg"
+    },
+    {
+      "id": "worried",
+      "name": "Kamote · worried",
+      "path": "assets/plant/worried.svg"
+    },
+    {
+      "id": "proud",
+      "name": "Kamote · proud",
+      "path": "assets/plant/proud.svg"
+    }
+  ],
+  "illustrations": [
+    {
+      "id": "mission-complete",
+      "name": "Mission Complete",
+      "path": "assets/endings/mission-complete.svg"
+    },
+    {
+      "id": "science-legend",
+      "name": "Science Legend",
+      "path": "assets/endings/science-legend.svg"
+    },
+    {
+      "id": "kamote-kingdom",
+      "name": "Kamote Kingdom",
+      "path": "assets/endings/kamote-kingdom.svg"
+    },
+    {
+      "id": "early-ride-home",
+      "name": "Early Ride Home",
+      "path": "assets/endings/early-ride-home.svg"
+    },
+    {
+      "id": "lights-out",
+      "name": "Lights Out",
+      "path": "assets/endings/lights-out.svg"
+    },
+    {
+      "id": "snack-attack",
+      "name": "Snack Attack",
+      "path": "assets/endings/snack-attack.svg"
+    },
+    {
+      "id": "forecast-whisperer",
+      "name": "Forecast Whisperer",
+      "path": "assets/endings/forecast-whisperer.svg"
+    },
+    {
+      "id": "blind-luck",
+      "name": "Blind Luck",
+      "path": "assets/endings/blind-luck.svg"
+    },
+    {
+      "id": "skeleton-crew",
+      "name": "Skeleton Crew",
+      "path": "assets/endings/skeleton-crew.svg"
+    },
+    {
+      "id": "close-call",
+      "name": "Close Call",
+      "path": "assets/endings/close-call.svg"
+    }
+  ],
+  "textures": [
+    {
+      "id": "grid",
+      "name": "grid",
+      "path": "assets/textures/grid.svg"
+    },
+    {
+      "id": "tape",
+      "name": "tape",
+      "path": "assets/textures/tape.svg"
+    },
+    {
+      "id": "stickers",
+      "name": "stickers",
+      "path": "assets/textures/stickers.svg"
+    }
+  ],
+  "icons": [
+    {
+      "id": "water",
+      "name": "Water brick",
+      "path": "assets/icons/water.svg"
+    },
+    {
+      "id": "food",
+      "name": "Food pack",
+      "path": "assets/icons/food.svg"
+    },
+    {
+      "id": "radio",
+      "name": "Sun Watch radio",
+      "path": "assets/icons/radio.svg"
+    },
+    {
+      "id": "dosimeter",
+      "name": "Dosimeter",
+      "path": "assets/icons/dosimeter.svg"
+    },
+    {
+      "id": "seeds",
+      "name": "Seed cartridge",
+      "path": "assets/icons/seeds.svg"
+    },
+    {
+      "id": "repair",
+      "name": "Repair kit",
+      "path": "assets/icons/repair.svg"
+    },
+    {
+      "id": "med",
+      "name": "Med kit",
+      "path": "assets/icons/med.svg"
+    },
+    {
+      "id": "battery",
+      "name": "Battery pack",
+      "path": "assets/icons/battery.svg"
+    },
+    {
+      "id": "guitar",
+      "name": "Guitar",
+      "path": "assets/icons/guitar.svg"
+    },
+    {
+      "id": "game",
+      "name": "Board game",
+      "path": "assets/icons/game.svg"
+    },
+    {
+      "id": "bolt",
+      "name": "BOLT robot",
+      "path": "assets/icons/bolt.svg"
+    },
+    {
+      "id": "shelter",
+      "name": "shelter",
+      "path": "assets/icons/shelter.svg"
+    },
+    {
+      "id": "greenhouse",
+      "name": "greenhouse",
+      "path": "assets/icons/greenhouse.svg"
+    },
+    {
+      "id": "solar",
+      "name": "solar",
+      "path": "assets/icons/solar.svg"
+    },
+    {
+      "id": "drill",
+      "name": "drill",
+      "path": "assets/icons/drill.svg"
+    },
+    {
+      "id": "salvage",
+      "name": "salvage",
+      "path": "assets/icons/salvage.svg"
+    },
+    {
+      "id": "science",
+      "name": "science",
+      "path": "assets/icons/science.svg"
+    },
+    {
+      "id": "power",
+      "name": "power",
+      "path": "assets/icons/power.svg"
+    },
+    {
+      "id": "morale",
+      "name": "morale",
+      "path": "assets/icons/morale.svg"
+    },
+    {
+      "id": "shield",
+      "name": "shield",
+      "path": "assets/icons/shield.svg"
+    },
+    {
+      "id": "dose",
+      "name": "dose",
+      "path": "assets/icons/dose.svg"
+    },
+    {
+      "id": "crew",
+      "name": "crew",
+      "path": "assets/icons/crew.svg"
+    },
+    {
+      "id": "plant",
+      "name": "plant",
+      "path": "assets/icons/plant.svg"
+    },
+    {
+      "id": "tier-0",
+      "name": "tier 0",
+      "path": "assets/icons/tier-0.svg"
+    },
+    {
+      "id": "tier-1",
+      "name": "tier 1",
+      "path": "assets/icons/tier-1.svg"
+    },
+    {
+      "id": "tier-2",
+      "name": "tier 2",
+      "path": "assets/icons/tier-2.svg"
+    },
+    {
+      "id": "tier-3",
+      "name": "tier 3",
+      "path": "assets/icons/tier-3.svg"
+    },
+    {
+      "id": "sound",
+      "name": "sound",
+      "path": "assets/icons/sound.svg"
+    },
+    {
+      "id": "mute",
+      "name": "mute",
+      "path": "assets/icons/mute.svg"
+    },
+    {
+      "id": "real",
+      "name": "real",
+      "path": "assets/icons/real.svg"
+    },
+    {
+      "id": "trait-ria",
+      "name": "Botanist",
+      "path": "assets/icons/trait-ria.svg"
+    },
+    {
+      "id": "trait-dom",
+      "name": "Engineer",
+      "path": "assets/icons/trait-dom.svg"
+    },
+    {
+      "id": "trait-aiko",
+      "name": "Medic",
+      "path": "assets/icons/trait-aiko.svg"
+    },
+    {
+      "id": "trait-tunde",
+      "name": "Geologist",
+      "path": "assets/icons/trait-tunde.svg"
+    },
+    {
+      "id": "trait-mara",
+      "name": "Comms Officer",
+      "path": "assets/icons/trait-mara.svg"
+    },
+    {
+      "id": "trait-iggy",
+      "name": "Rover Pilot",
+      "path": "assets/icons/trait-iggy.svg"
+    },
+    {
+      "id": "trait-sol",
+      "name": "Chef",
+      "path": "assets/icons/trait-sol.svg"
+    },
+    {
+      "id": "trait-pip",
+      "name": "Rookie",
+      "path": "assets/icons/trait-pip.svg"
+    }
+  ],
+  "files": [
+    {
+      "path": "assets/almanac-frame.svg",
+      "bytes": 435,
+      "sha256": "3dbcd8383db5d65b93e9c895763bc6cf1e4ec5dec30d14ee023dc4fc2d7859ee",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/app-icon.svg",
+      "bytes": 531,
+      "sha256": "e8055f6fa8c47afe8e205c0641610c57d091302432d27aeef32817c137af501a",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/endings/blind-luck.svg",
+      "bytes": 1269,
+      "sha256": "bc622b59a7a14117b8816433f9005cd928279f01edbf3e4b6f596aeef3d50372",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/endings/close-call.svg",
+      "bytes": 1208,
+      "sha256": "2493f816c911d7510e720c4849b02f9365f1209ff361e7d6e837885692472556",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/endings/early-ride-home.svg",
+      "bytes": 1101,
+      "sha256": "2f01737b612176107db575890aa71052312294f8fd39e116197a99224843e3e1",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/endings/forecast-whisperer.svg",
+      "bytes": 1249,
+      "sha256": "387122271ab67f457ce7a90d5b9b6369af2a70236a433387c0ed7a99ccf18a56",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/endings/kamote-kingdom.svg",
+      "bytes": 1384,
+      "sha256": "ec3ae5dbaf74b30d9428133f6d8581337b985887d676f08c3727792ce2b27fa2",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/endings/lights-out.svg",
+      "bytes": 1206,
+      "sha256": "bb5b4487d75e8a78d8e93138ed246dd96348bb54c5e5f6230825e75f6568ac62",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/endings/mission-complete.svg",
+      "bytes": 1525,
+      "sha256": "792e9cc28ac74cc1f7547851b2aab052c7a885ac23a75e2bb569aa9447eff801",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/endings/science-legend.svg",
+      "bytes": 976,
+      "sha256": "fb354a92c1ffd7ed35f9c4666a152ddd2cccaefce8638d78750ca3e91b5d0eb6",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/endings/skeleton-crew.svg",
+      "bytes": 1187,
+      "sha256": "b34af37265417aee48d613bfd4fdcb897e3e1273d83a81a5c03b914d56448557",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/endings/snack-attack.svg",
+      "bytes": 1444,
+      "sha256": "86f56a22366cd0928b220891addce831e8d1cd4e8ba5e8d22af27c9b6cf9e055",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/fonts/AtkinsonHyperlegible-Bold.ttf",
+      "bytes": 55256,
+      "sha256": "5a3b0c8cc8ca545155150b4512a1fa248298df121c50d6557e651e61fbdab92f",
+      "provenance": "SIL OFL 1.1; see CREDITS.md"
+    },
+    {
+      "path": "assets/fonts/atkinsonhyperlegible-OFL.txt",
+      "bytes": 4352,
+      "sha256": "f32d22b3908fcad2c86a74000614ec22e6a7f66ea7e867e616026a27aebdc143",
+      "provenance": "SIL OFL 1.1; see CREDITS.md"
+    },
+    {
+      "path": "assets/fonts/AtkinsonHyperlegible-Regular.ttf",
+      "bytes": 54348,
+      "sha256": "7fb917c89019896d0b52ee84b7cbb3304c18cb90b19a62f5e32712bd23e97669",
+      "provenance": "SIL OFL 1.1; see CREDITS.md"
+    },
+    {
+      "path": "assets/fonts/patrickhand-OFL.txt",
+      "bytes": 4376,
+      "sha256": "377f4f9c19e935228552478eb68cc2ed82910988a60ba60e2ac73b09f32d02d1",
+      "provenance": "SIL OFL 1.1; see CREDITS.md"
+    },
+    {
+      "path": "assets/fonts/PatrickHand-Regular.ttf",
+      "bytes": 214772,
+      "sha256": "0f173b3e6cb6d1af25babf7f0057c5ac4ee11f9992b0469bb817e967ef4ad0fc",
+      "provenance": "SIL OFL 1.1; see CREDITS.md"
+    },
+    {
+      "path": "assets/icon-192.png",
+      "bytes": 1028,
+      "sha256": "ae81136dc400a1b07322f16fdaab6a21d626368a2e5acd9e2d251fdefb666b3b",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icon-512.png",
+      "bytes": 3341,
+      "sha256": "a88499e236e527e7b3d43205fc49b9fe71ebadaa7f0b70664bb8c146cde36dd1",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icon-maskable.png",
+      "bytes": 3341,
+      "sha256": "a88499e236e527e7b3d43205fc49b9fe71ebadaa7f0b70664bb8c146cde36dd1",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/battery.svg",
+      "bytes": 268,
+      "sha256": "df97a0180fd5753ba48d690df4581f7745f93a0b0592a1fd55443ef34e613947",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/bolt.svg",
+      "bytes": 316,
+      "sha256": "a3309e9e6263ab650257f7889258a831753858a7f5bbff735f8bb2b6f02c1c2d",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/crew.svg",
+      "bytes": 246,
+      "sha256": "5c8e60d5bf7269b5964587b3e9a553cdb643a114bee93110ded0b3c9cde187c8",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/dose.svg",
+      "bytes": 238,
+      "sha256": "1620403b12fdb835f7d79e7967532fdb5851532132967f85c58bd7f64c729232",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/dosimeter.svg",
+      "bytes": 254,
+      "sha256": "8a981e5c5da59478218d366a03d77aa90b91d851fa04fcd26ce5ad2869633cdc",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/drill.svg",
+      "bytes": 238,
+      "sha256": "9e5c5d9b3cdb0460c45cabdf859903211dbd197506b905eacd01fb821d15f5d9",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/food.svg",
+      "bytes": 259,
+      "sha256": "1788e6d181cd2b57c66f9f2ae3cf2b3c0b1f7c585f4bd6a6671efc5ccafc1711",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/game.svg",
+      "bytes": 314,
+      "sha256": "470372cd7916808ad8e7a722bbd02b4671a36e02b45399e6408b9fc9306b5a9a",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/greenhouse.svg",
+      "bytes": 260,
+      "sha256": "084405a1e2a0e78b3a92dba64595cfc2e72f577153f1e5e5dbab589879edcb29",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/guitar.svg",
+      "bytes": 267,
+      "sha256": "24087016f44483fa694d8fe3d445dc0d0245137d73afd5b3713b4262313ad646",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/med.svg",
+      "bytes": 276,
+      "sha256": "3dca78715f01e683678bc4bd0b28473672111a1e8604c7c733b092a20b6e0f8d",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/morale.svg",
+      "bytes": 246,
+      "sha256": "9a24c1eb877a23bee4b80437c9a6804087be47769be0ad55aac4f4fefb32437a",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/mute.svg",
+      "bytes": 226,
+      "sha256": "34e8861dd7ede9fb4b78ffdbbcac782f8a4bc277b1bc6b2264ab279a2a4e0b1f",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/plant.svg",
+      "bytes": 258,
+      "sha256": "661e2a18eb56fbaaf7b49a9f3aad99ddb18e7d36c034eb6faa1513035436ed69",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/power.svg",
+      "bytes": 213,
+      "sha256": "5180e213183e1e6aac2bac3aef1834210e9d90e857108b038da94f1f2a52a0b2",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/radio.svg",
+      "bytes": 289,
+      "sha256": "a4df2322aa3e3f2fb3d223380afb697fbfdde7f070762550dbecc12e60eb588f",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/real.svg",
+      "bytes": 252,
+      "sha256": "75cac1ff027cc4f5d13060b7eb7d7e513efadb511db40f5c0ecc52074c1a7c2e",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/repair.svg",
+      "bytes": 231,
+      "sha256": "823f486c0f6821892c375868b7dc19a346d701ee80d4e5c1b4f549c9a689fe47",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/salvage.svg",
+      "bytes": 230,
+      "sha256": "c237f6d6b90e74fb6278810ac63531dbf6d2a985df74fd4fa5ac541fab7ebeff",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/science.svg",
+      "bytes": 241,
+      "sha256": "5d0d3a3460565370c4c9168ef9472a75d676838620747649ee3c67fa08ee4567",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/seeds.svg",
+      "bytes": 246,
+      "sha256": "489036a419d0a7a8a535a63931892da6d0ab77f0e59cf55567a2163f3735a571",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/shelter.svg",
+      "bytes": 227,
+      "sha256": "d721fb0473b2207bbe852db7a003fb7ec81d9b0383470797d00fddd874d3937a",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/shield.svg",
+      "bytes": 234,
+      "sha256": "8869af2333b39a5caa8d9cdd4b9a417c6cbaed14d17e708c0056463ac7f1fc91",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/solar.svg",
+      "bytes": 246,
+      "sha256": "2bb814397707148aa5018900157e009408bd797b5faf940aa5fe4d9fd66ccdc5",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/sound.svg",
+      "bytes": 235,
+      "sha256": "dd3c7dbb4f3b0f479cbd1ea2a95857685472508ac0d8e4a9cd4652c1c05aebde",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/sprite.svg",
+      "bytes": 8907,
+      "sha256": "3d27af97882257fcc56f584438d71261e9216a162c1a89fcdff23dd1b6d8665e",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/tier-0.svg",
+      "bytes": 230,
+      "sha256": "62c125f4e70771cdbc18724b6652d71097cf7d31243ac5d6e90899e5563fea90",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/tier-1.svg",
+      "bytes": 206,
+      "sha256": "6873e212b3f4ffbd65228ec0496a038a63464c4db35d17c3d411d940c490bfa0",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/tier-2.svg",
+      "bytes": 212,
+      "sha256": "c4d9377684f3ab569521c7349e367c05db3d424a1f7608db525b3f51f5f8511d",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/tier-3.svg",
+      "bytes": 218,
+      "sha256": "ea70ec6badc0c430b0ef1b1857270a6da6cc8bbff2696b989cb11c56a6a55544",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/trait-aiko.svg",
+      "bytes": 260,
+      "sha256": "ae8f5708086d831652285266ed7ac6ea2b427757ff0cbfc3b7c238d13199f772",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/trait-dom.svg",
+      "bytes": 244,
+      "sha256": "c55180a56076cc59810b6475f62c45207c5d6ddded93360c1c58a4a95beae41b",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/trait-iggy.svg",
+      "bytes": 239,
+      "sha256": "123c73b1c7584b662305c472a6543a4b9a42aad74aa88ca8c799da6f2136190b",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/trait-mara.svg",
+      "bytes": 256,
+      "sha256": "cb6271897255f122cf05c7359bce355da087ba0495a43a2cd8202871a4dc973a",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/trait-pip.svg",
+      "bytes": 322,
+      "sha256": "483b53c2954d01763c8398811fb47643105e2059879b7a8d06c925a0be6b40e9",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/trait-ria.svg",
+      "bytes": 266,
+      "sha256": "dc978c5dc8425673c67dccb00c92c1b19ae77482e5362e45b344f36511bea3a0",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/trait-sol.svg",
+      "bytes": 245,
+      "sha256": "9fe09ce6b762b122705b67cecd6f70c3c1d470608071d3a04a455fcc5f4464f4",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/trait-tunde.svg",
+      "bytes": 241,
+      "sha256": "c981965782924860ceaa144f9a8cbaf1e17c53bad5b6bd0ac24f59708220e6c6",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/icons/water.svg",
+      "bytes": 247,
+      "sha256": "20918f4ffe7b9a08a734c900bc4f9284e4dccd3da97d1559c1866c968a4fc934",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/bolt.glb",
+      "bytes": 21636,
+      "sha256": "aba5eb846a0a69e84ff395409b1dcf56823fd7602d829f739098be83ae546847",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/crater.glb",
+      "bytes": 22384,
+      "sha256": "694cc4deb7162155d40a0e2bac589010b6d9be2ef3b7759304b6fd7a2f39d3f6",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/crew-aiko.glb",
+      "bytes": 27764,
+      "sha256": "99e5e2408ef561c045a147153810be79c962a5760ff4b4e1824352299bafd556",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/crew-dom.glb",
+      "bytes": 28520,
+      "sha256": "d9345127c7475b2d31e60c28256a2be3c6492f19536496f0d9ab9dd7f3ab60c0",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/crew-iggy.glb",
+      "bytes": 27860,
+      "sha256": "f4fe6c2ac46d4cc231b1acb596d59c7ccfb0ada3c60d1d881a8326ec5aee553c",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/crew-mara.glb",
+      "bytes": 27964,
+      "sha256": "23d733aa1259d5750b4b546b2fb131b1b9ab409d832691a60e48bc8bef156e8e",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/crew-pip.glb",
+      "bytes": 28308,
+      "sha256": "de9374ece96b5108204e2e2993012b446efb063991260aa3fca245031a5156ab",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/crew-ria.glb",
+      "bytes": 27492,
+      "sha256": "c9e9c48b8c99b56769370ffcffe01b2a4032cdac8df43212d4a7ebe3af5aaeb5",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/crew-sol.glb",
+      "bytes": 33560,
+      "sha256": "15b845f99ba97ea664aac4538ccd8a854a4bed73e866aab937f9ae95a521e2d7",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/crew-tunde.glb",
+      "bytes": 27260,
+      "sha256": "1db013262387f75d17657457bb7cc12e7d1b304e73ea97d17d2f16226460edea",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/item-battery.glb",
+      "bytes": 2900,
+      "sha256": "8bde69c84c2dd8a871ad6a5022777e28d1b7560ec5ae332bcadc7070e402ea91",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/item-dosimeter.glb",
+      "bytes": 3068,
+      "sha256": "f1bdb76991a6f9a507a9e7b8243dcbfcef3f60cfeccfdacb93e9f220e426ed04",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/item-food.glb",
+      "bytes": 2908,
+      "sha256": "e08fc0dc3136b8b4103925b6ed142a85ead616b1792f31a79e3faee518753419",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/item-game.glb",
+      "bytes": 19924,
+      "sha256": "cb46db7f3d8b19e90873702175adbc0fd468c19672143292cd951746ce2778fb",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/item-guitar.glb",
+      "bytes": 20600,
+      "sha256": "2ff696fe403a9a608971faf1451e4bbe171d1b934916097f4f3e0daf708f6c31",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/item-med.glb",
+      "bytes": 20268,
+      "sha256": "8f655ebc930b178560c06a6985fff0b257f415b67ce7768c8faaf2a60d86cbb8",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/item-radio.glb",
+      "bytes": 3096,
+      "sha256": "23637341c4f9e3bde3e3033ba92864a1548d75c6a378d9f34909896a41ba2bbc",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/item-repair.glb",
+      "bytes": 2960,
+      "sha256": "b3033cccf980e4b82e9898c1625ed4bbe6f6a453c84297d59cf6db623b3234e5",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/item-seeds.glb",
+      "bytes": 19728,
+      "sha256": "235fa061532f8853d891e5d92582863d2573d72432cfbb435905956fa8967ee4",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/item-water.glb",
+      "bytes": 19656,
+      "sha256": "fd9e34d3eb099a308d87d970757952471d19d0c3897be7895db06fc2cbd424e2",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/kamote.glb",
+      "bytes": 26456,
+      "sha256": "732a1db06a4ef1ea7443691e9aafe6ca8fca2648b1997c3b0f0052bd90260aad",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/rock.glb",
+      "bytes": 4928,
+      "sha256": "20d87047b96b6f4716b728c0aed86c3b7c893c525d32277c7daf3c8cbc9dbcb6",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/station-drill.glb",
+      "bytes": 9412,
+      "sha256": "915cde69024be0e3d166e81bc3809e1fc710e19f6352e78284c28bd5e9a95424",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/station-greenhouse.glb",
+      "bytes": 20636,
+      "sha256": "e9b5d2932c1c4cea26c30f0bb55f9dd383bdec2ce53cdcdfaf2a9802ac665b7a",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/station-hatch.glb",
+      "bytes": 20536,
+      "sha256": "aac626eb5d8663ece390940eb2f0cab214934a59f3463cb0938beb7874e50919",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/station-lab.glb",
+      "bytes": 26132,
+      "sha256": "fa34485f097437e2f7afe983cc43e730bba0f5b9b3ab4a5e7f4e0e43f469bfd2",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/station-lander.glb",
+      "bytes": 28800,
+      "sha256": "39346cde25eca11d5d0191edacd16cad2a7a52bf68e4a8cd9fc7e89d73098814",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/station-rover-bay.glb",
+      "bytes": 9296,
+      "sha256": "d43c26bd3fd2103bfa5cabc4b3c2f195a520f1610024e00e464f4ef7d2012738",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/models/station-solar.glb",
+      "bytes": 9536,
+      "sha256": "a4a7c8dce3616bfb129438e16745153c5e7f5f58017e07a66c7c673dce33761e",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/plant/cheerful.svg",
+      "bytes": 653,
+      "sha256": "869927f83c394a5fccd7104d91f0baa123a7b8e09119e755a389171cddc5e633",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/plant/content.svg",
+      "bytes": 647,
+      "sha256": "c975a72302b08fb16274890919cff43661110538d8c37e75bf0e2a0b9decf8b5",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/plant/proud.svg",
+      "bytes": 712,
+      "sha256": "264b8e354d6432dd8f6aaec00176ae4f1c155a98c4c919f0329a477c9c4218b0",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/plant/sprout.svg",
+      "bytes": 591,
+      "sha256": "5ec11b7760c8455f58561fec0ffdeac17488c68acd3a6c4b230eca256af92c13",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/plant/thirsty.svg",
+      "bytes": 698,
+      "sha256": "9f5f06f2f70abb6720ca1ab84a12735d933d8645ce8b73468c9510a3a3bef09d",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/plant/worried.svg",
+      "bytes": 648,
+      "sha256": "67722a51853f42ce76acf309e0ac968420bb5b8df2378c45dd1b2d0d901772c6",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/aiko-calm.svg",
+      "bytes": 952,
+      "sha256": "06ad71255c916b26df0d06626509d5b4bc012008f40c50397dfe65225426fd3c",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/aiko-happy.svg",
+      "bytes": 958,
+      "sha256": "cb0b80331ed07650b6c0cfb0387859ae8d7dbc3bed42b7e3d87883d35506d688",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/aiko-tired.svg",
+      "bytes": 881,
+      "sha256": "16db25b0164561ebafc8609e63ab206872dc33ab34133ae211f0c84e2b2d5333",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/aiko-worried.svg",
+      "bytes": 998,
+      "sha256": "5bb28a2e15c3e6d527463da70eb8a94551a4be4ee4f631c308b9197bfd31ee1e",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/bolt.svg",
+      "bytes": 580,
+      "sha256": "e570fcf45d0f8350a5c42635904ad25d8a2e2cea99eaf3667c819cc2bc18024d",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/dom-calm.svg",
+      "bytes": 947,
+      "sha256": "a9f992ed21f373a2b719dc37a091d2671093657ad5de4bebb43e79f1678583ba",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/dom-happy.svg",
+      "bytes": 953,
+      "sha256": "45f4539cf4298fd0d0a2860aac9b5b41ab92f10060a152a4e9bb419e7d6df184",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/dom-tired.svg",
+      "bytes": 876,
+      "sha256": "c00452a5560777e8a7049d5f07d866ce9d6ebede71dd9be1a64ac7d727b89a00",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/dom-worried.svg",
+      "bytes": 993,
+      "sha256": "c3c8da7e7d1066f4650d6d42df87d4d05fbf7bfec3e245b6a8b6ef414827db15",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/iggy-calm.svg",
+      "bytes": 931,
+      "sha256": "fc52d99e4646b9ede69f00b9b3bf41abde847383e7ad930972547227ddaba220",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/iggy-happy.svg",
+      "bytes": 937,
+      "sha256": "9aa98db8cb6705e82c2cd3cd7ead4910750fa2f3bec4017f7fdccae925481a5e",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/iggy-tired.svg",
+      "bytes": 860,
+      "sha256": "fdc058474e3f195e9f31cf89feeaa5228877b784a1a949e483c4af85bbe2b483",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/iggy-worried.svg",
+      "bytes": 977,
+      "sha256": "c527c710d1effc3a5519c4ae25f24da07e259607d60a5895469812c69e26ed37",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/mara-calm.svg",
+      "bytes": 948,
+      "sha256": "affd5855389771ff2bdd66f53441aac7fd210fd0c521d3a2aa065b7d5162e38d",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/mara-happy.svg",
+      "bytes": 954,
+      "sha256": "50bea8816f01db1b872c91541a2075b1f706f902c6a3a30c5fe93699fee7d05e",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/mara-tired.svg",
+      "bytes": 877,
+      "sha256": "36f91d91a454bbe26230eaf36e9c32cb2915b652bd3c8ee23c359e8abb39ad3c",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/mara-worried.svg",
+      "bytes": 994,
+      "sha256": "a8b8b3389e2c5d0a30f58363a8a1bbb60901b54546104e1e2d16adde899c8a66",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/pip-calm.svg",
+      "bytes": 1025,
+      "sha256": "23d421c9cb0e93b7dc6ba06f647a1bd0e9c21d90a88f224a471d3785569461f1",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/pip-happy.svg",
+      "bytes": 1031,
+      "sha256": "d5b126e93734b2f87b90467e5a2ea67ac32037d1705be695d7229ffbe84dcb3e",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/pip-tired.svg",
+      "bytes": 954,
+      "sha256": "ffc0bc53898fbf0d5d2dd23087626005980a42f4aa9a8dc947c5aa8fae641890",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/pip-worried.svg",
+      "bytes": 1071,
+      "sha256": "dca9b0a544b31de23350b28919a0a48669b38fce5120d7cf7840b4ae95cf16cd",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/ria-calm.svg",
+      "bytes": 969,
+      "sha256": "208a9a391a85aa14d777be9efd7ab46bc392ec5d787408c14eadf9b54ec0ae45",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/ria-happy.svg",
+      "bytes": 975,
+      "sha256": "89382dd861f246f47078072a7044b6abb1592d3abb3c9bbdc4040a6361f44a51",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/ria-tired.svg",
+      "bytes": 898,
+      "sha256": "6dd6acf9d856e694aa422291ad049e16284a04dc75f00e1aa0f01dfd7f093c99",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/ria-worried.svg",
+      "bytes": 1015,
+      "sha256": "75e12f2146573a1fd1fb71db3ca501df4e6344e1a28076c3ee1c59fa929ced28",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/sol-calm.svg",
+      "bytes": 937,
+      "sha256": "4bc3bd78cbd5fbe51f1930d0c305e36695c7ba3a97e2446d99888aede7d9d2cf",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/sol-happy.svg",
+      "bytes": 943,
+      "sha256": "da67725cfcab41e31ed99e0ede2c2302982151acbf6249f7a5ae0a34abee2ba4",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/sol-tired.svg",
+      "bytes": 866,
+      "sha256": "4c52fcbc7beade10f6a2c00cb6c3caec7be508527d861b3f99ac9c745d7caebc",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/sol-worried.svg",
+      "bytes": 983,
+      "sha256": "bbbef621d76a76e340ca2547dfe18a2cfea0866371cffc2837d1c56053663f77",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/tunde-calm.svg",
+      "bytes": 933,
+      "sha256": "043b97bf66b56d8d3185f79383c2f86ad446f03fcf7d9b80833a444c79b66d46",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/tunde-happy.svg",
+      "bytes": 939,
+      "sha256": "783ce0fefa2b5fb7853a2930d1ef59750677fe911c6bca7b6672d4e4795751ca",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/tunde-tired.svg",
+      "bytes": 862,
+      "sha256": "497c14fcb7353a1f91b3430b4040dc2b3383583b9e0c1ed080517e99a49841ad",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/portraits/tunde-worried.svg",
+      "bytes": 979,
+      "sha256": "5a76822a2651dd358569f048c6d07d9b5e6aff795d4f13d395181659ddc47ac4",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/textures/grid.svg",
+      "bytes": 240,
+      "sha256": "448f0843e16e5314574e32b73bb8db9273e19b9c6f623a33a8326a98cb876de9",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/textures/stickers.svg",
+      "bytes": 329,
+      "sha256": "9a9379b929a447f0c49374c0f7e9c8d91959874efcc7b80d1fe7d95a51be3ab2",
+      "provenance": "Original project art"
+    },
+    {
+      "path": "assets/textures/tape.svg",
+      "bytes": 326,
+      "sha256": "cce6c9059046896316107a2b105cbf11c9ebd3e35f2dae2d050068bc2ea02c00",
+      "provenance": "Original project art"
+    }
+  ],
+  "totalBytes": 952160,
+  "counts": {
+    "crew": 8,
+    "models": 29,
+    "icons": 38,
+    "portraits": 33,
+    "plantMoods": 6,
+    "endings": 10,
+    "tasks": 6
+  }
+}

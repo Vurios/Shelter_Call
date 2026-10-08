@@ -1,9 +1,73 @@
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/AtkinsonHyperlegible-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/assets/fonts/AtkinsonHyperlegible-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Patrick Hand';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/PatrickHand-Regular.ttf') format('truetype');
+}
 :root {
-  font-family: system-ui, sans-serif;
+  --ink: #101d2a;
+  --regolith: #8297a4;
+  --paper: #fff2d5;
+  --amber: #edb96f;
+  --blue: #67bbe0;
+  --leaf: #86cda1;
+  --coral: #ec9384;
+  --violet: #b8a4da;
+  --copper: #c68c61;
+  --white: #edf2f6;
+  font-family: 'Atkinson Hyperlegible', system-ui, sans-serif;
   color: #edf2f6;
   background: #101d2a;
   font-synthesis: none;
   color-scheme: dark;
+}
+.loading-gallery {
+  text-align: center;
+  padding: 30vh 24px;
+}
+.title-tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px 20px;
+  margin: 12px 0;
+}
+.title-tools a {
+  color: var(--paper);
+  min-height: 44px;
+  padding: 12px 0;
+  font-size: 14px;
+}
+.title-tools button {
+  font-size: 14px;
+  padding: 10px 16px;
+  margin: 0;
+  background: transparent;
+  border: 1px solid var(--amber);
+  color: var(--amber);
+}
+.title-tools button:hover {
+  background: #243d50;
+}
+.title-tools a:focus-visible {
+  outline: 3px solid var(--paper);
+  outline-offset: 5px;
 }
 * {
   box-sizing: border-box;

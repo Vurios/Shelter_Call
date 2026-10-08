@@ -34,6 +34,16 @@ test('title loads, mission setup opens, and screenshots are saved', async ({
   });
   expect(episodes.meta.source).toBe('NASA/CCMC DONKI');
   expect(episodes.windows.length).toBeGreaterThanOrEqual(30);
+  const music = page.getByRole('button', { name: 'Play title music' });
+  await music.focus();
+  await page.keyboard.press('Enter');
+  await expect(
+    page.getByRole('button', { name: 'Stop title music' }),
+  ).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('button', { name: 'Stop title music' }).click();
+  await expect(
+    page.getByRole('button', { name: 'Play title music' }),
+  ).toHaveAttribute('aria-pressed', 'false');
   await page.screenshot({
     path: testInfo.outputPath('mission-setup.png'),
     fullPage: true,
@@ -62,6 +72,15 @@ test('title loads, mission setup opens, and screenshots are saved', async ({
     return (await response.json()).meta.source;
   });
   expect(offlineSource).toBe('NASA/CCMC DONKI');
+  // First gallery visit is offline: its lazy renderer and complete art kit must
+  // have been cached from the title's first load, not warmed by a gallery visit.
+  await page
+    .getByRole('link', { name: 'Open the art & sound journal' })
+    .click();
+  await expect(page.locator('.gallery')).toHaveAttribute('data-ready', 'true', {
+    timeout: 30000,
+  });
+  await expect(page.locator('[data-model-state="loaded"]')).toHaveCount(29);
   await page.context().setOffline(false);
   expect(errors).toEqual([]);
 });

@@ -1,6 +1,6 @@
 # Prompt 4 implementation plan
 
-Status: prepared for approval on October 9, 2026. Asset production has not started.
+Status: approved and built on October 9, 2026. Final art direction and evidence are in ART_DIRECTION.md and DECISIONS.md.
 
 ## Result
 
@@ -86,6 +86,6 @@ Use original procedural Web Audio sounds and music; no external audio packs or n
 - Exercise each sound button, capture desktop/mobile screenshots, and review models and SVGs visually. Check console errors and network failures. Report physical-phone validation separately.
 - Record measured asset size and any material limitations. Update README, CLAUDE and DECISIONS, commit, push, verify CI/Pages, and ask before prompt 5.
 
-## Approval checkpoint
+## Approval record
 
-The build playbook at `docs/CLAUDE_CODE_PROMPTS.md:17` says compass prompts must start with a plan: "read the plan, approve, then let it run." Prompt 4 is marked with a compass. The user's latest instruction starts this planning step; approve this concrete direction to begin producing assets, audio and the gallery.
+The user approved this plan on October 9, 2026, and explicitly waived separate plan approvals for later prompts. Continue planning and executing the requested prompt autonomously; ask before starting the next numbered prompt. The original playbook remains intact, with this session instruction taking precedence.
