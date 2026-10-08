@@ -15,10 +15,8 @@ function observe(page) {
   return errors;
 }
 async function ready(page, seed, flat = false) {
-  await page.goto(`./?seed=${seed}`);
-  await page
-    .getByRole('button', { name: 'Play scramble', exact: true })
-    .click();
+  await page.goto(`./?scramble=1&seed=${seed}`);
+
   if (flat)
     await page
       .getByRole('checkbox', { name: 'Use 2D map', exact: true })
@@ -162,9 +160,7 @@ test('first offline scramble loads, pauses, switches renderers and closes early'
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.waitForFunction(() => navigator.serviceWorker.controller !== null);
   await page.context().setOffline(true);
-  await page
-    .getByRole('button', { name: 'Play scramble', exact: true })
-    .click();
+  await page.goto('./?scramble=1&seed=orbit-a');
   await page
     .getByRole('button', { name: 'Start scramble', exact: true })
     .click();

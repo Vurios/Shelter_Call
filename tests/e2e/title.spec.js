@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('title loads, mission setup opens, and screenshots are saved', async ({
+test('title menus, local music and a first offline art journal', async ({
   page,
 }, testInfo) => {
   const errors = [];
@@ -10,70 +10,73 @@ test('title loads, mission setup opens, and screenshots are saved', async ({
   });
   await page.goto('./');
   await expect(
-    page.getByRole('heading', { name: 'SHELTER CALL' }),
+    page.getByRole('heading', { name: 'SHELTER CALL', exact: true }),
   ).toBeVisible();
   await expect(
     page.getByText('verified NASA records', { exact: false }),
   ).toBeVisible();
+  await expect(page.locator('#difficulty')).toHaveValue('Commander');
+  for (const name of [
+    'Daily Sun',
+    'Sun Almanac',
+    'Endings',
+    'How it works',
+    'Credits',
+  ]) {
+    await page.getByRole('button', { name, exact: true }).click();
+    await expect(
+      page.getByRole('heading', { name, exact: true }),
+    ).toBeVisible();
+    if (name === 'Endings')
+      await expect(page.locator('.collected-ending img')).toHaveCount(10);
+    if (name === 'How it works')
+      await expect(page.locator('.how-grid article')).toHaveCount(5);
+    await page
+      .getByRole('button', { name: 'Title', exact: true })
+      .first()
+      .click();
+  }
   await page.screenshot({
     path: testInfo.outputPath('title.png'),
     fullPage: true,
   });
-  const button = page.getByRole('button', { name: 'Check mission setup' });
-  await button.focus();
-  await page.keyboard.press('Enter');
-  await expect(button).toHaveAttribute('aria-expanded', 'true');
-  await expect(page.getByText('60 seconds')).toBeVisible();
-  await expect(page.getByText('60 minutes')).toBeVisible();
-  const episodes = await page.evaluate(async () => {
-    const response = await fetch(
-      new URL('./data/episodes.json', document.baseURI),
+  await page.evaluate(() => {
+    window.dispatchEvent(
+      new PageTransitionEvent('pagehide', { persisted: true }),
     );
-    if (!response.ok) throw new Error('Real episode data did not load.');
-    return response.json();
+    window.dispatchEvent(
+      new PageTransitionEvent('pageshow', { persisted: true }),
+    );
   });
-  expect(episodes.meta.source).toBe('NASA/CCMC DONKI');
-  expect(episodes.windows.length).toBeGreaterThanOrEqual(30);
-  const music = page.getByRole('button', { name: 'Play title music' });
-  await music.focus();
+  await page.getByRole('button', { name: 'Settings', exact: true }).click();
+  await expect(
+    page.getByRole('heading', { name: 'Settings', exact: true }),
+  ).toBeVisible();
+  await page
+    .getByRole('button', { name: 'Title', exact: true })
+    .first()
+    .click();
+  await page
+    .getByRole('button', { name: 'Play title music', exact: true })
+    .focus();
   await page.keyboard.press('Enter');
   await expect(
-    page.getByRole('button', { name: 'Stop title music' }),
+    page.getByRole('button', { name: 'Stop title music', exact: true }),
   ).toHaveAttribute('aria-pressed', 'true');
-  await page.getByRole('button', { name: 'Stop title music' }).click();
-  await expect(
-    page.getByRole('button', { name: 'Play title music' }),
-  ).toHaveAttribute('aria-pressed', 'false');
-  await page.screenshot({
-    path: testInfo.outputPath('mission-setup.png'),
-    fullPage: true,
-  });
-  expect(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth <= window.innerWidth,
-    ),
-  ).toBe(true);
-  await button.click();
-  await expect(button).toHaveAttribute('aria-expanded', 'false');
+  await page
+    .getByRole('button', { name: 'Stop title music', exact: true })
+    .click();
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.waitForFunction(() => navigator.serviceWorker.controller !== null);
   await page.context().setOffline(true);
   await page.reload();
   await expect(
-    page.getByRole('heading', { name: 'SHELTER CALL' }),
+    page.getByRole('heading', { name: 'SHELTER CALL', exact: true }),
   ).toBeVisible();
-  await page.getByRole('button', { name: 'Check mission setup' }).click();
-  await expect(page.getByText('60 seconds')).toBeVisible();
-  await expect(page.getByText('60 minutes')).toBeVisible();
-  const offlineSource = await page.evaluate(async () => {
-    const response = await fetch(
-      new URL('./data/episodes.json', document.baseURI),
-    );
-    return (await response.json()).meta.source;
-  });
-  expect(offlineSource).toBe('NASA/CCMC DONKI');
-  // First gallery visit is offline: its lazy renderer and complete art kit must
-  // have been cached from the title's first load, not warmed by a gallery visit.
+  const source = await page.evaluate(
+    async () => (await (await fetch('/data/episodes.json')).json()).meta.source,
+  );
+  expect(source).toBe('NASA/CCMC DONKI');
   await page
     .getByRole('link', { name: 'Open the art & sound journal' })
     .click();

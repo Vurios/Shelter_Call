@@ -1,0 +1,130 @@
+.date-reveal {
+  text-align: center;
+  padding: 2rem 0;
+}
+.date-reveal h1 {
+  max-width: none;
+  font-size: clamp(2.3rem, 6vw, 4.6rem);
+  animation: date-arrival 1.2s ease both;
+}
+@keyframes date-arrival {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.timeline-panel,
+.real-panel {
+  border: 1px solid #526879;
+  border-radius: 16px;
+  padding: 20px;
+  background: #192e3f;
+  margin: 20px 0;
+}
+.timeline-scroll {
+  overflow-x: auto;
+}
+.reveal-timeline {
+  width: 100%;
+  min-width: 620px;
+  display: block;
+}
+.reveal-timeline text {
+  fill: var(--paper);
+  font-size: 13px;
+  font-family: inherit;
+}
+.scrub-label {
+  display: grid;
+  gap: 12px;
+}
+.scrub-label input {
+  width: 100%;
+  min-height: 44px;
+  accent-color: var(--amber);
+}
+.selected-event {
+  padding: 16px;
+  border-left: 4px solid var(--amber);
+  background: #101d2a;
+  min-height: 120px;
+}
+.selected-event code,
+.real-panel code {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 0.85em;
+}
+.timeline-entries {
+  margin-top: 20px;
+}
+.timeline-entries button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--paper);
+}
+.reveal-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.reveal-stats div {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid #526879;
+  border-radius: 12px;
+}
+.reveal-stats strong {
+  font-size: 1.8em;
+  color: var(--amber);
+}
+.ending-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: center;
+  margin: 28px 0;
+}
+.ending-card img {
+  width: 100%;
+  border-radius: 16px;
+  background: var(--paper);
+}
+.ending-card h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+.ending-card p {
+  line-height: 1.6;
+}
+.real-panel summary {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+.real-panel li {
+  margin: 18px 0;
+  line-height: 1.6;
+}
+.real-panel li span,
+.real-panel li time {
+  display: block;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .ending-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .reveal-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .timeline-panel,
+  .real-panel {
+    padding: 14px;
+  }
+}

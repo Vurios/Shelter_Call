@@ -58,16 +58,16 @@
   background: transparent;
   color: var(--paper);
   border: 1px solid #526879;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 .title-tools a {
   color: var(--paper);
   min-height: 44px;
   padding: 12px 0;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 .title-tools button {
-  font-size: 14px;
+  font-size: 0.875rem;
   padding: 10px 16px;
   margin: 0;
   background: transparent;
@@ -115,26 +115,26 @@ body {
   border-radius: 12px 12px 0 0;
 }
 .eyebrow {
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   color: #b9cbd6;
 }
 h1 {
   margin: 12px 0;
-  font-size: clamp(42px, 8vw, 88px);
+  font-size: clamp(2.625rem, 8vw, 5.5rem);
   line-height: 0.95;
   letter-spacing: -0.04em;
   max-width: 800px;
 }
 .tagline {
   max-width: 460px;
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 1.5;
   margin: 14px 0 8px;
 }
 .description {
   color: #b9cbd6;
-  font-size: 16px;
+  font-size: 1rem;
   max-width: 440px;
   line-height: 1.5;
 }
@@ -163,11 +163,11 @@ footer {
 }
 .status {
   color: #edb96f;
-  font-size: 13px;
+  font-size: 0.8125rem;
 }
 .notice {
   color: #b9cbd6;
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.6;
 }
 .mission-setup {
@@ -178,12 +178,12 @@ footer {
   background: #101d2a;
 }
 .mission-setup p {
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.5;
 }
 .fixture-label {
   color: #edb96f;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 dl {
   margin: 0;
@@ -193,7 +193,7 @@ dl div {
   justify-content: space-between;
   gap: 16px;
   padding: 6px 0;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 dd {
   margin: 0;
@@ -206,6 +206,6 @@ dd {
     margin-bottom: 18px;
   }
   .tagline {
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 }

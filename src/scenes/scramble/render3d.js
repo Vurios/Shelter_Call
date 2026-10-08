@@ -3,6 +3,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { createRng } from '../../core/rng.js';
 import { PALETTE as P } from '../../art/palette.js';
+import { t } from '../../i18n/index.js';
 
 /** Bake rigid parts by material. Shipped GLBs and their named source parts stay intact. */
 function mergeRigid(root) {
@@ -39,7 +40,10 @@ export async function create3DRenderer(host, state) {
   const canvas = document.createElement('canvas');
   canvas.className = 'scramble-canvas';
   canvas.tabIndex = 0;
-  canvas.setAttribute('aria-label', 'Lunar outpost. Tap a point to hop there.');
+  canvas.setAttribute(
+    'aria-label',
+    t('Lunar outpost. Tap a point to hop there.'),
+  );
   const context = canvas.getContext('webgl2', { antialias: true, alpha: true });
   if (!context) throw new Error('WebGL unavailable');
   host.prepend(canvas);
@@ -115,7 +119,7 @@ export async function create3DRenderer(host, state) {
   function addLabel(text, body, offset = 2.2, player = false) {
     const element = document.createElement('span');
     element.className = player ? 'map-label player-label' : 'map-label';
-    element.textContent = text;
+    element.textContent = t(text);
     labelsHost.append(element);
     labels.push({ element, body, offset });
   }

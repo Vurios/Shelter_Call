@@ -2,9 +2,9 @@
 
 A lunar-outpost game for ages 10–14: gather crew and supplies, decide when to shelter, then compare your calls with the Sun's history.
 
-**Current stage: prompt 6 playable Shelter Days journal.** Play a seeded lunar outpost in 3D or 2D, bring crew and supplies to the hatch, then open the journal to assign tasks, build a supply wall and answer real flare warnings. The REAL countdown and its compressed GAME seconds remain visible. Full ending cards, Reveal and persistence screens arrive in prompt 7. Original models, portraits and sounds remain in [the offline art journal](https://shelter-call.pages.dev/?gallery=1).
+**Current stage: prompt 7 complete mission flow.** Choose four of eight crew (automatic on Cadet), skip or read the briefing, practice for 25 seconds, play the real scramble and Shelter Days, then see an illustrated ending and the real dates. Reveal compares your calls, NASA forecasts and observed events, with source IDs, UTC and explicit GAME approximations. Endings, achievements and source records persist locally; Settings switches English/Filipino, text size, motion, sound and map mode. Daily Sun and the full Sun Almanac remain placeholders for prompt 8. Original models, portraits and sounds remain in [the offline art journal](https://shelter-call.pages.dev/?gallery=1).
 
-[Open the production preview](https://shelter-call.pages.dev/) · [GitHub repository](https://github.com/Vurios/Shelter_Call)
+[Play on Cloudflare Pages](https://shelter-call.pages.dev/) · [GitHub repository](https://github.com/Vurios/Shelter_Call)
 
 ## Run locally
 
@@ -35,27 +35,37 @@ The simulator assumes every pickup was saved. Its single-item ablations remove o
 
 The eight synchronous engine calls remain in `src/core/api.js`. Save/reload the JSON run state to preserve RNG, timeline cursor and paused decisions. After `resolveShift`, handle a pending GAME event with `chooseEvent` or a REAL interrupt with `recallAll` / `keepWorking`, then continue the same shift. Views hide future actual arrivals, observed forecast outcomes, mission calendar dates, and exact dose without a dosimeter. Known REAL records carry source UTC tooltips; forecast timestamps describe predictions. Dose thresholds use the chosen difficulty and remain hidden without a dosimeter. `buildReveal` requires the ending phase.
 
-`src/core/collections.js` tracks all collection achievements without storage or a clock; a future UI supplies prior progress and a UTC daily date. The final reveal includes prior source context used by the mission, with no reality events after its ending. Almanac completion counts 1,266 reachable IDs from the current 1,289-record archive; 23 late context records remain available for source checks. No live fetch or persistence UI is included yet.
+`src/core/collections.js` tracks all collection achievements without storage or a clock; a future UI supplies prior progress and a UTC daily date. The final reveal includes prior source context used by the mission, with no reality events after its ending. Almanac completion counts 1,266 reachable IDs from the current 1,289-record archive; 23 late context records remain available for source checks. The application stores the run after every action and shift, including pending decisions. Live missions remain future work.
 
 ## Play the scramble
 
-Choose **Play scramble** on the title, enter a seed and difficulty, then start. The clock waits for the outpost to load. Tap/click a place or use WASD / arrows to hop; connected gamepad sticks also move. Crew follow when you touch them. Return to the glowing hatch to save crew and deposit supplies. Four carry slots fill automatically; water uses two. Tap a carried supply to drop it, or press Q to drop the last one.
+Choose **Play** on the title and a difficulty, draft four crew, then skip or read the 15-second briefing. The optional 25-second GAME practice is separate from your mission. Replay practice from Title or Settings. The real scramble starts after the map loads. The clock waits for the outpost to load. Tap/click a place or use WASD / arrows to hop; connected gamepad sticks also move. Crew follow when you touch them. Return to the glowing hatch to save crew and deposit supplies. Four carry slots fill automatically; water uses two. Tap a carried supply to drop it, or press Q to drop the last one.
 
 Crew buttons and Find supply set a destination; Hop to hatch brings you home. Close hatch finishes early only while grounded at the hatch. P / Escape pauses, and switching tabs pauses automatically. Use 2D / Use 3D preserves the same run and clock. Missing WebGL opens 2D automatically; sustained frame rates below 25 fps offer that mode. Sound off keeps important text captions.
 
-At zero, unsaved crew are exposed and join the shelter with the engine's labeled GAME dose bump. The hatch report shows saved crew and pantry; choose **Open shelter journal** to continue the same run. Replay and title controls work. Add `?seed=orbit-a` to share the starting seed, or `?scramble=1&seed=orbit-a` to open its briefing directly.
+At zero, unsaved crew are exposed and join the shelter with the engine's labeled GAME dose bump. The hatch report shows saved crew and pantry; choose **Open shelter journal** to continue the same run. Title keeps the current mission available through Continue. Add `?seed=orbit-a` to select a starting seed for development; exact friend-code replay belongs to prompt 8. The `?scramble=1&seed=orbit-a` developer entry still opens the standalone briefing.
 
 The browser suite plays three seeds at both desktop 1280x720 and mobile 360x640, checks actual rescue/deposit and storm results, offline first scene load, renderer switching, keyboard/tap controls and fallback. Isolated Chrome samples measured median 180 fps on desktop and 40.35 fps at 360x640 with fourfold CPU throttling and render ratio capped at 1.5. This uses a desktop GPU; physical Android frame rate remains unverified. Evidence is recorded with screenshots in test-results/performance/.
 
 ## Play Shelter Days
 
-The journal shows **Day N ? AM/PM**. Tap a crew card, then In shelter or an EVA task. Greenhouse needs seeds and working power; solar repair makes power, ice drill makes water, salvage finds supplies, and science walk earns points. A saved BOLT has its own card. Tap a pantry supply, then **Put in wall** or an empty wall slot. Select a wall supply to move it to the shelf. Food, water and usable gear have explicit use controls; choose the crew recipient for meals and medicine. Shielding updates immediately, and eating a wall opens a visible gap. Automatic midnight meals use the shelf first.
+The journal shows **Day N / AM/PM**. Tap a crew card, then In shelter or an EVA task. Greenhouse needs seeds and working power; solar repair makes power, ice drill makes water, salvage finds supplies, and science walk earns points. A saved BOLT has its own card. Tap a pantry supply, then **Put in wall** or an empty wall slot. Select a wall supply to move it to the shelf. Food, water and usable gear have explicit use controls; choose the crew recipient for meals and medicine. Shielding updates immediately, and eating a wall opens a visible gap. Automatic midnight meals use the shelf first.
 
 Sun Watch appears only with a saved radio. REAL stamps open source IDs and UTC timestamps, with hover tooltips and keyboard/touch details. Forecast timelines show predicted arrival in shifts and the archive error band; Flight Director hides the band, and Mara decodes issue time/Kp. A real flare during human EVA pauses the shift for **RECALL NOW** or **KEEP WORKING**. Recall preserves work already done and shelters humans for the remainder; BOLT follows its separate assignment. Association hints use the archive's actual rates; missing estimates stay unknown. Without a radio, friendly blind-mode text replaces forecasts. A dosimeter adds GAME relative-dose meters and difficulty-adjusted thresholds; these are never physical dose units.
 
-Finish each shift to get a short illustrated log, then answer any crew-story choice. All actions support keyboard/touch and reduced motion. The journal stops at the engine's ending boundary with replay/title controls; full ending/reveal UI and reload persistence belong to prompt 7.
+Finish each shift to get a short illustrated log, then answer any crew-story choice. All actions support keyboard/touch and reduced motion. At the engine's ending boundary, the full ending card opens. Continue to Reveal, scrub the three-lane timeline with touch or arrow keys, expand "What's real?", then open source-card unlocks. **Play again** starts a new seed with the same crew and difficulty in one tap.
 
 The journal browser suite covers three days at both viewport sizes, live shielding/consumption, REAL interrupts, blind endings, Flight Director/Mara forecast rules, keyboard targets and the first offline journal entry from an actual scramble. Its isolated full-loadout fixture is bundled in memory for tests and never shipped in `dist/`; it establishes UI behavior, not physical scramble balance.
+
+## Saves, difficulty and accessibility
+
+The versioned mission save preserves engine RNG, timeline cursor, partial shifts, unanswered REAL/GAME decisions, wall positions and the current ending/Reveal/unlock screen. Reload resumes automatically; returning to Title offers Continue. A reload during the timed scramble restarts its same seeded map; saves become exact at the hatch and each journal action/shift. Starting a new mission asks before replacing an unfinished one. Endings, source IDs and achievements use a separate idempotent collection ledger. Blocked storage falls back to this tab's memory; corrupt or incompatible mission saves return safely to Title.
+
+Commander remains the default and retains its prior supplies. Cadet (age 8+) has a 1.5x timer, 25% more food/water pickups, and a clearly labelled shelter reserve of four food and four water; those reserves are not counted as rescued pickups. Flight Director has 25% fewer pickups and hides forecast uncertainty bands. These supply adjustments are GAME rules, not science.
+
+Settings supports natural Filipino and English, three text sizes, device/explicit reduced motion, optional sound with captions and a 2D preference. Labels, shapes and patterns supplement color. Map movement, carry/drop, crew tasks, wall supplies, decisions and timeline scrubbing have keyboard controls and visible focus. The five illustrated teaching panels use the research already recorded in DESIGN sections 1 and 16.
+
+The acceptance suite covers three different complete seeded missions, shift/decision reloads, first offline visits to Reveal, blocked storage, Filipino, reduced motion and keyboard-only play at 360x640 and 1280x720. Those early-return missions prove flow, not successful survival. A separate genuine `journal-0` Cadet walkthrough rescued all four crew, physically collected 14-15 pickups, saved/reloaded and reached resupply after 17 shifts with a Blind Luck ending at both sizes. It is a concrete winning route, not an overall balance claim. Screenshots and its detailed report are in ignored `playwright-report/prompt7-local/`.
 
 ## Art and sound
 
@@ -86,7 +96,7 @@ Set `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the process environmen
 
 The optional GET relay `/api/donki/<endpoint>` allows only FLR, SEP, CME, IPS, WSAEnlilSimulations and notifications, forwards queries to CCMC, and caches successful JSON for one hour at the edge. It tries the requested legacy route, then NASA's documented `ccmc.gsfc.nasa.gov/DONKI-API/get/` replacement if the old route fails; `X-DONKI-Source` identifies the successful source. Errors are JSON and are not cached. CORS permits public reads. Live requests use the network; the service worker excludes `/api/*` from both navigation fallback and permanent caching. Archived NASA mission inputs stay local and unchanged.
 
-After the first service-worker cache completes, the title, scramble in both renderers, Shelter Days journal, gallery, all original art, local fonts, synthesis and archived NASA JSON work offline. The PWA manifest has original regular/maskable icons; physical-phone installation and full ending/reveal acceptance remain later checks.
+After the first service-worker cache completes, the full title-to-Reveal flow, menus, both scramble renderers, journal, gallery, art, fonts, synthesis and archived NASA JSON work offline. The PWA manifest has original regular/maskable icons. Automated mobile checks use desktop Chromium emulation; physical-phone installation, Android/Safari and speaker acceptance remain unverified.
 
 ## Project notes
 
@@ -97,4 +107,4 @@ After the first service-worker cache completes, the title, scramble in both rend
 - [Art and sound direction](docs/ART_DIRECTION.md)
 - [Credits](CREDITS.md)
 
-Original root Markdown files remain for existing IDE tabs; use the `docs/` copies for future specification edits. Prompts 1-4 were built with OpenAI Codex assistance. No agency insignia or commercial-game assets are used.
+Original root Markdown files remain for existing IDE tabs; use the `docs/` copies for future specification edits. Prompts 1?7 were built with OpenAI Codex assistance. No agency insignia or commercial-game assets are used.

@@ -1,6 +1,7 @@
 import { PALETTE, CREW_STYLE } from '../../art/palette.js';
 import { CREW } from '../../core/config.js';
 import { createAudio, SOUND_CUES, THEMES } from '../../audio/index.js';
+import { localize, phrase, t } from '../../i18n/index.js';
 import { mountModels } from './models.js';
 import './style.css';
 
@@ -18,7 +19,7 @@ export async function mountGallery() {
   const response = await fetch(assetURL('assets/manifest.json'));
   if (!response.ok) throw new Error('The asset list could not load.');
   const assets = await response.json();
-  document.title = 'Art & sound journal · SHELTER CALL';
+  document.title = t('Art & sound journal · SHELTER CALL');
   document.querySelector('#app').innerHTML = `
     <main id="top" class="gallery">
       <header class="gallery-header"><a class="back-link" href="${base}">← Back to mission setup</a><p class="eyebrow">SHELTER CALL / FIELD NOTES 04</p><h1>Small crew.<br>Big Moon.</h1><p class="gallery-intro">A warm little home on a cold world.<br>Meet the crew, turn the pages, and try the sounds.</p><img class="hero-plant" src="${assetURL('assets/plant/proud.svg')}" alt="Kamote, our proud sweet-potato plant" width="160" height="160"><p class="kit-summary">${assets.counts.models} models · ${assets.counts.icons} icons · ${(assets.totalBytes / 1_000_000).toFixed(2)} MB of art & fonts</p></header>
@@ -63,7 +64,8 @@ export async function mountGallery() {
   const audio = createAudio({
     onCaption: (caption) => {
       const label = document.querySelector('#sound-caption');
-      if (label.textContent !== caption) label.textContent = caption;
+      if (label.textContent !== phrase(caption))
+        label.textContent = phrase(caption);
     },
   });
   const themeButtons = [...document.querySelectorAll('[data-theme]')];
@@ -115,22 +117,25 @@ export async function mountGallery() {
   document.querySelector('#mute').addEventListener('change', (event) => {
     audio.setSettings({ mute: event.target.checked });
     document.querySelector('#sound-caption').textContent = event.target.checked
-      ? 'All sound muted. Captions stay on.'
-      : 'Sound unmuted.';
+      ? t('All sound muted. Captions stay on.')
+      : t('Sound unmuted.');
   });
   function stop() {
     audio.stopAll();
     markThemes();
     tickButton.setAttribute('aria-pressed', 'false');
-    document.querySelector('#sound-caption').textContent =
-      'All sounds stopped.';
+    document.querySelector('#sound-caption').textContent = t(
+      'All sounds stopped.',
+    );
   }
   document.querySelector('#stop-audio').addEventListener('click', stop);
   document.querySelector('#demo-timer').addEventListener('input', (event) => {
     audio.setTimer(Number(event.target.value));
     tickButton.disabled = Number(event.target.value) === 0;
-    document.querySelector('#timer-value').textContent =
-      `${event.target.value} seconds`;
+    document.querySelector('#timer-value').textContent = t(
+      '{seconds} seconds',
+      { seconds: event.target.value },
+    );
     if (Number(event.target.value) === 0) {
       audio.stopAll();
       markThemes();
@@ -154,11 +159,21 @@ export async function mountGallery() {
       showError(error);
     }
   });
-  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const deviceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const motion = {
+    get matches() {
+      return (
+        document.documentElement.dataset.motion === 'reduced' ||
+        deviceMotion.matches
+      );
+    },
+    addEventListener: (...args) => deviceMotion.addEventListener(...args),
+    removeEventListener: (...args) => deviceMotion.removeEventListener(...args),
+  };
   const rotate = document.querySelector('#rotation');
   let paused = motion.matches;
   function labelRotation() {
-    rotate.textContent = paused ? 'Resume rotation' : 'Pause rotation';
+    rotate.textContent = t(paused ? 'Resume rotation' : 'Pause rotation');
     rotate.setAttribute('aria-pressed', String(paused));
   }
   labelRotation();
@@ -183,6 +198,7 @@ export async function mountGallery() {
   document.addEventListener('visibilitychange', onVisibility);
   // Available to devtools and focused browser checks; no core state is exposed.
   window.galleryAudio = audio;
+  localize(document.querySelector('.gallery'));
   document.querySelector('.gallery').dataset.ready = 'true';
   window.addEventListener('pagehide', (event) => {
     if (event.persisted) {

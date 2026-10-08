@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { PALETTE } from '../../art/palette.js';
+import { phrase } from '../../i18n/index.js';
 
 /** One scissored renderer avoids a WebGL context for each preview card. */
 export async function mountModels(cards, { reducedMotion, status }) {
@@ -96,7 +97,9 @@ export async function mountModels(cards, { reducedMotion, status }) {
       card.dataset.modelState = 'loaded';
     }),
   );
-  status.textContent = `${previews.length} original models loaded. ${reducedMotion.matches ? 'Rotation is paused for reduced motion.' : 'Visible models rotate slowly.'}`;
+  status.textContent = phrase(
+    `${previews.length} original models loaded. ${reducedMotion.matches ? 'Rotation is paused for reduced motion.' : 'Visible models rotate slowly.'}`,
+  );
   let paused = reducedMotion.matches,
     frame = 0,
     disposed = false,

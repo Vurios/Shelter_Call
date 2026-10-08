@@ -5,6 +5,7 @@ import {
 } from '../../core/api.js';
 import { SCRAMBLE_CONFIG as C, ITEM_TYPES } from '../../core/config.js';
 import { createAudio } from '../../audio/index.js';
+import { localize, phrase, t } from '../../i18n/index.js';
 import { create2DRenderer } from './render2d.js';
 import {
   createScramble,
@@ -18,7 +19,16 @@ import {
 import './style.css';
 
 /** Scramble owns input/render/audio lifetime. Core owns the resulting mission. */
-export function mountScramble({ onExit, seed: initialSeed } = {}) {
+export function mountScramble({
+  onExit,
+  seed: initialSeed,
+  run: mission,
+  onSave,
+  onComplete,
+  autoStart = false,
+  practice = false,
+  settings = {},
+} = {}) {
   const app = document.querySelector('#app');
   const params = new URLSearchParams(location.search);
   const seed =
@@ -49,11 +59,33 @@ export function mountScramble({ onExit, seed: initialSeed } = {}) {
   const pauseOverlay = root.querySelector('.pause-overlay');
   const form = root.querySelector('form');
   form.elements.seed.value = seed;
+  if (mission) {
+    form.elements.seed.value = mission.seed;
+    form.elements.seed.disabled = true;
+    form.elements.difficulty.value = mission.difficulty;
+    form.elements.difficulty.disabled = true;
+  }
+  form.elements.flat.checked = settings.flat === true;
   const lifecycle = new AbortController();
   const listen = (element, event, callback) =>
     element.addEventListener(event, callback, { signal: lifecycle.signal });
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const audio = createAudio();
+  const deviceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const reducedMotion = {
+    get matches() {
+      return settings.motion === 'reduced' || deviceMotion.matches;
+    },
+  };
+  const audio = createAudio({ onCaption: (text) => say(text) });
+  audio.setSettings({
+    master: settings.volume ?? 0.55,
+    mute: settings.sound === false,
+  });
+  root
+    .querySelector('#mute')
+    .setAttribute('aria-pressed', String(settings.sound === false));
+  root.querySelector('#mute').textContent = t(
+    settings.sound === false ? 'Sound off' : 'Sound on',
+  );
   let run,
     state,
     renderer,
@@ -72,7 +104,8 @@ export function mountScramble({ onExit, seed: initialSeed } = {}) {
   const keys = new Set();
   let hudKey = '';
   const say = (text) => {
-    if (text) caption.textContent = text;
+    if (text) caption.textContent = phrase(text);
+    localize(root);
   };
   const sound = (id) => audio.play(id);
   function controllerInput() {
@@ -187,6 +220,27 @@ export function mountScramble({ onExit, seed: initialSeed } = {}) {
           `<button type="button" data-crew="${c.id}" ${c.status !== 'outside' ? 'disabled' : ''} aria-label="Find ${c.name}"><img src="/assets/portraits/${c.id}-calm.svg" alt=""><span>${c.name}<small>${c.status === 'saved' ? 'Inside' : c.status === 'following' ? 'Following' : 'Find me'}</small></span></button>`,
       )
       .join('');
+    if (practice) {
+      const saved = state.savedCrew.length > 0;
+      const following = state.crew.some((crew) => crew.status === 'following');
+      root
+        .querySelectorAll('[data-coach]')
+        .forEach((button) => button.removeAttribute('data-coach'));
+      const target = saved
+        ? root.querySelector('#find-supply')
+        : following
+          ? root.querySelector('#home')
+          : root.querySelector('.crew-finders button:not(:disabled)');
+      target?.setAttribute('data-coach', 'true');
+      root.querySelector('.practice-coach p').textContent = t(
+        saved
+          ? '↓ Find a supply, then return to the hatch to stash it.'
+          : following
+            ? '↓ Your friend follows you. Hop to the hatch to save them.'
+            : '↓ Tap Find crew or use arrows. Bump a friend so they follow.',
+      );
+    }
+    localize(root);
   }
   function handleEvents() {
     const events = state.events.splice(0);
@@ -314,16 +368,42 @@ export function mountScramble({ onExit, seed: initialSeed } = {}) {
     const audioReady = audio
       .unlock()
       .catch(() => say('Sound is unavailable. Captions still work.'));
-    run = createRun({
-      seed: form.elements.seed.value.trim() || seed,
-      difficulty: form.elements.difficulty.value,
-    });
-    state = createScramble(getScrambleSetup(run));
+    run =
+      mission ??
+      createRun({
+        seed: form.elements.seed.value.trim() || seed,
+        difficulty: form.elements.difficulty.value,
+      });
+    const setup = getScrambleSetup(run);
+    if (practice) {
+      setup.seconds = 25;
+      setup.source = 'GAME';
+      setup.realMinutes = null;
+      setup.clampNote = null;
+    }
+    state = createScramble(setup);
     root.querySelector('#source-timer').textContent =
       `REAL: ${state.setup.realMinutes} min → YOU: ${state.setup.seconds} s`;
+    if (practice)
+      root.querySelector('#source-timer').textContent = t(
+        'GAME practice · 25 seconds · no mission progress changes',
+      );
     const note = root.querySelector('#clamp-note');
     note.hidden = !state.setup.clampNote;
     note.textContent = state.setup.clampNote || '';
+    if (practice) {
+      root.querySelector('.scramble-header h1').textContent = t(
+        'A little practice hop.',
+      );
+      const coach = document.createElement('aside');
+      coach.className = 'practice-coach';
+      coach.innerHTML = `<p role="status"></p><button type="button" id="skip-practice">${t('Skip practice')}</button>`;
+      root.querySelector('.scramble-header').after(coach);
+      listen(coach.querySelector('button'), 'click', () => {
+        dispose();
+        onComplete?.();
+      });
+    }
     const flat = form.elements.flat.checked;
     overlay.innerHTML =
       '<p role="status">Opening your outpost… The clock is waiting.</p>';
@@ -454,7 +534,13 @@ export function mountScramble({ onExit, seed: initialSeed } = {}) {
     renderer?.dispose();
     renderer = null;
     audio.stopAll();
+    if (practice) {
+      dispose();
+      onComplete?.();
+      return;
+    }
     applyScrambleResult(run, state.result);
+    onSave?.(run);
     const counts = {};
     run.pantry.forEach(
       (item) => (counts[item.type] = (counts[item.type] || 0) + 1),
@@ -475,7 +561,19 @@ export function mountScramble({ onExit, seed: initialSeed } = {}) {
     root.dataset.timeLeft = state.result.timeLeft.toFixed(2);
     root.querySelector('h1').tabIndex = -1;
     root.querySelector('h1').focus();
+    if (run.rules.reserve) {
+      const reserve = document.createElement('p');
+      reserve.textContent = t(
+        'Cadet GAME reserve: 4 food and 4 water are already in the shelter. These are not scramble pickups.',
+      );
+      root.querySelector('.result-next').before(reserve);
+    }
     listen(root.querySelector('#continue-shelter'), 'click', async () => {
+      if (onComplete) {
+        dispose();
+        onComplete(run);
+        return;
+      }
       root.querySelector('#continue-shelter').disabled = true;
       try {
         const { mountShelter } = await import('../../ui/shelter/index.js');
@@ -496,12 +594,14 @@ export function mountScramble({ onExit, seed: initialSeed } = {}) {
     });
     listen(root.querySelector('#again'), 'click', () => {
       dispose();
-      mountScramble({ onExit });
+      if (onComplete) onExit?.();
+      else mountScramble({ onExit });
     });
     listen(root.querySelector('#back-title'), 'click', () => {
       dispose();
       onExit?.();
     });
+    localize(root);
   }
   function dispose() {
     if (disposed) return;
@@ -513,5 +613,7 @@ export function mountScramble({ onExit, seed: initialSeed } = {}) {
     renderer = null;
     void audio.dispose();
   }
+  localize(root);
+  if (autoStart) form.requestSubmit();
   return dispose;
 }

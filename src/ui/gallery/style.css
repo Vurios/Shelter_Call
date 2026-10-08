@@ -16,7 +16,7 @@
   align-items: center;
   min-height: 44px;
   color: var(--paper);
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 .gallery-header .eyebrow {
   color: var(--amber);
@@ -27,11 +27,11 @@
   letter-spacing: -0.025em;
   font-weight: 400;
   line-height: 1;
-  font-size: clamp(60px, 7vw, 92px);
+  font-size: clamp(3.75rem, 7vw, 5.75rem);
   margin: 14px 0 20px;
 }
 .gallery-intro {
-  font-size: 19px;
+  font-size: 1.1875rem;
   line-height: 1.6;
 }
 .hero-plant {
@@ -44,7 +44,7 @@
 }
 .kit-summary {
   color: var(--amber);
-  font-size: 14px;
+  font-size: 0.875rem;
   margin: 28px 0 0;
 }
 .gallery-nav {
@@ -71,25 +71,25 @@
   background-size: 32px 32px;
 }
 .folio {
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.12em;
   font-weight: 700;
   margin: 0 0 12px;
 }
 .gallery h2 {
   font-family: 'Patrick Hand', cursive;
-  font-size: clamp(30px, 4vw, 43px);
+  font-size: clamp(1.875rem, 4vw, 2.6875rem);
   line-height: 1.15;
   font-weight: 400;
   margin: 0 0 16px;
 }
 .gallery h3 {
-  font-size: 20px;
+  font-size: 1.25rem;
   margin: 28px 0 16px;
 }
 .section-note {
   max-width: 660px;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
 }
 .section-title {
@@ -137,18 +137,18 @@
   background: radial-gradient(ellipse at 50% 65%, #e4dfcf, #fff9ea 70%);
   display: grid;
   place-items: center;
-  font-size: 13px;
+  font-size: 0.8125rem;
   text-align: center;
   padding: 8px;
 }
 .model-card h4 {
   margin: 6px 14px;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 700;
 }
 .model-card p {
   margin: 6px 14px 16px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.4;
 }
 .model-card h4:last-child {
@@ -175,7 +175,7 @@
 }
 .crew-row h3 span {
   display: inline-block;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 400;
   margin-left: 12px;
 }
@@ -196,7 +196,7 @@
 .art-card figcaption {
   margin-top: 12px;
   line-height: 1.4;
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 .plant-grid {
   display: grid;
@@ -223,7 +223,7 @@
 }
 .icon-card figcaption {
   margin-top: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.4;
 }
 .ending-grid {
@@ -271,7 +271,7 @@
   text-transform: capitalize;
 }
 .swatch code {
-  font-size: 13px;
+  font-size: 0.8125rem;
 }
 .type-samples {
   display: grid;
@@ -288,10 +288,10 @@
 }
 .handwriting {
   font-family: 'Patrick Hand', cursive;
-  font-size: 25px;
+  font-size: 1.5625rem;
 }
 .handwriting h3 {
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: 400;
 }
 .texture-grid {
@@ -324,7 +324,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-size: 15px;
+  font-size: 0.9375rem;
   flex: 1 1 150px;
 }
 .audio-settings .mute-label {
@@ -396,14 +396,14 @@
     padding: 16px 20px 26px;
   }
   .gallery-header .eyebrow {
-    font-size: 10px;
+    font-size: 0.625rem;
     margin-top: 20px;
   }
   .gallery h1 {
-    font-size: 64px;
+    font-size: 4rem;
   }
   .gallery-intro {
-    font-size: 17px;
+    font-size: 1.0625rem;
     max-width: 260px;
   }
   .hero-plant {
@@ -413,7 +413,7 @@
     right: 9px;
   }
   .kit-summary {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
   .gallery-nav {
     gap: 0 12px;
@@ -434,11 +434,11 @@
     height: 160px;
   }
   .model-card h4 {
-    font-size: 16px;
+    font-size: 1rem;
     margin: 4px 10px;
   }
   .model-card p {
-    font-size: 12px;
+    font-size: 0.75rem;
     margin: 6px 10px 12px;
   }
   .portrait-grid,
@@ -454,7 +454,7 @@
     padding: 10px;
   }
   .art-card figcaption {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
   .icon-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -464,7 +464,7 @@
     padding: 14px 5px;
   }
   .icon-card figcaption {
-    font-size: 13px;
+    font-size: 0.8125rem;
   }
   .ending-grid {
     grid-template-columns: 1fr;
@@ -480,7 +480,7 @@
     margin-top: 0;
   }
   .almanac-sample p {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
   .palette-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -497,7 +497,7 @@
     gap: 10px;
   }
   .sound-grid button {
-    font-size: 14px;
+    font-size: 0.875rem;
     padding: 12px 8px;
   }
   .audio-settings,

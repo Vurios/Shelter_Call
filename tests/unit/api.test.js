@@ -48,6 +48,30 @@ function finish(s) {
   return s;
 }
 describe('real engine contract', () => {
+  it('keeps Commander supplies while Cadet adds a labeled reserve and Flight Director tightens pickups', () => {
+    const runs = ['Cadet', 'Commander', 'Flight Director'].map((difficulty) =>
+      createRun({ seed: 'difficulty-supplies', difficulty, mode: 'judge' }),
+    );
+    expect(
+      runs.map(
+        (run) => run.items.filter((item) => item.type === 'food').length,
+      ),
+    ).toEqual([70, 56, 42]);
+    expect(runs.map((run) => getScrambleSetup(run).seconds)).toEqual([
+      90, 60, 60,
+    ]);
+    for (const run of runs) {
+      applyScrambleResult(run, {
+        itemsSaved: [],
+        crewSaved: [],
+        crewExposed: run.crew.map((c) => c.id),
+        timeLeft: 0,
+      });
+      expect(getShiftView(run).food).toBe(run.difficulty === 'Cadet' ? 4 : 0);
+      expect(getShiftView(run).water).toBe(run.difficulty === 'Cadet' ? 4 : 0);
+      expect(run.scrambleResult.itemsSaved).toEqual([]);
+    }
+  });
   it('retains eight exports, detached setups, true May 11 timing, and archived mock isolation', () => {
     expect(Object.keys(api)).toHaveLength(8);
     const s = createRun({ seed: 'moon', mode: 'judge' });

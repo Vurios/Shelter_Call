@@ -55,14 +55,32 @@ export const STARTING_CONFIG = {
   science: 2,
 };
 export const DIFFICULTIES = {
-  Cadet: { days: 10, tolerance: 1.5, goal: 12, grace: 3, timer: 1.5 },
-  Commander: { days: 12, tolerance: 1, goal: 18, grace: 2, timer: 1 },
+  Cadet: {
+    days: 10,
+    tolerance: 1.5,
+    goal: 12,
+    grace: 3,
+    timer: 1.5,
+    supplies: 1.25,
+    reserve: 4,
+  },
+  Commander: {
+    days: 12,
+    tolerance: 1,
+    goal: 18,
+    grace: 2,
+    timer: 1,
+    supplies: 1,
+    reserve: 0,
+  },
   'Flight Director': {
     days: 14,
     tolerance: 0.85,
     goal: 24,
     grace: 2,
     timer: 1,
+    supplies: 0.75,
+    reserve: 0,
   },
 };
 export const CREW = [

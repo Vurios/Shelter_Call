@@ -1,4 +1,4 @@
-import { create } from './state.js';
+import { create, addItem } from './state.js';
 import { createRng } from './rng.js';
 import { TASKS } from './config.js';
 import { HOUR, windowData, timeline, stats } from './data.js';
@@ -87,6 +87,9 @@ export function applyScrambleResult(state, result) {
   state.pantry = copy(
     state.items.filter((i) => result.itemsSaved.includes(i.id)),
   );
+  // GAME accessibility reserve, separate from physically rescued pickups.
+  addItem(state, 'food', state.rules.reserve);
+  addItem(state, 'water', state.rules.reserve);
   state.phase = 'shelter';
   state.flags.radioEver = has(state, 'radio');
   const tier = windowData(state.windowId).sep.tier;
@@ -492,6 +495,8 @@ export function buildReveal(state) {
       'GAME scramble seconds and clamp; source countdown stays in real minutes.',
       'NASA near-Earth measurements proxy Moon timing; not a Moon dosimetry model.',
       'GAME flare interrupts and dosimeter alarms, partial first shift, and UTC-midnight upkeep.',
+      'GAME difficulty supplies: Cadet has 25% more food/water pickups and a four-pack food/water shelter reserve; Flight Director has 25% fewer pickups. Commander supplies are unchanged.',
+      'GAME original outpost layout, moon-hop controls, 25-second practice, synthesized alarms and music; these are not space measurements or mission procedures.',
     ],
   });
 }

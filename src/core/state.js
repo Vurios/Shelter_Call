@@ -104,8 +104,16 @@ export function create(options) {
     forecastResults: [],
     boltTask: 'shelter',
   });
-  addItem(state, 'water', state.config.initialWater);
-  addItem(state, 'food', state.config.initialFood);
+  addItem(
+    state,
+    'water',
+    Math.round(state.config.initialWater * state.rules.supplies),
+  );
+  addItem(
+    state,
+    'food',
+    Math.round(state.config.initialFood * state.rules.supplies),
+  );
   Object.keys(ITEM_TYPES)
     .filter((t) => !['water', 'food'].includes(t))
     .forEach((type) => addItem(state, type));

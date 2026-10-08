@@ -11,7 +11,7 @@
   margin: 0;
   padding: 8px 12px;
   min-height: 44px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   border-radius: 7px;
 }
 .scramble-screen button:disabled {
@@ -34,22 +34,22 @@
 }
 .scramble-header .eyebrow {
   margin: 0;
-  font-size: 10px;
+  font-size: 0.625rem;
 }
 .scramble-header h1 {
   font-family: 'Patrick Hand', cursive;
-  font-size: 28px;
+  font-size: 1.75rem;
   margin: 3px 0;
   letter-spacing: 0;
   line-height: 1;
 }
 .scramble-header p {
   margin: 5px 0 0;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--paper);
 }
 #clamp-note {
-  font-size: 11px;
+  font-size: 0.6875rem;
   color: var(--regolith);
   max-width: 700px;
 }
@@ -66,11 +66,11 @@
 }
 .countdown output {
   font-weight: 700;
-  font-size: 32px;
+  font-size: 2rem;
   font-variant-numeric: tabular-nums;
 }
 .countdown span {
-  font-size: 9px;
+  font-size: 0.5625rem;
   letter-spacing: 0.1em;
 }
 .scramble-workspace {
@@ -110,7 +110,7 @@
   top: 0;
   left: 0;
   white-space: nowrap;
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 700;
   line-height: 1.15;
   padding: 3px 5px;
@@ -134,7 +134,7 @@
 }
 .map-tools button {
   width: 44px;
-  font-size: 22px;
+  font-size: 1.375rem;
   background: #101d2ade;
   color: var(--paper);
   border: 1px solid #8297a4;
@@ -148,7 +148,7 @@
   padding: 5px 9px;
   width: max-content;
   max-width: calc(100% - 24px);
-  font-size: 11px;
+  font-size: 0.6875rem;
   background: #101d2ae6;
   border-radius: 4px;
   pointer-events: none;
@@ -185,17 +185,17 @@
 }
 .scramble-briefing h2 {
   font-family: 'Patrick Hand', cursive;
-  font-size: 26px;
+  font-size: 1.625rem;
   margin: 0 0 8px;
 }
 .scramble-briefing p {
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.4;
   margin: 8px 0;
 }
 .scramble-briefing label {
   display: block;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
 }
 .scramble-briefing input:not([type='checkbox']),
@@ -247,15 +247,15 @@
   gap: 6px;
 }
 .scramble-board h2 {
-  font-size: 14px;
+  font-size: 0.875rem;
   margin: 0;
 }
 .carry-heading span,
 .crew-heading > span {
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 .carry-heading h2 span {
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 .carry-slots {
   display: grid;
@@ -272,7 +272,7 @@
   justify-content: center;
   border: 1px dashed #526879;
   border-radius: 5px;
-  font-size: 10px;
+  font-size: 0.625rem;
   line-height: 1.1;
   padding: 3px;
   text-transform: capitalize;
@@ -312,7 +312,7 @@
 .crew-finders small {
   display: block;
   font-weight: 400;
-  font-size: 10px;
+  font-size: 0.625rem;
 }
 .crew-finders button:disabled {
   opacity: 1;
@@ -330,17 +330,17 @@
   background: var(--white);
   color: var(--ink);
   font: inherit;
-  font-size: 12px;
+  font-size: 0.75rem;
   border: 1px solid #526879;
   border-radius: 6px;
   padding: 5px;
 }
 .supply-finder button {
   flex-shrink: 0;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 .board-help {
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 1.4;
   margin: 0;
   color: #435464;
@@ -351,7 +351,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  font-size: 12px;
+  font-size: 0.75rem;
   padding: 7px 14px;
   border-top: 1px solid #425563;
   background: #172c3b;
@@ -383,11 +383,11 @@
 }
 .pause-overlay h2 {
   font-family: 'Patrick Hand', cursive;
-  font-size: 36px;
+  font-size: 2.25rem;
   margin: 0;
 }
 .pause-overlay p {
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 .slow-offer {
   position: absolute;
@@ -402,7 +402,7 @@
   box-shadow: 0 4px 12px #101d2a99;
 }
 .slow-offer p {
-  font-size: 13px;
+  font-size: 0.8125rem;
   margin: 0 0 10px;
   line-height: 1.4;
 }
@@ -468,7 +468,7 @@
   color: var(--ink);
   border-radius: 20px;
   padding: 8px 14px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
   pointer-events: none;
   animation: stash 0.9s ease-out forwards;
@@ -494,7 +494,7 @@
 .scramble-result h1 {
   font-family: 'Patrick Hand', cursive;
   max-width: none;
-  font-size: clamp(36px, 6vw, 60px);
+  font-size: clamp(2.25rem, 6vw, 3.75rem);
   letter-spacing: 0;
   line-height: 1.1;
 }
@@ -504,7 +504,7 @@
 .scramble-result p {
   max-width: 640px;
   margin: 16px auto;
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 1.5;
 }
 .result-crew {
@@ -517,7 +517,7 @@
   display: flex;
   flex-direction: column;
   width: 100px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   gap: 5px;
 }
 .result-crew img {
@@ -542,7 +542,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   background: var(--white);
   padding: 8px;
   border-radius: 8px;
@@ -574,17 +574,17 @@
     gap: 8px;
   }
   .scramble-header h1 {
-    font-size: 23px;
+    font-size: 1.4375rem;
   }
   .scramble-header p {
-    font-size: 11px;
+    font-size: 0.6875rem;
     margin-top: 3px;
   }
   .scramble-header .eyebrow {
-    font-size: 9px;
+    font-size: 0.5625rem;
   }
   #clamp-note {
-    font-size: 10px;
+    font-size: 0.625rem;
     line-height: 1.15;
   }
   .countdown {
@@ -592,7 +592,7 @@
     padding: 2px 7px;
   }
   .countdown output {
-    font-size: 29px;
+    font-size: 1.8125rem;
   }
   .scramble-workspace {
     display: flex;
@@ -617,7 +617,7 @@
   }
   .scramble-board h2,
   .carry-heading h2 span {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
   .carry-slots button,
   .empty-slot {
@@ -637,7 +637,7 @@
     gap: 4px;
   }
   .crew-finders button {
-    font-size: 11px;
+    font-size: 0.6875rem;
     gap: 2px;
     padding: 2px;
   }
@@ -646,7 +646,7 @@
     height: 29px;
   }
   .crew-finders small {
-    font-size: 9px;
+    font-size: 0.5625rem;
   }
   .supply-finder select,
   .supply-finder button {
@@ -658,7 +658,7 @@
   .scramble-caption {
     height: 28px;
     min-height: 28px;
-    font-size: 11px;
+    font-size: 0.6875rem;
     padding: 6px 10px;
   }
   .scramble-toolbar {
@@ -668,13 +668,13 @@
     gap: 4px;
   }
   .scramble-toolbar button {
-    font-size: 10px;
+    font-size: 0.625rem;
     padding: 3px;
     line-height: 1.2;
     min-height: 44px;
   }
   .map-hint {
-    font-size: 10px;
+    font-size: 0.625rem;
     bottom: 3px;
     left: 5px;
     padding: 3px 6px;
@@ -687,20 +687,20 @@
     width: 36px;
     padding: 3px;
     min-width: 44px;
-    font-size: 18px;
+    font-size: 1.125rem;
   }
   .map-label {
-    font-size: 10px;
+    font-size: 0.625rem;
     padding: 2px 3px;
   }
   .scramble-briefing {
     padding: 14px 16px;
   }
   .scramble-briefing h2 {
-    font-size: 23px;
+    font-size: 1.4375rem;
   }
   .scramble-briefing p {
-    font-size: 12px;
+    font-size: 0.75rem;
     line-height: 1.3;
   }
   .scramble-briefing img {
@@ -726,7 +726,7 @@
     height: 76px;
   }
   .scramble-result p {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
   .slow-offer {
     top: 5px;
@@ -746,4 +746,28 @@
   .stash-flight {
     display: none;
   }
+}
+.practice-coach {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #edb96f;
+  color: #101d2a;
+  border: 2px dashed #101d2a;
+}
+.practice-coach p {
+  flex: 1;
+  min-width: 180px;
+  margin: 0;
+}
+.practice-coach button {
+  margin: 0;
+  background: #101d2a;
+  color: #fff2d5;
+}
+.scramble-screen [data-coach] {
+  outline: 4px dashed #edb96f;
+  outline-offset: 3px;
 }

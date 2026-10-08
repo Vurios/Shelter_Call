@@ -50,6 +50,41 @@ function observe(page) {
   });
   return errors;
 }
+test('reload preserves an unanswered REAL warning and continues the same partial shift', async ({
+  page,
+}) => {
+  const errors = observe(page);
+  await fixture(page, 'persist');
+  await completeShift(page);
+  await page.locator('[data-action="end"]').click();
+  await expect(page.locator('.rush-back')).toBeVisible();
+  const saved = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem('shelter-call.mission.v1')),
+  );
+  await page.goto('./');
+  await expect(page.locator('.rush-back')).toBeVisible();
+  await page.reload();
+  await expect(page.locator('.rush-back')).toBeVisible();
+  const restored = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem('shelter-call.mission.v1')),
+  );
+  expect(restored.run.now).toBe(saved.run.now);
+  expect(restored.run.cursor).toBe(saved.run.cursor);
+  expect(restored.run.shift).toEqual(saved.run.shift);
+  expect(restored.run.interrupt).toEqual(saved.run.interrupt);
+  await page.locator('[data-action="recall"]').click();
+  for (
+    let n = 0;
+    n < 100 && (await page.locator('.rush-back').isVisible());
+    n++
+  )
+    await page.locator('[data-action="recall"]').click();
+  await expect(page.locator('.shelter-screen')).toHaveAttribute(
+    'data-shift-index',
+    '2',
+  );
+  expect(errors).toEqual([]);
+});
 async function completeShift(page) {
   const root = page.locator('.shelter-screen');
   const index = await root.getAttribute('data-shift-index');

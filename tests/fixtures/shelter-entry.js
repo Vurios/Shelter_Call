@@ -7,13 +7,14 @@ import {
   act,
 } from '../../src/core/api.js';
 import { mountShelter } from '../../src/ui/shelter/index.js';
+import { createStorage } from '../../src/app/storage.js';
 import '../../src/ui/styles/main.css';
 const scenario = new URLSearchParams(location.search).get('case');
 const run = createRun({
   seed: 'journal-acceptance',
   mode: 'judge',
   difficulty: scenario === 'director' ? 'Flight Director' : 'Cadet',
-  ...(scenario === 'interrupt'
+  ...(['interrupt', 'persist'].includes(scenario)
     ? { windowId: '2011-09-24T20:45:00-WINDOW-001' }
     : {}),
   ...(scenario === 'comms' ? { crewIds: ['mara', 'iggy', 'sol', 'pip'] } : {}),
@@ -32,8 +33,21 @@ if (scenario === 'director')
     .forEach((item) => {
       act(run, { type: 'moveItem', itemId: item.id, to: 'wall' });
     });
+if (scenario === 'persist')
+  act(run, { type: 'assignCrew', crewId: 'ria', task: 'science' });
+const storage = createStorage();
 mountShelter({
   run,
+  ...(scenario === 'persist'
+    ? {
+        onSave: (journal) =>
+          storage.saveMission(
+            run,
+            run.phase === 'ending' ? 'ending' : 'shelter',
+            journal,
+          ),
+      }
+    : {}),
   onExit: () => {
     document.querySelector('#app').innerHTML = '<h1>Fixture title</h1>';
   },

@@ -1,10 +1,19 @@
 import { getShiftView, act, resolveShift } from '../../core/api.js';
 import { createAudio } from '../../audio/index.js';
+import { localize, phrase, t } from '../../i18n/index.js';
 import { renderJournal, TASK_LABELS } from './view.js';
 import './style.css';
 
 /** The journal owns presentation, never hidden engine fields or survival rules. */
-export function mountShelter({ run, onExit, onReplay } = {}) {
+export function mountShelter({
+  run,
+  onExit,
+  onReplay,
+  onComplete,
+  onSave,
+  journal = {},
+  settings = {},
+} = {}) {
   const app = document.querySelector('#app');
   app.innerHTML =
     '<main class="shelter-screen"><div class="journal-page"></div><p class="journal-announcement" role="status" aria-live="polite"></p><p class="journal-sound-caption" aria-live="off"></p></main>';
@@ -14,24 +23,42 @@ export function mountShelter({ run, onExit, onReplay } = {}) {
   const lifecycle = new AbortController();
   const audio = createAudio({
     onCaption: (text) => {
-      if (sound)
-        root.querySelector('.journal-sound-caption').textContent = text;
+      root.querySelector('.journal-sound-caption').textContent = phrase(text);
     },
   });
   let view = getShiftView(run),
-    sound = false,
+    sound = settings.sound === true,
     disposed = false,
     turnTimer;
   const selection = { crew: null, item: null, recipient: view.crew[0].id };
-  const slots = Array(8).fill(null);
-  let logs = [];
+  audio.setSettings({ master: settings.volume ?? 0.55, mute: !sound });
+  const slots =
+    Array.isArray(journal.slots) && journal.slots.length === 8
+      ? journal.slots.map((id) => (typeof id === 'string' ? id : null))
+      : Array(8).fill(null);
+  let logs = Array.isArray(journal.logs)
+    ? journal.logs.filter(
+        (row) =>
+          row &&
+          typeof row.text === 'string' &&
+          ['REAL', 'GAME'].includes(row.source),
+      )
+    : [];
+  let coachStep = Number.isInteger(journal.coachStep) ? journal.coachStep : 0;
+  const coachLines = [
+    '① Tap a crew card, then a task. Outside work brings supplies; shelter cuts GAME dose.',
+    '② Tap a supply on the shelf, then Put in wall. If you have none, ice drill or salvage can bring some.',
+    '③ Read the radio forecast before you finish a shift. No radio? Watch symptoms and your dosimeter, if saved.',
+  ];
   function announce(text) {
-    announcement.textContent = text;
+    announcement.textContent = phrase(text);
   }
   function syncSlots() {
     const ids = new Set(view.wall.map((i) => i.id));
+    const occupied = new Set();
     slots.forEach((id, index) => {
-      if (!ids.has(id)) slots[index] = null;
+      if (!ids.has(id) || occupied.has(id)) slots[index] = null;
+      else occupied.add(id);
     });
     view.wall.forEach((item) => {
       if (!slots.includes(item.id)) slots[slots.indexOf(null)] = item.id;
@@ -41,11 +68,30 @@ export function mountShelter({ run, onExit, onReplay } = {}) {
   }
   function render({ flip = false } = {}) {
     if (disposed) return;
+    if (view.phase === 'ending' && onComplete) {
+      onSave?.({ slots, logs, coachStep });
+      dispose();
+      onComplete(run);
+      return;
+    }
     const focusKey = document.activeElement?.dataset.key;
     const oldDialog = page.querySelector('dialog[open]');
     const dialogScroll = oldDialog?.scrollTop ?? 0;
     syncSlots();
     page.innerHTML = renderJournal(view, selection, slots, logs, sound);
+    if (
+      settings.tutorial &&
+      view.day === 1 &&
+      coachStep < coachLines.length &&
+      !view.pendingEvent &&
+      !view.interrupt
+    ) {
+      const coach = document.createElement('aside');
+      coach.className = 'day-coach';
+      coach.innerHTML = `<p>${t(coachLines[coachStep])}</p><button type="button" data-action="coach-next" data-key="coach-next">${t(coachStep === 2 ? 'Got it' : 'Next tip')}</button><button type="button" data-action="coach-skip" data-key="coach-skip">${t('Skip coaching')}</button>`;
+      page.querySelector('.journal-header').after(coach);
+    }
+    localize(page);
     root.dataset.phase = view.phase;
     root.dataset.day = view.day;
     root.dataset.shift = view.shift;
@@ -91,6 +137,7 @@ export function mountShelter({ run, onExit, onReplay } = {}) {
       turnTimer = setTimeout(() => page.classList.remove('page-turn'), 650);
     }
     audio.setShield(view.shield);
+    onSave?.({ slots: [...slots], logs: structuredClone(logs), coachStep });
   }
   function refresh(before, text, flip = false) {
     view = getShiftView(run);
@@ -233,6 +280,16 @@ export function mountShelter({ run, onExit, onReplay } = {}) {
         }
       } else {
         switch (button.dataset.action) {
+          case 'coach-next':
+            coachStep++;
+            render();
+            page.querySelector('[data-action="coach-next"]')?.focus();
+            break;
+          case 'coach-skip':
+            coachStep = 3;
+            render();
+            page.querySelector('h1')?.focus();
+            break;
           case 'end':
             finishShift();
             break;
@@ -338,9 +395,11 @@ export function mountShelter({ run, onExit, onReplay } = {}) {
     void audio.dispose();
   }
   render();
+  if (disposed) return dispose;
   page.querySelector('h1').focus({ preventScroll: true });
   announce(
     `Day ${view.day}, ${view.shift}. Choose crew tasks and fill the wall before finishing the shift.`,
   );
+  if (view.resolving && !view.interrupt && !view.pendingEvent) finishShift();
   return dispose;
 }

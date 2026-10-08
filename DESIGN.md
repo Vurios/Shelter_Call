@@ -530,3 +530,14 @@ The starting 15-90-second timer remains the baseline; the tuned Commander cap is
 Journal days follow the hidden UTC calendar, including a partial first day. A run ending at a shift boundary displays the day and shift just completed. Resupply uses four shift-end boundaries across the last two UTC mission days. Flare recall interrupts require a human crew member outside; dosimeter onset alarms still work while everyone is sheltered. Missing flare-class particle-association rates stay `null` and display as unknown.
 
 The final reality timeline includes source-backed context before the mission onset used by the countdown, radio and initial exposure, with no reality event after the ending. The archive contains 1,289 distinct source IDs; 1,266 can appear in a legal mission reveal. Almanac percentages use those 1,266 collectible IDs, derived from all windows and the latest permitted UTC mission ending. The remaining 23 late context IDs remain in the archive and source-integrity checks. Unknown, duplicate or unreachable legacy cards cannot inflate collection percentages. Counts describe the current archive, not hardcoded rules.
+
+
+### Prompt 7 application contract
+
+The application controller owns draft/briefing/tutorial, saved missions, ending/reveal screens, optional browser storage and menus. Core stays pure and retains the eight public exports. Mission saves preserve partial shifts and pending decisions; storage failures never block play. A reload during Scramble restarts the same map; the hatch and journal actions/shift boundaries are exact checkpoints.
+
+Cadet supplies are an explicit GAME accessibility adjustment: 25% more food/water pickups, plus four food and four water already in the shelter after the scramble. These reserves do not inflate saved-pickup counts. Flight Director has 25% fewer pickups; Commander remains unchanged. The reserve is disclosed at the hatch and in Reveal's GAME panel.
+
+Reveal uses only `buildReveal` after Ending. Forecast comparisons use calls at the evaluated arrival time, not later recalls. Dashed rings mark >12-hour GAME forecast comparisons or crew outside at an observed event; the archive's hit/miss convention remains +/-30 hours. Forecast arrivals after the ending are labelled later archive context. If no forecast was issued before the journal closed, the lane explains this rather than exposing a future forecast. The source panel retains every revealed REAL ID and UTC and all GAME approximations.
+
+English/Filipino catalogs own UI copy and translate engine presentation without mutating source data. Settings includes text sizes, motion, sound/captions, map preference and tutorial replay. The unlock handoff animates verified source cards and persists only known source IDs, endings and achievements; Daily Sun and the full Almanac menus remain placeholders until prompt 8.

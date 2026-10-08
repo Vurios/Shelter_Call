@@ -1,13 +1,19 @@
 import { PALETTE as P, CREW_STYLE } from '../../art/palette.js';
+import { phrase, t } from '../../i18n/index.js';
 
 /** The same scene state, with an inexpensive top-down canvas. */
 export function create2DRenderer(host) {
   const canvas = document.createElement('canvas');
   canvas.className = 'scramble-canvas';
-  canvas.setAttribute('aria-label', 'Lunar outpost. Tap a point to hop there.');
+  canvas.setAttribute(
+    'aria-label',
+    t('Lunar outpost. Tap a point to hop there.'),
+  );
   canvas.tabIndex = 0;
   host.prepend(canvas);
   const context = canvas.getContext('2d');
+  const textScale =
+    parseFloat(getComputedStyle(document.documentElement).fontSize) / 16;
   let width = 1,
     height = 1,
     scale = 1,
@@ -141,13 +147,14 @@ export function create2DRenderer(host) {
             ? 2
             : 3;
     labels.sort((a, b) => priority(a.text) - priority(b.text));
-    context.font = 'bold 12px "Atkinson Hyperlegible", sans-serif';
+    context.font = `bold ${12 * textScale}px "Atkinson Hyperlegible", sans-serif`;
     context.textAlign = 'center';
     context.lineWidth = 4;
     context.strokeStyle = P.ink;
     for (const entry of labels) {
+      const text = phrase(entry.text);
       const point = project(entry.x, entry.z),
-        size = context.measureText(entry.text).width + 8;
+        size = context.measureText(text).width + 8;
       const offset = [0, -17, 17, -34].find((dy) => {
         const box = {
           left: point.x - size / 2,
@@ -176,9 +183,9 @@ export function create2DRenderer(host) {
         return true;
       });
       if (offset === undefined) continue;
-      context.strokeText(entry.text, point.x, point.y + offset);
+      context.strokeText(text, point.x, point.y + offset);
       context.fillStyle = entry.color;
-      context.fillText(entry.text, point.x, point.y + offset);
+      context.fillText(text, point.x, point.y + offset);
     }
   }
   return {
