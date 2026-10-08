@@ -66,6 +66,9 @@ CLAUDE.md  CREDITS.md  README.md
 **Determinism:** all randomness goes through the seeded RNG in `src/core/rng.js` (never `Math.random`). The same seed + inputs always produce the same run.
 
 ## Commands
+- `npm run deploy:setup`: create/verify Cloudflare Pages and encrypt repository secrets with `gh api`; credentials must already be environment variables.
+- `npm run deploy`: deploy `dist/` to Cloudflare Pages production using environment credentials.
+- `npm run preview:cloudflare`: serve the build and Pages Functions locally with Wrangler.
 - `npm install`: install locked project dependencies (CI uses `npm ci`).
 - `npm run dev`: start Vite development server.
 - `npm run build`: build offline assets into `dist/`.
@@ -82,6 +85,9 @@ CLAUDE.md  CREDITS.md  README.md
 - `npm run format`: format project files.
 
 ## Conventions
+- Deployment is Cloudflare Pages project `shelter-call`, production branch `main`, output `dist/`, root URL path. Work, commit and push directly on `main`; no branches or PRs.
+- Never put secret values in files, command arguments or logs. Read `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` only from environment variables. CI uses repository secrets with these exact names.
+- Optional live DONKI requests use `/api/donki/`; the service worker never caches `/api/*`. Live fetch does not alter archived core inputs.
 - Use ES modules, vanilla JavaScript, no framework, small files, and JSDoc types.
 - `src/core` is PURE: no DOM, no Three.js, no Math.random; use the seeded RNG.
 - Core functions consume explicit state and input. No network, storage, timers, or current-clock reads in core.

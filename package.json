@@ -16,7 +16,10 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "deploy:setup": "node tools/setup-cloudflare.mjs",
+    "deploy": "wrangler pages deploy dist --project-name=shelter-call --branch=main",
+    "preview:cloudflare": "wrangler pages dev dist"
   },
   "engines": {
     "node": ">=22.12.0"
@@ -30,9 +33,11 @@
     "@vitest/coverage-v8": "^5.0.3",
     "eslint": "^10.12.0",
     "globals": "^17.13.0",
+    "libsodium-wrappers": "^0.8.4",
     "prettier": "^3.9.9",
     "vite": "^8.3.4",
     "vite-plugin-pwa": "^2.0.0",
-    "vitest": "^5.0.3"
+    "vitest": "^5.0.3",
+    "wrangler": "^4.148.0"
   }
 }

@@ -1,5 +1,15 @@
 # Decision log
 
+## 2026-10-09 - Cloudflare Pages migration
+
+- User authorized replacing GitHub Pages with Cloudflare Pages, direct commits/pushes on `main`, repository secret writes and real deployments. The GitHub Pages API deletion succeeded. Removed its workflow and the Vite environment-controlled base; no `.nojekyll` file existed.
+- Installed Wrangler and added `wrangler.toml` for project `shelter-call`, production `main`, output `dist/`. Created/verified the project via Cloudflare API and stored both repository secrets through `gh api` using the repository public key and Libsodium sealed boxes. Credential values are read from environment variables and never stored in repository files.
+- `.github/workflows/deploy.yml` retains lint, format, coverage, assets, Python and browser gates, builds once at the root path, and deploys each push to `main` with `cloudflare/wrangler-action`. `npm run deploy` performs the same direct production upload locally.
+- Cache hashed `/bundles/*` for one year; revalidate HTML and service-worker scripts. GLBs and JSON receive explicit types. Only `/api/donki/*` invokes Functions; static/offline traffic remains on Pages assets.
+- Optional live GET relay forwards only the six permitted DONKI endpoint names to the requested CCMC URL, preserving query parameters. Successful JSON is cached at the edge for one hour, errors are uncached JSON, and CORS permits public reads. Service-worker API requests use NetworkOnly and cannot fall through to cached HTML.
+- `src/data/live.js` does not exist yet. Its future endpoint is `/api/donki/`; no new live-data UI or transforms are introduced during hosting migration. Archived core inputs are unchanged.
+- Real deployment, title screenshots at 1280x720 and 360x640, and the May 2024 FLR relay check are verified separately after upload.
+
 ## 2026-10-08 — Prompt 1 foundation
 
 - Preserve the two original Markdown files for existing IDE tabs. Identical copies in `docs/` are the canonical specifications going forward. No design changes.

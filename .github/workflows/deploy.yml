@@ -1,16 +1,15 @@
-name: Validate and deploy Pages
+name: Validate and deploy Cloudflare Pages
 on:
   push:
     branches: [main]
-  pull_request:
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: pages-${{ github.ref }}
+  group: cloudflare-production
   cancel-in-progress: true
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,24 +35,10 @@ jobs:
         with:
           name: browser-checks
           path: test-results/
-      - run: npm run build -- --base=/${{ github.event.repository.name }}/
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-      - uses: actions/upload-pages-artifact@v3
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+      - name: Deploy production
+        uses: cloudflare/wrangler-action@v4
         with:
-          path: dist
-  deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/configure-pages@v5
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: '4.148.0'
+          command: pages deploy dist --project-name=shelter-call --branch=main

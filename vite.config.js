@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
-  base: process.env.VITE_BASE_PATH || '/',
   // Keep hashed Vite chunks separate from unhashed public art. Workbox must
   // revision art/fonts, and manifest icons must not get conflicting cache keys.
   build: { assetsDir: 'bundles' },
@@ -40,6 +39,8 @@ export default defineConfig({
       // Assets and lazy chunks are available offline after the first cache completes.
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,json,glb,ttf,png,txt}'],
+        navigateFallbackDenylist: [/^\/api\//],
+        runtimeCaching: [{ urlPattern: /\/api\//, handler: 'NetworkOnly' }],
       },
     }),
   ],

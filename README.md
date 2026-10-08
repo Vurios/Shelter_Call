@@ -2,9 +2,9 @@
 
 A lunar-outpost game for ages 10–14: gather crew and supplies, decide when to shelter, then compare your calls with the Sun's history.
 
-**Current stage: prompt 4 art and audio kit.** Runs use verified NASA windows and deterministic GAME survival rules. Explore original crew, models, portraits, ending cards, fonts and sounds in [the offline art journal](https://vurios.github.io/Shelter_Call/?gallery=1). The title still shows real mission setup. Interactive scramble, shelter journal and full game loop arrive in prompts 5-7.
+**Current stage: prompt 4 art and audio kit.** Runs use verified NASA windows and deterministic GAME survival rules. Explore original crew, models, portraits, ending cards, fonts and sounds in the offline art journal at `/?gallery=1`. The title still shows real mission setup. Interactive scramble, shelter journal and full game loop arrive in prompts 5-7.
 
-[Open the development preview](https://vurios.github.io/Shelter_Call/) · [GitHub repository](https://github.com/Vurios/Shelter_Call)
+[GitHub repository](https://github.com/Vurios/Shelter_Call). Cloudflare Pages project: `shelter-call`; production URL will be confirmed after its first successful deployment.
 
 ## Run locally
 
@@ -60,7 +60,13 @@ The pipeline uses recorded flare starts, near-Earth particle detections, attache
 
 ## Deploy
 
-The GitHub Action validates changes and deploys `main` to GitHub Pages using the repository base path. Pages must use GitHub Actions as its publishing source. After the first service-worker cache completes, the title, gallery, all original art, local fonts, synthesis and NASA JSON work offline. The PWA manifest has original regular/maskable icons; physical-phone installation and the full offline gameplay loop remain later checks.
+Deployment uses **Cloudflare Pages**, project `shelter-call`, production branch `main`, output `dist/`. Commit and push directly to `main`; `.github/workflows/deploy.yml` validates and deploys every push using `cloudflare/wrangler-action`. GitHub Pages is disabled; no repository-path base is required.
+
+Set `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the process environment without saving their values in files. Run `npm run deploy:setup` once to create/verify the project and store both GitHub repository secrets through public-key encryption and `gh api`. If repository secret writes are refused, add those exact two names in Settings > Secrets and variables > Actions. Then run `npm run build` and `npm run deploy`. Use `npm run preview:cloudflare` to test Pages Functions locally.
+
+The optional GET relay `/api/donki/<endpoint>` allows only FLR, SEP, CME, IPS, WSAEnlilSimulations and notifications, forwards queries to CCMC, and caches successful JSON for one hour at the edge. Errors are JSON and are not cached. CORS permits public reads. Live requests use the network; the service worker excludes `/api/*` from both navigation fallback and permanent caching. Archived NASA mission inputs stay local and unchanged.
+
+After the first service-worker cache completes, the title, gallery, all original art, local fonts, synthesis and archived NASA JSON work offline. The PWA manifest has original regular/maskable icons; physical-phone installation and the full offline gameplay loop remain later checks.
 
 ## Project notes
 
