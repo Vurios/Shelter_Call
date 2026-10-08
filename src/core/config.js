@@ -97,6 +97,34 @@ export const TASKS = [
   'science',
 ];
 
+/** GAME movement/scene scales. Lunar gravity sets the arc, not a safety model. */
+export const SCRAMBLE_CONFIG = {
+  carrySlots: 4,
+  mapRadius: 15,
+  stationRadius: 10.5,
+  stationOffset: 1.2,
+  rocks: 72,
+  craters: 16,
+  gravity: 9.81 / 6,
+  jumpVelocity: 1.55,
+  speed: 5.4,
+  acceleration: 7,
+  airDrag: 1.4,
+  groundDrag: 9,
+  pickupRadius: 0.9,
+  hatchRadius: 1.55,
+  groundReach: 0.2,
+  targetRadius: 0.32,
+  followerSpacing: 1.1,
+  followerSlowdown: 0.065,
+  dropCooldown: 2,
+  warningSeconds: 10,
+  fixedStep: 1 / 60,
+  catchupSeconds: 0.25,
+  lowFps: 25,
+  lowFpsSeconds: 3,
+};
+
 // Protect shared configuration; each run owns a detached numeric copy.
 function freeze(value) {
   if (value && typeof value === 'object' && !Object.isFrozen(value)) {
@@ -104,6 +132,12 @@ function freeze(value) {
     Object.freeze(value);
   }
 }
-[CONFIG, STARTING_CONFIG, DIFFICULTIES, CREW, ITEM_TYPES, TASKS].forEach(
-  freeze,
-);
+[
+  CONFIG,
+  STARTING_CONFIG,
+  DIFFICULTIES,
+  CREW,
+  ITEM_TYPES,
+  TASKS,
+  SCRAMBLE_CONFIG,
+].forEach(freeze);

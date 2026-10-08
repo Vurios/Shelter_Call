@@ -48,6 +48,18 @@
   gap: 8px 20px;
   margin: 12px 0;
 }
+.title-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 12px;
+}
+.title-actions [aria-controls] {
+  background: transparent;
+  color: var(--paper);
+  border: 1px solid #526879;
+  font-size: 14px;
+}
 .title-tools a {
   color: var(--paper);
   min-height: 44px;

@@ -26,7 +26,8 @@ export function createAudio({
     timer = null;
   let remaining = 60,
     total = 60,
-    shield = 0.9;
+    shield = 0.9,
+    captionUntil = 0;
   const settings = { ...DEFAULT_SETTINGS };
   const buffers = new Map(),
     voices = [],
@@ -124,10 +125,13 @@ export function createAudio({
     ramp(entry.gain.gain, 0, seconds);
     entry.source.stop(context.currentTime + seconds + 0.01);
   }
-  function play(id) {
+  function play(id, timerTick = false) {
     const cue = SOUND_CUES.find((sound) => sound.id === id);
     if (!cue) throw new Error(`Unknown sound: ${id}`);
-    onCaption(cue.caption);
+    const now = context?.currentTime || 0;
+    // Repeated timer ticks must not erase a warning before it can be read.
+    if (!timerTick || now >= captionUntil) onCaption(cue.caption);
+    if (id !== 'tick') captionUntil = now + 1.5;
     if (!context || context.state !== 'running' || disposed || settings.mute)
       return false;
     if (voices.length >= MAX_VOICES) {
@@ -208,7 +212,7 @@ export function createAudio({
     clearTimeout(timer);
     function tick() {
       if (disposed || remaining <= 0) return;
-      play('tick');
+      play('tick', true);
       timer = setTimeout(tick, timerInterval(remaining, total) * 1000);
     }
     tick();

@@ -14,6 +14,11 @@ export const SOUND_CUES = [
   ]),
   ['hatch', 'Close hatch', 'Hatch closed.'],
   ['tick', 'Timer tick', 'Time is running short.'],
+  [
+    'countdown-alarm',
+    'Return to hatch alarm',
+    'GAME timer: return to the hatch!',
+  ],
   ['alarm-b', 'B-class alarm sample', 'GAME alarm: B-class example.'],
   ['alarm-c', 'C-class alarm sample', 'GAME alarm: C-class example.'],
   ['alarm-m', 'M-class alarm sample', 'GAME alarm: M-class example.'],
@@ -67,7 +72,7 @@ export function synthesize(id, sampleRate = 22050) {
         ? 1.7
         : id === 'radio'
           ? 1.1
-          : id.startsWith('alarm-')
+          : id.startsWith('alarm-') || id === 'countdown-alarm'
             ? 1.25
             : 0.65;
   const samples = new Float32Array(Math.ceil(sampleRate * duration));
@@ -144,10 +149,14 @@ export function synthesize(id, sampleRate = 22050) {
       .forEach((ratio, i) =>
         tone(i * 0.14, 0.17, base * ratio, base * ratio * 1.02, 0.22),
       );
-  } else if (id.startsWith('alarm-')) {
-    const level = { 'alarm-b': -1, 'alarm-c': 0, 'alarm-m': 1, 'alarm-x': 2 }[
-      id
-    ];
+  } else if (id.startsWith('alarm-') || id === 'countdown-alarm') {
+    const level = {
+      'countdown-alarm': 1,
+      'alarm-b': -1,
+      'alarm-c': 0,
+      'alarm-m': 1,
+      'alarm-x': 2,
+    }[id];
     for (let i = 0; i <= level + 1; i++)
       tone(
         i * 0.24,

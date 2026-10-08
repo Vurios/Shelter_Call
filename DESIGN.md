@@ -427,6 +427,8 @@ CLAUDE.md  CREDITS.md  README.md
 - First interaction <3 s on 4G.
 - Fully offline after the first load.
 
+**Deployment:** Cloudflare Pages project `shelter-call`, production branch `main`, root URL `https://shelter-call.pages.dev/`, build output `dist/`. Commit and push directly to `main`; no branches or PRs. GitHub Actions validates and deploys each push with `cloudflare/wrangler-action`. Credentials stay in environment variables and GitHub repository secrets. Optional live requests use `/api/donki/`; API traffic is excluded from permanent service-worker caching.
+
 **Where it runs:** works locally or in a Claude Code cloud session on a GitHub repo. In the cloud, allow network access to `kauai.ccmc.gsfc.nasa.gov`, `api.nasa.gov` and any asset sites used (or commit raw DONKI JSON and generate assets procedurally), and use headless Playwright for browser checks.
 
 **Determinism:** all randomness goes through the seeded RNG in `src/core/rng.js` (never `Math.random`). The same seed + inputs always produce the same run.

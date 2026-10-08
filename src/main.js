@@ -3,7 +3,10 @@ import strings from './i18n/en.json';
 import { createAudio } from './audio/index.js';
 import './ui/styles/main.css';
 
-if (new URLSearchParams(location.search).get('gallery') === '1') {
+const route = new URLSearchParams(location.search);
+if (route.get('scramble') === '1') {
+  void openScramble();
+} else if (route.get('gallery') === '1') {
   document.querySelector('#app').innerHTML =
     '<p class="loading-gallery" role="status">Opening the art journal…</p>';
   import('./ui/gallery/index.js')
@@ -17,6 +20,7 @@ if (new URLSearchParams(location.search).get('gallery') === '1') {
 }
 
 function mountTitle() {
+  const lifecycle = new AbortController();
   document.querySelector('#app').innerHTML = `
   <main class="title-screen">
     <div class="outpost-mark" aria-hidden="true"><span></span></div>
@@ -24,7 +28,7 @@ function mountTitle() {
     <h1>${strings.title}</h1>
     <p class="tagline">${strings.tagline}</p>
     <p class="description">${strings.description}</p>
-    <button type="button" aria-expanded="false" aria-controls="mission-setup">${strings.button}</button>
+    <div class="title-actions"><button type="button" id="play-scramble">Play scramble</button><button type="button" aria-expanded="false" aria-controls="mission-setup">${strings.button}</button></div>
     <section id="mission-setup" class="mission-setup" aria-label="Mission setup" hidden></section>
     <div class="title-tools"><a href="${import.meta.env.BASE_URL}?gallery=1">Open the art & sound journal</a><button id="title-sound" type="button" aria-pressed="false">Play title music</button></div>
     <footer><p class="status">${strings.status}</p><p class="notice">${strings.notice}</p></footer>
@@ -52,6 +56,11 @@ function mountTitle() {
     button.setAttribute('aria-expanded', String(!panel.hidden));
   });
   const audio = createAudio();
+  document.querySelector('#play-scramble').addEventListener('click', () => {
+    lifecycle.abort();
+    void audio.dispose();
+    void openScramble();
+  });
   const soundButton = document.querySelector('#title-sound');
   soundButton.addEventListener('click', async () => {
     try {
@@ -66,18 +75,38 @@ function mountTitle() {
       soundButton.textContent = 'Sound unavailable';
     }
   });
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden && audio) {
-      audio.stopAll();
-      soundButton.setAttribute('aria-pressed', 'false');
-      soundButton.textContent = 'Play title music';
-    }
-  });
-  window.addEventListener('pagehide', (event) => {
-    if (event.persisted) {
-      audio?.stopAll();
-      soundButton.setAttribute('aria-pressed', 'false');
-      soundButton.textContent = 'Play title music';
-    } else void audio?.dispose();
-  });
+  document.addEventListener(
+    'visibilitychange',
+    () => {
+      if (document.hidden && audio) {
+        audio.stopAll();
+        soundButton.setAttribute('aria-pressed', 'false');
+        soundButton.textContent = 'Play title music';
+      }
+    },
+    { signal: lifecycle.signal },
+  );
+  window.addEventListener(
+    'pagehide',
+    (event) => {
+      if (event.persisted) {
+        audio?.stopAll();
+        soundButton.setAttribute('aria-pressed', 'false');
+        soundButton.textContent = 'Play title music';
+      } else void audio?.dispose();
+    },
+    { signal: lifecycle.signal },
+  );
+}
+
+async function openScramble() {
+  const app = document.querySelector('#app');
+  app.innerHTML =
+    '<p class="loading-gallery" role="status">Opening the lunar outpost…</p>';
+  try {
+    const { mountScramble } = await import('./scenes/scramble/index.js');
+    mountScramble({ onExit: mountTitle });
+  } catch {
+    app.innerHTML = `<main class="title-screen"><h1>Outpost unavailable</h1><p>Please reload to try again.</p><a href="/">Back to title</a></main>`;
+  }
 }

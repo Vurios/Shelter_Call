@@ -61,7 +61,7 @@ Replace the mock engine with a deterministic, headless game driven by the verifi
 - Update the mission-setup preview to show real setup data clearly. The full scramble and Shelter Days UI belong to later prompts.
 - Run pipeline regression tests, unit/coverage tests, lint, formatting, build and the final simulator.
 - Check the preview and source data offline with Playwright at 1280×720 and 360×640. Review screenshots.
-- Update README, CLAUDE.md, credits and decisions where needed. Commit, push, verify Pages CI/deployment, then ask before prompt 4.
+- Update README, CLAUDE.md, credits and decisions where needed. Commit, push, verify Cloudflare Pages CI/deployment, then ask before prompt 4.
 
 ## Approval checkpoint
 

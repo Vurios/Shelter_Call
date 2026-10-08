@@ -15,7 +15,7 @@ Nine build prompts and three helper prompts. Copy each one into Claude Code, in 
 **How to run each prompt**
 - One prompt = one fresh session (or `/clear`). `CLAUDE.md` + `docs/DESIGN.md` carry everything Claude needs.
 - Prompts marked 🧭 are big: start in **plan mode**, read the plan, approve, then let it run.
-- After each prompt: merge the branch, play for a few minutes, and send problems with **H1 (bug)**.
+- After each prompt: commit and push directly to main, verify Cloudflare Pages, play for a few minutes, and send problems with **H1 (bug)**.
 - If a session stops midway (cloud time limits), use **H3 (continue)**.
 - Each prompt only depends on the ones before it. Don't skip ahead.
 
@@ -60,7 +60,7 @@ STEP 3: Create docs/DECISIONS.md (short decision log), CREDITS.md (table: asset 
 
 STEP 4: Create src/core/api.js implementing the contract in DESIGN §12.1 as STUBS with JSDoc typedefs, backed by a fixture in src/core/mock-run.js (a fake 12-day window with 2 flares, 1 CME forecast, 1 particle event, 4 crew, 6 items). Later prompts build UI against these until the real engine replaces them.
 
-STEP 5: A placeholder title screen "SHELTER CALL", one passing unit test, one e2e test that loads the page and saves a screenshot. Set up a GitHub Action that deploys main to GitHub Pages so every merge gives a playable URL. .gitignore: node_modules, dist, data-pipeline/raw (unless we choose to commit raw data; see prompt 2). Commit.
+STEP 5: A placeholder title screen "SHELTER CALL", one passing unit test, one e2e test that loads the page and saves a screenshot. Set up a GitHub Action using cloudflare/wrangler-action that deploys every push to main to Cloudflare Pages (project shelter-call, output dist, root path). Work directly on main: no branches or PRs. Read CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID only from environment variables; store them as repository secrets, never in files. .gitignore: node_modules, dist, data-pipeline/raw (unless we choose to commit raw data; see prompt 2). Commit.
 
 ===== AUTHORIZATION & RULES (copy verbatim into CLAUDE.md) =====
 AUTONOMY
@@ -217,7 +217,7 @@ TUTORIAL (woven into play, skippable, replayable): a 25-second practice scramble
 
 ACCESSIBILITY & LANGUAGE: colorblind-safe palette + patterns, text-size setting, reduced motion, full keyboard play, focus outlines, ARIA labels, sound captions, nothing flashing faster than 3 Hz. All strings in src/i18n/en.json + natural, kid-friendly Filipino in fil.json, switchable in Settings.
 
-ACCEPTANCE: 3 different complete runs with no dead ends or console errors; an e2e test plays a fixed-seed run from title to reveal; works offline after first load (build → preview → offline); checked with reduced motion, keyboard only, and at mobile size. Tell me the deployed GitHub Pages URL so I can play it on my phone.
+ACCEPTANCE: 3 different complete runs with no dead ends or console errors; an e2e test plays a fixed-seed run from title to reveal; works offline after first load (build → preview → offline); checked with reduced motion, keyboard only, and at mobile size. Tell me the deployed Cloudflare Pages URL so I can play it on my phone.
 ```
 
 ---
@@ -261,7 +261,7 @@ PLAYTEST & BALANCE
 SHIP
 5. Lighthouse (mobile): Performance ≥85, first interaction <3 s on simulated 4G. Lazy-load the 3D scene, code-split, compress models/textures, preload fonts.
 6. PWA: installable; precache everything incl. episodes.json; full run works offline.
-7. Confirm the GitHub Pages deploy works at phone size and give me the URL.
+7. Confirm the Cloudflare Pages deploy works at phone size and give me the URL.
 8. OPTIONAL: Capacitor Android debug APK in /release (back-button handling); abandon if blocked for more than 30 minutes.
 
 JUDGE KIT

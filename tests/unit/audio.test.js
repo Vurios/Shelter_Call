@@ -104,6 +104,25 @@ function fakeContext() {
   };
 }
 describe('gesture-owned controller', () => {
+  it('keeps warning captions readable over timer ticks, including when muted', async () => {
+    const context = fakeContext();
+    const caption = vi.fn();
+    const audio = createAudio({
+      contextFactory: () => context,
+      onCaption: caption,
+    });
+    await audio.unlock();
+    audio.setSettings({ mute: true });
+    audio.play('storm');
+    audio.startTicks();
+    expect(caption).toHaveBeenLastCalledWith(
+      'Particles detected. Shelter now.',
+    );
+    context.currentTime = 2;
+    audio.startTicks();
+    expect(caption).toHaveBeenLastCalledWith('Time is running short.');
+    await audio.dispose();
+  });
   it('supports every real flare class in the archived engine data', () => {
     const examples = new Map(
       episodes.flares.map((flare) => [flare.class[0], flare.class]),

@@ -4,7 +4,7 @@ Status: approved and built on October 9, 2026. Final art direction and evidence 
 
 ## Result
 
-Create the complete art and audio kit from prompt 4, with a usable offline gallery at `/?gallery=1`. Preserve the real-data engine and mission-setup preview. Finish with screenshots, asset and audio checks, credits, a commit, and verified GitHub Pages deployment. Stop before prompt 5.
+Create the complete art and audio kit from prompt 4, with a usable offline gallery at `/?gallery=1`. Preserve the real-data engine and mission-setup preview. Finish with screenshots, asset and audio checks, credits, a commit, and verified Cloudflare Pages deployment. Stop before prompt 5.
 
 ## Visual direction
 
