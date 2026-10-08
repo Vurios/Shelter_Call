@@ -2,7 +2,7 @@
 
 ## Project summary (10 lines)
 1. SHELTER CALL is a replayable lunar-outpost browser game.
-2. Primary players are ages 10?14; everyone can play.
+2. Primary players are ages 10–14; everyone can play.
 3. The run has Scramble, Shelter Days, and Reveal phases.
 4. Scramble uses Three.js with moon hops and a seeded layout.
 5. Its timer will come from a verified flare-to-particle countdown.
@@ -82,13 +82,13 @@ CLAUDE.md  CREDITS.md  README.md
 - Use ES modules, vanilla JavaScript, no framework, small files, and JSDoc types.
 - `src/core` is PURE: no DOM, no Three.js, no Math.random; use the seeded RNG.
 - Core functions consume explicit state and input. No network, storage, timers, or current-clock reads in core.
-- Preserve DESIGN ?12.1 API exports. Prompt 1 mutators update and return state; views return detached snapshots.
+- Preserve DESIGN §12.1 API exports. Prompt 1 mutators update and return state; views return detached snapshots.
 - Never mark mock fixture events REAL. Real records must originate in `public/data/episodes.json`.
 - Canonical specifications live in `docs/`; root source copies remain for the user's existing IDE tabs.
 - Stop after each requested prompt. Ask the user before starting the next prompt.
 
 ## Definition of done
-For every task: it runs, tests pass, you checked it visually with headless Playwright screenshots at 1280?720 and 360?640, `docs/DECISIONS.md` is updated if you made a choice, and it is committed.
+For every task: it runs, tests pass, you checked it visually with headless Playwright screenshots at 1280×720 and 360×640, `docs/DECISIONS.md` is updated if you made a choice, and it is committed.
 Never claim a complete game, real-data verification, balance, or physical-device acceptance from scaffold checks.
 
 ## 13. Scope and build order (no deadline)
