@@ -122,6 +122,23 @@ test('journal plays three days (two-day regression), updates wall and uses keybo
   });
   for (let shift = 0; shift < 6; shift++) {
     await completeShift(page);
+    if (shift === 0) {
+      const staysInViewport = await page.evaluate(
+        () =>
+          new Promise((resolve) => {
+            const start = performance.now();
+            let fits = true;
+            function sample() {
+              fits &&= document.documentElement.scrollWidth <= innerWidth;
+              if (performance.now() - start < 700)
+                requestAnimationFrame(sample);
+              else resolve(fits);
+            }
+            sample();
+          }),
+      );
+      expect(staysInViewport).toBe(true);
+    }
     await expect(root).toHaveAttribute('data-phase', 'shelter');
     await expect(root).toHaveAttribute('data-shift-index', String(shift + 1));
     if (shift === 3) {
