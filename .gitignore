@@ -1,0 +1,12 @@
+node_modules/
+dist/
+data-pipeline/raw/
+__pycache__/
+.pytest_cache/
+.venv/
+test-results/
+playwright-report/
+.env
+.env.*
+!.env.example
+*.log

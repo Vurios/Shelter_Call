@@ -1,0 +1,75 @@
+/** Entire fixture is invented GAME data, never a NASA record or REAL event. */
+export const MOCK_RUN = {
+  id: 'mock-12-day-window',
+  source: 'GAME',
+  start: '2030-01-01T00:00:00Z',
+  end: '2030-01-13T00:00:00Z',
+  days: 12,
+  countdownMin: 60,
+  flares: [
+    {
+      id: 'mock-flare-1',
+      source: 'GAME',
+      begin: '2030-01-01T00:00:00Z',
+      peak: '2030-01-01T00:15:00Z',
+      class: 'X1.0',
+    },
+    {
+      id: 'mock-flare-2',
+      source: 'GAME',
+      begin: '2030-01-05T06:00:00Z',
+      peak: '2030-01-05T06:20:00Z',
+      class: 'M2.0',
+    },
+  ],
+  cmeForecasts: [
+    {
+      id: 'mock-cme-1',
+      source: 'GAME',
+      issued: '2030-01-02T00:00:00Z',
+      predicted: '2030-01-04T00:00:00Z',
+      actual: '2030-01-04T06:00:00Z',
+      bandHours: 12,
+      outcome: 'hit',
+      errorH: 6,
+    },
+  ],
+  sepEvents: [
+    {
+      id: 'mock-sep-1',
+      source: 'GAME',
+      onset: '2030-01-01T01:00:00Z',
+      flareId: 'mock-flare-1',
+      tier: 3,
+      countdownMin: 60,
+      alertTime: '2030-01-01T01:20:00Z',
+      alertLagMin: 20,
+    },
+  ],
+  crew: [
+    { id: 'ria', name: 'Ria', trait: 'Botanist' },
+    { id: 'dom', name: 'Dom', trait: 'Engineer' },
+    { id: 'aiko', name: 'Aiko', trait: 'Medic' },
+    { id: 'tunde', name: 'Tunde', trait: 'Geologist' },
+  ],
+  items: [
+    { id: 'water-1', type: 'water', name: 'Water brick', slots: 2, mass: 3 },
+    { id: 'food-1', type: 'food', name: 'Food pack', slots: 1, mass: 1 },
+    {
+      id: 'radio-1',
+      type: 'radio',
+      name: 'Sun Watch radio',
+      slots: 1,
+      mass: 1,
+    },
+    {
+      id: 'dosimeter-1',
+      type: 'dosimeter',
+      name: 'Dosimeter',
+      slots: 1,
+      mass: 1,
+    },
+    { id: 'seeds-1', type: 'seeds', name: 'Seed cartridge', slots: 1, mass: 1 },
+    { id: 'repair-1', type: 'repair', name: 'Repair kit', slots: 1, mass: 1 },
+  ],
+};

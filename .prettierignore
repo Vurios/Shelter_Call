@@ -1,0 +1,11 @@
+node_modules
+dist
+package-lock.json
+test-results
+playwright-report
+data-pipeline/raw
+DESIGN.md
+CLAUDE_CODE_PROMPTS.md
+docs/DESIGN.md
+docs/CLAUDE_CODE_PROMPTS.md
+CLAUDE.md

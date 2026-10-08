@@ -1,0 +1,15 @@
+{
+  "title": "SHELTER CALL",
+  "eyebrow": "LUNAR OUTPOST · DEVELOPMENT PREVIEW",
+  "tagline": "Grab supplies. Gather your crew. Make the shelter call.",
+  "description": "A Moon mission where your supplies become your shelter.",
+  "status": "Prompt 1 · Foundation ready",
+  "notice": "The game is still being built. This preview uses made-up test data, not NASA records.",
+  "button": "Check mission setup",
+  "fixture": "TEST FIXTURE · MADE-UP DATA",
+  "timer": "Practice timer",
+  "crew": "Crew",
+  "items": "Supply pickups",
+  "window": "Test window",
+  "next": "The scramble and shelter game arrive in later steps."
+}
