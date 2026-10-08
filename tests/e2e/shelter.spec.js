@@ -104,8 +104,12 @@ test('journal plays three days (two-day regression), updates wall and uses keybo
   await page.locator('[data-crew="bolt"]').click();
   await page.locator('[data-task="drill"]').click();
   await page.evaluate(() => scrollTo(0, 0));
-  await page.screenshot({ path: testInfo.outputPath('journal-viewport.png') });
   await page.screenshot({
+    animations: 'disabled',
+    path: testInfo.outputPath('journal-viewport.png'),
+  });
+  await page.screenshot({
+    animations: 'disabled',
     path: testInfo.outputPath('journal-day1.png'),
     fullPage: true,
   });
@@ -116,6 +120,7 @@ test('journal plays three days (two-day regression), updates wall and uses keybo
     if (shift === 3) {
       await expect(root).toHaveAttribute('data-day', '3');
       await page.screenshot({
+        animations: 'disabled',
         path: testInfo.outputPath('journal-two-days.png'),
         fullPage: true,
       });
@@ -129,6 +134,7 @@ test('journal plays three days (two-day regression), updates wall and uses keybo
   await expect(stamp).toContainText('Predicted UTC:');
   expect(await stamp.locator('time').textContent()).toMatch(/^2024-/);
   await page.screenshot({
+    animations: 'disabled',
     path: testInfo.outputPath('journal-three-days.png'),
     fullPage: true,
   });
@@ -193,7 +199,10 @@ test('REAL flare interrupts pause time and recall continues the same shift', asy
   );
   await dialog.locator('summary').click();
   await expect(dialog).toContainText('2011-09-25T04:31:00-FLR-001');
-  await page.screenshot({ path: testInfo.outputPath('rush-back.png') });
+  await page.screenshot({
+    animations: 'disabled',
+    path: testInfo.outputPath('rush-back.png'),
+  });
   await page.getByRole('button', { name: 'RECALL NOW', exact: true }).focus();
   await page.keyboard.press('Enter');
   await expect(dialog).not.toBeVisible();
@@ -252,7 +261,10 @@ test('blind journal hides instruments, respects reduced motion and closes at a r
       .locator('.journal-page')
       .evaluate((el) => getComputedStyle(el).animationName),
   ).toBe('none');
-  await page.screenshot({ path: testInfo.outputPath('blind-ending.png') });
+  await page.screenshot({
+    animations: 'disabled',
+    path: testInfo.outputPath('blind-ending.png'),
+  });
   await page
     .getByRole('button', { name: 'Back to title', exact: true })
     .click();
@@ -276,6 +288,7 @@ test('Flight Director hides forecast bands; Mara decodes issued forecasts', asyn
     'relative rad',
   );
   await page.screenshot({
+    animations: 'disabled',
     path: testInfo.outputPath('director-forecast.png'),
     fullPage: true,
   });
@@ -290,6 +303,7 @@ test('Flight Director hides forecast bands; Mara decodes issued forecasts', asyn
   );
   await expect(page.locator('.forecast-timeline rect')).not.toHaveCount(0);
   await page.screenshot({
+    animations: 'disabled',
     path: testInfo.outputPath('mara-forecast.png'),
     fullPage: true,
   });
@@ -341,6 +355,7 @@ test('real scramble enters the first journal offline without a test fixture', as
     '1',
   );
   await page.screenshot({
+    animations: 'disabled',
     path: testInfo.outputPath('offline-real-handoff.png'),
     fullPage: true,
   });
