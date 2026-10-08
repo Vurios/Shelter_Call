@@ -13,6 +13,32 @@ export const MOCK_RUN = {
     choices: ['Take a picture', 'Write in the journal'],
   },
   interrupt: null,
+  // Presentation contract: only known records carry source timestamps.
+  resolving: false,
+  doseThresholds: { sick: 25, medevac: 50 },
+  radioMessages: [
+    {
+      source: 'GAME',
+      donkiId: 'mock-flare-1',
+      utc: '2030-01-01T00:00:00Z',
+      text: 'Fixture flare X1.0.',
+      class: 'X1.0',
+      associationRate: null,
+      hoursAgo: 0,
+    },
+  ],
+  forecastCards: [
+    {
+      source: 'GAME',
+      donkiId: 'mock-cme-1',
+      utc: '2030-01-04T00:00:00Z',
+      issuedUtc: null,
+      issueHour: null,
+      arrivalInHours: 72,
+      bandHours: [-6, 11],
+      kpRange: null,
+    },
+  ],
   flares: [
     {
       id: 'mock-flare-1',

@@ -10,7 +10,7 @@
 7. Food and water can be shelter walls, so consuming them costs shielding.
 8. A saved radio relays verified NASA forecasts and warnings.
 9. Reveal compares player choices, forecasts, and actual events.
-10. Prompt 5 adds a playable offline 3D/2D scramble and core results; Shelter Days and Reveal UI remain prompts 6-7.
+10. Prompt 6 connects the offline 3D/2D scramble to a playable Shelter Days journal; full endings, Reveal and persistence UI remain prompt 7.
 
 ===== AUTHORIZATION & RULES (copy verbatim into CLAUDE.md) =====
 AUTONOMY

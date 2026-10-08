@@ -171,7 +171,7 @@ Per shift, the player:
 **Flare interrupt ("Rush Back")**
 - Trigger: a REAL flare happens during a shift while crew are outside, and the radio was saved.
 - The game pauses with a big choice:
-  - **RECALL NOW:** lose the shift's output.
+  - **RECALL NOW:** stop the remaining EVA work; keep output already earned.
   - **KEEP WORKING:** keep the output and risk exposure.
 - Shown data: the flare class and a plain-language, data-derived hint, e.g. *"In our records, 1 in 5 X-class flares led to particles."* The rate is computed by the pipeline, never invented.
 - *Most flares don't cause particle storms*, so this is genuine forecasting under uncertainty.
@@ -441,11 +441,13 @@ The UI and the Scramble talk to the engine only through these functions. Prompt 
 | `createRun({ seed, difficulty, windowId?, crewIds, mode })` | New run state. `mode`: normal · daily · live · historic · judge |
 | `getScrambleSetup(state)` | Real countdown (seconds, real minutes, clamp note), layout seed, item/crew spawn tables |
 | `applyScrambleResult(state, result)` | Takes `ScrambleResult {itemsSaved[], crewSaved[], crewExposed[], timeLeft}` |
-| `getShiftView(state)` | Everything the UI shows: day/shift, radio messages (REAL-stamped), forecast cards with bands, crew status, wall/pantry, shield %, power, food, water, science |
+| `getShiftView(state)` | Detached presentation data: day/shift, `resolving`, radio messages (REAL-stamped, source `utc`), forecast cards with bands and predicted `utc` (`issuedUtc` only with Mara), crew status and dosimeter-gated `doseThresholds`, wall/pantry, shield %, power, food, water, science |
 | `act(state, action)` | `assignCrew`, `moveItem` (wall↔pantry), `consume`, `useItem`, `recallAll`, `keepWorking`, `chooseEvent` ({eventId, choice: 0 or 1}), `endShift` |
 | `resolveShift(state)` | Event log. REAL events: `{source:"REAL", donkiId, utc}`. GAME events: `{source:"GAME"}` |
 | `checkEnding(state)` | Ending id or null |
 | `buildReveal(state)` | Real dates, 3-lane timeline data (player calls / NASA forecast / reality), stats, ending, approximations used |
+
+Presentation additions in prompt 6 do not reveal hidden outcomes: forecast `utc` is the prediction, message/interrupt `utc` is the already-observed record, and `issuedUtc` remains gated by Mara. `doseThresholds` is null without the dosimeter, otherwise `{sick, medevac}` uses the current difficulty. `resolving` tells the UI to continue the current shift after an interrupt. Source timestamps appear only in optional REAL tooltips/details; journal headings stay Day N / AM / PM. The mock uses the same field shapes with explicit GAME labels.
 
 ---
 
@@ -515,7 +517,7 @@ We build without a clock. Quality beats speed, but we still build in layers so t
 
 Forecasts optionally carry `kpRange: [min, max] | null`: the first WSA run's non-null IMF-scenario Kp estimates, not measured storm strength. Mara can decode this range.
 
-`getShiftView` includes `pendingEvent: {id, source: "GAME", text, choices: [string, string]} | null` and `interrupt: {source: "REAL", donkiId, kind, text, hour} | null`. Choose events with `chooseEvent`; interrupts pause resolution until `recallAll` or `keepWorking`. Repeat `resolveShift` to continue the same shift. Absolute UTC, hidden dose, future records and observed forecast outcomes stay outside the play view. Reveal is available only after the run ends.
+`getShiftView` includes `pendingEvent: {id, source: "GAME", text, choices: [string, string]} | null` and `interrupt: {source: "REAL", donkiId, kind, text, hour} | null`. Choose events with `chooseEvent`; interrupts pause resolution until `recallAll` or `keepWorking`. Repeat `resolveShift` to continue the same shift. Mission calendar dates, hidden dose, future records and observed forecast outcomes stay outside the play view. Prompt 6 adds optional source UTC tooltips/details for already-known REAL records and predictions; this does not expose actual future arrivals. Reveal is available only after the run ends.
 
 ### Prompt 3 GAME tuning and achievement ledger
 

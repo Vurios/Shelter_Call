@@ -3,7 +3,7 @@
   "eyebrow": "LUNAR OUTPOST - DEVELOPMENT PREVIEW",
   "tagline": "Grab supplies. Gather your crew. Make the shelter call.",
   "description": "A Moon mission where your supplies become your shelter.",
-  "status": "Prompt 5 - Play the lunar scramble",
+  "status": "Prompt 6 - Play the scramble and shelter journal",
   "notice": "Mission setup uses verified NASA records. Radiation and survival rules are GAME approximations.",
   "button": "Check mission setup",
   "fixture": "REAL COUNTDOWN / GAME TIMER",
@@ -11,6 +11,6 @@
   "crew": "Crew",
   "items": "Supply pickups",
   "window": "Mission window",
-  "next": "Play the scramble to save crew and supplies. The Shelter Days journal arrives in prompt 6.",
+  "next": "Play the scramble to save crew and supplies, then open the Shelter Days journal.",
   "realTimer": "Real countdown"
 }

@@ -242,6 +242,55 @@ describe('real engine contract', () => {
       associationRate: null,
     });
   });
+  it('exposes only known source timestamps and detached, difficulty-adjusted presentation thresholds', () => {
+    const s = shelter({
+      difficulty: 'Cadet',
+      crewIds: ['mara', 'iggy', 'sol', 'pip'],
+    });
+    const view = getShiftView(s);
+    expect(view.resolving).toBe(false);
+    expect(view.doseThresholds).toEqual({ sick: 37.5, medevac: 75 });
+    view.doseThresholds.sick = 999;
+    expect(getShiftView(s).doseThresholds.sick).toBe(37.5);
+    const w = windowData(s.windowId);
+    for (const message of view.radioMessages) {
+      expect(Date.parse(message.utc)).toBeLessThanOrEqual(s.now);
+      expect(
+        w.flares.some(
+          (f) => f.id === message.donkiId && f.begin === message.utc,
+        ) ||
+          w.sepEvents.some(
+            (e) => e.id === message.donkiId && e.alertTime === message.utc,
+          ),
+      ).toBe(true);
+    }
+    for (const forecast of view.forecastCards) {
+      const record = w.cmeForecasts.find((f) => f.id === forecast.donkiId);
+      expect(forecast.utc).toBe(record.predicted);
+      expect(forecast.issuedUtc).toBe(record.issued);
+      expect(Date.parse(forecast.issuedUtc)).toBeLessThanOrEqual(s.now);
+      expect(forecast).not.toHaveProperty('actual');
+    }
+    const ordinary = getShiftView(shelter());
+    expect(ordinary.forecastCards.every((f) => f.issuedUtc === null)).toBe(
+      true,
+    );
+    const blind = shelter();
+    blind.pantry = blind.pantry.filter((i) => i.type !== 'dosimeter');
+    expect(getShiftView(blind).doseThresholds).toBeNull();
+    const paused = shelter({ windowId: '2011-09-24T20:45:00-WINDOW-001' });
+    act(paused, { type: 'assignCrew', crewId: 'ria', task: 'science' });
+    resolveShift(paused);
+    resolveShift(paused);
+    expect(getShiftView(paused)).toMatchObject({
+      resolving: true,
+      interrupt: { utc: '2011-09-25T04:31Z' },
+    });
+    act(paused, { type: 'recallAll' });
+    expect(getShiftView(paused).resolving).toBe(true);
+    resolveShift(paused);
+    expect(getShiftView(paused).resolving).toBe(false);
+  });
   it('consuming wall mass changes shielding immediately and validates moves', () => {
     const s = shelter();
     act(s, { type: 'moveItem', itemId: s.pantry[0].id, to: 'wall' });

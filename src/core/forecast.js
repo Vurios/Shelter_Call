@@ -10,6 +10,8 @@ export function forecasts(state) {
     .map((f) => ({
       source: 'REAL',
       donkiId: f.id,
+      utc: f.predicted,
+      issuedUtc: mara ? f.issued : null,
       issueHour: mara ? (Date.parse(f.issued) - state.now) / HOUR : null,
       arrivalInHours: (Date.parse(f.predicted) - state.now) / HOUR,
       bandHours:
@@ -28,6 +30,7 @@ export function messages(state) {
       .map((f) => ({
         source: 'REAL',
         donkiId: f.id,
+        utc: f.begin,
         hoursAgo: (state.now - Date.parse(f.begin)) / HOUR,
         text: `Flare ${f.class}.`,
         class: f.class,
@@ -42,6 +45,7 @@ export function messages(state) {
       .map((s) => ({
         source: 'REAL',
         donkiId: s.id,
+        utc: s.alertTime,
         hoursAgo: (state.now - Date.parse(s.alertTime)) / HOUR,
         text: 'Particle alert received.',
       })),

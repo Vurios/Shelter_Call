@@ -19,7 +19,7 @@ import { ending, achievements } from './endings.js';
  * @typedef {{itemsSaved:string[], crewSaved:string[], crewExposed:string[], timeLeft:number}} ScrambleResult
  * @typedef {{type:'assignCrew', crewId:string, task:string}|{type:'moveItem', itemId:string, to:'wall'|'pantry'}|{type:'consume'|'useItem', itemId:string, crewId?:string}|{type:'recallAll'|'keepWorking'|'endShift'}|{type:'chooseEvent',eventId:string,choice:0|1}} Action
  * @typedef {{id:string,source:'GAME',text:string,choices:string[],kind?:string}} PendingEvent
- * @typedef {{source:'REAL',donkiId:string,kind:string,class:string|null,associationRate:number|null,hour:number,text:string}} Interrupt
+ * @typedef {{source:'REAL',donkiId:string,kind:string,class:string|null,associationRate:number|null,utc:string,hour:number,text:string}} Interrupt
  * @typedef {{source:'REAL', donkiId:string, utc:string, text:string}|{source:'GAME', utc?:string, text:string}} EventLog
  * @typedef {{seed:string|number, difficulty:Difficulty, mode:Mode, windowId:string, phase:string, shiftIndex:number, crew:Crew[], items:Item[], wall:Item[], pantry:Item[], power:number, science:number, calls:Object[], log:EventLog[], scrambleResult:ScrambleResult|null, pendingEvent:PendingEvent|null, interrupt:Interrupt|null, rng:number, cursor:number, now:number, achievements:string[]}} RunState
  */
@@ -128,6 +128,13 @@ export function getShiftView(state) {
     radio: has(state, 'radio'),
     blind: !has(state, 'radio'),
     dosimeter,
+    resolving: Boolean(state.shift),
+    doseThresholds: dosimeter
+      ? {
+          sick: state.config.sick * state.rules.tolerance,
+          medevac: state.config.medevac * state.rules.tolerance,
+        }
+      : null,
     particleLevel: dosimeter
       ? Math.round(integrate(state, state.now, state.now + HOUR) * 12 * 100) /
         100
@@ -374,6 +381,7 @@ export function resolveShift(state) {
           event.kind === 'flare'
             ? (stats.flareSepRate[event.row.class[0]] ?? null)
             : null,
+        utc: event.utc,
         hour: (state.now / HOUR) % 24,
         text:
           event.kind === 'flare'

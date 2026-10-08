@@ -467,7 +467,7 @@ export function mountScramble({ onExit, seed: initialSeed } = {}) {
         )
         .join('') ||
       '<li>No supplies stashed this time. Try a quick trip back to the hatch.</li>'
-    }</ul><p class="result-next">Your choices are applied to the real-data engine. The Shelter Days journal arrives in prompt 6.</p><div class="result-actions"><button type="button" id="again">New scramble</button><button type="button" id="back-title">Back to title</button></div></section>`;
+    }</ul><p class="result-next">Your crew and supplies are inside. Open the journal, fill the wall, and make your first shelter call.</p><div class="result-actions"><button type="button" id="continue-shelter">Open shelter journal</button><button type="button" id="again">New scramble</button><button type="button" id="back-title">Back to title</button></div></section>`;
     root.dataset.phase = 'result';
     root.dataset.crewSaved = state.savedCrew.length;
     root.dataset.itemsSaved = state.savedItems.length;
@@ -475,6 +475,25 @@ export function mountScramble({ onExit, seed: initialSeed } = {}) {
     root.dataset.timeLeft = state.result.timeLeft.toFixed(2);
     root.querySelector('h1').tabIndex = -1;
     root.querySelector('h1').focus();
+    listen(root.querySelector('#continue-shelter'), 'click', async () => {
+      root.querySelector('#continue-shelter').disabled = true;
+      try {
+        const { mountShelter } = await import('../../ui/shelter/index.js');
+        if (disposed) return;
+        dispose();
+        mountShelter({
+          run,
+          onExit,
+          onReplay: () => mountScramble({ onExit }),
+        });
+      } catch {
+        if (!disposed) {
+          root.querySelector('#continue-shelter').disabled = false;
+          root.querySelector('.result-next').textContent =
+            'Journal unavailable. Please try opening it again.';
+        }
+      }
+    });
     listen(root.querySelector('#again'), 'click', () => {
       dispose();
       mountScramble({ onExit });
