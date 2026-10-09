@@ -2,7 +2,11 @@
 public/assets/** text eol=lf
 public/assets/**/*.glb -text
 public/assets/**/*.ttf -text
+public/assets/**/*.woff2 -text
 public/assets/*.png -text
+*.webm -text
+*.jar -text
+android/gradlew text eol=lf
 public/favicon.svg text eol=lf
 # Retain whitespace in the unmodified upstream license notices.
 public/assets/fonts/*-OFL.txt whitespace=-blank-at-eol
