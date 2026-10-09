@@ -90,7 +90,7 @@ An optional [Android debug build](release/README.md) is generated in `release/sh
 
 Repository owner: **Vurios** (GitHub handle). Team name, real names, roles, event entry and additional tools are **UNVERIFIED** until supplied. No fictional participants are listed.
 
-OpenAI Codex assisted with implementation, procedural art/audio, translation drafts, documentation and checks across prompts 1–9. The user supplied design/build prompts and approvals. AI did not generate NASA event records; IDs and provenance are retained. No runtime AI connection is required. Filipino review with target readers is **UNVERIFIED**.
+OpenAI Codex assisted with implementation, procedural art/audio, translation drafts, documentation and checks across prompts 1–10. The user supplied design/build prompts and approvals. AI did not generate NASA event records; IDs and provenance are retained. No runtime AI connection is required. Filipino review with target readers is **UNVERIFIED**.
 
 [The submission ledger](docs/SUBMISSION.md) verifies science against REPORT/DESIGN §16 and separates implementation evidence from human claims. [Decisions](docs/DECISIONS.md), [design](docs/DESIGN.md), [build prompts](docs/CLAUDE_CODE_PROMPTS.md) and [credits](CREDITS.md) document the work. Root specification copies remain for IDE tabs.
 

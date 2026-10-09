@@ -4,6 +4,10 @@
 .shelter-screen {
   animation: iris-open 0.45s ease both;
 }
+/* The entry screen and its Play button must be visible on the first paint. */
+.app-screen.game-title {
+  animation: none;
+}
 @keyframes iris-open {
   from {
     clip-path: circle(0% at 50% 20%);
