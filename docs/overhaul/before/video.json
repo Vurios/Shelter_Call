@@ -1,0 +1,9 @@
+{
+  "base": "http://127.0.0.1:4173",
+  "elapsedMs": 25013,
+  "shifts": 4,
+  "ending": "Early Ride Home",
+  "physicalRoute": "radio, Ria, hatch; remaining crew exposed by the ordinary early-close rule",
+  "errors": [],
+  "edited": false
+}

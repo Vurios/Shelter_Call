@@ -5,6 +5,12 @@ import assert from 'node:assert/strict';
 
 const base = process.argv[2] || 'http://127.0.0.1:4173';
 const dir = process.argv[3] || 'docs/submission';
+const sizes = process.argv[4]
+  ? process.argv[4].split(',').map((size) => size.split('x').map(Number))
+  : [
+      [1280, 720],
+      [360, 640],
+    ];
 await mkdir(dir, { recursive: true });
 const executablePath =
   process.env.PLAYWRIGHT_EXECUTABLE_PATH ||
@@ -17,12 +23,16 @@ const browser = await chromium.launch({
 });
 const results = [];
 try {
-  for (const width of [1280, 360]) {
-    const name = width === 360 ? 'mobile' : 'desktop';
+  for (const [width, height] of sizes) {
+    const name = process.argv[4]
+      ? `${width}x${height}`
+      : width === 360
+        ? 'mobile'
+        : 'desktop';
     const context = await browser.newContext({
-      viewport: { width, height: width === 360 ? 640 : 720 },
-      hasTouch: width === 360,
-      isMobile: width === 360,
+      viewport: { width, height },
+      hasTouch: width < 600,
+      isMobile: width < 600,
     });
     const page = await context.newPage();
     page.setDefaultTimeout(20000);
@@ -59,6 +69,8 @@ try {
       );
     }
     await page.goto(base);
+    await page.locator('[data-play]').waitFor();
+    await page.evaluate(() => document.fonts.ready);
     await shot('01-title');
     await page.goto(`${base}/?judge=1`);
     await page.locator('[data-judge-start]').click();
@@ -121,6 +133,12 @@ try {
     const physical = (await run()).scrambleResult;
     await page.locator('#continue-shelter').click();
     await page.locator('.shelter-screen[data-phase="shelter"]').waitFor();
+    await writeFile(
+      `${dir}/checkpoint-${name}.json`,
+      await page.evaluate(() =>
+        localStorage.getItem('shelter-call.mission.v1'),
+      ),
+    );
     for (const [id, task] of [
       ['ria', 'greenhouse'],
       ['dom', 'solar'],
@@ -150,7 +168,7 @@ try {
     const forecasts = await page.locator('.forecast-card').count();
     const footer = await page.locator('.journal-footer').boundingBox();
     assert(
-      footer && footer.y + footer.height <= (width === 360 ? 640 : 720) - 40,
+      footer && footer.y + footer.height <= height - 40,
       'Finish shift clears announcement',
     );
     let shifts = 0;
