@@ -1,0 +1,681 @@
+{
+  "baseline": "8237f366668ecfd9a93a4d4f52d29ea512f54377",
+  "seed": "shelter-call-judge-2024",
+  "exactStateAndRevealParity": true,
+  "results": [
+    {
+      "policy": "recallAll",
+      "actions": 27,
+      "ending": "Early Ride Home",
+      "finalHash": "1a276636e3a794f62182efd28e814d40b841cf1aed2b5d581fe3c92f6a93b149",
+      "transcript": [
+        {
+          "action": {
+            "type": "assignCrew",
+            "crewId": "ria",
+            "task": "greenhouse"
+          },
+          "stateHash": "939fc6a83ef74d2dc6bad0dfd915e674a467a454ecd2c439519e6d8484b400f7"
+        },
+        {
+          "action": {
+            "type": "assignCrew",
+            "crewId": "dom",
+            "task": "solar"
+          },
+          "stateHash": "28a49f02e98512e7041f18ffad5ef9fa74ec48a15309c6b8a939f0659f921f71"
+        },
+        {
+          "action": {
+            "type": "assignCrew",
+            "crewId": "aiko",
+            "task": "drill"
+          },
+          "stateHash": "406944d9d3400bca39287a21f3dd91994df0d21dd4be52860c041e703ea502c0"
+        },
+        {
+          "action": {
+            "type": "assignCrew",
+            "crewId": "tunde",
+            "task": "drill"
+          },
+          "stateHash": "8251d306dad944467f84eca2a94782c2143393c40f2c02bf8dd66903c1f6a16a"
+        },
+        {
+          "action": {
+            "type": "moveItem",
+            "itemId": "water-7",
+            "to": "wall"
+          },
+          "stateHash": "8b8df31595bf46db5c7fa5b37a0e56646f0e0d06bceee1d844435c61c05ca636"
+        },
+        {
+          "action": {
+            "type": "moveItem",
+            "itemId": "water-32",
+            "to": "wall"
+          },
+          "stateHash": "fc394d8dd514cf7c6ec3b41fe9e822bd054d7c12dea25d303da0ab3e6cf55d8e"
+        },
+        {
+          "action": {
+            "type": "moveItem",
+            "itemId": "water-41",
+            "to": "wall"
+          },
+          "stateHash": "aa47671574e57a2baeb8ce5221e7d09a8acc3db5022b8783bc02cd44b476daf9"
+        },
+        {
+          "action": {
+            "type": "moveItem",
+            "itemId": "water-48",
+            "to": "wall"
+          },
+          "stateHash": "719bb07feb9c7e4640e85c7c7ae62413964f9df05db30eb733ec65c67b2561ee"
+        },
+        {
+          "action": {
+            "type": "moveItem",
+            "itemId": "water-65",
+            "to": "wall"
+          },
+          "stateHash": "f16d87901fed93adcb8196fe1bc0b71c42cd74852d852319501ea6d90e3f502c"
+        },
+        {
+          "action": {
+            "type": "moveItem",
+            "itemId": "food-94",
+            "to": "wall"
+          },
+          "stateHash": "cca823b66705fb9d348996f040702a35b52aab626aed60c546c58236d36c6672"
+        },
+        {
+          "action": {
+            "type": "moveItem",
+            "itemId": "food-95",
+            "to": "wall"
+          },
+          "stateHash": "43efe0cbbbd5df9954548b3bba28866f705a1373cda277c6980ab7e6e078168d"
+        },
+        {
+          "action": {
+            "type": "moveItem",
+            "itemId": "food-138",
+            "to": "wall"
+          },
+          "stateHash": "2c5c2518c25aa126222a56bb995448e69572ac6169515d94f3fbe1a4133aed35"
+        },
+        {
+          "action": {
+            "type": "consume",
+            "itemId": "water-7",
+            "crewId": "ria"
+          },
+          "stateHash": "3dd0055847835286f5f2fe0a9b626a74ba03c41486753c2935737b885c8a83ef"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "faba23cdc61cf3b1a3eb6719c513ee39eff503ad8d11da8c354d92789a061738"
+        },
+        {
+          "action": {
+            "type": "recallAll"
+          },
+          "stateHash": "5174c26367dc3992abc3eea4337b6d86a168db444f14451cce7b92b35cda643d"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "8d46726fdcef3f6bfbf321ed2d2b9a11be8f1b268e8da8bda55593c511a4d23e"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "200b597f4b3a3ffc446c43090296aec665303421b794aee407493b7163916d4e"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "2a0329bda5b2eea8f8a246cf389e26aefda7ad7a7f567a6e6938f2214ded1dee"
+        },
+        {
+          "action": {
+            "type": "chooseEvent",
+            "eventId": "game-6",
+            "choice": 1
+          },
+          "stateHash": "1a9a3fa4fe4d093dc43146a56aad3c9c97532dd86addbc3b4814792739923e5e"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "d2e701eee9bd76618a3a8617a770e6ed6834992196c44edc67d46dfc8c0debbb"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "69b4912979fec9877e44cdfc4b1fcf2954ebdb579122d53130c04a96afa19e2e"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "6ad25cbcf7f2bf842e013b77138797503ed80ffc6931e4c3b1e53a78cc1e4419"
+        },
+        {
+          "action": {
+            "type": "recallAll"
+          },
+          "stateHash": "312a607e2d5fb8ad346e2b6d214a22e50967f83d53e1b24356b95fe8834628ec"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "f2d3f1af4705bc8d479399da09a2dd40e206269adc02ae362fa3fcc97ddde918"
+        },
+        {
+          "action": {
+            "type": "chooseEvent",
+            "eventId": "game-8",
+            "choice": 1
+          },
+          "stateHash": "84f1d96d30d35aff454469e05f297b73a9b7929fc55ac9d07658c828a6094361"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "e7af686ac0f3174233f74a3a060d149fb478a7fae035f824bcd1ec646550ef99"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "1a276636e3a794f62182efd28e814d40b841cf1aed2b5d581fe3c92f6a93b149"
+        }
+      ]
+    },
+    {
+      "policy": "keepWorking",
+      "actions": 73,
+      "ending": "Early Ride Home",
+      "finalHash": "baac177310a59c1f0de2f20a526b3204199e22dc3772f487d79037182e263ec5",
+      "transcript": [
+        {
+          "action": {
+            "type": "assignCrew",
+            "crewId": "ria",
+            "task": "greenhouse"
+          },
+          "stateHash": "939fc6a83ef74d2dc6bad0dfd915e674a467a454ecd2c439519e6d8484b400f7"
+        },
+        {
+          "action": {
+            "type": "assignCrew",
+            "crewId": "dom",
+            "task": "solar"
+          },
+          "stateHash": "28a49f02e98512e7041f18ffad5ef9fa74ec48a15309c6b8a939f0659f921f71"
+        },
+        {
+          "action": {
+            "type": "assignCrew",
+            "crewId": "aiko",
+            "task": "drill"
+          },
+          "stateHash": "406944d9d3400bca39287a21f3dd91994df0d21dd4be52860c041e703ea502c0"
+        },
+        {
+          "action": {
+            "type": "assignCrew",
+            "crewId": "tunde",
+            "task": "drill"
+          },
+          "stateHash": "8251d306dad944467f84eca2a94782c2143393c40f2c02bf8dd66903c1f6a16a"
+        },
+        {
+          "action": {
+            "type": "moveItem",
+            "itemId": "water-7",
+            "to": "wall"
+          },
+          "stateHash": "8b8df31595bf46db5c7fa5b37a0e56646f0e0d06bceee1d844435c61c05ca636"
+        },
+        {
+          "action": {
+            "type": "moveItem",
+            "itemId": "water-32",
+            "to": "wall"
+          },
+          "stateHash": "fc394d8dd514cf7c6ec3b41fe9e822bd054d7c12dea25d303da0ab3e6cf55d8e"
+        },
+        {
+          "action": {
+            "type": "moveItem",
+            "itemId": "water-41",
+            "to": "wall"
+          },
+          "stateHash": "aa47671574e57a2baeb8ce5221e7d09a8acc3db5022b8783bc02cd44b476daf9"
+        },
+        {
+          "action": {
+            "type": "moveItem",
+            "itemId": "water-48",
+            "to": "wall"
+          },
+          "stateHash": "719bb07feb9c7e4640e85c7c7ae62413964f9df05db30eb733ec65c67b2561ee"
+        },
+        {
+          "action": {
+            "type": "moveItem",
+            "itemId": "water-65",
+            "to": "wall"
+          },
+          "stateHash": "f16d87901fed93adcb8196fe1bc0b71c42cd74852d852319501ea6d90e3f502c"
+        },
+        {
+          "action": {
+            "type": "moveItem",
+            "itemId": "food-94",
+            "to": "wall"
+          },
+          "stateHash": "cca823b66705fb9d348996f040702a35b52aab626aed60c546c58236d36c6672"
+        },
+        {
+          "action": {
+            "type": "moveItem",
+            "itemId": "food-95",
+            "to": "wall"
+          },
+          "stateHash": "43efe0cbbbd5df9954548b3bba28866f705a1373cda277c6980ab7e6e078168d"
+        },
+        {
+          "action": {
+            "type": "moveItem",
+            "itemId": "food-138",
+            "to": "wall"
+          },
+          "stateHash": "2c5c2518c25aa126222a56bb995448e69572ac6169515d94f3fbe1a4133aed35"
+        },
+        {
+          "action": {
+            "type": "consume",
+            "itemId": "water-7",
+            "crewId": "ria"
+          },
+          "stateHash": "3dd0055847835286f5f2fe0a9b626a74ba03c41486753c2935737b885c8a83ef"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "faba23cdc61cf3b1a3eb6719c513ee39eff503ad8d11da8c354d92789a061738"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "9ba465a0a5a8e4e67583727952ea6ed17d51809039097b0c01fb12ce0b85b933"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "24e9294b217560933399d8714511387dc48354a63dcc46d7de72631f30c1379b"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "5fcb936a4bc46d11b54617dc8f0f6b84c9147fe7f52405b3715c34e9160392a0"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "9dcfe60b215124ed3fd39732b096a37320a421030880998a4da26dc55d572ac5"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "6c927f31f57bdb5b6586d25e1d5f7d0ee40f8d55f02c5ff3b9c3b882033604b2"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "fafd746572bba40cca28d043aa2dc539b3341493ea2330b63bd4a2306732098e"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "5117a5c7d2ba66fea633d0389ea352fff67f72241c15439333995feb7a3121fc"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "1e6b5bfceaa109e9b8c26c939938120946ce06ef3d71e6cbb64b705d380ae933"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "893997cec30518c98226664dc5ccb8d8d9cdc45401f9f7978c9c275c6a138d69"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "3a8dec3d8f02c9a6adebf915b839e9bb66b7d6fafbe4931ce98b1ef7db691375"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "e6e6e120d3ebc8fb6c2331138c94803b9dbc0c8ae2b98006cc16e8b7fe4156f6"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "31e6c8198b9019dd84fd597e1d5ee47bf20785473a44d94df31fcbb69ef0add3"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "be11cc753e136dabe0d0971431d1d882fc94fe84c5de2dfa58708e9e669edcc5"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "413f84d7bd52a22aa6c6c56be75fd595a114f57edd826f1cd44e6ff1f7422e6f"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "092577271c854edd48568ff36ee2f49ec75ef345ac479339c71c97e8921d313e"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "210a2f575c2c8de5ac2889861a21e225401ee46e42d8dcc903c46a64df80e5f6"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "47d99d63cf4c588bb4e1a4051ef391682d8629f80b32643be6b7625f88e47cae"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "5db8610b35a4cf508f9c95f7ec66e92c3e585e50c0c8be04ca36c12ce489b4d4"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "2e396fd962b4a5b77e0bdc3ed512ee0f003cc9d3c24d9a1fe5a213e2bee36485"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "11083b420b6de9c11ec59789a162c8eb700743fa4fe00bfd73354d830f9153a9"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "7a2924e68259dee89b02ca27b5b53aab1bbd10efcbda6cc610bab4fdc58a2e4a"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "087a48a0140921ca872f8d30e924ef00b3a9b9930b87b6daa9402a6ceaa9d147"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "fbae8c0cccbf2db10cac6bc392f7fff8d110cfb7dfe423afc34350d591a89dd0"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "7012c46e76aee037443b1c83892cf80bb6c8014bd95116f697006eb8f0ff7323"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "7f19eb40754ce7390cb059d251985329fa81774abb135848070ea38fe978c254"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "a45a299872723a227f9a05e3a5b2787722de481b9734a07b6b200bf904700eb4"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "46cef444ceb6b33646e3b6004dd05c5f5fa0ad4e98279e2269d19bad7c1213f7"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "2d11a94d265a185ab9100522a2a89a8b0d5961f9914417bbdf266c5b37c838fc"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "533cb1827a3bb5ccd5f6a7404241b0ba9a91f57185f07ad5cd02c7d9744c46b2"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "6f37262ca760553bad7a64a8b747d1f466c041b48ccd9b81d68f0426c30e0153"
+        },
+        {
+          "action": {
+            "type": "chooseEvent",
+            "eventId": "game-6",
+            "choice": 1
+          },
+          "stateHash": "102c6f7c07de496780c1574d5fbc0639c896e6713566a2b06f5d446fcfcc36a7"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "7349168e90ddb5c62256b9f92f4fb91a2eac83d4f54cb947faeeb10487af4053"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "129d0cd627c47e14c65651f0b19198c458e947bf80107847e78e838fb942e36f"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "7decf8d0090f19cf85257ce642e1179aa07261aeb500a4ba192fa3595a79dae9"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "66ac746679b2c79140c397498cc94847b515f59d61f83544842b44b697112021"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "8e78c5c824625e8b6f53fb7723d1fc35b326c11a4ebc4b71d62350e92c72549e"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "55a0035c9e9b063408884be66e66f1aa52e08a0d1e920897ffce783ee2c19d28"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "ce43c838c18b587111b4ce288e8fd04ab6acbf077c0a3c07893e9c6a23ae0bc7"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "69f1361c72376bedab1e56873af7f09c7a20c3fa7d276b22ee65103bc274a120"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "0f7d765cf7431b9b122a5f1076f29c7c2dc2f3190c372ab7fcdd9aa889966c2c"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "72cefed4d1b79acd3e9504911fce45a26391971dc5c106f7b58c3ceae6d64360"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "bbcc832d9c633dbc523a02e56c657edf8c3278df660795f12256e44d81e0e549"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "a20b9f343058848cf1bb5bdf16f13d91667720b31fdb7f73dec53958bd0fb882"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "52209add41e8f527545db47bf4e37ec757f4a99a13953becbd5879a94abe20bb"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "b3857a8067d2ca1aad71dd54087d266585a0882348ca3bf09385828cdee277dc"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "c806220958c1ed6a6a523001508e6cf8086af2c07bf46e3a01fe3af1a7355711"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "eac13ea1845f824769347f44b838d4efd16ab7e01f3b91dd7db175bdc7a93693"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "f8f421dbee369fcdf2264e4fe721dc579af6508830325a12185b036b815fef7a"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "6eaff8009c4294368cb4ecc69b518648fa87b2aae46cc4642c215bf7d806491d"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "8f6a27397e87345de2d312bee56eeec1372cb08f6b094cb627c0af1cfbbd1d3b"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "aac3f58047177b11bf4b222f4e4c759c8ed90ea6c88522348e5aaf6d8b12d02b"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "b954095a44f01ffd36c39d1dc610571ff4e98f4e22ad265acf51d1c2c4996f40"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "fc67c0ff760eb00446c2c7d58c20fd795d056c117030619271be6b9db6459f7c"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "c9d643e8391eebcd15135fcbf3175e20ea7850d12c9fa56393f9e03bd65e7799"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "9995637d61ff62ae5a477395194b766cb0f9e90c1ac79dc250763129e6c5c641"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "064948c975d4e806e55b5d20ff3cc2391a4f6031257ad5ab2a00cfc1519619fd"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "b1936285d595e101880095715094c9550dab3713b9873e6ceacb252f1fa46f4f"
+        },
+        {
+          "action": {
+            "type": "keepWorking"
+          },
+          "stateHash": "9f38097a805ad2134153c9c69c1893f6709816ed58a231b2926ee65da5621c6d"
+        },
+        {
+          "action": {
+            "type": "endShift"
+          },
+          "stateHash": "baac177310a59c1f0de2f20a526b3204199e22dc3772f487d79037182e263ec5"
+        }
+      ]
+    }
+  ]
+}

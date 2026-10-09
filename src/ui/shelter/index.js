@@ -29,6 +29,14 @@ export function mountShelter({
   const root = app.querySelector('.shelter-screen');
   const page = root.querySelector('.journal-page');
   const announcement = root.querySelector('.journal-announcement');
+  // Status lines grow with translated/large text. Keep the action bar above them.
+  const announcementSize = new ResizeObserver(() => {
+    root.style.setProperty(
+      '--announcement-height',
+      `${announcement.getBoundingClientRect().height}px`,
+    );
+  });
+  announcementSize.observe(announcement);
   const lifecycle = new AbortController();
   const habitat = createHabitat(settings);
   let inspector = 'crew';
@@ -518,6 +526,7 @@ export function mountShelter({
   function dispose() {
     if (disposed) return;
     disposed = true;
+    announcementSize.disconnect();
     habitat.dispose();
     lifecycle.abort();
     clearTimeout(turnTimer);
@@ -528,7 +537,10 @@ export function mountShelter({
   if (disposed) return dispose;
   page.querySelector('h1').focus({ preventScroll: true });
   announce(
-    `Day ${view.day}, ${view.shift}. Choose crew tasks and fill the wall before finishing the shift.`,
+    t(
+      'Day {day}, {shift}. Choose crew tasks and fill the wall before finishing the shift.',
+      { day: view.day, shift: view.shift },
+    ),
   );
   if (view.resolving && !view.interrupt && !view.pendingEvent) finishShift();
   return dispose;

@@ -67,6 +67,9 @@ try {
   await page.locator('#close-hatch').click();
   await page.locator('#continue-shelter').click();
   await page.locator('.shelter-screen[data-phase="shelter"]').waitFor();
+  await page.locator('.habitat-room').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(1500);
+  await page.locator('[data-inspector="radio"]').click();
   await page.locator('.forecast-card').first().scrollIntoViewIfNeeded();
   await page.waitForTimeout(3000);
   let shifts = 0;

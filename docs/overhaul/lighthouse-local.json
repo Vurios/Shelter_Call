@@ -1,0 +1,23 @@
+{
+  "url": "http://127.0.0.1:4173/",
+  "fetched": "2026-10-09T15:48:29.017Z",
+  "lighthouse": "13.5.0",
+  "scores": {
+    "performance": 95,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "interactionMs": 2719.6297000000004,
+  "lcpMs": 2719.6297000000004,
+  "blockingMs": 50,
+  "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+  },
+  "passed": true
+}

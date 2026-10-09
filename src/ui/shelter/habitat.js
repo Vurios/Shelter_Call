@@ -57,6 +57,7 @@ export function createHabitat(settings) {
         view.pantry,
         view.power,
         view.plant,
+        view.broken,
         view.morale,
         view.boltTask,
         slots,
@@ -71,6 +72,11 @@ export function createHabitat(settings) {
       ).length;
       const columns = page.querySelector('.journal-columns'),
         crew = page.querySelector('.crew-panel');
+      const taskBoard = crew.querySelector('.task-board');
+      taskBoard.after(
+        crew.querySelector('.meter-note'),
+        crew.querySelector('.section-note'),
+      );
       const strip = page.querySelector('.crew-board'),
         log = page.querySelector('.shift-log');
       const wall = page.querySelector('.wall-panel'),

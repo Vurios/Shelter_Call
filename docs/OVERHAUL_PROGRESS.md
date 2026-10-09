@@ -1,6 +1,6 @@
 # Prompt 10 overhaul progress
 
-Status: **in progress**. Prompts 1–9 are complete. This is one authorized overhaul; no approval pause between milestones.
+Status: **implementation complete; final release checks in progress**. Prompts 1–9 are complete. This is one authorized overhaul; no approval pause between milestones. See [verification and comparison](OVERHAUL_VERIFICATION.md) for evidence and explicit acceptance limits.
 
 ## Recoverable baseline
 
@@ -13,9 +13,9 @@ Status: **in progress**. Prompts 1–9 are complete. This is one authorized over
 ## Milestones
 
 1. **Complete:** 50 baseline browser tests passed in 8.8 minutes. Four viewport captures and a 25-second real-control recording passed with zero browser errors. Font readiness is awaited before capture. Evidence committed and pushed as `b3acf13`.
-2. **Implemented, refining:** articulated crew, original 3D/illustrated habitat, crew strip, focused inspector and pure consequence previews. Four actual saved checkpoints rendered without errors/overflow. Nine focused browser tests passed in 1.7 minutes, including wall previews, context loss, translated large text, interrupted-shift resume and offline entry.
-3. Propagate coherent models, portraits, fallback sprites, title/draft/forecast/event/reveal/replay screens; graphics tiers, sound controls, localization and accessibility.
-4. **Final validation:** renderer integration passed 18/18 desktop/mobile checks (4.7 minutes) including all three timed routes, context loss and repeated scene disposal. Capture tool reproduces baseline plans at four sizes with zero errors, stable time/RNG and 84 interior draws. Current performance, full final suite and deployment remain in progress.
+2. **Complete:** articulated crew, original 3D/illustrated habitat, crew strip, focused inspector and pure consequence previews. Four actual saved checkpoints rendered without errors/overflow. Wall previews, context loss, translated large text, interrupted-shift resume and offline entry passed.
+3. **Complete:** coherent models, portraits, fallback sprites, title/draft/forecast/event/reveal/replay screens; graphics tiers, independent sound controls, science notes, localization and accessibility. Final inspection fixed dynamic Filipino labels and status/footer overlap at large text.
+4. **Final validation:** renderer checks passed 18/18 (4.7 minutes). Final shelter/overhaul selection passed 20/20 (1.3 minutes), then 6/6 after the status/footer fix. Four complete capture routes and a new 25-second recording passed. Exact baseline engine parity holds across 100 committed actions and both ending reveals. Local Lighthouse scored 95 performance/100 accessibility with 2.72-second interaction. CI/deployment verification is the remaining release step.
 
 ## Commands and evidence
 
@@ -38,4 +38,4 @@ Status: **in progress**. Prompts 1–9 are complete. This is one authorized over
 - Exact entered Space Apps challenge/year is not recorded. User was asked for the official title/URL; do not guess eligibility or revise challenge claims without it.
 - Human playtesting and representative physical Android frame rate are unavailable so far. Desktop Chrome/touch emulation are separate evidence.
 - Linked YouTube trailers failed in the web reader. Official descriptions and screenshots were inspected; no video timing or internal-engine claims are made.
-- Do not report the overhaul complete until the implemented living shelter, remaining screen/asset pass and final gates are done.
+- Implementation is complete. Do not claim final publication until the head commit passes Cloudflare's validation/deploy workflow and the production URL is checked.

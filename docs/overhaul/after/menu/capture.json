@@ -1,0 +1,15 @@
+{
+  "base": "http://127.0.0.1:4173",
+  "report": [
+    {
+      "width": 1280,
+      "height": 720,
+      "errors": []
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "errors": []
+    }
+  ]
+}

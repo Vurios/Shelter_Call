@@ -96,6 +96,6 @@ OpenAI Codex assisted with implementation, procedural art/audio, translation dra
 
 ### Prompt 10 overhaul
 
-Articulated original crew, a living 3D shelter with illustrated fallback, a focused inspector, exact supply/event previews and conditional shift estimates now share the existing seeded engine. Title/draft art, graphics choices, independent music/SFX, illustrated scramble and post-mission science notes have been updated. Validation is tracked in [OVERHAUL_PROGRESS.md](docs/OVERHAUL_PROGRESS.md); current work is not represented as completed physical-device or human acceptance.
+Articulated original crew, a living 3D shelter with illustrated fallback, a focused inspector, exact supply/event previews and conditional shift estimates now share the existing seeded engine. Title/draft art, graphics choices, independent music/SFX, illustrated scramble and post-mission science notes have been updated. See the [before/after comparison and verification report](docs/OVERHAUL_VERIFICATION.md) for actual gameplay captures, tests, performance and deployment status. Physical-device and human acceptance remain unverified.
 
 Reproduce the room comparison with `node tools/capture-overhaul.mjs http://127.0.0.1:4173`; it resumes actual baseline saves and repeats their planning actions. `node tools/profile-scenes.mjs http://127.0.0.1:4173` records renderer/frame metrics and the GPU environment separately from Lighthouse and physical-device claims.

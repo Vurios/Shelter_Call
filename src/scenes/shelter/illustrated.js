@@ -19,10 +19,10 @@ export function illustratedRoom(view, slots) {
     .map((crew, i) => {
       const away = crew.assignment !== 'shelter';
       const x = 245 + i * 143;
-      return `<g opacity="${crew.status === 'medevac' ? '.25' : 1}" transform="translate(${x} ${away ? 5 : 0})"><ellipse cx="0" cy="477" rx="57" ry="15" fill="#101d2a" opacity=".24"/><rect x="-31" y="432" width="25" height="46" rx="10" fill="#101d2a"/><rect x="7" y="432" width="25" height="46" rx="10" fill="#101d2a"/><image href="/assets/portraits/${crew.id}-${crew.status === 'rad-sick' || crew.hunger || crew.thirst ? 'tired' : view.morale < 3 ? 'worried' : 'calm'}.svg" x="-63" y="318" width="126" height="126"/><title>${escape(crew.name)}: ${escape(crew.assignment)}</title></g>`;
+      return `<g opacity="${crew.status === 'medevac' ? '.25' : 1}" transform="translate(${x} ${away ? 45 : 0})"><ellipse cx="0" cy="477" rx="57" ry="15" fill="#101d2a" opacity=".24"/><rect x="-31" y="432" width="25" height="46" rx="10" fill="#101d2a"/><rect x="7" y="432" width="25" height="46" rx="10" fill="#101d2a"/><image href="/assets/portraits/${crew.id}-${crew.status === 'rad-sick' || crew.hunger || crew.thirst ? 'tired' : view.morale < 3 ? 'worried' : 'calm'}.svg" x="-63" y="318" width="126" height="126"/><title>${escape(crew.name)}: ${escape(crew.assignment)}</title></g>`;
     })
     .join('')}
-  ${view.wall.concat(view.pantry).some((item) => item.type === 'seeds') ? '<image href="/assets/plant/content.svg" x="766" y="335" width="96" height="105"/>' : ''}
+  ${view.wall.concat(view.pantry).some((item) => item.type === 'seeds') ? `<image href="/assets/plant/${view.broken || view.power <= 0 ? 'worried' : view.plant > 5 ? 'proud' : 'content'}.svg" x="766" y="335" width="96" height="105"/>` : ''}
   ${view.boltTask != null ? '<image href="/assets/portraits/bolt.svg" x="104" y="370" width="88" height="94"/>' : ''}
   </svg>`;
 }

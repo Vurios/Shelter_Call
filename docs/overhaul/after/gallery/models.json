@@ -1,0 +1,237 @@
+{
+  "models": [
+    {
+      "model": "crew-ria",
+      "modelPath": "/assets/models/crew-ria.glb",
+      "modelState": "loaded",
+      "materials": "1",
+      "dimensions": "1.35 × 2.57 × 1.28 m",
+      "drawCalls": "13"
+    },
+    {
+      "model": "crew-dom",
+      "modelPath": "/assets/models/crew-dom.glb",
+      "modelState": "loaded",
+      "materials": "1",
+      "dimensions": "1.56 × 2.44 × 1.28 m",
+      "drawCalls": "13"
+    },
+    {
+      "model": "crew-aiko",
+      "modelPath": "/assets/models/crew-aiko.glb",
+      "modelState": "loaded",
+      "materials": "1",
+      "dimensions": "1.34 × 2.44 × 1.28 m",
+      "drawCalls": "13"
+    },
+    {
+      "model": "crew-tunde",
+      "modelPath": "/assets/models/crew-tunde.glb",
+      "modelState": "loaded",
+      "materials": "1",
+      "dimensions": "1.43 × 2.77 × 1.28 m",
+      "drawCalls": "13"
+    },
+    {
+      "model": "crew-mara",
+      "modelPath": "/assets/models/crew-mara.glb",
+      "modelState": "loaded",
+      "materials": "1",
+      "dimensions": "1.37 × 2.64 × 1.28 m",
+      "drawCalls": "13"
+    },
+    {
+      "model": "crew-iggy",
+      "modelPath": "/assets/models/crew-iggy.glb",
+      "modelState": "loaded",
+      "materials": "1",
+      "dimensions": "1.42 × 2.49 × 1.28 m",
+      "drawCalls": "13"
+    },
+    {
+      "model": "crew-sol",
+      "modelPath": "/assets/models/crew-sol.glb",
+      "modelState": "loaded",
+      "materials": "1",
+      "dimensions": "1.59 × 2.39 × 1.28 m",
+      "drawCalls": "13"
+    },
+    {
+      "model": "crew-pip",
+      "modelPath": "/assets/models/crew-pip.glb",
+      "modelState": "loaded",
+      "materials": "1",
+      "dimensions": "1.30 × 2.31 × 1.28 m",
+      "drawCalls": "13"
+    },
+    {
+      "model": "station-hatch",
+      "modelPath": "/assets/models/station-hatch.glb",
+      "modelState": "loaded",
+      "materials": "5",
+      "dimensions": "2.50 × 1.92 × 2.12 m",
+      "drawCalls": "37"
+    },
+    {
+      "model": "station-greenhouse",
+      "modelPath": "/assets/models/station-greenhouse.glb",
+      "modelState": "loaded",
+      "materials": "4",
+      "dimensions": "2.50 × 1.92 × 1.80 m",
+      "drawCalls": "17"
+    },
+    {
+      "model": "station-solar",
+      "modelPath": "/assets/models/station-solar.glb",
+      "modelState": "loaded",
+      "materials": "3",
+      "dimensions": "2.55 × 1.41 × 1.80 m",
+      "drawCalls": "23"
+    },
+    {
+      "model": "station-drill",
+      "modelPath": "/assets/models/station-drill.glb",
+      "modelState": "loaded",
+      "materials": "4",
+      "dimensions": "2.50 × 2.25 × 1.80 m",
+      "drawCalls": "27"
+    },
+    {
+      "model": "station-lander",
+      "modelPath": "/assets/models/station-lander.glb",
+      "modelState": "loaded",
+      "materials": "5",
+      "dimensions": "2.50 × 2.06 × 1.80 m",
+      "drawCalls": "25"
+    },
+    {
+      "model": "station-rover-bay",
+      "modelPath": "/assets/models/station-rover-bay.glb",
+      "modelState": "loaded",
+      "materials": "4",
+      "dimensions": "2.50 × 2.26 × 1.80 m",
+      "drawCalls": "19"
+    },
+    {
+      "model": "station-lab",
+      "modelPath": "/assets/models/station-lab.glb",
+      "modelState": "loaded",
+      "materials": "5",
+      "dimensions": "2.50 × 2.71 × 1.80 m",
+      "drawCalls": "17"
+    },
+    {
+      "model": "item-water",
+      "modelPath": "/assets/models/item-water.glb",
+      "modelState": "loaded",
+      "materials": "3",
+      "dimensions": "0.96 × 0.83 × 0.50 m",
+      "drawCalls": "13"
+    },
+    {
+      "model": "item-food",
+      "modelPath": "/assets/models/item-food.glb",
+      "modelState": "loaded",
+      "materials": "3",
+      "dimensions": "0.72 × 0.72 × 0.49 m",
+      "drawCalls": "13"
+    },
+    {
+      "model": "item-radio",
+      "modelPath": "/assets/models/item-radio.glb",
+      "modelState": "loaded",
+      "materials": "3",
+      "dimensions": "0.72 × 1.27 × 0.52 m",
+      "drawCalls": "25"
+    },
+    {
+      "model": "item-dosimeter",
+      "modelPath": "/assets/models/item-dosimeter.glb",
+      "modelState": "loaded",
+      "materials": "3",
+      "dimensions": "0.72 × 0.72 × 0.49 m",
+      "drawCalls": "7"
+    },
+    {
+      "model": "item-seeds",
+      "modelPath": "/assets/models/item-seeds.glb",
+      "modelState": "loaded",
+      "materials": "2",
+      "dimensions": "0.72 × 0.72 × 0.50 m",
+      "drawCalls": "7"
+    },
+    {
+      "model": "item-repair",
+      "modelPath": "/assets/models/item-repair.glb",
+      "modelState": "loaded",
+      "materials": "3",
+      "dimensions": "0.72 × 0.86 × 0.49 m",
+      "drawCalls": "17"
+    },
+    {
+      "model": "item-med",
+      "modelPath": "/assets/models/item-med.glb",
+      "modelState": "loaded",
+      "materials": "3",
+      "dimensions": "0.72 × 0.83 × 0.52 m",
+      "drawCalls": "15"
+    },
+    {
+      "model": "item-battery",
+      "modelPath": "/assets/models/item-battery.glb",
+      "modelState": "loaded",
+      "materials": "3",
+      "dimensions": "0.72 × 0.82 × 0.49 m",
+      "drawCalls": "13"
+    },
+    {
+      "model": "item-guitar",
+      "modelPath": "/assets/models/item-guitar.glb",
+      "modelState": "loaded",
+      "materials": "4",
+      "dimensions": "0.76 × 1.64 × 0.28 m",
+      "drawCalls": "17"
+    },
+    {
+      "model": "item-game",
+      "modelPath": "/assets/models/item-game.glb",
+      "modelState": "loaded",
+      "materials": "2",
+      "dimensions": "0.72 × 0.72 × 0.50 m",
+      "drawCalls": "13"
+    },
+    {
+      "model": "bolt",
+      "modelPath": "/assets/models/bolt.glb",
+      "modelState": "loaded",
+      "materials": "8",
+      "dimensions": "1.64 × 1.98 × 0.77 m",
+      "drawCalls": "71"
+    },
+    {
+      "model": "kamote",
+      "modelPath": "/assets/models/kamote.glb",
+      "modelState": "loaded",
+      "materials": "5",
+      "dimensions": "1.15 × 1.61 × 1.07 m",
+      "drawCalls": "27"
+    },
+    {
+      "model": "rock",
+      "modelPath": "/assets/models/rock.glb",
+      "modelState": "loaded",
+      "materials": "1",
+      "dimensions": "1.21 × 0.92 × 0.98 m",
+      "drawCalls": "3"
+    },
+    {
+      "model": "crater",
+      "modelPath": "/assets/models/crater.glb",
+      "modelState": "loaded",
+      "materials": "2",
+      "dimensions": "1.92 × 0.38 × 1.92 m",
+      "drawCalls": "5"
+    }
+  ],
+  "errors": []
+}

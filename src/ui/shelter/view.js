@@ -1,4 +1,5 @@
 import { itemIcon } from '../../art/items.js';
+import { t } from '../../i18n/index.js';
 // Presentation only: every value comes from the detached public shift view.
 export const escape = (value) =>
   String(value ?? '').replace(
@@ -156,7 +157,7 @@ export function renderJournal(view, selection, slots, logs, sound) {
     )
     .join(
       '',
-    )}<div class="resupply-status">${icon('salvage')}<span>Resupply<strong>${view.daysUntilResupply} ${view.daysUntilResupply === 1 ? 'day' : 'days'}</strong></span></div></div>
+    )}<div class="resupply-status">${icon('salvage')}<span>Resupply<strong>${view.daysUntilResupply} ${t(view.daysUntilResupply === 1 ? 'day' : 'days')}</strong></span></div></div>
   <div class="journal-columns"><section class="crew-panel" aria-labelledby="crew-heading"><div class="section-title"><h2 id="crew-heading">The crew</h2><span class="journal-sticker">TEAM MOON ☾</span></div><p class="section-note">Tap a crew card, then a task. Tasks stay set next shift. Hunger/thirst = days without enough.</p><div class="crew-board">${view.crew.map((c) => crewCard(c, view, selection.crew)).join('')}${view.boltTask != null ? `<button type="button" class="crew-card bolt-card" data-crew="bolt" data-key="crew-bolt" aria-pressed="${selection.crew === 'bolt'}"><img class="crew-portrait" src="/assets/portraits/bolt.svg" alt=""><strong>BOLT</strong><span>${TASK_LABELS[view.boltTask]}</span><small>No human dose. EVA costs 1 power/shift; storms slow work.</small></button>` : ''}</div>${doseNotice}<fieldset class="task-board" ${disabled ? 'disabled' : ''}><legend>${selectedCrew ? `Assign ${escape(selectedCrew.name)}` : 'Choose a crew card'}</legend>${Object.entries(
     TASK_LABELS,
   )
@@ -188,7 +189,7 @@ export function renderJournal(view, selection, slots, logs, sound) {
         }`
       : '<p>Boots by the hatch. A fresh page. What shall we do?</p>'
   }</section>
-  <footer class="journal-footer"><small>${view.shift === 'PM' ? 'Midnight meals use shelf supplies first, then the wall.' : 'Tasks stay set until you change them.'}<br>Survival and dose are GAME rules.</small><button type="button" class="end-shift" data-action="end" data-key="end" ${disabled ? 'disabled' : ''}>${view.resolving ? 'Continue shift' : `Finish ${view.shift} shift`} →</button></footer>
+  <footer class="journal-footer"><small>${view.shift === 'PM' ? 'Midnight meals use shelf supplies first, then the wall.' : 'Tasks stay set until you change them.'}<br>Survival and dose are GAME rules.</small><button type="button" class="end-shift" data-action="end" data-key="end" ${disabled ? 'disabled' : ''}><span>${view.resolving ? 'Continue shift' : t('Finish {shift} shift', { shift: view.shift })}</span> <span aria-hidden="true">→</span></button></footer>
   ${view.interrupt ? interruptDialog(view.interrupt) : view.pendingEvent ? `<dialog class="journal-dialog" aria-labelledby="decision-heading"><p class="game-tag">GAME · CREW STORY</p><h2 id="decision-heading">A little Moon moment</h2><p>${escape(view.pendingEvent.text)}</p><div class="decision-buttons">${view.pendingEvent.choices.map((choice, index) => `<button type="button" data-choice="${index}" data-key="choice-${index}">${escape(choice)}</button>`).join('')}</div></dialog>` : view.phase === 'ending' ? `<dialog class="journal-dialog" aria-labelledby="decision-heading"><p class="game-tag">GAME · JOURNAL CLOSED</p><h2 id="decision-heading">Time for a ride home.</h2><p>${view.crew.some((c) => c.status === 'medevac') ? 'A crew member needs care back home.' : view.power <= 0 ? 'The shelter needs more power.' : 'The resupply lander has reached your mission boundary.'} Your journal is complete.</p><div class="decision-buttons"><button type="button" data-action="replay" data-key="replay">New mission</button><button type="button" data-action="exit" data-key="ending-exit">Back to title</button></div></dialog>` : ''}`;
 }
 function interruptDialog(interrupt) {

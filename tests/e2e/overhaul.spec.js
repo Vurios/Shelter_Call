@@ -140,6 +140,20 @@ test('illustrated room, large translated text and repeated resume preserve missi
   await expect(page.locator('.habitat-webgl canvas')).toHaveCount(0);
   await expect(page.locator('.habitat-illustration svg')).toBeVisible();
   await expect(page.locator('[data-inspector="wall"]')).toHaveText('Suplay');
+  await expect(page.locator('[data-action="end"]')).toContainText(
+    'Tapusin ang turno AM',
+  );
+  await expect(page.locator('.resupply-status')).toContainText('araw');
+  await expect(page.locator('.journal-announcement')).toContainText(
+    'Pumili ng gawain',
+  );
+  await expect
+    .poll(async () => {
+      const footer = await page.locator('.journal-footer').boundingBox();
+      const status = await page.locator('.journal-announcement').boundingBox();
+      return footer.y + footer.height <= status.y + 1;
+    })
+    .toBe(true);
   for (let n = 0; n < 3; n++) {
     await page.locator('[data-action="exit"]').click();
     await expect(page.locator('.habitat-room')).toHaveCount(0);

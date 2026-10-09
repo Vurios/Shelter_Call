@@ -1,0 +1,106 @@
+{
+  "base": "http://127.0.0.1:4173",
+  "results": [
+    {
+      "width": 1280,
+      "physical": {
+        "itemsSaved": [
+          "water-41",
+          "radio-141",
+          "water-48",
+          "food-96",
+          "seeds-143",
+          "water-7",
+          "electron-150",
+          "food-95",
+          "food-138",
+          "water-65",
+          "water-32"
+        ],
+        "crewSaved": ["ria", "dom", "aiko", "tunde"],
+        "crewExposed": [],
+        "timeLeft": 68.3166000000022
+      },
+      "forecasts": 5,
+      "shifts": 8,
+      "ending": "Early Ride Home",
+      "errors": []
+    },
+    {
+      "width": 1920,
+      "physical": {
+        "itemsSaved": [
+          "water-41",
+          "radio-141",
+          "water-48",
+          "food-96",
+          "seeds-143",
+          "electron-150",
+          "water-7",
+          "food-71",
+          "food-138",
+          "water-65",
+          "food-95",
+          "food-122"
+        ],
+        "crewSaved": ["ria", "dom", "aiko", "tunde"],
+        "crewExposed": [],
+        "timeLeft": 68.05050000000169
+      },
+      "forecasts": 5,
+      "shifts": 8,
+      "ending": "Snack Attack",
+      "errors": []
+    },
+    {
+      "width": 360,
+      "physical": {
+        "itemsSaved": [
+          "water-41",
+          "radio-141",
+          "water-48",
+          "food-96",
+          "seeds-143",
+          "water-7",
+          "electron-150",
+          "food-95",
+          "food-138",
+          "water-65",
+          "water-32"
+        ],
+        "crewSaved": ["ria", "dom", "aiko", "tunde"],
+        "crewExposed": [],
+        "timeLeft": 68.20610000000158
+      },
+      "forecasts": 5,
+      "shifts": 8,
+      "ending": "Early Ride Home",
+      "errors": []
+    },
+    {
+      "width": 390,
+      "physical": {
+        "itemsSaved": [
+          "water-41",
+          "radio-141",
+          "water-48",
+          "food-96",
+          "seeds-143",
+          "electron-150",
+          "water-7",
+          "food-95",
+          "food-138",
+          "water-65",
+          "water-32"
+        ],
+        "crewSaved": ["ria", "dom", "aiko", "tunde"],
+        "crewExposed": [],
+        "timeLeft": 68.2280000000015
+      },
+      "forecasts": 5,
+      "shifts": 8,
+      "ending": "Early Ride Home",
+      "errors": []
+    }
+  ]
+}

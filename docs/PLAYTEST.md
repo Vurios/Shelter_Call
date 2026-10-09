@@ -1,4 +1,14 @@
-# Prompt 9 playtest and shipping evidence
+# Playtest and shipping evidence
+
+## Prompt 10: implemented overhaul
+
+October 9–10, 2026. [OVERHAUL_VERIFICATION.md](OVERHAUL_VERIFICATION.md) records same-state comparisons, current captures, exact commands and performance. Four new real-control judge runs at 1280×720, 1920×1080, 360×640 and 390×844 each saved four crew, showed five forecasts and reached Early Ride Home after eight shifts, with no browser warnings/errors. An additional 25-second actual-input recording saves radio/Ria and resolves four shifts. These are automated walkthroughs, not human playtests.
+
+The regression suite covers complete Cadet, Commander and Flight Director missions; three timed seeds check physical rescue, capacity and deposit in both desktop and touch contexts. Known supply costs, equipment restrictions, pending warning reload, partial work, fallback switching and graphics disposal have dedicated checks. Baseline/current engine states and Reveals match after 100 actions across recall and keep-working policies, with new previews called before each action.
+
+The desktop GPU meets the observed frame target; phone-sized headless contexts are not physical Android evidence. Human pacing/learning, Filipino reader review, physical installation and sustained mid-range Android performance remain unverified. The older APK below is retained Prompt 9 evidence, not an overhaul build.
+
+## Prompt 9 playtest and shipping evidence
 
 October 9, 2026. Human notes: **none yet**. No children, classroom or family acceptance is claimed. Automated play uses the real controls and source archive, with no injected loadout, changed clock or hidden forecast outcomes.
 

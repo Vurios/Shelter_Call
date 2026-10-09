@@ -13,8 +13,8 @@ A warm shelter. A real Sun. Your call. In SHELTER CALL, players gather a lunar c
 ## Project demonstration / demo
 
 - [Play the judge tour](https://shelter-call.pages.dev/?judge=1)
-- [Gameplay clip](submission/gameplay.webm): actual browser controls, Scramble → forecast → Reveal; no invented NASA events or staged victory.
-- [Seven desktop and mobile views](submission/)
+- [Gameplay clip](overhaul/after/gameplay.webm): actual browser controls, Scramble → living shelter → forecast → Reveal; no invented NASA events or staged victory.
+- [Seven stages at four viewport sizes](overhaul/after/) and [before/after verification](OVERHAUL_VERIFICATION.md)
 - Public video-host link, if the real form requires one: **UNVERIFIED / not uploaded**. The repository clip is the available artifact.
 
 ## Project / final project
@@ -86,15 +86,15 @@ The committed clip records real gameplay without narration. This script is a voi
 
 ## Seven screenshot captions
 
-Each number has a 1280×720 desktop and 360×640 mobile view; journal/source panels also have full-page copies where needed. Screenshots depict the real build, not mockups.
+Each number has a 1280×720 desktop and 360×640 mobile view; journal/source panels also have full-page copies where needed. Screenshots depict the real Prompt 10 build, not mockups. Additional 1920×1080 and 390×844 captures, a 25-second real-input recording, before/after comparisons and performance limits appear in [OVERHAUL_VERIFICATION.md](OVERHAUL_VERIFICATION.md). The old `submission/` folder retains Prompt 9 evidence.
 
-1. **Title:** A warm shelter, a real Sun, and accessible controls. [Desktop](submission/01-title-desktop.png) · [Mobile](submission/01-title-mobile.png)
-2. **Scramble:** Rescue crew and physically deposit supplies at the glowing hatch. The shorter timer is GAME. [Desktop](submission/02-scramble-desktop.png) · [Mobile](submission/02-scramble-mobile.png)
-3. **Hatch:** Saved crew and pickups enter the same mission; Cadet's labelled reserve is separate. [Desktop](submission/03-hatch-desktop.png) · [Mobile](submission/03-hatch-mobile.png)
-4. **Journal:** The pantry is the wall; tasks persist until changed and meals can open a gap. [Desktop](submission/04-journal-desktop.png) · [Mobile](submission/04-journal-mobile.png)
-5. **Forecast:** A received NASA prediction with source ID and archive error band; a prediction is not a detection. [Desktop](submission/05-forecast-desktop.png) · [Mobile](submission/05-forecast-mobile.png)
-6. **Reveal:** Your calls, forecasts and recorded events share a checkable UTC timeline. [Desktop](submission/06-reveal-desktop.png) · [Mobile](submission/06-reveal-mobile.png)
-7. **What's real:** Open source IDs, GAME approximations and the report's archive-quality gates. [Desktop](submission/07-real-desktop.png) · [Mobile](submission/07-real-mobile.png)
+1. **Title:** A warm shelter, a real Sun, and accessible controls. [Desktop](overhaul/after/01-title-1280x720.png) · [Mobile](overhaul/after/01-title-360x640.png)
+2. **Scramble:** Rescue crew and physically deposit supplies at the glowing hatch. The shorter timer is GAME. [Desktop](overhaul/after/02-scramble-1280x720.png) · [Mobile](overhaul/after/02-scramble-360x640.png)
+3. **Hatch:** Saved crew and pickups enter the same mission; Cadet's labelled reserve is separate. [Desktop](overhaul/after/03-hatch-1280x720.png) · [Mobile](overhaul/after/03-hatch-360x640.png)
+4. **Living shelter:** The pantry is the wall; tasks persist until changed and meals can open a gap. [Desktop](overhaul/after/04-journal-1280x720.png) · [Mobile](overhaul/after/04-journal-360x640.png)
+5. **Forecast:** A received NASA prediction with source ID and archive error band; a prediction is not a detection. [Desktop](overhaul/after/05-forecast-1280x720.png) · [Mobile](overhaul/after/05-forecast-360x640.png)
+6. **Reveal:** Your calls, forecasts and recorded events share a checkable UTC timeline. [Desktop](overhaul/after/06-reveal-1280x720.png) · [Mobile](overhaul/after/06-reveal-360x640.png)
+7. **What's real:** Open source IDs, GAME approximations and the report's archive-quality gates. [Desktop](overhaul/after/07-real-1280x720.png) · [Mobile](overhaul/after/07-real-360x640.png)
 
 ## Claim verification ledger
 

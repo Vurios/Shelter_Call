@@ -155,6 +155,7 @@
   border: 0;
   padding: 0;
   margin: 0;
+  scroll-margin-top: 76px;
 }
 .inspector-content[hidden] {
   display: none;
@@ -181,12 +182,13 @@
   margin-bottom: 12px;
 }
 .crew-detail img {
-  width: 90px;
-  height: 90px;
+  width: 68px;
+  height: 68px;
   object-fit: contain;
 }
 .crew-detail p {
   margin: 2px 0;
+  font-size: 0.8rem;
 }
 .inspector-content .wall-grid {
   max-width: 400px;
@@ -194,7 +196,7 @@
 }
 .journal-footer {
   position: sticky;
-  bottom: 44px;
+  bottom: var(--announcement-height, 44px);
   z-index: 3;
   margin: 16px -4px -4px;
   border-radius: 10px;
@@ -224,7 +226,7 @@
   outline: 3px solid #101d2a;
 }
 .shelter-screen {
-  padding-bottom: 64px;
+  padding-bottom: calc(var(--announcement-height, 44px) + 20px);
 }
 @media (min-width: 901px) {
   .habitat-room {
