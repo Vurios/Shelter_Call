@@ -863,5 +863,6 @@
   "Predicted arrival time has passed. Check new warnings; this is not an all-clear.": "Lumampas na ang hinulaang oras. Tingnan ang bagong babala; hindi ito all-clear.",
   "Recorded MODEL UTC": "Naitalang MODEL UTC",
   "Bag full: hop to hatch to deposit, or tap a carried supply to put it down. Water takes two slots.": "Puno ang bag: bumalik sa hatch o ibaba ang supply. Dalawang slot ang tubig.",
-  "judge.short": "REAL: flare hanggang particles, 60 min. I-save ang radio + seeds sa hatch."
+  "judge.short": "REAL: flare hanggang particles, 60 min. I-save ang radio + seeds sa hatch.",
+  "Jump to the data audit": "Pumunta sa pagsusuri ng datos"
 }

@@ -28,7 +28,8 @@
 .shelter-screen .judge-guide summary {
   color: var(--amber);
 }
-.judge-closing a {
+.judge-closing a,
+.judge-guide a {
   color: var(--blue);
 }
 .judge-guide {

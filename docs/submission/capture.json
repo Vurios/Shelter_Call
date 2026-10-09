@@ -10,35 +10,6 @@
           "water-48",
           "food-94",
           "seeds-143",
-          "water-7",
-          "electron-150",
-          "food-95",
-          "food-138",
-          "water-65",
-          "water-32"
-        ],
-        "crewSaved": [
-          "ria",
-          "dom",
-          "aiko",
-          "tunde"
-        ],
-        "crewExposed": [],
-        "timeLeft": 67.56710000000132
-      },
-      "forecasts": 5,
-      "shifts": 8,
-      "errors": []
-    },
-    {
-      "width": 360,
-      "physical": {
-        "itemsSaved": [
-          "water-41",
-          "radio-141",
-          "water-48",
-          "food-96",
-          "seeds-143",
           "electron-150",
           "water-7",
           "food-71",
@@ -54,10 +25,41 @@
           "tunde"
         ],
         "crewExposed": [],
-        "timeLeft": 67.92830000000174
+        "timeLeft": 65.43370000000135
       },
       "forecasts": 5,
       "shifts": 8,
+      "ending": "Snack Attack",
+      "errors": []
+    },
+    {
+      "width": 360,
+      "physical": {
+        "itemsSaved": [
+          "water-41",
+          "radio-141",
+          "water-48",
+          "food-94",
+          "seeds-143",
+          "water-7",
+          "electron-150",
+          "food-95",
+          "food-138",
+          "water-65",
+          "water-32"
+        ],
+        "crewSaved": [
+          "ria",
+          "dom",
+          "aiko",
+          "tunde"
+        ],
+        "crewExposed": [],
+        "timeLeft": 67.26700000000146
+      },
+      "forecasts": 5,
+      "shifts": 8,
+      "ending": "Early Ride Home",
       "errors": []
     }
   ]

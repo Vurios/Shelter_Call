@@ -10,7 +10,7 @@
 7. Food and water can be shelter walls, so consuming them costs shielding.
 8. A saved radio relays verified NASA forecasts and warnings.
 9. Reveal compares player choices, forecasts, and actual events.
-10. Prompt 8 adds Daily Sun, friend codes, Sun Almanac, achievements, Historic Storms, verified Live Sun, the MODEL sensor, classroom votes and motion-aware feedback; prompt 9 shipping polish and judge presentation are authorized and in progress.
+10. Prompt 8 adds Daily Sun, friend codes, Sun Almanac, achievements, Historic Storms, verified Live Sun, the MODEL sensor, classroom votes and motion-aware feedback; prompt 9 shipping polish, judge presentation, submission artifacts and optional Android debug build are complete. Human pacing, physical phones and team/event metadata remain UNVERIFIED.
 
 ===== AUTHORIZATION & RULES (copy verbatim into CLAUDE.md) =====
 AUTONOMY

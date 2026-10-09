@@ -863,5 +863,6 @@
   "Predicted arrival time has passed. Check new warnings; this is not an all-clear.": "Predicted arrival time has passed. Check new warnings; this is not an all-clear.",
   "Recorded MODEL UTC": "Recorded MODEL UTC",
   "Bag full: hop to hatch to deposit, or tap a carried supply to put it down. Water takes two slots.": "Bag full: hop to hatch to deposit, or tap a carried supply to put it down. Water takes two slots.",
-  "judge.short": "REAL: flare to particles, 60 min. Save radio + seeds; deposit at hatch."
+  "judge.short": "REAL: flare to particles, 60 min. Save radio + seeds; deposit at hatch.",
+  "Jump to the data audit": "Jump to the data audit"
 }

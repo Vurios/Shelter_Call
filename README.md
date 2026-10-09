@@ -84,6 +84,8 @@ Manual deploy: set `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` only in th
 
 The GET relay `/api/donki/` allows six DONKI endpoints, returns JSON/CORS and caches successful responses one hour at the edge. The service worker never permanently caches `/api/*`. After its first cache completes, the archive, lazy scenes, episodes.json, art, fonts and synthesis support a full offline run. The manifest supplies standalone/maskable icons. Physical-phone installation, Android/Safari, in-app browsers, vibration and speaker acceptance remain **UNVERIFIED**.
 
+An optional [Android debug build](release/README.md) is generated in `release/shelter-call-debug.apk` locally. Hardware Back pauses Scramble, returns other screens to Title, then minimizes. Installation, a full offline run and Back behavior passed on an Android emulator; physical-device acceptance remains **UNVERIFIED**. `npm run android:sync` bundles the latest build; the release notes give the Gradle commands and checksum. The native local origin uses archive fallback for optional Live Sun.
+
 ## Team and AI disclosure
 
 Repository owner: **Vurios** (GitHub handle). Team name, real names, roles, event entry and additional tools are **UNVERIFIED** until supplied. No fictional participants are listed.

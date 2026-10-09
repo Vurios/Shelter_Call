@@ -478,7 +478,9 @@ function showReveal() {
     root
       .querySelector('.date-reveal')
       .insertAdjacentHTML('afterend', judgeGuide('reveal'));
-    root.insertAdjacentHTML('beforeend', judgeClosing());
+    root
+      .querySelector('.real-panel')
+      .insertAdjacentHTML('beforebegin', judgeClosing());
   }
   sourceBadge(document.querySelector('.reveal-screen'));
 }

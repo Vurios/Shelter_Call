@@ -66,6 +66,8 @@ test('judge tour preserves real controls and completes offline', async ({
   await expect(page.locator('.judge-closing')).toContainText(
     '124 independent clean',
   );
+  await page.locator('a[href="#judge-closing"]').click();
+  await expect(page.locator('#judge-closing')).toBeInViewport();
   await expect(page.locator('.real-panel')).toContainText(
     '2024-05-11T02:10:00-SEP-001',
   );

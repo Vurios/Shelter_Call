@@ -2,6 +2,10 @@
 
 ## 2026-10-09 - Prompt 9 shipping decisions
 
+- Shipping implementation is complete: ten fixes, fixed judge tour, submission kit and optional native debug build. The full simulator passes all eleven gates without retuning. Five physical browser routes and all 50 browser checks pass; human pacing and team/form metadata remain explicitly UNVERIFIED. See PLAYTEST.md and SUBMISSION.md for evidence and limits.
+- Quiet production Lighthouse reports 96 and 2.13-second interaction under standard simulated mobile 4G. Retain the earlier 80/4.16-second measurement taken alongside capture/build work; repeat the gate on the final deployed commit rather than claiming physical-device speed.
+- Preserve WOFF2 as binary in .gitattributes. The first Linux checkout exposed forced text normalization corrupting the regular font; restoring the original bytes and adding the binary rule makes all asset hashes and the deployment pass.
+- The optional Capacitor wrapper bundles the same offline dist, uses original outpost icons/splashes, and loads its Back listener only on native platforms. Actual emulator hardware Back pauses Scramble, returns other screens to Title and minimizes at Title; a full disconnected run reaches Reveal. CLI 8.4.3 avoids an advisory introduced by newer CLI dependencies; npm audit is clean. APKs and generated native build files stay ignored; release/README.md records reproducible commands and the final checksum. Physical phones remain UNVERIFIED.
 - User's “proceed” after prompt 8 authorizes prompt 9. Work directly on main, commit/push working steps, use Cloudflare Pages. No further numbered prompt is started.
 - Five physical browser runs identify ten clarity/performance fixes; document all early endings and distinguish machine timing from human pacing in PLAYTEST.md. Human notes are none yet unless supplied.
 - Keep survival configuration unchanged when the complete simulator passes §10.2. Do not tune NASA timestamps, joins or classifications.
