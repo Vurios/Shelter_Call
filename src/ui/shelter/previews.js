@@ -146,9 +146,9 @@ export function renderPreviews(
     return `${changes.join(' · ')}${changes.length ? ' · ' : ''}${t('Shield')} ${Math.round(shield.before * 100)}% → ${Math.round(shield.after * 100)}%`;
   };
   page
-    .querySelector('.item-tools')
+    .querySelector('.item-actions')
     .insertAdjacentHTML(
-      'beforeend',
+      'beforebegin',
       `<div class="known-preview"><strong>${t('Before you choose')} · GAME</strong><p>${t('Move')}: ${effect(item.move)}</p>${item.use ? `<p>${t('Use now')}: ${effect(item.use)}</p><small>${t('Using this item takes effect immediately. It cannot be undone.')}</small>` : ''}${item.location === 'wall' ? `<p>${t('Removing this item leaves a wall gap. Less shielding means more GAME exposure inside.')}</p>` : ''}</div>`,
     );
 }

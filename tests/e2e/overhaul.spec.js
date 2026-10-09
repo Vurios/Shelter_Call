@@ -95,6 +95,19 @@ test('living shelter previews wall cost, retains slots and survives context loss
   await expect(page.locator('.item-tools .known-preview')).toContainText(
     'Shield 31% → 0%',
   );
+  await page.locator('.item-tools .known-preview').scrollIntoViewIfNeeded();
+  await expect(page.locator('.item-tools .known-preview')).toBeInViewport();
+  const previewOrder = await page
+    .locator('.item-tools')
+    .evaluate((el) =>
+      Boolean(
+        el
+          .querySelector('.known-preview')
+          .compareDocumentPosition(el.querySelector('[data-action="use"]')) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+      ),
+    );
+  expect(previewOrder).toBe(true);
   await page.locator('[data-action="use"]').click();
   await expect(page.locator('#shield-value')).toHaveText('0%');
   await expect(page.locator('[data-slot="0"]')).toContainText('Gap');
