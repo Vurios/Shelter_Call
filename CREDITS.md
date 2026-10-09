@@ -47,3 +47,11 @@ Font downloads are pinned to Google Fonts revision `2eb0b48d5f760f62e286216f0859
 | fontTools                            | https://github.com/fonttools/fonttools                                                      | MIT        | fontTools contributors          | Lossless WOFF2 packaging         |
 | Brotli                               | https://github.com/google/brotli                                                            | MIT        | Google contributors             | WOFF2 compression                |
 | Capacitor core, Android, App and CLI | https://github.com/ionic-team/capacitor and https://github.com/ionic-team/capacitor-plugins | MIT        | Ionic / OutSystems contributors | Optional bundled Android wrapper |
+
+The generated native scaffold comes from Capacitor's MIT Android template. Native icon/splash PNGs are copies of the project's original outpost art. The Gradle wrapper retains its copyright headers and the JAR's bundled `META-INF/LICENSE`:
+
+| File                                        | Source                                                                       | License    | Author              | Use                              |
+| ------------------------------------------- | ---------------------------------------------------------------------------- | ---------- | ------------------- | -------------------------------- |
+| `android/gradlew`                           | https://github.com/gradle/gradle/blob/v8.14.3/gradlew                        | Apache-2.0 | Gradle contributors | POSIX build launcher             |
+| `android/gradlew.bat`                       | https://github.com/gradle/gradle/blob/v8.14.3/gradlew.bat                    | Apache-2.0 | Gradle contributors | Windows build launcher           |
+| `android/gradle/wrapper/gradle-wrapper.jar` | https://github.com/gradle/gradle/tree/v8.14.3/platforms/core-runtime/wrapper | Apache-2.0 | Gradle contributors | Pinned build distribution loader |
