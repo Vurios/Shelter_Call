@@ -22,7 +22,16 @@ test('daily attempt scores once, shares its checked code and replays as practice
   page.on('pageerror', (error) => errors.push(error.message));
   await preferences(page);
   await page.locator('[data-nav="daily"]').click();
+  // A second tab can briefly hold the native daily lock. The UI milestone,
+  // rather than click completion, must establish that a mission was saved.
+  await page.evaluate(() => {
+    void navigator.locks.request(
+      `shelter-call.daily.${new Date().toISOString().slice(0, 10)}`,
+      () => new Promise((resolve) => setTimeout(resolve, 400)),
+    );
+  });
   await page.locator('[data-daily]').click();
+  await expect(page.locator('[data-start]')).toBeVisible();
   const original = (await saved(page)).run;
   expect(original.mode).toBe('daily');
   await page.locator('[data-start]').click();
@@ -34,6 +43,10 @@ test('daily attempt scores once, shares its checked code and replays as practice
   await expect(page.locator('#close-hatch')).toBeEnabled({ timeout: 9000 });
   await page.locator('#close-hatch').click();
   await page.locator('#continue-shelter').click();
+  await expect(page.locator('.shelter-screen')).toHaveAttribute(
+    'data-phase',
+    'shelter',
+  );
   for (
     let n = 0;
     n < 40 && (await page.locator('[data-action="end"]').count());
