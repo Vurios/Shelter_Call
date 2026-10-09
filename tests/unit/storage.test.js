@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   createStorage,
   SAVE_KEY,
+  SETTINGS_KEY,
   validMission,
 } from '../../src/app/storage.js';
 import {
@@ -31,6 +32,37 @@ function storage() {
   };
 }
 describe('optional browser persistence', () => {
+  it('migrates the old map preference and preserves independent audio levels', () => {
+    const backend = storage();
+    backend.setItem(SETTINGS_KEY, JSON.stringify({ flat: true, sound: true }));
+    const store = createStorage(() => backend);
+    expect(store.settings()).toMatchObject({
+      flat: true,
+      graphics: 'illustrated',
+      music: 0.3,
+      sfx: 0.6,
+      sound: true,
+    });
+    store.saveSettings({
+      ...store.settings(),
+      graphics: 'high',
+      music: 0,
+      sfx: 0.85,
+    });
+    expect(createStorage(() => backend).settings()).toMatchObject({
+      flat: false,
+      graphics: 'high',
+      music: 0,
+      sfx: 0.85,
+      sound: true,
+    });
+    store.saveSettings({ music: -4, sfx: 5, graphics: 'unknown' });
+    expect(store.settings()).toMatchObject({
+      music: 0,
+      sfx: 1,
+      graphics: 'auto',
+    });
+  });
   it('accepts ordinary seeded windows without changing the resupply RNG draw', () => {
     for (const difficulty of ['Cadet', 'Commander', 'Flight Director']) {
       const run = createRun({ seed: 'orbit-a', difficulty });

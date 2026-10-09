@@ -1,7 +1,8 @@
 import { PALETTE as P, CREW_STYLE } from '../../art/palette.js';
 import { phrase, t } from '../../i18n/index.js';
+import { itemIcon } from '../../art/items.js';
 
-/** The same scene state, with an inexpensive top-down canvas. */
+/** Illustrated field-map view. Projection changes no controls or physical state. */
 export function create2DRenderer(host) {
   const canvas = document.createElement('canvas');
   canvas.className = 'scramble-canvas';
@@ -24,6 +25,17 @@ export function create2DRenderer(host) {
     waveStarted = -Infinity,
     landUntil = 0;
   const dust = [];
+  const images = new Map();
+  function illustration(path) {
+    if (!images.has(path)) {
+      const image = new Image();
+      image.src = `${import.meta.env.BASE_URL}assets/${path}.svg`;
+      images.set(path, image);
+    }
+    const image = images.get(path);
+    return image.complete && image.naturalWidth ? image : null;
+  }
+  Object.keys(CREW_STYLE).forEach((id) => illustration(`portraits/${id}-calm`));
   function resize() {
     width = host.clientWidth;
     height = host.clientHeight;
@@ -31,7 +43,8 @@ export function create2DRenderer(host) {
     canvas.width = Math.round(width * ratio);
     canvas.height = Math.round(height * ratio);
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
-    scale = Math.min(width, height) / view;
+    scale =
+      Math.min(width, height) / (view * (width / height < 0.8 ? 0.75 : 1));
   }
   const observer = new ResizeObserver(resize);
   observer.observe(host);
@@ -55,12 +68,156 @@ export function create2DRenderer(host) {
   function label(text, x, z, color = P.white) {
     labels.push({ text, x, z, color });
   }
+  function shadow(x, z, radius, opacity = 0.25) {
+    const p = project(x, z);
+    context.beginPath();
+    context.ellipse(
+      p.x + radius * scale * 0.25,
+      p.y + 2,
+      radius * scale,
+      radius * scale * 0.35,
+      -0.2,
+      0,
+      Math.PI * 2,
+    );
+    context.fillStyle = `rgba(16,29,42,${opacity})`;
+    context.fill();
+  }
+  function panel(x, y, w, h, color, radius = 4) {
+    context.beginPath();
+    context.roundRect(x, y, w, h, radius);
+    context.fillStyle = color;
+    context.fill();
+    context.strokeStyle = P.ink;
+    context.lineWidth = 1.5;
+    context.stroke();
+  }
+  function habitat(station) {
+    const p = project(station.x, station.z),
+      unit = scale;
+    shadow(station.x, station.z, 1.8);
+    context.save();
+    context.translate(p.x, p.y);
+    if (station.id === 'rover-bay') {
+      for (const x of [-1.15, 0.75])
+        panel(x * unit, -0.65 * unit, 0.4 * unit, 1.05 * unit, P.ink);
+      panel(-1.2 * unit, -1.8 * unit, 2.4 * unit, 1.9 * unit, P.paper, 6);
+      panel(-0.85 * unit, -1.5 * unit, 1.7 * unit, 0.8 * unit, P.blue);
+    } else {
+      panel(-1.55 * unit, -1.5 * unit, 3.1 * unit, 1.7 * unit, P.regolith, 5);
+      panel(-1.55 * unit, -2 * unit, 3.1 * unit, 1.55 * unit, P.paper, 8);
+      panel(
+        -1.25 * unit,
+        -1.75 * unit,
+        2.5 * unit,
+        0.28 * unit,
+        station.id === 'greenhouse' ? P.leaf : P.amber,
+        2,
+      );
+      for (const x of [-0.95, 0.15])
+        panel(x * unit, -1.14 * unit, 0.8 * unit, 0.5 * unit, P.blue, 2);
+      if (station.id === 'comms') {
+        context.strokeStyle = P.ink;
+        context.beginPath();
+        context.moveTo(0.7 * unit, -2 * unit);
+        context.lineTo(0.7 * unit, -2.8 * unit);
+        context.stroke();
+        panel(0.3 * unit, -3 * unit, 0.8 * unit, 0.2 * unit, P.amber, 2);
+      }
+    }
+    context.restore();
+    label(
+      station.id === 'rover-bay'
+        ? 'Rover'
+        : station.id[0].toUpperCase() + station.id.slice(1),
+      station.x,
+      station.z - 2.35,
+    );
+  }
+  function astronaut(body, player, reducedMotion) {
+    const elevation = (body.y || 0) * (reducedMotion ? 0.15 : 1);
+    const p = project(body.x, body.z);
+    const unit = scale * (player ? 1.05 : 0.9);
+    const id = player ? 'pip' : body.id;
+    const color = P[CREW_STYLE[id].color];
+    const step =
+      !reducedMotion && Math.hypot(body.vx || 0, body.vz || 0) > 0.12
+        ? Math.sin(visualTime * 7) * 0.12
+        : 0;
+    shadow(body.x, body.z, 0.7 + elevation * 0.2, 0.3 / (1 + elevation));
+    context.save();
+    context.translate(p.x, p.y - elevation * scale * 0.7);
+    if (player && !reducedMotion && visualTime < landUntil)
+      context.scale(1.05, 0.95);
+    panel(
+      -0.47 * unit,
+      -0.5 * unit + step * unit,
+      0.4 * unit,
+      0.5 * unit,
+      P.ink,
+      3,
+    );
+    panel(
+      0.07 * unit,
+      -0.5 * unit - step * unit,
+      0.4 * unit,
+      0.5 * unit,
+      P.ink,
+      3,
+    );
+    panel(-0.55 * unit, -1.32 * unit, 1.1 * unit, 0.94 * unit, P.paper, 5);
+    panel(-0.67 * unit, -1.26 * unit, 0.25 * unit, 0.72 * unit, color, 3);
+    panel(0.42 * unit, -1.26 * unit, 0.25 * unit, 0.72 * unit, color, 3);
+    panel(-0.25 * unit, -0.91 * unit, 0.5 * unit, 0.26 * unit, color, 2);
+    const portrait = illustration(`portraits/${id}-calm`);
+    if (portrait)
+      context.drawImage(
+        portrait,
+        15,
+        6,
+        130,
+        114,
+        -0.71 * unit,
+        -2.25 * unit,
+        1.42 * unit,
+        1.25 * unit,
+      );
+    else {
+      panel(-0.6 * unit, -2.18 * unit, 1.2 * unit, 1.1 * unit, P.white, 8);
+      panel(-0.46 * unit, -1.98 * unit, 0.92 * unit, 0.6 * unit, P.ink, 5);
+    }
+    context.restore();
+    if (player) {
+      const angle = Math.atan2(
+        body.vz || Math.cos(body.heading),
+        body.vx || Math.sin(body.heading),
+      );
+      context.save();
+      context.translate(p.x, p.y + 3);
+      context.rotate(angle);
+      context.beginPath();
+      context.moveTo(unit * 1.08, 0);
+      context.lineTo(unit * 0.62, -unit * 0.2);
+      context.lineTo(unit * 0.62, unit * 0.2);
+      context.closePath();
+      context.fillStyle = P.amber;
+      context.fill();
+      context.restore();
+    }
+    label(
+      player ? 'YOU' : body.name,
+      body.x,
+      body.z - elevation * 0.7 - 2.4,
+      player ? P.paper : P.white,
+    );
+  }
   function render(state, delta, { reducedMotion = false } = {}) {
     visualTime += delta;
     labels.length = 0;
     const ease = reducedMotion ? 1 : 1 - Math.exp(-delta * 3);
-    center.x += (state.player.x * 0.35 - center.x) * ease;
-    center.z += (state.player.z * 0.35 - center.z) * ease;
+    const follow = width / height < 0.8 ? 0.7 : 0.35;
+    center.x += (state.player.x * follow - center.x) * ease;
+    center.z += (state.player.z * follow - center.z) * ease;
     context.fillStyle = P.ink;
     context.fillRect(0, 0, width, height);
     circle(0, 0, 23, P.regolith);
@@ -88,81 +245,161 @@ export function create2DRenderer(host) {
         context.stroke();
       }
     }
-    for (const crater of state.craters)
-      circle(crater.x, crater.z, crater.scale * 1.3, '#6c8290', '#758c99');
-    for (const rock of state.rocks) circle(rock.x, rock.z, rock.scale, P.ink);
-    for (const station of state.stations) {
-      circle(station.x, station.z, 1.3, '#d3dee3', P.ink);
-      label(
-        station.id === 'rover-bay'
-          ? 'Rover'
-          : station.id[0].toUpperCase() + station.id.slice(1),
-        station.x,
-        station.z - 1.6,
+    for (const crater of state.craters) {
+      const p = project(crater.x, crater.z),
+        r = crater.scale * 1.3 * scale;
+      context.beginPath();
+      context.ellipse(p.x, p.y, r, r * 0.68, -0.2, 0, Math.PI * 2);
+      context.fillStyle = '#6c8290';
+      context.fill();
+      context.strokeStyle = '#adc0c6';
+      context.lineWidth = 2;
+      context.stroke();
+      context.beginPath();
+      context.ellipse(
+        p.x + r * 0.1,
+        p.y + r * 0.15,
+        r * 0.72,
+        r * 0.35,
+        -0.2,
+        0,
+        Math.PI * 2,
+      );
+      context.fillStyle = '#536c7b';
+      context.fill();
+    }
+    const layers = [];
+    for (const rock of state.rocks)
+      layers.push({
+        z: rock.z,
+        draw() {
+          const p = project(rock.x, rock.z),
+            r = rock.scale * scale;
+          shadow(rock.x, rock.z, rock.scale);
+          context.beginPath();
+          context.moveTo(p.x - r, p.y);
+          context.lineTo(p.x - r * 0.65, p.y - r * 0.85);
+          context.lineTo(p.x + r * 0.35, p.y - r * 1.15);
+          context.lineTo(p.x + r, p.y - r * 0.3);
+          context.lineTo(p.x + r * 0.7, p.y + r * 0.2);
+          context.closePath();
+          context.fillStyle = '#536c7b';
+          context.fill();
+          context.strokeStyle = P.ink;
+          context.lineWidth = 1;
+          context.stroke();
+          context.beginPath();
+          context.moveTo(p.x - r * 0.65, p.y - r * 0.85);
+          context.lineTo(p.x, p.y - r * 0.45);
+          context.lineTo(p.x + r * 0.35, p.y - r * 1.15);
+          context.strokeStyle = '#adc0c6';
+          context.stroke();
+        },
+      });
+    for (const station of state.stations)
+      layers.push({ z: station.z, draw: () => habitat(station) });
+    layers.push({
+      z: 0,
+      draw() {
+        const p = project(0, 0);
+        shadow(0, 0, 1.9);
+        panel(
+          p.x - 1.65 * scale,
+          p.y - 1.9 * scale,
+          3.3 * scale,
+          2 * scale,
+          P.regolith,
+          8,
+        );
+        panel(
+          p.x - 1.1 * scale,
+          p.y - 1.95 * scale,
+          2.2 * scale,
+          1.9 * scale,
+          P.amber,
+          6,
+        );
+        panel(
+          p.x - 0.73 * scale,
+          p.y - 1.5 * scale,
+          1.46 * scale,
+          1.55 * scale,
+          P.ink,
+          5,
+        );
+        panel(
+          p.x - 0.4 * scale,
+          p.y - 1.3 * scale,
+          0.8 * scale,
+          1.2 * scale,
+          P.paper,
+          3,
+        );
+        label('HATCH', 0, -2.35, P.paper);
+      },
+    });
+    for (const item of state.items)
+      if (item.status === 'outside')
+        layers.push({
+          z: item.z,
+          draw() {
+            const p = project(item.x, item.z),
+              size = Math.max(14, scale * (item.slots === 2 ? 1.1 : 0.9));
+            shadow(item.x, item.z, 0.5);
+            panel(p.x - size / 2, p.y - size, size, size, P.paper, 3);
+            const icon = illustration(`icons/${itemIcon(item.type)}`);
+            if (icon)
+              context.drawImage(
+                icon,
+                p.x - size * 0.4,
+                p.y - size * 0.9,
+                size * 0.8,
+                size * 0.8,
+              );
+            if (
+              !['food', 'water'].includes(item.type) &&
+              state.target &&
+              Math.hypot(item.x - state.target.x, item.z - state.target.z) < 0.9
+            )
+              label(
+                item.type === 'dosimeter' ? 'Dose' : item.type,
+                item.x,
+                item.z - 1.3,
+              );
+          },
+        });
+    for (const crew of state.crew)
+      if (crew.status !== 'saved')
+        layers.push({
+          z: crew.z,
+          draw: () => astronaut(crew, false, reducedMotion),
+        });
+    layers.push({
+      z: state.player.z,
+      draw: () => astronaut(state.player, true, reducedMotion),
+    });
+    layers.sort((a, b) => a.z - b.z).forEach((layer) => layer.draw());
+    const hatch = project(0, 0);
+    if (
+      hatch.x < 38 ||
+      hatch.x > width - 38 ||
+      hatch.y < 26 ||
+      hatch.y > height - 26
+    ) {
+      const angle = Math.atan2(hatch.y - height / 2, hatch.x - width / 2);
+      const arrows = ['→', '↘', '↓', '↙', '←', '↖', '↑', '↗'];
+      context.font = 'bold 12px "Atkinson Hyperlegible", sans-serif';
+      context.textAlign = 'center';
+      const x = Math.max(40, Math.min(width - 40, hatch.x)),
+        y = Math.max(26, Math.min(height - 26, hatch.y));
+      panel(x - 36, y - 15, 72, 24, P.amber, 5);
+      context.fillStyle = P.ink;
+      context.fillText(
+        `${arrows[(Math.round(angle / (Math.PI / 4)) + 8) % 8]} ${t('HATCH')}`,
+        x,
+        y + 1,
       );
     }
-    circle(0, 0, 1.65, P.amber, P.paper);
-    label('HATCH', 0, -2, P.paper);
-    for (const item of state.items)
-      if (item.status === 'outside') {
-        circle(
-          item.x,
-          item.z,
-          item.slots === 2 ? 0.36 : 0.25,
-          item.type === 'water'
-            ? P.blue
-            : item.type === 'food'
-              ? P.paper
-              : P.leaf,
-          P.ink,
-        );
-        if (
-          !['food', 'water'].includes(item.type) &&
-          state.target &&
-          Math.hypot(item.x - state.target.x, item.z - state.target.z) < 0.9
-        )
-          label(
-            item.type === 'dosimeter' ? 'Dose' : item.type,
-            item.x,
-            item.z - 0.55,
-          );
-      }
-    for (const crew of state.crew)
-      if (crew.status !== 'saved') {
-        const height = reducedMotion ? crew.y * 0.15 : crew.y;
-        circle(crew.x, crew.z, 0.6 + height * 0.2, '#101d2a44');
-        circle(
-          crew.x,
-          crew.z - height * 0.7,
-          0.53,
-          P[CREW_STYLE[crew.id].color],
-          P.ink,
-        );
-        label(crew.name, crew.x, crew.z - 0.85);
-      }
-    const playerHeight = reducedMotion ? state.player.y * 0.15 : state.player.y;
-    circle(
-      state.player.x,
-      state.player.z,
-      0.8 + playerHeight * 0.25,
-      '#101d2a66',
-    );
-    circle(
-      state.player.x,
-      state.player.z - playerHeight * 0.7,
-      0.72 *
-        (reducedMotion
-          ? 1
-          : visualTime < landUntil
-            ? 1.12
-            : 1 + Math.min(0.08, state.player.y * 0.05)),
-      P.white,
-      P.amber,
-    );
-    const p = project(state.player.x, state.player.z - playerHeight * 0.7);
-    context.fillStyle = P.ink;
-    context.fillRect(p.x - 6, p.y - 3, 12, 6);
-    label('YOU', state.player.x, state.player.z - 1.2, P.paper);
     if (state.target) {
       const target = project(state.target.x, state.target.z);
       context.strokeStyle = P.paper;

@@ -74,8 +74,28 @@ function expression(mood) {
 function portrait(crew, mood) {
   const style = CREW_STYLE[crew.id];
   const color = P[style.color];
+  const hair = {
+    ria: '<ellipse cx="105" cy="32" rx="15" ry="13"/><path d="M39 67q2-34 42-30q30 0 39 27q-32-18-81 3Z"/>',
+    dom: '<path d="M39 65q3-30 42-28q28 0 38 28l-15-13-15 5-14-7-16 7Z"/>',
+    aiko: '<path d="M38 94V62q0-30 43-27q42 1 42 30v29l-13 5V62q-20 3-39-11q-10 14-21 14v34Z"/>',
+    tunde:
+      '<path d="M40 58q-8-16 9-19q4-16 20-9q12-12 24 0q18-4 19 10q18 0 9 20l-14-6-13 5-13-6-17 7-12-7Z"/>',
+    mara: '<path d="M39 70q-3-36 39-35q40-1 43 30q-26-6-38-20q-17 20-44 25Z"/>',
+    iggy: '<path d="M39 69q1-26 24-33l15-14 4 15 20-14-1 18 18-7-6 28q-32-17-74 7Z"/>',
+    sol: '<path d="M39 63q4-29 43-29q33 0 39 30q-42-8-82-1Z"/><path d="M66 91q8-9 14-1q8-8 15 1q-8 8-15 1q-8 6-14-1Z"/>',
+    pip: '<path d="M39 69q0-25 25-33l17-15 3 16 19-8-3 14 19 18q-33-11-80 8Z"/>',
+  }[crew.id];
+  const glasses = ['dom', 'mara'].includes(crew.id)
+    ? '<g fill="none"><rect x="50" y="69" width="25" height="20" rx="6"/><rect x="86" y="69" width="25" height="20" rx="6"/><path d="M75 76h11"/></g>'
+    : '';
+  const gear =
+    crew.id === 'mara'
+      ? '<path d="M124 74v20l-19 2" fill="none"/><rect x="99" y="91" width="10" height="7" rx="3"/>'
+      : crew.id === 'iggy'
+        ? '<path d="M43 54h77" stroke-width="9" stroke="#ec9384"/><rect x="60" y="43" width="38" height="14" rx="4" fill="#67bbe0"/>'
+        : '';
   return svg(
-    `<path d="M22 159v-20q0-27 58-27t58 27v20" fill="${color}"/><rect x="59" y="111" width="42" height="15" rx="6" fill="${P.ink}"/><ellipse cx="80" cy="72" rx="61" ry="61" fill="${P.white}"/><ellipse cx="80" cy="76" rx="48" ry="43" fill="${P.ink}"/><ellipse cx="80" cy="79" rx="42" ry="37" fill="${style.skin}"/><path d="M39 73q-1-38 42-35q34 0 39 33q-18-5-25-21q-14 17-56 23Z" fill="${style.hair}"/><path d="M34 60q1-14 10-20" stroke="${P.white}" stroke-width="5" fill="none"/>${expression(mood)}<g transform="translate(105 128) scale(.75)" fill="${P.ink}" stroke-width="1.5">${BADGES[crew.id]}</g><path d="M51 151h35" stroke="${P.ink}" stroke-width="5"/>`,
+    `<path d="M22 159v-20q0-27 58-27t58 27v20" fill="${color}"/><path d="M43 125v34m74-34v34" stroke="#fff2d5" stroke-width="9"/><rect x="59" y="111" width="42" height="15" rx="6" fill="${P.ink}"/><ellipse cx="80" cy="72" rx="61" ry="61" fill="${P.white}"/><path d="M75 11h12v14H75z" fill="${color}"/><ellipse cx="80" cy="76" rx="48" ry="43" fill="${P.ink}"/><ellipse cx="80" cy="79" rx="42" ry="37" fill="${style.skin}"/><g fill="${style.hair}">${hair}</g><path d="M34 60q1-14 10-20" stroke="${P.white}" stroke-width="5" fill="none"/>${expression(mood)}${glasses}${gear}<g transform="translate(105 128) scale(.75)" fill="${P.ink}" stroke-width="1.5">${BADGES[crew.id]}</g><rect x="58" y="135" width="31" height="19" rx="3" fill="#fff2d5"/><path d="M64 142h12m-12 6h18" stroke-width="2"/>`,
   );
 }
 function plant(mood) {

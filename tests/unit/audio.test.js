@@ -9,11 +9,26 @@ import {
 } from '../../src/audio/synth.js';
 import {
   createAudio,
+  audioSettings,
   DEFAULT_SETTINGS,
   MAX_VOICES,
 } from '../../src/audio/index.js';
 
 describe('original audio buffers', () => {
+  it('maps saved independent levels without changing master mute', () => {
+    expect(
+      audioSettings({ sound: false, volume: 0.4, music: 0, sfx: 0.8 }),
+    ).toEqual({
+      master: 0.4,
+      mute: true,
+      music: 0,
+      sfx: 0.8,
+    });
+    expect(audioSettings({ sound: true })).toEqual({
+      ...DEFAULT_SETTINGS,
+      mute: false,
+    });
+  });
   it('keeps every cue finite, quiet, deterministic, and smooth at boundaries', () => {
     for (const { id } of [...SOUND_CUES, ...THEMES]) {
       const { samples } = synthesize(id);

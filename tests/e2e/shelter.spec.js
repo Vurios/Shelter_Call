@@ -104,12 +104,18 @@ test('reload preserves an unanswered REAL warning and continues the same partial
   await completeShift(page);
   await page.locator('[data-action="end"]').click();
   await expect(page.locator('.rush-back')).toBeVisible();
+  await expect(page.locator('.rush-back .known-preview')).toContainText(
+    'Already added this shift',
+  );
   const saved = await page.evaluate(() =>
     JSON.parse(localStorage.getItem('shelter-call.mission.v1')),
   );
   await page.goto('./');
   await expect(page.locator('.rush-back')).toBeVisible();
   await page.reload();
+  await expect(page.locator('.rush-back .known-preview')).toContainText(
+    'Already added this shift',
+  );
   await expect(page.locator('.rush-back')).toBeVisible();
   const restored = await page.evaluate(() =>
     JSON.parse(localStorage.getItem('shelter-call.mission.v1')),
@@ -154,6 +160,7 @@ test('journal plays three days (two-day regression), updates wall and uses keybo
   const root = page.locator('.shelter-screen');
   await expect(page.locator('.crew-card')).toHaveCount(5);
   await expect(page.locator('.wall-slot')).toHaveCount(8);
+  await page.locator('[data-inspector="wall"]').click();
   await page.locator('[data-key="pantry-water"]').click();
   await page.locator('[data-slot="6"]').click();
   await expect(page.locator('[data-slot="6"]')).toContainText('Water brick');
@@ -235,6 +242,7 @@ test('journal plays three days (two-day regression), updates wall and uses keybo
   await expect(page.locator('.shift-log li')).not.toHaveCount(0);
   await expect(page.locator('.forecast-card')).not.toHaveCount(0);
   const stamp = page.locator('.forecast-card .source-stamp').first();
+  await page.locator('[data-inspector="radio"]').click();
   await stamp.locator('summary').click();
   await expect(stamp).toContainText('Predicted UTC:');
   expect(await stamp.locator('time').textContent()).toMatch(/^2024-/);

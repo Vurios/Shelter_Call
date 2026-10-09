@@ -5,21 +5,42 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { createRng } from '../../core/rng.js';
 import { PALETTE as P } from '../../art/palette.js';
 import { t } from '../../i18n/index.js';
+import { poseCrew } from '../../art/crew.js';
+import { optimizeCrew } from '../../art/rig.js';
 
 /** Bake rigid parts by material. Shipped GLBs and their named source parts stay intact. */
 function mergeRigid(root) {
   root.updateMatrixWorld(true);
   const groups = new Map();
   const originals = new Set();
+  const originalMaterials = new Set();
   root.traverse((node) => {
     if (!node.isMesh) return;
     const material = node.material;
-    const key = `${material.color.getHexString()}:${material.roughness}:${material.metalness}:${material.opacity}`;
-    if (!groups.has(key)) groups.set(key, { material, geometry: [] });
+    originalMaterials.add(material);
+    const key = `${material.roughness}:${material.metalness}:${material.opacity}`;
+    if (!groups.has(key))
+      groups.set(key, {
+        material: new THREE.MeshStandardMaterial({
+          vertexColors: true,
+          roughness: material.roughness,
+          metalness: material.metalness,
+          opacity: material.opacity,
+          transparent: material.transparent,
+        }),
+        geometry: [],
+      });
     const source = node.geometry.clone();
     const geometry = source.index ? source.toNonIndexed() : source;
     if (geometry !== source) source.dispose();
     geometry.applyMatrix4(node.matrixWorld);
+    const colors = new Float32Array(geometry.attributes.position.count * 3);
+    for (let i = 0; i < colors.length; i += 3) {
+      colors[i] = material.color.r;
+      colors[i + 1] = material.color.g;
+      colors[i + 2] = material.color.b;
+    }
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
     groups.get(key).geometry.push(geometry);
     originals.add(node.geometry);
   });
@@ -33,11 +54,12 @@ function mergeRigid(root) {
     result.add(mesh);
   }
   originals.forEach((geometry) => geometry.dispose());
+  originalMaterials.forEach((material) => material.dispose());
   return result;
 }
 
 /** Original local GLBs, one sun and one renderer. No runtime CDN or textures. */
-export async function create3DRenderer(host, state) {
+export async function create3DRenderer(host, state, { quality = 'high' } = {}) {
   const canvas = document.createElement('canvas');
   canvas.className = 'scramble-canvas';
   canvas.tabIndex = 0;
@@ -54,8 +76,10 @@ export async function create3DRenderer(host, state) {
     antialias: true,
     alpha: true,
   });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
-  renderer.shadowMap.enabled = true;
+  renderer.setPixelRatio(
+    Math.min(devicePixelRatio, quality === 'low' ? 1 : 1.5),
+  );
+  renderer.shadowMap.enabled = quality !== 'low';
   renderer.shadowMap.type = THREE.PCFShadowMap;
   renderer.setClearColor(P.ink, 1);
   const scene = new THREE.Scene();
@@ -72,6 +96,10 @@ export async function create3DRenderer(host, state) {
   labelsHost.className = 'scene-labels';
   labelsHost.setAttribute('aria-hidden', 'true');
   host.append(labelsHost);
+  const hatchCue = document.createElement('span');
+  hatchCue.className = 'map-label';
+  hatchCue.style.border = `2px solid ${P.amber}`;
+  labelsHost.append(hatchCue);
   const ground = new THREE.Mesh(
     new THREE.CircleGeometry(23, 72),
     new THREE.MeshStandardMaterial({ color: P.regolith, roughness: 1 }),
@@ -142,7 +170,9 @@ export async function create3DRenderer(host, state) {
       const gltf = await loader.loadAsync(
         `${import.meta.env.BASE_URL}assets/models/${id}.glb`,
       );
-      const rigid = mergeRigid(gltf.scene);
+      const rigid = id.startsWith('crew-')
+        ? optimizeCrew(gltf.scene)
+        : mergeRigid(gltf.scene);
       rigid.updateMatrixWorld(true);
       assets.set(id, rigid);
     }),
@@ -223,6 +253,7 @@ export async function create3DRenderer(host, state) {
   const shadowGeometry = new THREE.CircleGeometry(0.52, 20);
   for (const a of actors) {
     a.baseScale = a.object.scale.clone();
+    a.heading = a.body.heading;
     const shadow = new THREE.Mesh(
       shadowGeometry,
       new THREE.MeshBasicMaterial({
@@ -318,7 +349,8 @@ export async function create3DRenderer(host, state) {
     height = host.clientHeight;
     renderer.setSize(width, height, false);
     const aspect = width / Math.max(1, height);
-    const horizontal = view / 2,
+    // Closer portrait framing keeps faces readable; follow is cosmetic only.
+    const horizontal = (view * (aspect < 0.8 ? 0.72 : 1)) / 2,
       vertical = horizontal / aspect;
     camera.left = -horizontal;
     camera.right = horizontal;
@@ -332,7 +364,12 @@ export async function create3DRenderer(host, state) {
   const vector = new THREE.Vector3();
   function render(s, delta, { reducedMotion = false } = {}) {
     visualTime += delta;
-    const focus = new THREE.Vector3(s.player.x * 0.35, 0, s.player.z * 0.35);
+    const follow = width / height < 0.8 ? 0.7 : 0.35;
+    const focus = new THREE.Vector3(
+      s.player.x * follow,
+      0,
+      s.player.z * follow,
+    );
     cameraFocus.lerp(focus, reducedMotion ? 1 : 1 - Math.exp(-delta * 3));
     camera.position.copy(cameraFocus).add(vector.set(22, 18, 22));
     camera.lookAt(cameraFocus);
@@ -362,7 +399,19 @@ export async function create3DRenderer(host, state) {
       a.object.visible = b.status !== 'saved';
       a.shadow.visible = a.object.visible;
       a.object.position.set(b.x, reducedMotion ? b.y * 0.15 : b.y, b.z);
-      a.object.rotation.y = b.heading;
+      const turn = Math.atan2(
+        Math.sin(b.heading - a.heading),
+        Math.cos(b.heading - a.heading),
+      );
+      a.heading += turn * (reducedMotion ? 1 : 1 - Math.exp(-delta * 12));
+      a.object.rotation.y = a.heading;
+      poseCrew(a.object, {
+        time: visualTime,
+        moving: Math.hypot(b.vx || 0, b.vz || 0) > 0.12,
+        airborne: b.y || 0,
+        reduced: reducedMotion,
+        phase: a.player ? 0 : a.body.x * 0.7,
+      });
       const squash = reducedMotion
         ? 0
         : a.landUntil > visualTime
@@ -419,6 +468,17 @@ export async function create3DRenderer(host, state) {
       });
       label.element.hidden = b.status === 'saved' || offset === undefined;
       label.element.style.transform = `translate(${x}px,${y + (offset || 0)}px) translate(-50%,-100%)`;
+    }
+    vector.set(0, 1, 0).project(camera);
+    const hatchX = ((vector.x + 1) * width) / 2;
+    const hatchY = ((1 - vector.y) * height) / 2;
+    hatchCue.hidden =
+      hatchX > 45 && hatchX < width - 45 && hatchY > 32 && hatchY < height - 32;
+    if (!hatchCue.hidden) {
+      const angle = Math.atan2(hatchY - height / 2, hatchX - width / 2);
+      const arrows = ['→', '↘', '↓', '↙', '←', '↖', '↑', '↗'];
+      hatchCue.textContent = `${arrows[(Math.round(angle / (Math.PI / 4)) + 8) % 8]} ${t('HATCH')}`;
+      hatchCue.style.transform = `translate(${Math.max(48, Math.min(width - 48, hatchX))}px,${Math.max(30, Math.min(height - 30, hatchY))}px) translate(-50%,-50%)`;
     }
     targetMarker.visible = Boolean(s.target);
     if (s.target) targetMarker.position.set(s.target.x, 0.03, s.target.z);
@@ -522,6 +582,16 @@ export async function create3DRenderer(host, state) {
         triangles: renderer.info.render.triangles,
         pixelRatio: renderer.getPixelRatio(),
       };
+    },
+    setQuality(value) {
+      renderer.setPixelRatio(
+        Math.min(devicePixelRatio, value === 'low' ? 1 : 1.5),
+      );
+      renderer.shadowMap.enabled = value !== 'low';
+      scene.traverse((node) => {
+        if (node.material) node.material.needsUpdate = true;
+      });
+      resize();
     },
     dispose,
   };

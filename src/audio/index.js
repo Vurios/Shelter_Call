@@ -15,6 +15,16 @@ export const DEFAULT_SETTINGS = {
 };
 export const MAX_VOICES = 8;
 
+/** Map persisted preferences onto the independent Web Audio buses. */
+export function audioSettings(settings = {}) {
+  return {
+    master: settings.volume ?? DEFAULT_SETTINGS.master,
+    music: settings.music ?? DEFAULT_SETTINGS.music,
+    sfx: settings.sfx ?? DEFAULT_SETTINGS.sfx,
+    mute: settings.sound === false,
+  };
+}
+
 /** Gesture-owned Web Audio controller. Construction never starts browser audio. */
 export function createAudio({
   contextFactory = () => new AudioContext(),

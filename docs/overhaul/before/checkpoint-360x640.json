@@ -1,1 +1,1383 @@
-{"version":1,"run":{"seed":"shelter-call-judge-2024","difficulty":"Cadet","mode":"judge","sensorVersion":1,"classroom":false,"windowDraw":false,"rng":4026161859,"config":{"timerMax":60,"timerMin":15,"dose":[0,3,7,12],"duration":[0,4,8,10],"sick":25,"medevac":50,"water":1,"food":1,"startPower":8,"solar":1.5,"science":5,"greenhouse":2,"drill":1,"initialFood":56,"initialWater":56,"eventEvery":3,"eventPower":1,"eventScience":1,"eventMorale":2,"shieldMax":0.9,"shieldMassScale":8,"wallSlots":8,"allClearLevel":0.5,"moraleStart":6,"moraleMax":10,"moraleWeak":3,"moraleOutput":0.8,"medicReduction":10,"medicInterval":6,"medReduction":20,"batteryPower":8,"chefFood":1.5,"solarDaily":3,"lifePower":1,"seedPower":1,"radioPower":1,"boltPower":1,"boltOutput":0.5,"powerMax":30,"powerGrace":2,"eventRepair":1,"eventPlant":1,"flareMemoryHours":12,"alertMemoryHours":48},"rules":{"days":10,"tolerance":1.5,"goal":12,"grace":3,"timer":1.5,"supplies":1.25,"reserve":4},"windowId":"2024-05-11T02:10:00-WINDOW-001","now":1715393400000,"resupply":1716120000000,"phase":"shelter","shiftIndex":0,"crew":[{"id":"ria","name":"Ria","trait":"Botanist","dose":0,"hunger":0,"thirst":0,"fedFood":0,"fedWater":0,"status":"healthy","assignment":"shelter","work":0},{"id":"dom","name":"Dom","trait":"Engineer","dose":0,"hunger":0,"thirst":0,"fedFood":0,"fedWater":0,"status":"healthy","assignment":"shelter","work":0},{"id":"aiko","name":"Aiko","trait":"Medic","dose":0,"hunger":0,"thirst":0,"fedFood":0,"fedWater":0,"status":"healthy","assignment":"shelter","work":0},{"id":"tunde","name":"Tunde","trait":"Geologist","dose":0,"hunger":0,"thirst":0,"fedFood":0,"fedWater":0,"status":"healthy","assignment":"shelter","work":0}],"items":[{"id":"water-1","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-2","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-3","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-4","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-5","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-6","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-7","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-8","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-9","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-10","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-11","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-12","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-13","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-14","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-15","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-16","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-17","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-18","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-19","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-20","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-21","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-22","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-23","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-24","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-25","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-26","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-27","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-28","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-29","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-30","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-31","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-32","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-33","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-34","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-35","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-36","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-37","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-38","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-39","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-40","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-41","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-42","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-43","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-44","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-45","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-46","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-47","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-48","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-49","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-50","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-51","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-52","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-53","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-54","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-55","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-56","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-57","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-58","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-59","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-60","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-61","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-62","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-63","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-64","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-65","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-66","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-67","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-68","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-69","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-70","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"food-71","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-72","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-73","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-74","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-75","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-76","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-77","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-78","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-79","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-80","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-81","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-82","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-83","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-84","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-85","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-86","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-87","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-88","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-89","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-90","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-91","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-92","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-93","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-94","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-95","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-96","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-97","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-98","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-99","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-100","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-101","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-102","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-103","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-104","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-105","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-106","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-107","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-108","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-109","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-110","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-111","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-112","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-113","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-114","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-115","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-116","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-117","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-118","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-119","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-120","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-121","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-122","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-123","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-124","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-125","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-126","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-127","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-128","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-129","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-130","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-131","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-132","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-133","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-134","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-135","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-136","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-137","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-138","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-139","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-140","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"radio-141","type":"radio","name":"Sun Watch radio","slots":1,"mass":1},{"id":"dosimeter-142","type":"dosimeter","name":"Dosimeter","slots":1,"mass":1},{"id":"seeds-143","type":"seeds","name":"Seed cartridge","slots":1,"mass":1},{"id":"repair-144","type":"repair","name":"Repair kit","slots":1,"mass":1},{"id":"med-145","type":"med","name":"Med kit","slots":1,"mass":1},{"id":"battery-146","type":"battery","name":"Battery pack","slots":1,"mass":1},{"id":"guitar-147","type":"guitar","name":"Guitar","slots":1,"mass":1},{"id":"game-148","type":"game","name":"Board game","slots":1,"mass":1},{"id":"bolt-149","type":"bolt","name":"BOLT robot","slots":2,"mass":1},{"id":"electron-150","type":"electron","name":"Electron early-warning sensor","slots":1,"mass":1}],"wall":[],"pantry":[{"id":"water-7","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-32","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-41","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-48","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-65","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"food-94","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-95","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-138","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"radio-141","type":"radio","name":"Sun Watch radio","slots":1,"mass":1},{"id":"seeds-143","type":"seeds","name":"Seed cartridge","slots":1,"mass":1},{"id":"electron-150","type":"electron","name":"Electron early-warning sensor","slots":1,"mass":1},{"id":"food-151","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-152","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-153","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"food-154","type":"food","name":"Food pack","slots":1,"mass":1},{"id":"water-155","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-156","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-157","type":"water","name":"Water brick","slots":2,"mass":3},{"id":"water-158","type":"water","name":"Water brick","slots":2,"mass":3}],"serial":158,"power":8,"science":0,"achievements":["Full House"],"morale":6,"plant":0,"broken":false,"zeroPower":0,"medicAt":-6,"calls":[],"log":[{"source":"REAL","donkiId":"2024-05-11T02:10:00-SEP-001","utc":"2024-05-11T02:10:00.000Z","text":"Particles detected. Relative GAME storm tier 3."}],"hazards":[{"id":"2024-05-11T02:10:00-SEP-001","time":1715393400000,"tier":3,"duration":10}],"cursor":8,"shift":null,"pendingEvent":null,"interrupt":null,"scrambleResult":{"itemsSaved":["water-41","radio-141","water-48","food-94","seeds-143","water-65","water-7","food-138","electron-150","food-95","water-32"],"crewSaved":["ria","dom","aiko","tunde"],"crewExposed":[],"timeLeft":67.71150000000155},"flags":{"eva":false,"radioEver":true,"wallEaten":false,"doseEvac":false,"powerEvac":false,"snack":false,"closeCall":false,"ironWall":false,"outguessed":0,"trusted":0},"forecastResults":[],"boltTask":"shelter"},"screen":"shelter","journal":{"slots":[null,null,null,null,null,null,null,null],"logs":[],"coachStep":0,"classroomSeen":[]}}
+{
+  "version": 1,
+  "run": {
+    "seed": "shelter-call-judge-2024",
+    "difficulty": "Cadet",
+    "mode": "judge",
+    "sensorVersion": 1,
+    "classroom": false,
+    "windowDraw": false,
+    "rng": 4026161859,
+    "config": {
+      "timerMax": 60,
+      "timerMin": 15,
+      "dose": [0, 3, 7, 12],
+      "duration": [0, 4, 8, 10],
+      "sick": 25,
+      "medevac": 50,
+      "water": 1,
+      "food": 1,
+      "startPower": 8,
+      "solar": 1.5,
+      "science": 5,
+      "greenhouse": 2,
+      "drill": 1,
+      "initialFood": 56,
+      "initialWater": 56,
+      "eventEvery": 3,
+      "eventPower": 1,
+      "eventScience": 1,
+      "eventMorale": 2,
+      "shieldMax": 0.9,
+      "shieldMassScale": 8,
+      "wallSlots": 8,
+      "allClearLevel": 0.5,
+      "moraleStart": 6,
+      "moraleMax": 10,
+      "moraleWeak": 3,
+      "moraleOutput": 0.8,
+      "medicReduction": 10,
+      "medicInterval": 6,
+      "medReduction": 20,
+      "batteryPower": 8,
+      "chefFood": 1.5,
+      "solarDaily": 3,
+      "lifePower": 1,
+      "seedPower": 1,
+      "radioPower": 1,
+      "boltPower": 1,
+      "boltOutput": 0.5,
+      "powerMax": 30,
+      "powerGrace": 2,
+      "eventRepair": 1,
+      "eventPlant": 1,
+      "flareMemoryHours": 12,
+      "alertMemoryHours": 48
+    },
+    "rules": {
+      "days": 10,
+      "tolerance": 1.5,
+      "goal": 12,
+      "grace": 3,
+      "timer": 1.5,
+      "supplies": 1.25,
+      "reserve": 4
+    },
+    "windowId": "2024-05-11T02:10:00-WINDOW-001",
+    "now": 1715393400000,
+    "resupply": 1716120000000,
+    "phase": "shelter",
+    "shiftIndex": 0,
+    "crew": [
+      {
+        "id": "ria",
+        "name": "Ria",
+        "trait": "Botanist",
+        "dose": 0,
+        "hunger": 0,
+        "thirst": 0,
+        "fedFood": 0,
+        "fedWater": 0,
+        "status": "healthy",
+        "assignment": "shelter",
+        "work": 0
+      },
+      {
+        "id": "dom",
+        "name": "Dom",
+        "trait": "Engineer",
+        "dose": 0,
+        "hunger": 0,
+        "thirst": 0,
+        "fedFood": 0,
+        "fedWater": 0,
+        "status": "healthy",
+        "assignment": "shelter",
+        "work": 0
+      },
+      {
+        "id": "aiko",
+        "name": "Aiko",
+        "trait": "Medic",
+        "dose": 0,
+        "hunger": 0,
+        "thirst": 0,
+        "fedFood": 0,
+        "fedWater": 0,
+        "status": "healthy",
+        "assignment": "shelter",
+        "work": 0
+      },
+      {
+        "id": "tunde",
+        "name": "Tunde",
+        "trait": "Geologist",
+        "dose": 0,
+        "hunger": 0,
+        "thirst": 0,
+        "fedFood": 0,
+        "fedWater": 0,
+        "status": "healthy",
+        "assignment": "shelter",
+        "work": 0
+      }
+    ],
+    "items": [
+      {
+        "id": "water-1",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-2",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-3",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-4",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-5",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-6",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-7",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-8",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-9",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-10",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-11",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-12",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-13",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-14",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-15",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-16",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-17",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-18",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-19",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-20",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-21",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-22",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-23",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-24",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-25",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-26",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-27",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-28",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-29",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-30",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-31",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-32",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-33",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-34",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-35",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-36",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-37",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-38",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-39",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-40",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-41",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-42",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-43",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-44",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-45",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-46",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-47",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-48",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-49",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-50",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-51",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-52",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-53",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-54",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-55",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-56",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-57",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-58",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-59",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-60",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-61",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-62",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-63",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-64",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-65",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-66",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-67",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-68",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-69",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-70",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "food-71",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-72",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-73",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-74",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-75",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-76",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-77",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-78",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-79",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-80",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-81",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-82",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-83",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-84",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-85",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-86",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-87",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-88",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-89",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-90",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-91",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-92",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-93",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-94",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-95",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-96",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-97",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-98",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-99",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-100",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-101",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-102",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-103",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-104",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-105",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-106",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-107",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-108",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-109",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-110",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-111",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-112",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-113",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-114",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-115",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-116",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-117",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-118",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-119",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-120",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-121",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-122",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-123",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-124",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-125",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-126",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-127",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-128",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-129",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-130",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-131",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-132",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-133",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-134",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-135",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-136",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-137",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-138",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-139",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-140",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "radio-141",
+        "type": "radio",
+        "name": "Sun Watch radio",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "dosimeter-142",
+        "type": "dosimeter",
+        "name": "Dosimeter",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "seeds-143",
+        "type": "seeds",
+        "name": "Seed cartridge",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "repair-144",
+        "type": "repair",
+        "name": "Repair kit",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "med-145",
+        "type": "med",
+        "name": "Med kit",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "battery-146",
+        "type": "battery",
+        "name": "Battery pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "guitar-147",
+        "type": "guitar",
+        "name": "Guitar",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "game-148",
+        "type": "game",
+        "name": "Board game",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "bolt-149",
+        "type": "bolt",
+        "name": "BOLT robot",
+        "slots": 2,
+        "mass": 1
+      },
+      {
+        "id": "electron-150",
+        "type": "electron",
+        "name": "Electron early-warning sensor",
+        "slots": 1,
+        "mass": 1
+      }
+    ],
+    "wall": [],
+    "pantry": [
+      {
+        "id": "water-7",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-32",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-41",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-48",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-65",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "food-94",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-95",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-138",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "radio-141",
+        "type": "radio",
+        "name": "Sun Watch radio",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "seeds-143",
+        "type": "seeds",
+        "name": "Seed cartridge",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "electron-150",
+        "type": "electron",
+        "name": "Electron early-warning sensor",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-151",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-152",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-153",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "food-154",
+        "type": "food",
+        "name": "Food pack",
+        "slots": 1,
+        "mass": 1
+      },
+      {
+        "id": "water-155",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-156",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-157",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      },
+      {
+        "id": "water-158",
+        "type": "water",
+        "name": "Water brick",
+        "slots": 2,
+        "mass": 3
+      }
+    ],
+    "serial": 158,
+    "power": 8,
+    "science": 0,
+    "achievements": ["Full House"],
+    "morale": 6,
+    "plant": 0,
+    "broken": false,
+    "zeroPower": 0,
+    "medicAt": -6,
+    "calls": [],
+    "log": [
+      {
+        "source": "REAL",
+        "donkiId": "2024-05-11T02:10:00-SEP-001",
+        "utc": "2024-05-11T02:10:00.000Z",
+        "text": "Particles detected. Relative GAME storm tier 3."
+      }
+    ],
+    "hazards": [
+      {
+        "id": "2024-05-11T02:10:00-SEP-001",
+        "time": 1715393400000,
+        "tier": 3,
+        "duration": 10
+      }
+    ],
+    "cursor": 8,
+    "shift": null,
+    "pendingEvent": null,
+    "interrupt": null,
+    "scrambleResult": {
+      "itemsSaved": [
+        "water-41",
+        "radio-141",
+        "water-48",
+        "food-94",
+        "seeds-143",
+        "water-65",
+        "water-7",
+        "food-138",
+        "electron-150",
+        "food-95",
+        "water-32"
+      ],
+      "crewSaved": ["ria", "dom", "aiko", "tunde"],
+      "crewExposed": [],
+      "timeLeft": 67.71150000000155
+    },
+    "flags": {
+      "eva": false,
+      "radioEver": true,
+      "wallEaten": false,
+      "doseEvac": false,
+      "powerEvac": false,
+      "snack": false,
+      "closeCall": false,
+      "ironWall": false,
+      "outguessed": 0,
+      "trusted": 0
+    },
+    "forecastResults": [],
+    "boltTask": "shelter"
+  },
+  "screen": "shelter",
+  "journal": {
+    "slots": [null, null, null, null, null, null, null, null],
+    "logs": [],
+    "coachStep": 0,
+    "classroomSeen": []
+  }
+}

@@ -55,3 +55,7 @@ The generated native scaffold comes from Capacitor's MIT Android template. Nativ
 | `android/gradlew`                           | https://github.com/gradle/gradle/blob/v8.14.3/gradlew                        | Apache-2.0 | Gradle contributors | POSIX build launcher             |
 | `android/gradlew.bat`                       | https://github.com/gradle/gradle/blob/v8.14.3/gradlew.bat                    | Apache-2.0 | Gradle contributors | Windows build launcher           |
 | `android/gradle/wrapper/gradle-wrapper.jar` | https://github.com/gradle/gradle/tree/v8.14.3/platforms/core-runtime/wrapper | Apache-2.0 | Gradle contributors | Pinned build distribution loader |
+
+### Prompt 10 original work
+
+The articulated crew, matching SVG portraits, cutaway habitat, softened props, illustrated fallback, CSS title artwork and interaction design were authored for SHELTER CALL with Codex assistance. Reproducible sources are in `src/art/`, `src/scenes/shelter/` and `tools/generate-art.mjs`. No new third-party image/model/audio assets, AI-generated raster images, commercial-game assets, real astronaut likenesses or NASA insignia were imported. Official Robot Gentleman screenshots were inspected only as design references and are not shipped; evidence links are in OVERHAUL_AUDIT.md. Existing dependency/font licenses above remain applicable.

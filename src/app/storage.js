@@ -13,6 +13,9 @@ export const DEFAULT_SETTINGS = {
   motion: 'system',
   sound: false,
   volume: 0.55,
+  music: 0.3,
+  sfx: 0.6,
+  graphics: 'auto',
   flat: false,
   tutorial: true,
 };
@@ -252,6 +255,13 @@ export function createStorage(provider = () => globalThis.localStorage) {
     clearMission: () => write(SAVE_KEY, null),
     settings: () => {
       const value = read(SETTINGS_KEY) ?? {};
+      const graphics = ['auto', 'high', 'low', 'illustrated'].includes(
+        value.graphics,
+      )
+        ? value.graphics
+        : value.flat === true
+          ? 'illustrated'
+          : 'auto';
       return {
         language: value.language === 'fil' ? 'fil' : 'en',
         textSize: ['normal', 'large', 'largest'].includes(value.textSize)
@@ -264,7 +274,14 @@ export function createStorage(provider = () => globalThis.localStorage) {
         volume: Number.isFinite(value.volume)
           ? Math.max(0, Math.min(1, value.volume))
           : 0.55,
-        flat: value.flat === true,
+        music: Number.isFinite(value.music)
+          ? Math.max(0, Math.min(1, value.music))
+          : DEFAULT_SETTINGS.music,
+        sfx: Number.isFinite(value.sfx)
+          ? Math.max(0, Math.min(1, value.sfx))
+          : DEFAULT_SETTINGS.sfx,
+        graphics,
+        flat: graphics === 'illustrated',
         tutorial: value.tutorial !== false,
         classroom: value.classroom === true,
         haptics: value.haptics === true,

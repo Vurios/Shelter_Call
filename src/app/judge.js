@@ -24,6 +24,8 @@ export function judgeGuide(stage, { compact = false } = {}) {
     ending: 'judge.ending',
     reveal: 'judge.reveal',
   };
+  if (stage === 'shelter')
+    return `<details class="judge-guide judge-shelter" aria-label="${t('Judge guide')}"><summary>${t('JUDGE TOUR · about 3 minutes')}</summary><p>${t(lines[stage])}</p><p>REAL · NASA DONKI · ${e(sep.id)}</p><p>${t('judge.timing', { onset: sep.onset, minutes: sep.countdownMin, alert: sep.alertTime })}</p><p>${t('judge.proxy')}</p></details>`;
   return `<aside class="judge-guide" aria-label="${t('Judge guide')}"><strong>${t('JUDGE TOUR · about 3 minutes')}</strong><p>${t(lines[stage])}</p>${stage === 'reveal' ? `<a href="#judge-closing">${t('Jump to the data audit')}</a>` : ''}<details><summary>${t('The verified case')}</summary><p>REAL · NASA DONKI · ${e(sep.id)}</p><p>${t('judge.timing', { onset: sep.onset, minutes: sep.countdownMin, alert: sep.alertTime })}</p><p>${t('judge.proxy')}</p></details></aside>`;
 }
 

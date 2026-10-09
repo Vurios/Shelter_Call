@@ -1,0 +1,187 @@
+{
+  "base": "http://127.0.0.1:4173",
+  "browser": "154.0.8037.99",
+  "environment": "Headless Chrome on Windows; desktop and touch viewport emulation, not a physical Android device.",
+  "samples": [
+    {
+      "scene": "shelter",
+      "width": 1280,
+      "height": 720,
+      "graphics": "high",
+      "frames": 180,
+      "fps": 180,
+      "medianMs": 5.5,
+      "p95Ms": 5.700000000000273,
+      "metrics": {
+        "drawCalls": "84",
+        "triangles": "46216",
+        "geometries": "42",
+        "quality": "high",
+        "crewCount": "4"
+      },
+      "gpu": {
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4050 Laptop GPU (0x000028A1) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "hardwareConcurrency": 12
+      }
+    },
+    {
+      "scene": "scramble",
+      "width": 1280,
+      "height": 720,
+      "graphics": "high",
+      "frames": 180,
+      "fps": 180,
+      "medianMs": 5.599999999999909,
+      "p95Ms": 5.699999999999818,
+      "metrics": {
+        "phase": "playing",
+        "ready": "true",
+        "renderer": "3d",
+        "quality": "high",
+        "remaining": "57.44",
+        "playerX": "0.000",
+        "playerZ": "2.500",
+        "drawCalls": "110",
+        "triangles": "155508",
+        "pixelRatio": "1",
+        "fps": "180.0"
+      }
+    },
+    {
+      "scene": "shelter",
+      "width": 1280,
+      "height": 720,
+      "graphics": "low",
+      "frames": 180,
+      "fps": 180,
+      "medianMs": 5.599999999999909,
+      "p95Ms": 5.700000000000273,
+      "metrics": {
+        "drawCalls": "42",
+        "triangles": "23108",
+        "geometries": "42",
+        "quality": "low",
+        "crewCount": "4"
+      },
+      "gpu": {
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4050 Laptop GPU (0x000028A1) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "hardwareConcurrency": 12
+      }
+    },
+    {
+      "scene": "scramble",
+      "width": 1280,
+      "height": 720,
+      "graphics": "low",
+      "frames": 180,
+      "fps": 180.01800180018,
+      "medianMs": 5.599999999999909,
+      "p95Ms": 5.699999999999818,
+      "metrics": {
+        "phase": "playing",
+        "ready": "true",
+        "renderer": "3d",
+        "quality": "low",
+        "remaining": "57.28",
+        "playerX": "0.000",
+        "playerZ": "2.500",
+        "drawCalls": "59",
+        "triangles": "79504",
+        "pixelRatio": "1",
+        "fps": "180.0"
+      }
+    },
+    {
+      "scene": "shelter",
+      "width": 390,
+      "height": 844,
+      "graphics": "high",
+      "frames": 180,
+      "fps": 180,
+      "medianMs": 5.599999999999909,
+      "p95Ms": 5.700000000000273,
+      "metrics": {
+        "drawCalls": "84",
+        "triangles": "46216",
+        "geometries": "42",
+        "quality": "high",
+        "crewCount": "4"
+      },
+      "gpu": {
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4050 Laptop GPU (0x000028A1) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "hardwareConcurrency": 12
+      }
+    },
+    {
+      "scene": "scramble",
+      "width": 390,
+      "height": 844,
+      "graphics": "high",
+      "frames": 180,
+      "fps": 180,
+      "medianMs": 5.599999999999909,
+      "p95Ms": 5.700000000000273,
+      "metrics": {
+        "phase": "playing",
+        "ready": "true",
+        "renderer": "3d",
+        "quality": "high",
+        "remaining": "57.45",
+        "playerX": "0.000",
+        "playerZ": "2.500",
+        "drawCalls": "111",
+        "triangles": "155508",
+        "pixelRatio": "1",
+        "fps": "180.0"
+      }
+    },
+    {
+      "scene": "shelter",
+      "width": 390,
+      "height": 844,
+      "graphics": "low",
+      "frames": 180,
+      "fps": 180,
+      "medianMs": 5.599999999999909,
+      "p95Ms": 5.700000000000273,
+      "metrics": {
+        "drawCalls": "42",
+        "triangles": "23108",
+        "geometries": "42",
+        "quality": "low",
+        "crewCount": "4"
+      },
+      "gpu": {
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4050 Laptop GPU (0x000028A1) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "hardwareConcurrency": 12
+      }
+    },
+    {
+      "scene": "scramble",
+      "width": 390,
+      "height": 844,
+      "graphics": "low",
+      "frames": 180,
+      "fps": 179.98200179982004,
+      "medianMs": 5.599999999999909,
+      "p95Ms": 5.699999999999818,
+      "metrics": {
+        "phase": "playing",
+        "ready": "true",
+        "renderer": "3d",
+        "quality": "low",
+        "remaining": "57.34",
+        "playerX": "0.000",
+        "playerZ": "2.500",
+        "drawCalls": "60",
+        "triangles": "79504",
+        "pixelRatio": "1",
+        "fps": "180.0"
+      }
+    }
+  ]
+}

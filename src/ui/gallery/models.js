@@ -1,10 +1,24 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { PALETTE } from '../../art/palette.js';
-import { phrase } from '../../i18n/index.js';
+import { phrase, localize } from '../../i18n/index.js';
+import { poseCrew } from '../../art/crew.js';
+import { optimizeCrew } from '../../art/rig.js';
 
 /** One scissored renderer avoids a WebGL context for each preview card. */
 export async function mountModels(cards, { reducedMotion, status }) {
+  const controls = document.createElement('div');
+  controls.className = 'audio-settings model-controls';
+  controls.innerHTML =
+    '<label>Preview lighting<select id="model-lighting"><option value="game">Warm outpost</option><option value="neutral">Neutral studio</option></select></label><label>Crew pose<select id="model-pose"><option value="idle">Idle</option><option value="hop">Hop</option><option value="work">Work</option><option value="rest">Rest</option><option value="concern">Concern</option><option value="celebrate">Celebrate</option></select></label>';
+  controls.querySelectorAll('select').forEach((select) => {
+    select.style.minHeight = '44px';
+    select.style.maxWidth = '100%';
+  });
+  localize(controls);
+  status.before(controls);
+  const lighting = controls.querySelector('#model-lighting');
+  const pose = controls.querySelector('#model-pose');
   const canvas = document.createElement('canvas');
   canvas.className = 'model-canvas';
   canvas.setAttribute('aria-hidden', 'true');
@@ -22,6 +36,7 @@ export async function mountModels(cards, { reducedMotion, status }) {
       card.querySelector('.model-window').textContent =
         '3D preview unavailable';
     });
+    controls.remove();
     return { setPaused() {}, dispose() {} };
   }
   const renderer = new THREE.WebGLRenderer({
@@ -41,9 +56,17 @@ export async function mountModels(cards, { reducedMotion, status }) {
   await Promise.all(
     cards.map(async (card) => {
       const gltf = await loader.loadAsync(card.dataset.modelPath);
-      const model = gltf.scene;
+      const crew = card.dataset.model.startsWith('crew-');
+      const model = crew ? optimizeCrew(gltf.scene) : gltf.scene;
+      const materials = new Set();
+      let meshes = 0;
       model.traverse((node) => {
         if (node.isMesh) {
+          meshes++;
+          (Array.isArray(node.material)
+            ? node.material
+            : [node.material]
+          ).forEach((material) => materials.add(material));
           node.castShadow = true;
           node.receiveShadow = true;
         }
@@ -51,6 +74,13 @@ export async function mountModels(cards, { reducedMotion, status }) {
       const bounds = new THREE.Box3().setFromObject(model),
         size = bounds.getSize(new THREE.Vector3());
       const height = Math.max(size.y, size.x * 0.9, size.z * 1.1);
+      const diagnostics = document.createElement('p');
+      diagnostics.className = 'model-diagnostics';
+      const dimensions = `${size.x.toFixed(2)} × ${size.y.toFixed(2)} × ${size.z.toFixed(2)} m`;
+      diagnostics.textContent = `${dimensions} · ${meshes} surfaces · ${materials.size} materials`;
+      card.append(diagnostics);
+      card.dataset.materials = materials.size;
+      card.dataset.dimensions = dimensions;
       const scene = new THREE.Scene();
       scene.add(model);
       const camera = new THREE.OrthographicCamera(
@@ -93,6 +123,13 @@ export async function mountModels(cards, { reducedMotion, status }) {
         scene,
         camera,
         height,
+        crew,
+        fill,
+        sun,
+        terrain,
+        diagnostics,
+        dimensions,
+        materialCount: materials.size,
       });
       card.dataset.modelState = 'loaded';
     }),
@@ -139,6 +176,21 @@ export async function mountModels(cards, { reducedMotion, status }) {
         height =
           Math.min(window.innerHeight, rect.bottom) - Math.max(0, rect.top);
       preview.model.rotation.y = elapsed * 0.24;
+      if (preview.crew)
+        poseCrew(preview.model, {
+          time: elapsed,
+          pose: pose.value,
+          moving: pose.value === 'hop',
+          airborne: pose.value === 'hop' ? 0.5 : 0,
+          reduced: reducedMotion.matches,
+        });
+      const neutral = lighting.value === 'neutral';
+      preview.fill.intensity = neutral ? 2.5 : 1.4;
+      preview.sun.color.set(neutral ? PALETTE.white : PALETTE.amber);
+      preview.sun.intensity = neutral ? 2 : 2.8;
+      preview.terrain.material.color.set(
+        neutral ? '#bfc4c6' : PALETTE.regolith,
+      );
       const aspect = rect.width / rect.height;
       const scale = preview.height * 0.78;
       preview.camera.left = -scale * aspect;
@@ -154,11 +206,16 @@ export async function mountModels(cards, { reducedMotion, status }) {
       );
       renderer.setScissor(left, bottom, width, height);
       renderer.render(preview.scene, preview.camera);
+      const calls = renderer.info.render.calls;
+      preview.card.dataset.drawCalls = calls;
+      preview.diagnostics.textContent = `${preview.dimensions} · ${calls} draws incl. shadows · ${preview.materialCount} materials`;
     }
     if (visible && !paused && !document.hidden)
       frame = requestAnimationFrame(draw);
   }
   const onScroll = () => draw(performance.now(), true);
+  lighting.addEventListener('change', onScroll);
+  pose.addEventListener('change', onScroll);
   window.addEventListener('resize', resize);
   window.addEventListener('scroll', onScroll, { passive: true });
   document.addEventListener('visibilitychange', onScroll);
@@ -174,6 +231,9 @@ export async function mountModels(cards, { reducedMotion, status }) {
       window.removeEventListener('resize', resize);
       window.removeEventListener('scroll', onScroll);
       document.removeEventListener('visibilitychange', onScroll);
+      lighting.removeEventListener('change', onScroll);
+      pose.removeEventListener('change', onScroll);
+      controls.remove();
       previews.forEach(({ scene }) =>
         scene.traverse((node) => {
           node.geometry?.dispose();

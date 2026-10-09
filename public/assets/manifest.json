@@ -1076,176 +1076,176 @@
     },
     {
       "path": "assets/models/bolt.glb",
-      "bytes": 21636,
-      "sha256": "aba5eb846a0a69e84ff395409b1dcf56823fd7602d829f739098be83ae546847",
+      "bytes": 51624,
+      "sha256": "a1814aa94cb91028308b2b251e34e28aa8e96adeb2a12dfd3ec0da65439f5d98",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/crater.glb",
-      "bytes": 22384,
-      "sha256": "694cc4deb7162155d40a0e2bac589010b6d9be2ef3b7759304b6fd7a2f39d3f6",
+      "bytes": 22248,
+      "sha256": "1656516196c3e25205b3a6fb43d37f1a5dda40113cc8bd021da12e2639fa052c",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/crew-aiko.glb",
-      "bytes": 27764,
-      "sha256": "99e5e2408ef561c045a147153810be79c962a5760ff4b4e1824352299bafd556",
+      "bytes": 200404,
+      "sha256": "d3b71dde5b27643a40846a80a9640fcc26fb32ea357e9091efeb68133baae33b",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/crew-dom.glb",
-      "bytes": 28520,
-      "sha256": "d9345127c7475b2d31e60c28256a2be3c6492f19536496f0d9ab9dd7f3ab60c0",
+      "bytes": 209724,
+      "sha256": "1f301656a8d686abce69871980c31ddd14b1c4109b76e427a82efa7a3007128b",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/crew-iggy.glb",
-      "bytes": 27860,
-      "sha256": "f4fe6c2ac46d4cc231b1acb596d59c7ccfb0ada3c60d1d881a8326ec5aee553c",
+      "bytes": 206772,
+      "sha256": "99d19adc8105a0f405a350bd95bd5b8b9a4f19b02f7cdd9266352cad25f5ee01",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/crew-mara.glb",
-      "bytes": 27964,
-      "sha256": "23d733aa1259d5750b4b546b2fb131b1b9ab409d832691a60e48bc8bef156e8e",
+      "bytes": 209868,
+      "sha256": "de5c139f72b2ac83cd9bfdae5431aac12d0e5316bb33456c91ce027778ef7561",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/crew-pip.glb",
-      "bytes": 28308,
-      "sha256": "de9374ece96b5108204e2e2993012b446efb063991260aa3fca245031a5156ab",
+      "bytes": 192924,
+      "sha256": "13841cc5f6f423f382551fe1550cf760ce11c1144d519797b2e8a7478b2e5ed7",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/crew-ria.glb",
-      "bytes": 27492,
-      "sha256": "c9e9c48b8c99b56769370ffcffe01b2a4032cdac8df43212d4a7ebe3af5aaeb5",
+      "bytes": 200432,
+      "sha256": "415f8bb280bc153667bd942b70ed241d1d9ada43ef24c61916ab154d1c1e47cf",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/crew-sol.glb",
-      "bytes": 33560,
-      "sha256": "15b845f99ba97ea664aac4538ccd8a854a4bed73e866aab937f9ae95a521e2d7",
+      "bytes": 206820,
+      "sha256": "a85bf104a6df6b31dda7c6f6f2051400cea891f6207e0e75b563fb1dc93d811b",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/crew-tunde.glb",
-      "bytes": 27260,
-      "sha256": "1db013262387f75d17657457bb7cc12e7d1b304e73ea97d17d2f16226460edea",
+      "bytes": 215904,
+      "sha256": "9839e3e3277102ad09c9aa5a5084dcb5666aa5d26a4b0c16f6e68bb30d4cc143",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/item-battery.glb",
-      "bytes": 2900,
-      "sha256": "8bde69c84c2dd8a871ad6a5022777e28d1b7560ec5ae332bcadc7070e402ea91",
+      "bytes": 19548,
+      "sha256": "7bacd5082f5cb62c492c8cc459cc6c550195ca7f6f5a99782a1e927661390c9c",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/item-dosimeter.glb",
-      "bytes": 3068,
-      "sha256": "f1bdb76991a6f9a507a9e7b8243dcbfcef3f60cfeccfdacb93e9f220e426ed04",
+      "bytes": 13968,
+      "sha256": "24c7f6b8d6a0c4b6f0052b1b70aa57b5ffae267ced88059b6f3526de6b99d061",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/item-food.glb",
-      "bytes": 2908,
-      "sha256": "e08fc0dc3136b8b4103925b6ed142a85ead616b1792f31a79e3faee518753419",
+      "bytes": 14320,
+      "sha256": "9b0367c07b3488614bf2b451bc4ecba0d0b7a5d0b618180086ce44cbe1cda6a9",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/item-game.glb",
-      "bytes": 19924,
-      "sha256": "cb46db7f3d8b19e90873702175adbc0fd468c19672143292cd951746ce2778fb",
+      "bytes": 30724,
+      "sha256": "5ec4e62499616b193d8d2cc3543ef8396924e1c01de8d3a78018c00dc8130757",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/item-guitar.glb",
-      "bytes": 20600,
-      "sha256": "2ff696fe403a9a608971faf1451e4bbe171d1b934916097f4f3e0daf708f6c31",
+      "bytes": 20496,
+      "sha256": "5e53df375d470aa34c957c84d95e1cc9a8fb8e7e965219de9fa5356ac1f82fe4",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/item-med.glb",
-      "bytes": 20268,
-      "sha256": "8f655ebc930b178560c06a6985fff0b257f415b67ce7768c8faaf2a60d86cbb8",
+      "bytes": 42352,
+      "sha256": "17340c7ca2658a37b27f265aae5c155bad0a576929bc1f562756d7fc0cc7f9c0",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/item-radio.glb",
-      "bytes": 3096,
-      "sha256": "23637341c4f9e3bde3e3033ba92864a1548d75c6a378d9f34909896a41ba2bbc",
+      "bytes": 31660,
+      "sha256": "0f21dc85b6872dbe28f0a05de5da27ad825c034f8dd45791ff9eed4cbf6af239",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/item-repair.glb",
-      "bytes": 2960,
-      "sha256": "b3033cccf980e4b82e9898c1625ed4bbe6f6a453c84297d59cf6db623b3234e5",
+      "bytes": 25668,
+      "sha256": "cfcb53780d247058e4e04b4f51c77001ff599822b21bdbdf3c6b63f2e463cbc9",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/item-seeds.glb",
-      "bytes": 19728,
-      "sha256": "235fa061532f8853d891e5d92582863d2573d72432cfbb435905956fa8967ee4",
+      "bytes": 30528,
+      "sha256": "200c4d45dbfe97c06862cc1ac13574298188d422a2dc8362ea29bb8fd4c72f7d",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/item-water.glb",
-      "bytes": 19656,
-      "sha256": "fd9e34d3eb099a308d87d970757952471d19d0c3897be7895db06fc2cbd424e2",
+      "bytes": 47196,
+      "sha256": "5d1df75ca8fe5880a96eb976913483f8f5cfb8fc2fce2ae8593a8d11a457b9ba",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/kamote.glb",
-      "bytes": 26456,
-      "sha256": "732a1db06a4ef1ea7443691e9aafe6ca8fca2648b1997c3b0f0052bd90260aad",
+      "bytes": 82700,
+      "sha256": "2005dff760f1efdd06df4b1ca6ddc6faba37db97d7dc6cc6a5b2d67caf78307d",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/rock.glb",
       "bytes": 4928,
-      "sha256": "20d87047b96b6f4716b728c0aed86c3b7c893c525d32277c7daf3c8cbc9dbcb6",
+      "sha256": "10ebde800c13f419db8ed5923ec1872d4ffbce79f38fdda3811a73ab7b5917c2",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/station-drill.glb",
-      "bytes": 9412,
-      "sha256": "915cde69024be0e3d166e81bc3809e1fc710e19f6352e78284c28bd5e9a95424",
+      "bytes": 9344,
+      "sha256": "db9b704216ba65e85dd3a5d21a09df2529f5ccd7671631c49442a6064007d7e1",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/station-greenhouse.glb",
-      "bytes": 20636,
-      "sha256": "e9b5d2932c1c4cea26c30f0bb55f9dd383bdec2ce53cdcdfaf2a9802ac665b7a",
+      "bytes": 20532,
+      "sha256": "288606e91e3307e20bbdc153bce0f69ea2fa338f230ad389bd4e99a5813d1d5c",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/station-hatch.glb",
-      "bytes": 20536,
-      "sha256": "aac626eb5d8663ece390940eb2f0cab214934a59f3463cb0938beb7874e50919",
+      "bytes": 54104,
+      "sha256": "29bb7a0eed9a5c2bbd6be67b7dbcfc803e6dd1c80a51e3675400db7f20854755",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/station-lab.glb",
-      "bytes": 26132,
-      "sha256": "fa34485f097437e2f7afe983cc43e730bba0f5b9b3ab4a5e7f4e0e43f469bfd2",
+      "bytes": 25964,
+      "sha256": "00908eacb566fade782a4aab7e2f0cd7433c5dd62dddbc4325f7a0485471ec00",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/station-lander.glb",
-      "bytes": 28800,
-      "sha256": "39346cde25eca11d5d0191edacd16cad2a7a52bf68e4a8cd9fc7e89d73098814",
+      "bytes": 28624,
+      "sha256": "84326155797624422f04fd0d8958e6ad36a9eda1371b398ee05ac29ff27616f8",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/station-rover-bay.glb",
-      "bytes": 9296,
-      "sha256": "d43c26bd3fd2103bfa5cabc4b3c2f195a520f1610024e00e464f4ef7d2012738",
+      "bytes": 9228,
+      "sha256": "1d6ec734a19a2b981893fad7a84867737dcc6632876504fc1df67ad92b6f094d",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/station-solar.glb",
-      "bytes": 9536,
-      "sha256": "a4a7c8dce3616bfb129438e16745153c5e7f5f58017e07a66c7c673dce33761e",
+      "bytes": 9468,
+      "sha256": "54068da38c1de796c4509612c89fd3d6a7811a85c26d8e5ecb9f2f4b0d989c90",
       "provenance": "Original project art"
     },
     {
@@ -1286,26 +1286,26 @@
     },
     {
       "path": "assets/portraits/aiko-calm.svg",
-      "bytes": 952,
-      "sha256": "06ad71255c916b26df0d06626509d5b4bc012008f40c50397dfe65225426fd3c",
+      "bytes": 1143,
+      "sha256": "ea0864664a0fd96bfd6b3e52a94a6a61ceada69491607377b7f1964d42aaafc1",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/aiko-happy.svg",
-      "bytes": 958,
-      "sha256": "cb0b80331ed07650b6c0cfb0387859ae8d7dbc3bed42b7e3d87883d35506d688",
+      "bytes": 1149,
+      "sha256": "27d6b6aa051a2513a8e3ece694afd8eb6c6b8a0647f54508a18a70a595f0c463",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/aiko-tired.svg",
-      "bytes": 881,
-      "sha256": "16db25b0164561ebafc8609e63ab206872dc33ab34133ae211f0c84e2b2d5333",
+      "bytes": 1072,
+      "sha256": "1ba33fb8baaa512278f76df67eea36ae3c5c3c0170e40ad8a792eeaee8b07395",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/aiko-worried.svg",
-      "bytes": 998,
-      "sha256": "5bb28a2e15c3e6d527463da70eb8a94551a4be4ee4f631c308b9197bfd31ee1e",
+      "bytes": 1189,
+      "sha256": "884d06436b9ba54d598a9d05de0a1fbed7ca8e3350b21acf3973536feb342071",
       "provenance": "Original project art"
     },
     {
@@ -1316,170 +1316,170 @@
     },
     {
       "path": "assets/portraits/dom-calm.svg",
-      "bytes": 947,
-      "sha256": "a9f992ed21f373a2b719dc37a091d2671093657ad5de4bebb43e79f1678583ba",
+      "bytes": 1259,
+      "sha256": "5ad125df8cc9b89570df83f1f742a45248d201810e9e40124f720a5c464193b8",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/dom-happy.svg",
-      "bytes": 953,
-      "sha256": "45f4539cf4298fd0d0a2860aac9b5b41ab92f10060a152a4e9bb419e7d6df184",
+      "bytes": 1265,
+      "sha256": "26ac8721749e0c458e2bcf655a24d96a394fa633ef9459fb2315ce91c8e7c1f2",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/dom-tired.svg",
-      "bytes": 876,
-      "sha256": "c00452a5560777e8a7049d5f07d866ce9d6ebede71dd9be1a64ac7d727b89a00",
+      "bytes": 1188,
+      "sha256": "636f3dfec5719eaedcc2a500b6dddf513c96edfcdcce0edc91a9f07de2f1a4b4",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/dom-worried.svg",
-      "bytes": 993,
-      "sha256": "c3c8da7e7d1066f4650d6d42df87d4d05fbf7bfec3e245b6a8b6ef414827db15",
+      "bytes": 1305,
+      "sha256": "f0e61ecf0727c907f9f1af76297b815a74af76a7b58abc73095521b483d36ad5",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/iggy-calm.svg",
-      "bytes": 931,
-      "sha256": "fc52d99e4646b9ede69f00b9b3bf41abde847383e7ad930972547227ddaba220",
+      "bytes": 1233,
+      "sha256": "9d276fc4253d5d238f78ddc2f8fd3a3c07a7fc189ae3ffb62b8e14cc50dd0c25",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/iggy-happy.svg",
-      "bytes": 937,
-      "sha256": "9aa98db8cb6705e82c2cd3cd7ead4910750fa2f3bec4017f7fdccae925481a5e",
+      "bytes": 1239,
+      "sha256": "767b5b17885997e07fbf05980e91f7ed3725f203a7d9292563cf69734ea87fe8",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/iggy-tired.svg",
-      "bytes": 860,
-      "sha256": "fdc058474e3f195e9f31cf89feeaa5228877b784a1a949e483c4af85bbe2b483",
+      "bytes": 1162,
+      "sha256": "703b918b4e614bf179da5e4a62bf58dbc74feec0fd035a1037bfb8a6e27f4c60",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/iggy-worried.svg",
-      "bytes": 977,
-      "sha256": "c527c710d1effc3a5519c4ae25f24da07e259607d60a5895469812c69e26ed37",
+      "bytes": 1279,
+      "sha256": "8daffb122ad3f6dfd4bd1ff58c3e6b9172931a38a2987bde08fe9fd33151dee8",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/mara-calm.svg",
-      "bytes": 948,
-      "sha256": "affd5855389771ff2bdd66f53441aac7fd210fd0c521d3a2aa065b7d5162e38d",
+      "bytes": 1354,
+      "sha256": "63ef78dddd0bc510bb8925320bd17bb9e5dd66d3331f1cf3a365c46a7dcf29f6",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/mara-happy.svg",
-      "bytes": 954,
-      "sha256": "50bea8816f01db1b872c91541a2075b1f706f902c6a3a30c5fe93699fee7d05e",
+      "bytes": 1360,
+      "sha256": "a517bd8d9aa6195c9ef866fd774ffaaa32645fbafe5aae647949d5f43d16ec47",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/mara-tired.svg",
-      "bytes": 877,
-      "sha256": "36f91d91a454bbe26230eaf36e9c32cb2915b652bd3c8ee23c359e8abb39ad3c",
+      "bytes": 1283,
+      "sha256": "054f51b705108dd9dff8ad747421225bd8f3cf7d3953076cd46706bec3237067",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/mara-worried.svg",
-      "bytes": 994,
-      "sha256": "a8b8b3389e2c5d0a30f58363a8a1bbb60901b54546104e1e2d16adde899c8a66",
+      "bytes": 1400,
+      "sha256": "28554d407026fe50dda611053eaf57c4c31fd4a0e9cbce75e99244005fd6dab2",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/pip-calm.svg",
-      "bytes": 1025,
-      "sha256": "23d421c9cb0e93b7dc6ba06f647a1bd0e9c21d90a88f224a471d3785569461f1",
+      "bytes": 1201,
+      "sha256": "69cb39fb2c296000cf3f5bdedebfdaa3f355dad112ae93d5bcf92f6db1a9dd39",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/pip-happy.svg",
-      "bytes": 1031,
-      "sha256": "d5b126e93734b2f87b90467e5a2ea67ac32037d1705be695d7229ffbe84dcb3e",
+      "bytes": 1207,
+      "sha256": "6ebb9c3a80b12800965483038f8449c17a3dfcf0655ba78076a2e77a96ea8484",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/pip-tired.svg",
-      "bytes": 954,
-      "sha256": "ffc0bc53898fbf0d5d2dd23087626005980a42f4aa9a8dc947c5aa8fae641890",
+      "bytes": 1130,
+      "sha256": "6f1133f4f10d53e1dcb7393e7e543f6f10ab59c2fc38e273745ddebb57fbf241",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/pip-worried.svg",
-      "bytes": 1071,
-      "sha256": "dca9b0a544b31de23350b28919a0a48669b38fce5120d7cf7840b4ae95cf16cd",
+      "bytes": 1247,
+      "sha256": "5b9e3580f7b67dcc4f368ad6adfbaa0cd9875c249f271297cf3dc82e47e0d44e",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/ria-calm.svg",
-      "bytes": 969,
-      "sha256": "208a9a391a85aa14d777be9efd7ab46bc392ec5d787408c14eadf9b54ec0ae45",
+      "bytes": 1172,
+      "sha256": "6711a21ed72ca4c863cb5dbbf9ecb09d30a75699d7caa44285fadb3ce63445d2",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/ria-happy.svg",
-      "bytes": 975,
-      "sha256": "89382dd861f246f47078072a7044b6abb1592d3abb3c9bbdc4040a6361f44a51",
+      "bytes": 1178,
+      "sha256": "a13efcf94d7deaf3b3296512a38074e39cb31de9b602abcf8f2f46e11f134678",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/ria-tired.svg",
-      "bytes": 898,
-      "sha256": "6dd6acf9d856e694aa422291ad049e16284a04dc75f00e1aa0f01dfd7f093c99",
+      "bytes": 1101,
+      "sha256": "4c9971f442e96e16a2635e2c1e6822593c9f088b1a1e7e5de511109b6e6740ff",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/ria-worried.svg",
-      "bytes": 1015,
-      "sha256": "75e12f2146573a1fd1fb71db3ca501df4e6344e1a28076c3ee1c59fa929ced28",
+      "bytes": 1218,
+      "sha256": "4e4160c765e2747dd7a2d927b725dc13883cc37082343401baf21e464816f39f",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/sol-calm.svg",
-      "bytes": 937,
-      "sha256": "4bc3bd78cbd5fbe51f1930d0c305e36695c7ba3a97e2446d99888aede7d9d2cf",
+      "bytes": 1153,
+      "sha256": "0c8e1137407b90f7735e9a54d4d8755791ddb0bdd995d1d3c10edeeae973f420",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/sol-happy.svg",
-      "bytes": 943,
-      "sha256": "da67725cfcab41e31ed99e0ede2c2302982151acbf6249f7a5ae0a34abee2ba4",
+      "bytes": 1159,
+      "sha256": "46043aa1a0ae0c404aa1a3a08d09d5050e66246a852b28068be1699487765df2",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/sol-tired.svg",
-      "bytes": 866,
-      "sha256": "4c52fcbc7beade10f6a2c00cb6c3caec7be508527d861b3f99ac9c745d7caebc",
+      "bytes": 1082,
+      "sha256": "c63bccd01a6d623d6edb72c1154c29e1bc45a7d0375662a5a4261b8fa943d809",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/sol-worried.svg",
-      "bytes": 983,
-      "sha256": "bbbef621d76a76e340ca2547dfe18a2cfea0866371cffc2837d1c56053663f77",
+      "bytes": 1199,
+      "sha256": "9162320c467bf314beb45190922a291eefcbbb04d5626bcc5fc1f7ab9f380f80",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/tunde-calm.svg",
-      "bytes": 933,
-      "sha256": "043b97bf66b56d8d3185f79383c2f86ad446f03fcf7d9b80833a444c79b66d46",
+      "bytes": 1138,
+      "sha256": "a2b789c905d00e1e0dcab33935da9810aee7279e5fbc3141486144a725d342c4",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/tunde-happy.svg",
-      "bytes": 939,
-      "sha256": "783ce0fefa2b5fb7853a2930d1ef59750677fe911c6bca7b6672d4e4795751ca",
+      "bytes": 1144,
+      "sha256": "6fe88e29657fe802b2e327c2d97c67bd20bfe968e5f50dce15e09b9ffb25723a",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/tunde-tired.svg",
-      "bytes": 862,
-      "sha256": "497c14fcb7353a1f91b3430b4040dc2b3383583b9e0c1ed080517e99a49841ad",
+      "bytes": 1067,
+      "sha256": "0571bff444dd5f8499e44455479faeef0acdb0dd5f357994c1cce659ab45bf84",
       "provenance": "Original project art"
     },
     {
       "path": "assets/portraits/tunde-worried.svg",
-      "bytes": 979,
-      "sha256": "5a76822a2651dd358569f048c6d07d9b5e6aff795d4f13d395181659ddc47ac4",
+      "bytes": 1184,
+      "sha256": "64e7d609ca72af14a748f2b1c65e9eeef023ecdd8b2e494a26f1c884ce2fe86c",
       "provenance": "Original project art"
     },
     {
@@ -1501,7 +1501,7 @@
       "provenance": "Original project art"
     }
   ],
-  "totalBytes": 1061876,
+  "totalBytes": 2764404,
   "counts": {
     "crew": 8,
     "models": 29,

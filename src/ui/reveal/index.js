@@ -2,10 +2,11 @@ import { t, getLanguage } from '../../i18n/index.js';
 import { escape as e } from '../shelter/view.js';
 import { timelineRows } from './timeline.js';
 import './style.css';
+import { SCIENCE_NOTES, decisionReflection } from './learning.js';
 
 export const endingSlug = (name) => name.toLowerCase().replaceAll(' ', '-');
-export function endingCard(name) {
-  return `<article class="ending-card"><img src="/assets/endings/${endingSlug(name)}.svg" alt="${e(t(name))}"><div><p class="eyebrow">${t('YOUR ENDING · GAME')}</p><h1 tabindex="-1">${t(name)}</h1><p>${t(`epilogue.${endingSlug(name)}`)}</p></div></article>`;
+export function endingCard(name, crewIds = []) {
+  return `<article class="ending-card"><div class="ending-art"><img src="/assets/endings/${endingSlug(name)}.svg" alt="${e(t(name))}"><div class="ending-crew">${crewIds.map((id) => `<img src="/assets/portraits/${e(id)}-calm.svg" alt="${e(id.toUpperCase())}">`).join('')}</div></div><div><p class="eyebrow">${t('YOUR ENDING · GAME')}</p><h1 tabindex="-1">${t(name)}</h1><p>${t(`epilogue.${endingSlug(name)}`)}</p></div></article>`;
 }
 const utc = (time) => new Date(time).toISOString().replace('.000Z', 'Z');
 export function mountReveal({
@@ -61,8 +62,17 @@ export function mountReveal({
     )
     .join(
       '',
-    )}</section>${endingCard(reveal.ending)}<details class="real-panel"><summary>${t("What's real?")}</summary><h2>${t('REAL · NASA DONKI records')}</h2><p>${t('NASA near-Earth records are used as a timing proxy for the Moon. This is not a radiation safety tool.')}</p><ul>${reveal.timeline.reality.map((row) => `<li><strong>REAL · ${t(row.kind)}</strong> <time>${e(row.utc)} UTC</time><code>${e(row.donkiId)}</code></li>`).join('')}${reveal.timeline.nasaForecast.map((row) => `<li><strong>REAL · ${t('forecast')}</strong><code>${e(row.donkiId)}</code><span>${t('Issued UTC')}: ${e(row.issued)}</span><span>${t('Predicted UTC')}: ${e(row.predicted)}</span><span>${t('Observed UTC')}: ${row.actual ? e(row.actual) : t('No matched arrival in the archive')}</span><small>${t('An arrival after your journal closed is archive context, not an event you experienced.')}</small></li>`).join('')}</ul><h2>${t('GAME · approximations')}</h2><ul>${reveal.approximations.map((line) => `<li>${t(line)}</li>`).join('')}</ul></details><div class="app-actions"><button data-unlock>${t('Open Almanac unlocks')} →</button><button data-exit>${t('Title')}</button></div></main>`;
+    )}</section>${endingCard(reveal.ending, crewIds)}<details class="real-panel"><summary>${t("What's real?")}</summary><h2>${t('REAL · NASA DONKI records')}</h2><p>${t('NASA near-Earth records are used as a timing proxy for the Moon. This is not a radiation safety tool.')}</p><ul>${reveal.timeline.reality.map((row) => `<li><strong>REAL · ${t(row.kind)}</strong> <time>${e(row.utc)} UTC</time><code>${e(row.donkiId)}</code></li>`).join('')}${reveal.timeline.nasaForecast.map((row) => `<li><strong>REAL · ${t('forecast')}</strong><code>${e(row.donkiId)}</code><span>${t('Issued UTC')}: ${e(row.issued)}</span><span>${t('Predicted UTC')}: ${e(row.predicted)}</span><span>${t('Observed UTC')}: ${row.actual ? e(row.actual) : t('No matched arrival in the archive')}</span><small>${t('An arrival after your journal closed is archive context, not an event you experienced.')}</small></li>`).join('')}</ul><h2>${t('GAME · approximations')}</h2><ul>${reveal.approximations.map((line) => `<li>${t(line)}</li>`).join('')}</ul></details><div class="app-actions"><button data-unlock>${t('Open Almanac unlocks')} →</button><button data-exit>${t('Title')}</button></div></main>`;
   const root = app.querySelector('main');
+  root
+    .querySelector('.timeline-panel')
+    .insertAdjacentHTML('beforebegin', decisionReflection(reveal));
+  root
+    .querySelector('.real-panel')
+    .insertAdjacentHTML(
+      'beforeend',
+      `<h2>${t('The Moon story and the science')}</h2><ul>${SCIENCE_NOTES.map((note) => `<li>${t(note)}</li>`).join('')}</ul>`,
+    );
   if (judge) root.querySelector('.real-panel').open = true;
   if (classroom)
     root.insertAdjacentHTML(

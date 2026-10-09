@@ -1,12 +1,12 @@
 # SHELTER CALL art and sound direction
 
-Prompt 4 kit, October 9, 2026. Explore it at [the art and sound journal](https://shelter-call.pages.dev/?gallery=1).
+Prompt 10 visual system, October 9, 2026. Explore it at [the art and sound journal](https://shelter-call.pages.dev/?gallery=1).
 
 ## Look and feeling
 
 A small, hopeful crew makes a warm home on a cold Moon. Use simple geometric forms, oversized helmets, warm amber doorways, cold blue-grey regolith, and friendly expressions. The journal is pale graph paper with tape, stickers and handwritten headings. No gore, death scenes, frightening imagery, borrowed commercial-game art, real astronaut likenesses or agency insignia.
 
-Low-poly models have explicit face normals, rough untextured materials, named parts and ground-level pivots. Warm directional light comes from a low angle, with cool fill and dark shadows. This is artistic lunar lighting, not a calculation for an archived event date. Gallery previews use illustrative lighting; the playable scramble supplies its terrain, low sun and longer shadows.
+Models use smooth pressure shells, crisp manufactured edges, restrained roughness, named articulated crew joints and ground-level pivots. Warm directional light comes from a low angle, with cool fill and dark shadows. This is artistic lunar lighting, not a calculation for an archived event date. Gallery previews use illustrative lighting; the playable scramble supplies its terrain, low sun and longer shadows.
 
 ## Palette and readable type
 
@@ -25,7 +25,7 @@ Low-poly models have explicit face normals, rough untextured materials, named pa
 
 Use Ink text on light tokens, and Paper/White text on Ink. All nine light tokens have at least 5.61:1 contrast against Ink. Light accents against Paper need a dark outline. Danger uses a triangle, stripe count and readable labels. Crew identity uses both suit color and shape. Color alone never communicates danger, dose, identity or tier.
 
-Atkinson Hyperlegible regular/bold is the UI and numeric font. Patrick Hand is for journal headings. The three unmodified TrueType files are hosted locally with `font-display: swap` and their two SIL OFL 1.1 notices. Source revision and per-file credits are in CREDITS.md. Checks read the actual font cmap tables for the Filipino sample, including Ñ/ñ, and browser screenshots show the sample in both families. Future Filipino translation remains prompt 7.
+Atkinson Hyperlegible regular/bold is the UI and numeric font. Patrick Hand is for journal headings. The three unmodified TrueType files are hosted locally with `font-display: swap` and their two SIL OFL 1.1 notices. Source revision and per-file credits are in CREDITS.md. Checks read the actual font cmap tables for the Filipino sample, including Ñ/ñ, and browser screenshots show the sample in both families. English and Filipino catalogs are implemented and checked together.
 
 Icons use a 32×32 viewbox, two-pixel rounded strokes and simple silhouettes. Use `public/assets/icons/sprite.svg#<id>` with nearby text. Individual SVG versions are also available. The example REAL icon is a sample, never a claim that art or a simulated event is a verified record.
 
@@ -42,7 +42,7 @@ Icons use a 32×32 viewbox, two-pixel rounded strokes and simple silhouettes. Us
 | Sol   | Chef          | Copper   | Hexagon           |
 | Pip   | Rookie        | Regolith | Stitched square   |
 
-Each has a named-part GLB and four SVG portraits: calm, happy, worried and tired. Faces are fictional, geometric and friendly. Aiko's heart avoids using a protected medical red-cross symbol. Body parts support later hop animation, with the scramble controller supplying lunar hop physics.
+Each has a named-part GLB and four SVG portraits: calm, happy, worried and tired. Faces are fictional, geometric and friendly. Aiko's heart avoids using a protected medical red-cross symbol. Six named joints support idle, hop, work, rest, concern and celebration poses; the scramble controller retains its existing lunar-hop physics.
 
 BOLT has compact treads, two blue eyes, a warm body and one antenna. Kamote is a potted sweet-potato companion with six moods: sprout, content, cheerful, thirsty, worried and proud. Both have original models; BOLT has a portrait and Kamote has six SVG illustrations.
 
@@ -89,3 +89,13 @@ Fonts are committed; ordinary generation and builds need no network. `.gitattrib
 Asset checks load every GLB, verify ground pivots/normals/no textures, enforce counts and hashes, inspect actual font glyphs and calculate palette contrast. Unit tests verify every PCM buffer, distinct chirps, urgency mapping, archived flare-class compatibility, gesture gating, mute, voice caps, crossfades and cleanup. The browser suite exercises all 29 sound buttons, all loops and settings, reduced motion, unavailable WebGL and offline reloads at 1280×720 and 360×640. Screenshots include every model, every crew mood, plant moods, endings, icons, textures and typography.
 
 A real OfflineAudioContext renders an eight-effect-plus-music stress mix at maximum master/SFX gain through the compressor. Local peak is 0.8873 and all samples are finite, below clipping. This proves buffer/mix headroom for that case. It does not establish loudness on physical phone speakers, Android frame rate, real-phone installation, or Safari/in-app-browser playback. Those require device checks later. Interactive scramble, shelter and reveal remain prompts 5–7.
+
+## Living outpost and crew identity
+
+The original cutaway uses an offset left airlock, eight rear supply pockets, a separate right telemetry bench, warm deck and a cold unroofed EVA apron. One economical shadow-casting light plus cool fill gives readable contact; no bloom, depth-of-field or post-processing obscures play. Power changes indicators, supply use exposes real empty pockets, and crew walk between task/rest positions using cosmetic interpolation. The illustrated fallback reuses the same identities and item glyphs.
+
+Ria has a bun and seed vial; Dom broad shoulders, glasses and a wrench; Aiko a bob and medical pouch; Tunde tall proportions, curls and geology tool; Mara swept hair, glasses and boom microphone; Iggy swept crest/goggles; Sol a broad frame, moustache and spoon; Pip a small frame, tuft and field notebook. Matching SVG portraits preserve these identities at small size. BOLT has softened tread housings and a screen face; Kamote has a rimmed pot and branching leaves. Supplies have distinct caps, handles, packet seams, knobs and terminals. Art is authored in `src/art/` and reproducibly exported by `tools/generate-art.mjs`; no commercial asset or agency insignia is used.
+
+The room leads visually. Persistent crew cards show assignment and needs; the inspector supplies detailed dose only when equipment permits. Known-cost previews use blue paper, irreversible consumption is explicit, event choices show their immediate costs, and recall retains earned work. Mobile stacks the room and a single inspector rather than shrinking a desktop table.
+
+The gallery provides neutral/warm light, idle/hop/work/rest/concern/celebration, dimensions, draw calls and material counts. Inspect the production models at gameplay scale as well as in the gallery. All final evidence/limits belong in OVERHAUL_PROGRESS.md and OVERHAUL_VERIFICATION.md.

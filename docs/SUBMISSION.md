@@ -23,6 +23,8 @@ A warm shelter. A real Sun. Your call. In SHELTER CALL, players gather a lunar c
 
 ## Project details
 
+Prompt 10 adds an original living lunar cutaway with articulated crew and an accessible illustrated fallback. The room shows saved equipment, work positions, power indicators and the eight supply-wall pockets. One inspector separates crew planning, supplies, Sun Watch and the journal. Exact immediate costs appear before supply/event decisions; conditional production estimates never expose future events or hidden dose. The post-mission reflection links recorded choices with consequences and explains uncertainty without blaming a forecast miss on the player. English/Filipino, independent audio levels and persistent graphics choices are retained. See [overhaul progress](OVERHAUL_PROGRESS.md) for current validation and deployment status.
+
 Our intended audience is ages 10–14, with Cadet offering a more forgiving introduction. Players rescue crew before a short GAME clock ends. In Shelter Days, they assign work, read a saved radio, and use supplies as shielding. Eating the wall can leave a gap. A forecast asks a question rather than guaranteeing safety. The ending brings care or a return home; Reveal opens the recorded dates and source IDs.
 
 The Python pipeline fetches NASA DONKI records, preserves cache checksums, and joins documented event links. It uses first Earth-arrival predictions, linked observations and conservative particle grouping. Records are never tuned for difficulty. The audited archive provides 74 playable windows, 77 clean countdowns and 124 independent clean CME-arrival pairs. The complete report explains missing links, revisions, censored forecasts and Earth-to-Moon limitations.

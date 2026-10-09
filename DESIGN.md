@@ -78,7 +78,7 @@ The official challenge text targets **students**: it asks for a game that lets s
 
 ## 3. Design pillars
 
-1. **Panic, then plan.** A spiky 15–90 s scramble followed by calm, thoughtful shelter days. The contrast is the fun.
+1. **Panic, then plan.** A spiky 15–60 s scramble followed by calm, thoughtful shelter days. The contrast is the fun.
 2. **Every choice has a visible cost.** Wall = pantry. EVA = production + risk. Radio slot = information.
 3. **The Sun is the dungeon master.** Real, fair, never repeating. Nothing hazardous is scripted.
 4. **Learn by losing.** The reveal shows exactly which call went wrong and what the forecast actually said.
@@ -88,12 +88,13 @@ The official challenge text targets **students**: it asks for a game that lets s
 
 ## 4. Visual & platform decision: a 2D + 3D mix
 
-**Decision:** a web game (HTML/CSS/JS). The Scramble is **3D** (Three.js); everything else is **2D** (HTML/CSS/SVG).
+**Decision:** a web game (HTML/CSS/JS). Scramble and the living shelter use **Three.js** with intentional illustrated fallbacks. Accessible HTML/CSS/SVG owns all controls, menus and Reveal.
 
 | Part | Tech | Why |
 |---|---|---|
-| Scramble | **Three.js, orthographic isometric camera, low-poly, flat-shaded** | The most intense moment deserves spatial chaos. The lunar south pole's low Sun gives dramatic long shadows that are *scientifically true* and beautiful. Three.js is mature and CC0 low-poly kits exist |
-| Shelter Days, Reveal, menus | **HTML/CSS/SVG** (DOM) | Information-dense, icon-and-text UI; best accessibility; fastest to style and iterate; cheap CSS 3D touches (page flips, card flips) |
+| Scramble | **Three.js, orthographic camera, articulated stylized models** | The most intense moment deserves spatial chaos. A low directional Sun and restrained artistic fill make routes readable. This is art direction, not reconstructed illumination for an archived date. |
+| Shelter Days | **Three.js cutaway + accessible DOM inspector** | Crew, real wall slots and equipment show current state; illustrated fallback retains every control. |
+| Reveal, menus | **HTML/CSS/SVG** | Readable source provenance, choices and accessible timelines. |
 | Almanac cards, endings | SVG + CSS | Crisp at any size, easy to generate from data |
 
 - **Why not all 3D?** Scope, low-end phone performance, and text-heavy UI is worse in WebGL.
@@ -400,7 +401,7 @@ Outguessed the Model · Trusted the Forecast · Blind Luck · Full House (all cr
 
 ## 12. Tech architecture
 
-- **Stack:** Vite + vanilla JavaScript (ES modules, no framework), Three.js (scramble only), HTML/CSS/SVG UI, Vitest (unit), Playwright or Claude in Chrome (end-to-end + screenshots), vite-plugin-pwa (offline).
+- **Stack:** Vite + vanilla JavaScript (ES modules, no framework), Three.js (scramble and living shelter), HTML/CSS/SVG UI, Vitest (unit), Playwright or Claude in Chrome (end-to-end + screenshots), vite-plugin-pwa (offline).
 - **Audio:** ZzFX/Web Audio (synthesized SFX) + CC0 or procedural music.
 - **Data pipeline:** Python 3 (requests, pandas, matplotlib, pytest).
 
@@ -559,3 +560,12 @@ Classroom missions use large text and pause every newly received forecast for a 
 Judge entry ?judge=1 uses showcase best_judge, fixed seed shelter-call-judge-2024 and Cadet. The tour uses ordinary controls and engine rules; it skips coaching without mutating saved preferences. REAL callouts distinguish FLR/SEP timing, WSA-Enlil predictions and GAME outcomes. Reveal opens the source panel and closes with REPORT counts 74 playable windows, 77 clean countdowns and 124 independent clean pairs. No winning fixture or hazard skip is shipped.
 
 Ten clarity/performance fixes are recorded in PLAYTEST.md. Passing survival tuning remains unchanged. Lossless WOFF2 fonts preserve the original glyphs; Three core/addons remain lazy. Submission claims cite REPORT or section 16; human pacing, team identity and physical-device acceptance remain UNVERIFIED. Cloudflare Pages and direct commits to main remain the deployment workflow. The optional Capacitor Android wrapper bundles dist and pauses Scramble on hardware Back; other screens return to saved Title, and Back at Title minimizes the app.
+
+
+## Prompt 10 implemented presentation contract
+
+The shelter is one warm lunar cutaway with a persistent crew strip and one Crew/Supplies/Sun Watch/Journal inspector. DOM controls dispatch the existing typed actions; the renderer receives only detached `getShiftView` and saved wall-slot IDs. Eight physical pockets match the supply wall, crew poses/positions match known tasks/status, and equipment/plant/power appearance uses known state. No timeline, hidden dose or future alarm enters rendering.
+
+`src/core/preview.js` adds pure `getPlanPreview`, `getItemPreview` and `getEventPreviews` helpers without changing existing exports or mission v1. Immediate previews apply an allowlisted current action to a clone, never a future shift. Production is explicitly conditional on current conditions and shown before meals/upkeep; salvage contents and BOLT storm output stay uncertain. Assignments remain revisable, while consumed items take effect immediately and cannot be undone.
+
+Auto/High/Low/Illustrated graphics and independent music/SFX levels extend optional settings; old `flat` saves migrate. Automatic reductions use measured frame cadence and preserve interaction clarity. Direct sRGB rendering avoids duplicate output conversion; 3D is lazy loaded and context loss falls back to an illustrated room. No new gameplay RNG, currency, survival rule or capacity is introduced. See OVERHAUL_PROGRESS.md for current verification status.

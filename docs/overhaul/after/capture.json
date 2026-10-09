@@ -1,0 +1,69 @@
+{
+  "base": "http://127.0.0.1:4173",
+  "report": [
+    {
+      "width": 1280,
+      "height": 720,
+      "metrics": {
+        "drawCalls": "84",
+        "triangles": "52744",
+        "geometries": "42",
+        "quality": "high",
+        "crewCount": "4"
+      },
+      "errors": [],
+      "seed": "shelter-call-judge-2024",
+      "now": 1715393400000,
+      "rng": 4026161859,
+      "shieldSlots": 8
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "metrics": {
+        "drawCalls": "84",
+        "triangles": "52744",
+        "geometries": "42",
+        "quality": "high",
+        "crewCount": "4"
+      },
+      "errors": [],
+      "seed": "shelter-call-judge-2024",
+      "now": 1715393400000,
+      "rng": 4026161859,
+      "shieldSlots": 8
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "metrics": {
+        "drawCalls": "84",
+        "triangles": "52744",
+        "geometries": "42",
+        "quality": "high",
+        "crewCount": "4"
+      },
+      "errors": [],
+      "seed": "shelter-call-judge-2024",
+      "now": 1715393400000,
+      "rng": 4026161859,
+      "shieldSlots": 8
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "metrics": {
+        "drawCalls": "84",
+        "triangles": "51976",
+        "geometries": "42",
+        "quality": "high",
+        "crewCount": "4"
+      },
+      "errors": [],
+      "seed": "shelter-call-judge-2024",
+      "now": 1715393400000,
+      "rng": 4026161859,
+      "shieldSlots": 8
+    }
+  ]
+}

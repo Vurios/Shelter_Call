@@ -148,6 +148,8 @@ try {
       await page.locator(`[data-crew="${id}"]`).click();
       await page.locator(`[data-task="${task}"]`).click();
     }
+    if (await page.locator('[data-inspector="wall"]').count())
+      await page.locator('[data-inspector="wall"]').click();
     for (let slot = 0; slot < 8; slot++) {
       const supply = page.locator(
         '[data-key="pantry-water"], [data-key="pantry-food"]',
@@ -157,12 +159,16 @@ try {
         await page.locator(`[data-slot="${slot}"]`).click();
       }
     }
+    if (await page.locator('[data-inspector="crew"]').count())
+      await page.locator('[data-inspector="crew"]').click();
     await shot('04-journal', '.crew-panel');
     await page.screenshot({
       path: `${dir}/04-journal-${name}-full.png`,
       fullPage: true,
       animations: 'disabled',
     });
+    if (await page.locator('[data-inspector="radio"]').count())
+      await page.locator('[data-inspector="radio"]').click();
     await page.locator('.forecast-card').first().waitFor();
     await shot('05-forecast', '.journal-radio');
     const forecasts = await page.locator('.forecast-card').count();

@@ -1,6 +1,6 @@
 # SHELTER CALL
 
-A warm shelter. A real Sun. Your call. Gather your lunar crew and supplies, build a wall that is also your pantry, and decide when to work outside. Reveal compares your calls with NASA forecasts and recorded events. Intended for ages 10–14; Cadet offers a forgiving start. No one dies: an early return brings care.
+A living lunar shelter. A real Sun. Your call. Gather your lunar crew and supplies, build a wall that is also your pantry, and decide when to work outside. Reveal compares your calls with NASA forecasts and recorded events. Intended for ages 10–14; Cadet offers a forgiving start. No one dies: an early return brings care.
 
 [Play](https://shelter-call.pages.dev/) · [Judge guide](https://shelter-call.pages.dev/?judge=1) · [Source](https://github.com/Vurios/Shelter_Call) · [Submission kit](docs/SUBMISSION.md)
 
@@ -93,3 +93,9 @@ Repository owner: **Vurios** (GitHub handle). Team name, real names, roles, even
 OpenAI Codex assisted with implementation, procedural art/audio, translation drafts, documentation and checks across prompts 1–9. The user supplied design/build prompts and approvals. AI did not generate NASA event records; IDs and provenance are retained. No runtime AI connection is required. Filipino review with target readers is **UNVERIFIED**.
 
 [The submission ledger](docs/SUBMISSION.md) verifies science against REPORT/DESIGN §16 and separates implementation evidence from human claims. [Decisions](docs/DECISIONS.md), [design](docs/DESIGN.md), [build prompts](docs/CLAUDE_CODE_PROMPTS.md) and [credits](CREDITS.md) document the work. Root specification copies remain for IDE tabs.
+
+### Prompt 10 overhaul
+
+Articulated original crew, a living 3D shelter with illustrated fallback, a focused inspector, exact supply/event previews and conditional shift estimates now share the existing seeded engine. Title/draft art, graphics choices, independent music/SFX, illustrated scramble and post-mission science notes have been updated. Validation is tracked in [OVERHAUL_PROGRESS.md](docs/OVERHAUL_PROGRESS.md); current work is not represented as completed physical-device or human acceptance.
+
+Reproduce the room comparison with `node tools/capture-overhaul.mjs http://127.0.0.1:4173`; it resumes actual baseline saves and repeats their planning actions. `node tools/profile-scenes.mjs http://127.0.0.1:4173` records renderer/frame metrics and the GPU environment separately from Lighthouse and physical-device claims.

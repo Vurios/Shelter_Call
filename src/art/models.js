@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { CREW, ITEM_TYPES } from '../core/config.js';
 import { PALETTE as P, CREW_STYLE } from './palette.js';
 import { itemModel } from './items.js';
+import { createCrew } from './crew.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 
 export const STATIONS = [
   'hatch',
@@ -28,6 +30,7 @@ export const MODEL_IDS = [
 
 /** Ground-pivot, untextured original geometry; reusable in the future scramble. */
 export function createModel(id) {
+  if (id.startsWith('crew-')) return createCrew(id.slice(5));
   const root = new THREE.Group();
   root.name = id;
   const materials = new Map();
@@ -38,9 +41,8 @@ export function createModel(id) {
         color,
         new THREE.MeshStandardMaterial({
           color,
-          roughness: 0.87,
-          metalness: 0.05,
-          flatShading: true,
+          roughness: 0.76,
+          metalness: 0.08,
         }),
       );
     return materials.get(color);
@@ -53,14 +55,14 @@ export function createModel(id) {
     scale = [1, 1, 1],
     parent = root,
   ) {
-    // Explicit face normals preserve the faceted look in exported glTF.
+    // Keep authored normals: soft pressure shells and crisp manufactured edges.
     const key = `${geometry.type}:${JSON.stringify(geometry.parameters)}`;
     let flat = geometries.get(key);
     if (flat) geometry.dispose();
     else {
       flat = geometry.index ? geometry.toNonIndexed() : geometry;
       if (flat !== geometry) geometry.dispose();
-      flat.computeVertexNormals();
+      if (!flat.attributes.normal) flat.computeVertexNormals();
       geometries.set(key, flat);
     }
     const mesh = new THREE.Mesh(flat, material(color));
@@ -74,6 +76,21 @@ export function createModel(id) {
   }
   const box = (name, color, position, scale, parent) =>
     part(name, new THREE.BoxGeometry(), color, position, scale, parent);
+  const rounded = (name, color, position, scale, radius = 0.12) =>
+    part(
+      name,
+      new RoundedBoxGeometry(1, 1, 1, 1, radius),
+      color,
+      position,
+      scale,
+    );
+  const ring = (name, color, position, radius, thickness, arc = Math.PI * 2) =>
+    part(
+      name,
+      new THREE.TorusGeometry(radius, thickness, 5, 16, arc),
+      color,
+      position,
+    );
   const ball = (name, color, position, scale, parent) =>
     part(
       name,
@@ -186,54 +203,13 @@ export function createModel(id) {
             );
     }
   }
-  if (id.startsWith('crew-')) {
-    const crewId = id.slice(5);
-    const style = CREW_STYLE[crewId];
-    if (!style) throw new Error(`Unknown crew: ${crewId}`);
-    const color = P[style.color];
-    for (const x of [-0.23, 0.23]) {
-      box(
-        x < 0 ? 'boot-left' : 'boot-right',
-        P.ink,
-        [x, 0.13, 0.06],
-        [0.34, 0.26, 0.5],
-      );
-      box(
-        x < 0 ? 'leg-left' : 'leg-right',
-        color,
-        [x, 0.49, 0],
-        [0.31, 0.49, 0.3],
-      );
-      ball(
-        x < 0 ? 'arm-left' : 'arm-right',
-        color,
-        [x * 2.4, 1.05, 0],
-        [0.2, 0.46, 0.22],
-      );
-      ball(
-        x < 0 ? 'glove-left' : 'glove-right',
-        P.white,
-        [x * 2.5, 0.76, 0.04],
-        [0.19, 0.19, 0.21],
-      );
-    }
-    box('backpack', P.ink, [0, 1.13, -0.34], [0.62, 0.66, 0.3]);
-    ball('torso', color, [0, 1.04, 0], [0.5, 0.53, 0.32]);
-    box('belt', P.ink, [0, 0.72, 0], [0.76, 0.12, 0.48]);
-    cylinder('collar', P.ink, [0, 1.49, 0], [0.34, 0.1, 0.34]);
-    ball('helmet', P.white, [0, 1.96, 0], [0.64, 0.62, 0.55]);
-    ball('visor-rim', P.ink, [0, 1.94, 0.32], [0.53, 0.42, 0.3]);
-    ball('visor', P.blue, [0, 1.94, 0.39], [0.47, 0.35, 0.27]);
-    ball('visor-glint', P.white, [-0.29, 2.09, 0.59], [0.05, 0.13, 0.028]);
-    face(1.98, 0.65, 0.16);
-    badge(crewId, P.ink, [0, 1.13, 0.32]);
-    badge(crewId, color, [0.48, 2.03, 0.37], 0.075);
-  } else if (id === 'bolt') {
+  if (id === 'bolt') {
     for (const x of [-0.4, 0.4])
-      box('tread', P.ink, [x, 0.19, 0], [0.26, 0.38, 0.72]);
-    box('body', P.amber, [0, 0.69, 0], [0.85, 0.72, 0.55]);
-    box('head', P.white, [0, 1.29, 0], [0.99, 0.49, 0.64]);
-    box('face-screen', P.ink, [0, 1.3, 0.34], [0.79, 0.29, 0.025]);
+      rounded('tread', P.ink, [x, 0.19, 0], [0.26, 0.38, 0.72], 0.2);
+    rounded('body', P.amber, [0, 0.69, 0], [0.85, 0.72, 0.55]);
+    cylinder('head-swivel', P.regolith, [0, 1.06, 0], [0.16, 0.22, 0.16]);
+    rounded('head', P.white, [0, 1.29, 0], [0.99, 0.49, 0.64], 0.2);
+    rounded('face-screen', P.ink, [0, 1.3, 0.34], [0.79, 0.29, 0.035], 0.2);
     for (const x of [-0.22, 0.22])
       ball('lit-eye', P.blue, [x, 1.31, 0.38], [0.07, 0.075, 0.03]);
     box('antenna', P.ink, [0.32, 1.71, 0], [0.04, 0.38, 0.04]);
@@ -243,20 +219,67 @@ export function createModel(id) {
       box('claw', P.white, [x * 1.18, 0.74, 0.06], [0.12, 0.24, 0.23]);
     }
     box('power-cell', P.blue, [0, 0.78, 0.3], [0.35, 0.25, 0.04]);
+    for (const x of [-0.4, 0.4]) {
+      for (let n = 0; n < 5; n++)
+        box(
+          'tread-grip',
+          P.regolith,
+          [x, 0.05, -0.27 + n * 0.135],
+          [0.29, 0.055, 0.055],
+        );
+      for (const z of [-0.22, 0.22])
+        cylinder(
+          'wheel-hub',
+          P.amber,
+          [x * 1.35, 0.19, z],
+          [0.09, 0.045, 0.09],
+        ).rotation.z = Math.PI / 2;
+    }
+    for (let n = 0; n < 3; n++)
+      box(
+        'charge-light',
+        P.paper,
+        [-0.1 + n * 0.1, 0.79, 0.329],
+        [0.055, 0.14, 0.018],
+      );
+    box('smile', P.blue, [0, 1.22, 0.368], [0.13, 0.022, 0.02]);
+    for (const x of [-0.48, 0.48])
+      cylinder(
+        'head-hinge',
+        P.copper,
+        [x, 1.29, 0],
+        [0.11, 0.06, 0.11],
+      ).rotation.z = Math.PI / 2;
   } else if (id === 'kamote') {
-    cylinder('pot', P.copper, [0, 0.26, 0], [0.49, 0.52, 0.49]);
+    part(
+      'pot',
+      new THREE.CylinderGeometry(0.49, 0.35, 0.52, 16),
+      P.copper,
+      [0, 0.26, 0],
+    );
+    ring('pot-lip', P.amber, [0, 0.53, 0], 0.47, 0.065).rotation.x =
+      Math.PI / 2;
     cylinder('soil', P.ink, [0, 0.55, 0], [0.45, 0.04, 0.45]);
     cylinder('stem', P.leaf, [0, 0.9, 0], [0.04, 0.7, 0.04]);
     for (let i = 0; i < 5; i++) {
       const angle = i * 2.4;
-      const leaf = ball(
-        'leaf',
+      const shape = new THREE.Shape();
+      shape.moveTo(0, -0.3);
+      shape.bezierCurveTo(-0.42, -0.05, -0.31, 0.34, 0, 0.16);
+      shape.bezierCurveTo(0.31, 0.34, 0.42, -0.05, 0, -0.3);
+      const leaf = part(
+        'heart-leaf',
+        new THREE.ExtrudeGeometry(shape, {
+          depth: 0.025,
+          bevelEnabled: false,
+          curveSegments: 5,
+        }),
         P.leaf,
         [Math.cos(angle) * 0.24, 0.86 + i * 0.12, Math.sin(angle) * 0.24],
-        [0.33, 0.12, 0.19],
       );
-      leaf.rotation.z = (i % 2 ? -1 : 1) * 0.45;
+      leaf.rotation.set(-0.45, angle, i % 2 ? 0.5 : -0.5);
     }
+    rounded('plant-label', P.paper, [0.24, 0.34, 0.4], [0.19, 0.15, 0.035]);
     face(0.33, 0.47, 0.17);
   } else if (id.startsWith('station-')) {
     const station = id.slice(8);
@@ -350,8 +373,34 @@ export function createModel(id) {
         );
         dish.rotation.z = 0.4;
       }
-      if (station === 'hatch')
+      if (station === 'hatch') {
         box('step', P.regolith, [0, 0.3, 1], [0.88, 0.13, 0.44]);
+        for (const x of [-0.48, 0.48])
+          rounded(
+            'airlock-jamb',
+            P.regolith,
+            [x, 0.78, 0.88],
+            [0.18, 1.25, 0.24],
+          );
+        rounded('lintel', P.regolith, [0, 1.43, 0.88], [1.12, 0.2, 0.24]);
+        box('door-split', P.ink, [0, 0.78, 0.85], [0.025, 0.8, 0.02]);
+        ring('hatch-wheel', P.paper, [0, 0.82, 0.9], 0.14, 0.025);
+        box('wheel-cross', P.paper, [0, 0.82, 0.9], [0.24, 0.025, 0.025]);
+        for (const x of [-0.72, 0.72])
+          cylinder(
+            'pressure-canister',
+            P.amber,
+            [x, 0.54, -0.58],
+            [0.16, 0.73, 0.16],
+          );
+        for (let n = 0; n < 3; n++)
+          box(
+            'step-tread',
+            P.ink,
+            [0, 0.38, 0.87 + n * 0.1],
+            [0.65, 0.014, 0.025],
+          );
+      }
       if (station === 'greenhouse')
         for (const x of [-0.5, 0.5])
           ball('garden-leaf', P.ink, [x, 1.29, 0.45], [0.13, 0.18, 0.04]);
@@ -381,7 +430,49 @@ export function createModel(id) {
         box('string', P.white, [i * 0.03, 0.94, 0.08], [0.006, 1.05, 0.009]);
     } else {
       const width = item === 'water' ? 0.96 : 0.72;
-      box('package', colors[item], [0, 0.36, 0], [width, 0.72, 0.44]);
+      rounded(
+        'package',
+        colors[item],
+        [0, 0.36, 0],
+        [width, 0.72, 0.44],
+        item === 'food' ? 0.2 : 0.09,
+      );
+      if (['water', 'repair', 'med'].includes(item)) {
+        rounded('carry-handle', P.ink, [0, 0.77, 0], [0.37, 0.13, 0.12]);
+        rounded(
+          'handle-opening',
+          colors[item],
+          [0, 0.76, 0.065],
+          [0.21, 0.065, 0.035],
+        );
+      }
+      if (item === 'water')
+        cylinder('water-cap', P.paper, [0.3, 0.76, 0], [0.075, 0.1, 0.075]);
+      if (item === 'food')
+        for (const y of [0.08, 0.64])
+          box('packet-seam', P.paper, [0, y, 0.03], [0.7, 0.035, 0.45]);
+      if (item === 'repair')
+        for (const x of [-0.27, 0.27])
+          box('tool-case-clasp', P.paper, [x, 0.5, 0.235], [0.07, 0.17, 0.035]);
+      if (item === 'battery')
+        for (const x of [-0.2, 0.2])
+          cylinder(
+            'terminal',
+            x < 0 ? P.coral : P.ink,
+            [x, 0.75, 0],
+            [0.07, 0.12, 0.07],
+          );
+      if (item === 'radio') {
+        for (let y = 0; y < 4; y++)
+          box(
+            'speaker-slit',
+            P.paper,
+            [-0.17, 0.25 + y * 0.07, 0.255],
+            [0.15, 0.017, 0.02],
+          );
+        for (const x of [0.08, 0.23])
+          ball('tuning-knob', P.paper, [x, 0.21, 0.26], [0.045, 0.045, 0.04]);
+      }
       box('label', P.ink, [0, 0.4, 0.232], [width * 0.64, 0.37, 0.026]);
       if (item === 'water')
         ball('drop', P.blue, [0, 0.4, 0.26], [0.08, 0.13, 0.02]);

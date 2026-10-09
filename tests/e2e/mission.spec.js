@@ -87,6 +87,7 @@ for (const [seed, difficulty, language] of [
     await setup(page, seed, { difficulty, language });
     await begin(page, difficulty);
     await closeToJournal(page);
+    await page.locator('[data-inspector="wall"]').click();
     if (await page.locator('[data-key="pantry-water"]').count()) {
       await page.locator('[data-key="pantry-water"]').click();
       await page.locator('[data-slot="6"]').click();

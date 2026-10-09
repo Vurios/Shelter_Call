@@ -1,0 +1,465 @@
+/* One room, persistent crew, one inspector. Existing actions keep their semantics. */
+.shelter-screen {
+  padding: 12px clamp(8px, 2vw, 28px) 24px;
+  background: #101d2a;
+}
+.journal-page {
+  max-width: 1700px;
+  border: 1px solid #526975;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 12px 50px #0004;
+  background: #fff2d5;
+}
+.journal-header {
+  padding-bottom: 8px;
+}
+.journal-header h1 {
+  font-size: clamp(28px, 3vw, 42px);
+}
+.journal-status {
+  border-top: 0;
+  padding: 9px 0;
+  gap: 12px;
+}
+.habitat-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(330px, 1fr);
+  gap: 20px;
+  margin-top: 14px;
+  align-items: start;
+}
+.habitat-main {
+  min-width: 0;
+  border: 2px solid #101d2a;
+  border-radius: 12px;
+  background: #243d50;
+  overflow: hidden;
+}
+.habitat-caption {
+  padding: 12px 16px;
+  color: #fff2d5;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+.habitat-caption span {
+  opacity: 0.85;
+  letter-spacing: 0;
+}
+.habitat-room {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.55;
+  min-height: 240px;
+  overflow: hidden;
+}
+.room-hotspots {
+  position: absolute;
+  inset: auto 10px 9px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.shelter-screen .room-hotspots button {
+  pointer-events: auto;
+  font-size: 0.72rem;
+  min-height: 44px;
+  background: #fff2d5ed;
+  padding: 6px 12px;
+  box-shadow: 0 2px 5px #101d2a44;
+}
+.room-hotspots button:focus-visible {
+  outline-color: #fff2d5;
+}
+.habitat-webgl,
+.habitat-illustration {
+  position: absolute;
+  inset: 0;
+}
+.habitat-webgl canvas,
+.habitat-illustration svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.habitat-main .crew-board {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0;
+  padding: 10px;
+  background: #243d50;
+}
+.habitat-main .crew-card {
+  padding: 8px;
+  gap: 5px;
+  min-width: 0;
+  background: #fff2d5;
+}
+.habitat-main .crew-identity {
+  flex-direction: column;
+  align-items: start;
+  gap: 0;
+}
+.habitat-main .crew-portrait {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin: -5px auto 0;
+}
+.habitat-main .crew-identity strong {
+  font-size: 1rem;
+}
+.habitat-main .crew-trait,
+.habitat-main .crew-dose,
+.habitat-main .dose-track {
+  display: none;
+}
+.habitat-main .crew-needs {
+  font-size: 0.68rem;
+}
+.habitat-main .assignment-tag {
+  font-size: 0.7rem;
+  align-items: start;
+}
+.habitat-main .assignment-tag .journal-icon {
+  width: 17px;
+  height: 17px;
+}
+.habitat-main .health-tag {
+  font-size: 0.68rem;
+}
+.habitat-inspector {
+  min-width: 0;
+}
+.inspector-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+  margin-bottom: 14px;
+}
+.shelter-screen .inspector-tabs button {
+  padding: 7px 4px;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  box-shadow: none;
+}
+.shelter-screen .inspector-tabs button[aria-pressed='true'] {
+  background: #101d2a;
+  color: #fff2d5;
+}
+.inspector-content > section {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.inspector-content[hidden] {
+  display: none;
+}
+.inspector-content .section-title {
+  margin-top: 0;
+}
+.inspector-content .journal-sticker {
+  display: none;
+}
+.inspector-content .task-board {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.inspector-content .task-board button {
+  min-height: 67px;
+}
+.inspector-content .crew-detail {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background: #f0dfbd;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+.crew-detail img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+.crew-detail p {
+  margin: 2px 0;
+}
+.inspector-content .wall-grid {
+  max-width: 400px;
+  margin-inline: auto;
+}
+.journal-footer {
+  position: sticky;
+  bottom: 44px;
+  z-index: 3;
+  margin: 16px -4px -4px;
+  border-radius: 10px;
+  padding: 12px;
+  background: #fff2d5;
+  border: 2px solid #101d2a;
+  box-shadow: 0 -5px 18px #101d2a20;
+}
+.shelter-screen .judge-guide {
+  margin: 6px 0 10px;
+  padding: 10px 14px;
+  font-size: 0.8rem;
+}
+.shelter-screen .judge-guide p {
+  margin: 4px 0;
+}
+.shelter-screen .judge-guide > strong {
+  font-size: 0.75rem;
+}
+.shelter-screen .day-coach {
+  margin: 8px 0;
+}
+.shelter-screen .journal-header h1 {
+  outline: none;
+}
+.shelter-screen .journal-header h1:focus-visible {
+  outline: 3px solid #101d2a;
+}
+.shelter-screen {
+  padding-bottom: 64px;
+}
+@media (min-width: 901px) {
+  .habitat-room {
+    aspect-ratio: auto;
+    height: clamp(230px, calc(100svh - 420px), 470px);
+  }
+  .habitat-main .crew-identity {
+    flex-direction: row;
+  }
+  .habitat-main .crew-portrait {
+    width: 32px;
+    height: 32px;
+    margin: 0;
+  }
+  .habitat-main .crew-needs {
+    font-size: 0.65rem;
+  }
+  .habitat-main .crew-card {
+    position: relative;
+    gap: 2px;
+    padding: 6px;
+  }
+  .habitat-main .crew-identity {
+    min-height: 20px;
+    padding-left: 37px;
+  }
+  .habitat-main .crew-portrait {
+    position: absolute;
+    left: 5px;
+    top: 6px;
+  }
+  .habitat-main .assignment-tag {
+    padding-left: 37px;
+    min-height: 20px;
+    border: 0;
+    padding-bottom: 2px;
+  }
+  .habitat-main .assignment-tag .journal-icon,
+  .habitat-main .health-tag {
+    display: none;
+  }
+  .journal-header-tools {
+    order: 2;
+  }
+  .shelter-screen .journal-header .judge-shelter {
+    margin: 0 12px;
+    flex: 1;
+    max-width: 580px;
+    order: 1;
+  }
+}
+.journal-header {
+  flex-wrap: wrap;
+}
+@media (max-width: 900px) {
+  .journal-header .judge-shelter {
+    flex-basis: 100%;
+    margin-bottom: 0;
+  }
+}
+.shelter-screen .judge-shelter {
+  padding: 0 10px;
+  max-width: none;
+}
+.shelter-screen .judge-shelter > summary {
+  display: flex;
+  align-items: center;
+  border: 0;
+  font-size: 0.75rem;
+}
+.shelter-screen .judge-shelter > summary::before {
+  content: '▸';
+  margin-right: 8px;
+}
+.shelter-screen .judge-shelter[open] > summary::before {
+  content: '▾';
+}
+.known-preview {
+  padding: 10px 12px;
+  background: #d6e9ed;
+  border-left: 4px solid #243d50;
+  border-radius: 5px;
+  font-size: 0.85rem;
+}
+.known-preview ul {
+  padding-left: 20px;
+  margin: 6px 0;
+}
+.event-crew {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 0;
+}
+.event-crew img {
+  width: min(20%, 72px);
+  height: auto;
+  object-fit: contain;
+}
+.shelter-screen .event-cost {
+  display: block;
+  margin-top: 6px;
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+.crew-reaction {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.15rem;
+}
+@media (min-width: 1200px) {
+  .habitat-inspector {
+    max-height: 700px;
+    overflow-y: auto;
+    padding: 0 6px 4px 0;
+  }
+}
+@media (max-width: 900px) {
+  .habitat-layout {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .habitat-room {
+    aspect-ratio: 1.65;
+    min-height: 210px;
+  }
+  .habitat-main .crew-board {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .habitat-main .crew-portrait {
+    width: 52px;
+    height: 52px;
+  }
+  .habitat-main .crew-needs .journal-icon {
+    display: none;
+  }
+  .habitat-main .health-tag {
+    display: none;
+  }
+  .habitat-inspector {
+    border-radius: 12px;
+    background: #fff8e9;
+    padding: 12px;
+    border: 1px solid #b09a7d;
+  }
+  .inspector-tabs {
+    position: sticky;
+    top: 0;
+    background: #fff8e9;
+    z-index: 2;
+    padding: 3px 0;
+  }
+}
+@media (max-width: 480px) {
+  .shelter-screen {
+    padding: 6px;
+  }
+  .journal-page {
+    padding: 10px;
+    border-radius: 12px;
+  }
+  .journal-header-tools button {
+    padding: 6px;
+  }
+  .journal-header-tools .journal-icon {
+    display: none;
+  }
+  .journal-eyebrow {
+    font-size: 0.6rem;
+  }
+  .journal-status {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+  }
+  .journal-status .resupply-status {
+    grid-column: 1 / -1;
+    justify-content: end;
+  }
+  .journal-status .resupply-status span {
+    display: flex;
+    gap: 6px;
+    align-items: baseline;
+  }
+  .journal-status .journal-icon {
+    width: 22px;
+    height: 22px;
+  }
+  .habitat-main .crew-board {
+    gap: 4px;
+    padding: 6px;
+  }
+  .habitat-main .crew-card {
+    padding: 5px;
+  }
+  .habitat-main .crew-needs {
+    font-size: 0.65rem;
+  }
+  .habitat-main .assignment-tag .journal-icon {
+    display: none;
+  }
+  .habitat-caption {
+    padding: 9px;
+    font-size: 0.65rem;
+  }
+  .habitat-caption span {
+    display: none;
+  }
+  .journal-footer {
+    flex-wrap: wrap;
+  }
+  .journal-footer > small {
+    font-size: 0.7rem;
+    flex: 1 1 120px;
+  }
+  .journal-footer .end-shift {
+    font-size: 1rem;
+    padding: 12px;
+  }
+}
+[data-text-size='large'] .habitat-layout {
+  grid-template-columns: 1fr;
+}
+[data-text-size='largest'] .habitat-layout {
+  grid-template-columns: 1fr;
+}
+[data-text-size='largest'] .habitat-main .crew-board {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+[data-text-size='largest'] .inspector-tabs {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+[data-text-size='large'] .habitat-main .crew-board {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (prefers-reduced-motion: reduce) {
+  .habitat-room * {
+    animation: none !important;
+  }
+}

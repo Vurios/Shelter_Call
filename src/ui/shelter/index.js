@@ -1,8 +1,16 @@
 import { getShiftView, act, resolveShift } from '../../core/api.js';
-import { createAudio } from '../../audio/index.js';
+import { createAudio, audioSettings } from '../../audio/index.js';
+import { createHabitat } from './habitat.js';
+import {
+  getPlanPreview,
+  getItemPreview,
+  getEventPreviews,
+} from '../../core/preview.js';
+import { renderPreviews } from './previews.js';
 import { localize, phrase, t } from '../../i18n/index.js';
 import { renderJournal, TASK_LABELS, forecastCard } from './view.js';
 import './style.css';
+import './habitat.css';
 import { judgeGuide } from '../../app/judge.js';
 
 /** The journal owns presentation, never hidden engine fields or survival rules. */
@@ -22,6 +30,14 @@ export function mountShelter({
   const page = root.querySelector('.journal-page');
   const announcement = root.querySelector('.journal-announcement');
   const lifecycle = new AbortController();
+  const habitat = createHabitat(settings);
+  let inspector = 'crew';
+  const resourceKeys = ['food', 'water', 'power', 'science'];
+  let shiftStart =
+    journal.shiftStart &&
+    resourceKeys.every((key) => Number.isFinite(journal.shiftStart[key]))
+      ? { ...journal.shiftStart }
+      : null;
   const audio = createAudio({
     onCaption: (text) => {
       root.querySelector('.journal-sound-caption').textContent = phrase(text);
@@ -31,8 +47,12 @@ export function mountShelter({
     sound = settings.sound === true,
     disposed = false,
     turnTimer;
-  const selection = { crew: null, item: null, recipient: view.crew[0].id };
-  audio.setSettings({ master: settings.volume ?? 0.55, mute: !sound });
+  const selection = {
+    crew: view.crew[0].id,
+    item: null,
+    recipient: view.crew[0].id,
+  };
+  audio.setSettings({ ...audioSettings(settings), mute: !sound });
   const slots =
     Array.isArray(journal.slots) && journal.slots.length === 8
       ? journal.slots.map((id) => (typeof id === 'string' ? id : null))
@@ -86,10 +106,22 @@ export function mountShelter({
     const dialogScroll = oldDialog?.scrollTop ?? 0;
     syncSlots();
     page.innerHTML = renderJournal(view, selection, slots, logs, sound);
+    renderPreviews(
+      page,
+      view,
+      selection,
+      getPlanPreview(run),
+      selection.item
+        ? getItemPreview(run, selection.item, selection.recipient)
+        : null,
+      getEventPreviews(run),
+      shiftStart,
+    );
+    habitat.arrange(page, view, slots, inspector);
     if (run.mode === 'judge')
       page
         .querySelector('.journal-header')
-        .insertAdjacentHTML('afterend', judgeGuide('shelter'));
+        .insertAdjacentHTML('beforeend', judgeGuide('shelter'));
     if (run.mode === 'live' || run.liveStatus) {
       const badge = document.createElement('p');
       badge.className = 'mission-source';
@@ -175,6 +207,7 @@ export function mountShelter({
     }
     audio.setShield(view.shield);
     onSave?.({
+      shiftStart,
       slots: [...slots],
       logs: structuredClone(logs),
       coachStep,
@@ -228,7 +261,12 @@ export function mountShelter({
   function finishShift() {
     const before = view;
     try {
-      if (!view.resolving) logs = [];
+      if (!view.resolving) {
+        logs = [];
+        shiftStart = Object.fromEntries(
+          resourceKeys.map((key) => [key, view[key]]),
+        );
+      }
       const resolved = resolveShift(run);
       const after = getShiftView(run);
       // A blind crew cannot read unreceived flare/forecast records. The engine
@@ -301,8 +339,10 @@ export function mountShelter({
   page.addEventListener(
     'change',
     (event) => {
-      if (event.target.id === 'item-recipient')
+      if (event.target.id === 'item-recipient') {
         selection.recipient = event.target.value;
+        render();
+      }
     },
     { signal: lifecycle.signal },
   );
@@ -311,6 +351,11 @@ export function mountShelter({
     (event) => {
       const button = event.target.closest('button');
       if (!button || button.disabled) return;
+      if (button.dataset.inspector || button.dataset.roomInspector) {
+        inspector = button.dataset.inspector ?? button.dataset.roomInspector;
+        render();
+        return;
+      }
       if (button.dataset.classVote && classroomPending) {
         classroomSeen.add(classroomPending.donkiId);
         if (button.dataset.classVote === 'shelter')
@@ -322,6 +367,7 @@ export function mountShelter({
         render();
         page.querySelector('[data-action="end"]')?.focus();
       } else if (button.dataset.crew) {
+        inspector = 'crew';
         selection.crew = button.dataset.crew;
         render();
         announce(
@@ -472,6 +518,7 @@ export function mountShelter({
   function dispose() {
     if (disposed) return;
     disposed = true;
+    habitat.dispose();
     lifecycle.abort();
     clearTimeout(turnTimer);
     page.querySelector('dialog')?.close();

@@ -6,7 +6,8 @@ import { createStorage } from './storage.js';
 import { t, setLanguage } from '../i18n/index.js';
 import { escape as e } from '../ui/shelter/view.js';
 import { endingCard, endingSlug, mountReveal } from '../ui/reveal/index.js';
-import { createAudio } from '../audio/index.js';
+import { SCIENCE_NOTES } from '../ui/reveal/learning.js';
+import { createAudio, audioSettings } from '../audio/index.js';
 import { ACHIEVEMENTS, encodeSeed, shareResult } from './replay.js';
 import { claimDaily, completeDaily } from './daily.js';
 import {
@@ -45,6 +46,7 @@ export function applySettings() {
       ? 'largest'
       : settings.textSize;
   document.documentElement.dataset.motion = settings.motion;
+  document.documentElement.dataset.graphics = settings.graphics;
 }
 export const getSettings = () => ({ ...settings });
 const missionSettings = () =>
@@ -93,7 +95,7 @@ function shell(title, content, { focus = true } = {}) {
 function title() {
   const { root, signal } = shell(
     'SHELTER CALL',
-    `<div class="title-hero"><img class="title-outpost" src="/assets/icon-512.png" alt=""><div><p class="hero-line">${t('A warm shelter. A real Sun. Your call.')}</p><p>${t('Gather your crew. Build a wall from supplies. Read verified NASA records and choose when to go outside.')}</p></div></div><div class="app-actions title-primary"><button data-play>${t('Play')}</button>${current ? `<button data-continue>${t('Continue mission')} · ${t(current.run.difficulty)}</button>` : ''}</div><label class="difficulty-choice">${t('Difficulty')}<select id="difficulty">${['Cadet', 'Commander', 'Flight Director'].map((name) => `<option value="${name}" ${difficulty === name ? 'selected' : ''}>${t(name)}</option>`).join('')}</select></label><p id="difficulty-hint" class="quiet-copy"></p><nav class="menu-grid" aria-label="${t('Main menu')}">${[
+    `<div class="title-hero"><div class="title-landscape" aria-hidden="true"><span class="title-sun"></span><span class="title-orbit"></span><span class="title-earth"></span><span class="title-moon"></span><div class="title-base"><span class="base-antenna"></span><span class="base-dome"></span><span class="base-window"></span><span class="base-hatch"></span></div><div class="title-crew">${['ria', 'dom', 'aiko', 'tunde'].map((id) => `<img src="/assets/portraits/${id}-calm.svg" alt="">`).join('')}</div><span class="title-expedition">${t('A little outpost. A big adventure.')}</span></div><div class="title-intro"><p class="mission-kicker">${t('YOUR NEXT MOON STORY')}</p><p class="hero-line">${t('A warm shelter. A real Sun. Your call.')}</p><p>${t('Gather your crew. Build a wall from supplies. Read verified NASA records and choose when to go outside.')}</p></div></div><div class="app-actions title-primary"><button data-play>${t('Play')}</button>${current ? `<button data-continue>${t('Continue mission')} · ${t(current.run.difficulty)}</button>` : ''}</div><label class="difficulty-choice">${t('Difficulty')}<select id="difficulty">${['Cadet', 'Commander', 'Flight Director'].map((name) => `<option value="${name}" ${difficulty === name ? 'selected' : ''}>${t(name)}</option>`).join('')}</select></label><p id="difficulty-hint" class="quiet-copy"></p><nav class="menu-grid" aria-label="${t('Main menu')}">${[
       ['daily', 'Daily Sun'],
       ['almanac', 'Sun Almanac'],
       ['endings', 'Endings'],
@@ -105,12 +107,22 @@ function title() {
       ['live', 'Live Sun'],
       ['classroom', 'Classroom mode'],
     ]
-      .map(([id, label]) => `<button data-nav="${id}">${t(label)}</button>`)
+      .map(
+        ([id, label]) =>
+          `<button data-nav="${id}"><img class="menu-marker" src="/assets/icons/${{ daily: 'solar', almanac: 'radio', endings: 'shield', how: 'game', settings: 'radio', credits: 'game', seed: 'solar', historic: 'solar', live: 'radio', classroom: 'shelter' }[id]}.svg" alt="">${t(label)}</button>`,
+      )
       .join(
         '',
       )}</nav><div class="title-tools"><button data-practice>${t('Practice again')}</button><button data-music aria-pressed="false">${t('Play title music')}</button><a href="/?gallery=1">${t('Open the art & sound journal')}</a></div><p class="quiet-copy">${t('REAL records. GAME survival rules. No one dies; an early ride home brings care.')}</p>${store.isBlocked() ? `<p role="status">${t('Storage is unavailable. You can play; this tab keeps your progress until it closes.')}</p>` : ''}`,
   );
   root.classList.add('game-title');
+  const intro = root.querySelector('.title-intro');
+  for (const selector of [
+    '.title-primary',
+    '.difficulty-choice',
+    '#difficulty-hint',
+  ])
+    intro.append(root.querySelector(selector));
   root.querySelector('.app-header button').remove();
   const updateHint = () => {
     root.querySelector('#difficulty-hint').textContent = t(
@@ -142,7 +154,7 @@ function title() {
     .querySelector('[data-practice]')
     .addEventListener('click', () => practice(title), { signal });
   const audio = createAudio();
-  audio.setSettings({ master: settings.volume });
+  audio.setSettings(audioSettings(settings));
   const oldDispose = disposeScreen;
   disposeScreen = () => {
     oldDispose();
@@ -156,6 +168,12 @@ function title() {
         await audio.unlock();
         if (signal.aborted) return;
         const playing = audio.getStatus().theme === 'title';
+        if (!playing) {
+          settings.sound = true;
+          if (settings.music === 0) settings.music = 0.3;
+          store.saveSettings(settings);
+          audio.setSettings(audioSettings(settings));
+        }
         audio.setTheme(playing ? null : 'title');
         button.setAttribute('aria-pressed', String(!playing));
         button.textContent = t(
@@ -199,7 +217,7 @@ function draft() {
   const selected = new Set(crewIds);
   const { root, signal } = shell(
     'Pick your four',
-    `<p>${t('Four friends. Eight useful talents. Tap a card to add or remove it.')}</p><p class="draft-count" role="status"></p><div class="draft-grid">${CREW.map((crew) => `<button data-draft="${crew.id}" aria-pressed="${selected.has(crew.id)}"><img src="/assets/portraits/${crew.id}-calm.svg" alt=""><strong>${crew.name}</strong><span>${t(crew.trait)}</span><small>${t(`trait.${crew.id}`)}</small></button>`).join('')}</div><div class="app-actions"><button data-briefing>${t('Meet at the hatch')} →</button></div>`,
+    `<p class="mission-kicker">${t('CREW MANIFEST')}</p><p>${t('Four friends. Eight useful talents. Tap a card to add or remove it.')}</p><p class="draft-count" role="status"></p><div class="draft-grid">${CREW.map((crew) => `<button data-draft="${crew.id}" aria-pressed="${selected.has(crew.id)}"><span class="draft-portrait"><img src="/assets/portraits/${crew.id}-calm.svg" alt=""><span class="draft-check" aria-hidden="true">&#10003;</span></span><strong>${crew.name}</strong><span>${t(crew.trait)}</span><small>${t(`trait.${crew.id}`)}</small></button>`).join('')}</div><div class="app-actions"><button data-briefing>${t('Meet at the hatch')} →</button></div>`,
   );
   function update() {
     root.querySelector('.draft-count').textContent = t('{count} of 4 chosen', {
@@ -408,7 +426,10 @@ function ending() {
   save('ending');
   const { root, signal } = shell(
     'Your Moon story',
-    `${endingCard(reveal.ending)}<p>${t('The crew is on the way home. Now meet the real Sun behind your mission.')}</p><div class="app-actions"><button data-reveal>${t('Reveal the real dates')} →</button></div>${store.isBlocked() ? `<p role="status">${t('Storage is unavailable. You can play; this tab keeps your progress until it closes.')}</p>` : ''}`,
+    `${endingCard(
+      reveal.ending,
+      current.run.crew.map((crew) => crew.id),
+    )}<p>${t('The crew is on the way home. Now meet the real Sun behind your mission.')}</p><div class="app-actions"><button data-reveal>${t('Reveal the real dates')} →</button></div>${store.isBlocked() ? `<p role="status">${t('Storage is unavailable. You can play; this tab keeps your progress until it closes.')}</p>` : ''}`,
   );
   sourceBadge(root);
   if (current.run.mode === 'judge')
@@ -418,7 +439,7 @@ function ending() {
         document.createRange().createContextualFragment(judgeGuide('ending')),
       );
   const audio = createAudio();
-  audio.setSettings({ master: settings.volume, mute: !settings.sound });
+  audio.setSettings(audioSettings(settings));
   const old = disposeScreen;
   disposeScreen = () => {
     old();
@@ -639,7 +660,19 @@ function endingsScreen() {
 function settingsScreen() {
   const { root, signal } = shell(
     'Settings',
-    `<form class="settings-form"><label>${t('Language')}<select name="language"><option value="en" ${settings.language === 'en' ? 'selected' : ''}>English</option><option value="fil" ${settings.language === 'fil' ? 'selected' : ''}>Filipino</option></select></label><label>${t('Text size')}<select name="textSize">${['normal', 'large', 'largest'].map((value) => `<option value="${value}" ${settings.textSize === value ? 'selected' : ''}>${t(value)}</option>`).join('')}</select></label><label>${t('Motion')}<select name="motion"><option value="system" ${settings.motion === 'system' ? 'selected' : ''}>${t('Follow device')}</option><option value="reduced" ${settings.motion === 'reduced' ? 'selected' : ''}>${t('Reduce motion')}</option></select></label><label class="check-setting"><input type="checkbox" name="sound" ${settings.sound ? 'checked' : ''}>${t('Sound (captions always available)')}</label><label>${t('Volume')}<input type="range" name="volume" min="0" max="1" step="0.05" value="${settings.volume}"></label><label class="check-setting"><input type="checkbox" name="flat" ${settings.flat ? 'checked' : ''}>${t('Prefer the 2D map')}</label><label class="check-setting"><input type="checkbox" name="tutorial" ${settings.tutorial ? 'checked' : ''}>${t('Show practice and Day 1 coaching')}</label><p>${t('Shapes and labels distinguish events without relying on color. All menus and journal actions work with Tab and Enter. Use arrows or WASD on the map.')}</p><div class="app-actions"><button type="button" data-practice>${t('Practice again')}</button><button type="button" data-nav="title">${t('Done')}</button></div></form><p role="status" class="settings-status"></p>`,
+    `<form class="settings-form"><label>${t('Language')}<select name="language"><option value="en" ${settings.language === 'en' ? 'selected' : ''}>English</option><option value="fil" ${settings.language === 'fil' ? 'selected' : ''}>Filipino</option></select></label><label>${t('Text size')}<select name="textSize">${['normal', 'large', 'largest'].map((value) => `<option value="${value}" ${settings.textSize === value ? 'selected' : ''}>${t(value)}</option>`).join('')}</select></label><label>${t('Motion')}<select name="motion"><option value="system" ${settings.motion === 'system' ? 'selected' : ''}>${t('Follow device')}</option><option value="reduced" ${settings.motion === 'reduced' ? 'selected' : ''}>${t('Reduce motion')}</option></select></label><label class="check-setting"><input type="checkbox" name="sound" ${settings.sound ? 'checked' : ''}>${t('Sound (captions always available)')}</label><label>${t('Volume')}<input type="range" name="volume" min="0" max="1" step="0.05" value="${settings.volume}"></label><label>${t('Music volume')}<input type="range" name="music" min="0" max="1" step="0.05" value="${settings.music}"></label><label>${t('Sound effects volume')}<input type="range" name="sfx" min="0" max="1" step="0.05" value="${settings.sfx}"></label><p class="quiet-copy">${t('Set either slider to zero to mute it. Captions stay on.')}</p><label>${t('Graphics')}<select name="graphics">${[
+      ['auto', 'Automatic'],
+      ['high', 'High detail'],
+      ['low', 'Low detail'],
+      ['illustrated', 'Illustrated map'],
+    ]
+      .map(
+        ([value, label]) =>
+          `<option value="${value}" ${settings.graphics === value ? 'selected' : ''}>${t(label)}</option>`,
+      )
+      .join(
+        '',
+      )}</select></label><label class="check-setting"><input type="checkbox" name="flat" ${settings.flat ? 'checked' : ''}>${t('Prefer the 2D map')}</label><label class="check-setting"><input type="checkbox" name="tutorial" ${settings.tutorial ? 'checked' : ''}>${t('Show practice and Day 1 coaching')}</label><p>${t('Shapes and labels distinguish events without relying on color. All menus and journal actions work with Tab and Enter. Use arrows or WASD on the map.')}</p><div class="app-actions"><button type="button" data-practice>${t('Practice again')}</button><button type="button" data-nav="title">${t('Done')}</button></div></form><p role="status" class="settings-status"></p>`,
   );
   root
     .querySelector('form')
@@ -658,11 +691,24 @@ function settingsScreen() {
         motion: form.elements.motion.value,
         sound: form.elements.sound.checked,
         volume: Number(form.elements.volume.value),
-        flat: form.elements.flat.checked,
+        music: Number(form.elements.music.value),
+        sfx: Number(form.elements.sfx.value),
+        graphics:
+          focusName === 'flat'
+            ? form.elements.flat.checked
+              ? 'illustrated'
+              : 'auto'
+            : form.elements.graphics.value,
+        flat:
+          focusName === 'flat'
+            ? form.elements.flat.checked
+            : form.elements.graphics.value === 'illustrated',
         tutorial: form.elements.tutorial.checked,
         classroom: form.elements.classroom.checked,
         haptics: form.elements.haptics.checked,
       };
+      form.elements.graphics.value = settings.graphics;
+      form.elements.flat.checked = settings.flat;
       store.saveSettings(settings);
       if (current) {
         current.run.classroom = settings.classroom;
@@ -686,7 +732,7 @@ function settingsScreen() {
     .addEventListener('click', () => practice(settingsScreen), { signal });
 }
 function howScreen() {
-  shell(
+  const { root } = shell(
     'How it works',
     `<div class="how-grid">${[
       [
@@ -722,6 +768,10 @@ function howScreen() {
       .join(
         '',
       )}</div><details><summary>${t('Read the research sources')}</summary><ul><li><a href="https://ccmc.gsfc.nasa.gov/tools/DONKI/" target="_blank" rel="noopener">NASA CCMC · DONKI</a></li><li><a href="https://www.nasa.gov/reference/crew-systems/" target="_blank" rel="noopener">NASA · Orion crew systems</a></li><li><a href="https://science.nasa.gov/missions/artemis/artemis-2/to-protect-artemis-ii-astronauts-nasa-experts-keep-eyes-on-sun/" target="_blank" rel="noopener">NASA · Artemis II shelter procedure</a></li></ul></details>`,
+  );
+  root.insertAdjacentHTML(
+    'beforeend',
+    `<details class="science-story"><summary>${t('The Moon story and the science')}</summary><ul>${SCIENCE_NOTES.map((note) => `<li>${t(note)}</li>`).join('')}</ul></details>`,
   );
 }
 function creditsScreen() {

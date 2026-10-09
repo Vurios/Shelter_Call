@@ -17,12 +17,7 @@
           "food-95",
           "water-32"
         ],
-        "crewSaved": [
-          "ria",
-          "dom",
-          "aiko",
-          "tunde"
-        ],
+        "crewSaved": ["ria", "dom", "aiko", "tunde"],
         "crewExposed": [],
         "timeLeft": 67.46140000000185
       },
@@ -47,12 +42,7 @@
           "food-95",
           "water-32"
         ],
-        "crewSaved": [
-          "ria",
-          "dom",
-          "aiko",
-          "tunde"
-        ],
+        "crewSaved": ["ria", "dom", "aiko", "tunde"],
         "crewExposed": [],
         "timeLeft": 65.5392000000016
       },
@@ -77,12 +67,7 @@
           "food-95",
           "water-32"
         ],
-        "crewSaved": [
-          "ria",
-          "dom",
-          "aiko",
-          "tunde"
-        ],
+        "crewSaved": ["ria", "dom", "aiko", "tunde"],
         "crewExposed": [],
         "timeLeft": 67.71150000000155
       },
@@ -108,12 +93,7 @@
           "food-95",
           "food-122"
         ],
-        "crewSaved": [
-          "ria",
-          "dom",
-          "aiko",
-          "tunde"
-        ],
+        "crewSaved": ["ria", "dom", "aiko", "tunde"],
         "crewExposed": [],
         "timeLeft": 67.85610000000175
       },

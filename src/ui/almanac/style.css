@@ -92,3 +92,36 @@
     width: 100%;
   }
 }
+
+.almanac-art {
+  display: grid;
+  place-items: center;
+  min-height: 110px;
+  background:
+    radial-gradient(
+      circle at center,
+      #fff2d5 0 31%,
+      #edb96f 32% 34%,
+      transparent 35%
+    ),
+    repeating-radial-gradient(
+      ellipse at center,
+      transparent 0 20px,
+      #101d2a18 21px 22px
+    );
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+.almanac-art img {
+  width: 62px;
+  height: 62px;
+  filter: drop-shadow(2px 4px 0 #101d2a22);
+}
+.almanac-card .card-flip {
+  position: relative;
+  text-align: left;
+}
+.almanac-card .source-label {
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}

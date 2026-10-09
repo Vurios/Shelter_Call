@@ -6,7 +6,7 @@
 3. The run has Scramble, Shelter Days, and Reveal phases.
 4. Scramble uses Three.js with moon hops and a seeded layout.
 5. Its timer comes from a verified flare-to-particle countdown.
-6. Shelter Days uses accessible HTML, CSS, and SVG.
+6. Shelter Days uses a living Three.js cutaway with accessible DOM controls and an illustrated fallback.
 7. Food and water can be shelter walls, so consuming them costs shielding.
 8. A saved radio relays verified NASA forecasts and warnings.
 9. Reveal compares player choices, forecasts, and actual events.
@@ -34,7 +34,7 @@ HARD RULES
 
 ## 12. Tech architecture
 
-- **Stack:** Vite + vanilla JavaScript (ES modules, no framework), Three.js (scramble only), HTML/CSS/SVG UI, Vitest (unit), Playwright or Claude in Chrome (end-to-end + screenshots), vite-plugin-pwa (offline).
+- **Stack:** Vite + vanilla JavaScript (ES modules, no framework), Three.js (scramble and living shelter), HTML/CSS/SVG UI, Vitest (unit), Playwright or Claude in Chrome (end-to-end + screenshots), vite-plugin-pwa (offline).
 - **Audio:** ZzFX/Web Audio (synthesized SFX) + CC0 or procedural music.
 - **Data pipeline:** Python 3 (requests, pandas, matplotlib, pytest).
 
@@ -138,3 +138,7 @@ We build without a clock. Quality beats speed, but we still build in layers so t
 Rule: never start a layer until the one below is playable. Prompt 3 establishes headless rules; the full playable UI remains later work.
 
 @docs/DESIGN.md
+
+## Prompt 10 implementation status
+
+Overhaul implementation and validation are in progress; do not call it complete until OVERHAUL_PROGRESS.md records the final gates. New presentation modules: `src/scenes/shelter/`, `src/ui/shelter/habitat.js`, `src/art/crew.js`, `src/core/preview.js`. Renderer data stays detached and equipment-gated; immediate costs and conditional output estimates remain separate. Existing mission v1 and typed actions are preserved. Maintain direct-main Cloudflare Pages deployment.

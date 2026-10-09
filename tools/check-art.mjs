@@ -64,7 +64,9 @@ for (const entry of manifest.models) {
   let triangles = 0;
   gltf.scene.traverse((node) => {
     if (node.isMesh) {
-      triangles += node.geometry.attributes.position.count / 3;
+      triangles +=
+        (node.geometry.index?.count ??
+          node.geometry.attributes.position.count) / 3;
       assert(node.geometry.attributes.normal);
       assert.equal(node.material.map, null);
     }

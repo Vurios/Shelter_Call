@@ -66,7 +66,8 @@ export function mountScramble({
     form.elements.difficulty.value = mission.difficulty;
     form.elements.difficulty.disabled = true;
   }
-  form.elements.flat.checked = settings.flat === true;
+  form.elements.flat.checked =
+    settings.graphics === 'illustrated' || settings.flat === true;
   const lifecycle = new AbortController();
   const listen = (element, event, callback) =>
     element.addEventListener(event, callback, { signal: lifecycle.signal });
@@ -79,6 +80,8 @@ export function mountScramble({
   const audio = createAudio({ onCaption: (text) => say(text) });
   audio.setSettings({
     master: settings.volume ?? 0.55,
+    music: settings.music ?? 0.3,
+    sfx: settings.sfx ?? 0.6,
     mute: settings.sound === false,
   });
   root
@@ -102,6 +105,7 @@ export function mountScramble({
     frames = 0,
     offered = false,
     rendererBusy = false;
+  let quality = settings.graphics === 'low' ? 'low' : 'high';
   const keys = new Set();
   let hudKey = '';
   const say = (text) => {
@@ -137,7 +141,7 @@ export function mountScramble({
     try {
       if (next === '3d') {
         const { create3DRenderer } = await import('./render3d.js');
-        renderer = await create3DRenderer(host, state);
+        renderer = await create3DRenderer(host, state, { quality });
       } else renderer = create2DRenderer(host);
     } catch {
       fallback = true;
@@ -151,6 +155,7 @@ export function mountScramble({
     }
     mode = next;
     root.dataset.renderer = mode;
+    root.dataset.quality = mode === '2d' ? 'illustrated' : quality;
     host.dataset.ready = 'true';
     listen(renderer.canvas, 'pointerdown', (event) => {
       if (state.phase !== 'playing' || paused) return;
@@ -377,9 +382,20 @@ export function mountScramble({
             frames = 0;
             frameSeconds = 0;
             if (slowSeconds >= C.lowFpsSeconds) {
-              offered = true;
-              root.querySelector('.slow-offer').hidden = false;
-              say('A 2D map may run more smoothly here.');
+              if (
+                (!settings.graphics || settings.graphics === 'auto') &&
+                quality === 'high'
+              ) {
+                quality = 'low';
+                renderer.setQuality('low');
+                root.dataset.quality = 'low';
+                slowSeconds = 0;
+                say('Using lighter graphics to keep your hops smooth.');
+              } else {
+                offered = true;
+                root.querySelector('.slow-offer').hidden = false;
+                say('A 2D map may run more smoothly here.');
+              }
             }
           }
         }
