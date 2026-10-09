@@ -5,7 +5,7 @@ export function forecasts(state) {
   const mara = state.crew.some(
     (c) => c.trait === 'Comms Officer' && c.status !== 'medevac',
   );
-  return windowData(state.windowId)
+  return windowData(state.windowId, state.sourceData)
     .cmeForecasts.filter((f) => Date.parse(f.issued) <= state.now)
     .map((f) => ({
       source: 'REAL',
@@ -17,13 +17,16 @@ export function forecasts(state) {
       bandHours:
         state.difficulty === 'Flight Director'
           ? null
-          : [stats.cmeErrorHours.p25, stats.cmeErrorHours.p75],
+          : [
+              (state.sourceData?.stats ?? stats).cmeErrorHours.p25,
+              (state.sourceData?.stats ?? stats).cmeErrorHours.p75,
+            ],
       kpRange: mara ? f.kpRange : null,
     }));
 }
 export function messages(state) {
   if (!has(state, 'radio')) return [];
-  const w = windowData(state.windowId);
+  const w = windowData(state.windowId, state.sourceData);
   return [
     ...w.flares
       .filter((f) => Date.parse(f.begin) <= state.now)
@@ -34,11 +37,12 @@ export function messages(state) {
         hoursAgo: (state.now - Date.parse(f.begin)) / HOUR,
         text: `Flare ${f.class}.`,
         class: f.class,
-        associationRate: stats.flareSepRate[f.class[0]] ?? null,
+        associationRate:
+          (state.sourceData?.stats ?? stats).flareSepRate[f.class[0]] ?? null,
         hint:
-          stats.flareSepRate[f.class[0]] == null
+          (state.sourceData?.stats ?? stats).flareSepRate[f.class[0]] == null
             ? `This archive has no particle-rate estimate for ${f.class[0]}-class flares.`
-            : `About ${Math.round(stats.flareSepRate[f.class[0]] * 100)} in 100 ${f.class[0]}-class flares in this archive were linked to particles.`,
+            : `About ${Math.round((state.sourceData?.stats ?? stats).flareSepRate[f.class[0]] * 100)} in 100 ${f.class[0]}-class flares in this archive were linked to particles.`,
       })),
     ...w.sepEvents
       .filter((s) => s.alertTime && Date.parse(s.alertTime) <= state.now)
@@ -50,4 +54,26 @@ export function messages(state) {
         text: 'Particle alert received.',
       })),
   ];
+}
+
+/** A source-backed MODEL hint, never an observed particle arrival or a guarantee. */
+export function electronWarnings(state) {
+  if (!has(state, 'electron')) return [];
+  return windowData(state.windowId, state.sourceData)
+    .sepEvents.filter((row) => {
+      const warning = Date.parse(row.modelTime);
+      return (
+        row.modelLeadMin > 0 &&
+        row.modelId &&
+        warning <= state.now &&
+        state.now < Date.parse(row.onset)
+      );
+    })
+    .map((row) => ({
+      source: 'REAL',
+      donkiId: row.modelId,
+      utc: row.modelTime,
+      modelLeadMin: row.modelLeadMin,
+      text: 'MODEL early warning. Particles may follow; a prediction is not a detection.',
+    }));
 }

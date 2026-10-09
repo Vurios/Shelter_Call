@@ -178,11 +178,12 @@ export function mountShelter({
       // A blind crew cannot read unreceived flare/forecast records. The engine
       // retains them for Reveal; only an actual dosimeter onset is visible here.
       logs.push(
-        ...resolved.filter(
-          (row) =>
-            row.source !== 'REAL' ||
-            after.radio ||
-            (after.dosimeter && row.text === 'particles.'),
+        ...resolved.filter((row) =>
+          row.text.startsWith('MODEL')
+            ? after.electron
+            : row.source !== 'REAL' ||
+              after.radio ||
+              (after.dosimeter && row.text === 'particles.'),
         ),
       );
       refresh(before, null, getShiftView(run).shiftIndex !== before.shiftIndex);
@@ -190,9 +191,11 @@ export function mountShelter({
         if (view.interrupt.class) audio.alarm(view.interrupt.class);
         else audio.play('storm');
         announce(
-          view.interrupt.class
-            ? `Rush back: ${view.interrupt.class} flare. Choose recall or keep working.`
-            : 'Particles detected. Choose recall or keep working.',
+          view.interrupt.kind === 'model'
+            ? 'MODEL early warning. Prediction, not a detection.'
+            : view.interrupt.class
+              ? `Rush back: ${view.interrupt.class} flare. Choose recall or keep working.`
+              : 'Particles detected. Choose recall or keep working.',
         );
       } else {
         audio.play('page');

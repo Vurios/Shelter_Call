@@ -4,7 +4,7 @@ import { TASKS } from './config.js';
 import { HOUR, windowData, timeline, stats } from './data.js';
 import { shield, expose, integrate } from './dose.js';
 import { has, inventory, remove, produce, upkeep } from './rules.js';
-import { forecasts, messages } from './forecast.js';
+import { forecasts, messages, electronWarnings } from './forecast.js';
 import { nextEvent, choose } from './events.js';
 import { ending, achievements } from './endings.js';
 /**
@@ -35,7 +35,7 @@ export function getScrambleSetup(state) {
     x: Math.round((random() - 0.5) * 20),
     z: Math.round((random() - 0.5) * 20),
   });
-  const minutes = windowData(state.windowId).sep.countdownMin;
+  const minutes = windowData(state.windowId, state.sourceData).sep.countdownMin;
   const seconds =
     Math.max(state.config.timerMin, Math.min(state.config.timerMax, minutes)) *
     state.rules.timer;
@@ -92,7 +92,7 @@ export function applyScrambleResult(state, result) {
   addItem(state, 'water', state.rules.reserve);
   state.phase = 'shelter';
   state.flags.radioEver = has(state, 'radio');
-  const tier = windowData(state.windowId).sep.tier;
+  const tier = windowData(state.windowId, state.sourceData).sep.tier;
   state.crew.forEach((c) => {
     c.status = 'healthy';
     if (result.crewExposed.includes(c.id)) {
@@ -105,7 +105,7 @@ export function applyScrambleResult(state, result) {
   });
   state.log.push({
     source: 'REAL',
-    donkiId: windowData(state.windowId).sep.id,
+    donkiId: windowData(state.windowId, state.sourceData).sep.id,
     utc: utc(state),
     text: 'Particles detected. Relative GAME storm tier ' + tier + '.',
   });
@@ -124,13 +124,17 @@ export function getShiftView(state) {
     phase: state.phase,
     day:
       Math.floor(journalTime / (24 * HOUR)) -
-      Math.floor(Date.parse(windowData(state.windowId).start) / (24 * HOUR)) +
+      Math.floor(
+        Date.parse(windowData(state.windowId, state.sourceData).start) /
+          (24 * HOUR),
+      ) +
       1,
     shift: Math.floor(journalTime / (12 * HOUR)) % 2 ? 'PM' : 'AM',
     shiftIndex: state.shiftIndex,
     radio: has(state, 'radio'),
     blind: !has(state, 'radio'),
     dosimeter,
+    electron: has(state, 'electron'),
     resolving: Boolean(state.shift),
     doseThresholds: dosimeter
       ? {
@@ -148,6 +152,7 @@ export function getShiftView(state) {
       : null,
     radioMessages: messages(state),
     forecastCards: forecasts(state),
+    electronWarnings: electronWarnings(state),
     crew: state.crew.map((c) => ({
       id: c.id,
       name: c.name,
@@ -337,7 +342,11 @@ export function resolveShift(state) {
     };
     state.calls.push({ type: 'endShift', utc: utc(state) });
   }
-  const events = timeline(state.windowId);
+  const events = timeline(
+    state.windowId,
+    state.sourceData,
+    state.sensorVersion !== 0,
+  );
   while (
     state.cursor < events.length &&
     events[state.cursor].time < state.shift.end
@@ -350,7 +359,11 @@ export function resolveShift(state) {
       donkiId: event.donkiId,
       utc: event.utc,
       text:
-        event.kind === 'flare' ? `Flare ${event.row.class}.` : event.kind + '.',
+        event.kind === 'flare'
+          ? `Flare ${event.row.class}.`
+          : event.kind === 'model'
+            ? 'MODEL early warning. Prediction, not a detection.'
+            : event.kind + '.',
     });
     if (event.kind === 'particles' || event.kind === 'shock') {
       const tier = event.kind === 'shock' ? 1 : event.row.tier;
@@ -373,7 +386,8 @@ export function resolveShift(state) {
         state.crew.some(
           (c) => c.status !== 'medevac' && c.assignment !== 'shelter',
         )) ||
-      (event.kind === 'particles' && has(state, 'dosimeter'))
+      (event.kind === 'particles' && has(state, 'dosimeter')) ||
+      (event.kind === 'model' && has(state, 'electron'))
     ) {
       state.interrupt = {
         source: 'REAL',
@@ -382,20 +396,25 @@ export function resolveShift(state) {
         class: event.row.class ?? null,
         associationRate:
           event.kind === 'flare'
-            ? (stats.flareSepRate[event.row.class[0]] ?? null)
+            ? ((state.sourceData?.stats ?? stats).flareSepRate[
+                event.row.class[0]
+              ] ?? null)
             : null,
         utc: event.utc,
         hour: (state.now / HOUR) % 24,
         text:
           event.kind === 'flare'
             ? `Flare ${event.row.class}. Recall crew or keep working?`
-            : 'Dosimeter alarm. Recall crew or keep working?',
+            : event.kind === 'model'
+              ? 'MODEL early warning. Recall crew or keep working?'
+              : 'Dosimeter alarm. Recall crew or keep working?',
       };
       return copy(state.log.slice(firstLog));
     }
   }
   segment(state, state.shift.end);
-  for (const forecast of windowData(state.windowId).cmeForecasts) {
+  for (const forecast of windowData(state.windowId, state.sourceData)
+    .cmeForecasts) {
     const predicted = Date.parse(forecast.predicted);
     const actual = forecast.actual ? Date.parse(forecast.actual) : null;
     const evaluated = actual ?? predicted + 30 * HOUR;
@@ -459,7 +478,7 @@ export function checkEnding(state) {
 export function buildReveal(state) {
   if (state.phase !== 'ending')
     throw new Error('Finish the run before revealing hidden records.');
-  const w = windowData(state.windowId);
+  const w = windowData(state.windowId, state.sourceData);
   return copy({
     source: 'GAME',
     dates: { start: w.start, end: utc(state) },
@@ -468,7 +487,11 @@ export function buildReveal(state) {
       nasaForecast: w.cmeForecasts
         .filter((f) => Date.parse(f.issued) <= state.now)
         .map((f) => ({ ...f, source: 'REAL', donkiId: f.id })),
-      reality: timeline(state.windowId)
+      reality: timeline(
+        state.windowId,
+        state.sourceData,
+        state.sensorVersion !== 0,
+      )
         .filter((e) => e.time <= state.now)
         .map(({ donkiId, utc, kind }) => ({
           source: 'REAL',
@@ -497,6 +520,7 @@ export function buildReveal(state) {
       'GAME flare interrupts and dosimeter alarms, partial first shift, and UTC-midnight upkeep.',
       'GAME difficulty supplies: Cadet has 25% more food/water pickups and a four-pack food/water shelter reserve; Flight Director has 25% fewer pickups. Commander supplies are unchanged.',
       'GAME original outpost layout, moon-hop controls, 25-second practice, synthesized alarms and music; these are not space measurements or mission procedures.',
+      'GAME electron sensor maps recorded MODEL lead minutes onto the journal clock. MODEL hints are predictions, not detections or guarantees.',
     ],
   });
 }

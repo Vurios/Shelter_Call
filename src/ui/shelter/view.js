@@ -1,3 +1,4 @@
+import { itemIcon } from '../../art/items.js';
 // Presentation only: every value comes from the detached public shift view.
 export const escape = (value) =>
   String(value ?? '').replace(
@@ -8,7 +9,7 @@ export const escape = (value) =>
       ],
   );
 export const icon = (name) =>
-  `<img class="journal-icon" src="/assets/icons/${escape(name)}.svg" alt="">`;
+  `<img class="journal-icon" src="/assets/icons/${escape(itemIcon(name))}.svg" alt="">`;
 export const TASK_LABELS = {
   shelter: 'In shelter',
   greenhouse: 'Greenhouse',
@@ -76,6 +77,12 @@ function forecastCard(card) {
   return `<article class="forecast-card"><strong>${icon('radio')}CME forecast</strong><p>${countdown}</p><svg class="forecast-timeline" viewBox="0 0 240 54" role="img" aria-label="Predicted arrival timeline${bands ? `; archive middle-half error band ${bands[0]} to ${bands[1]} hours` : '; uncertainty band hidden'}"><path d="M16 30H224" stroke="currentColor" stroke-width="2"/>${bands ? `<rect x="${x(card.arrivalInHours + bands[0])}" y="22" width="${x(card.arrivalInHours + bands[1]) - x(card.arrivalInHours + bands[0])}" height="16" rx="4" fill="#b8a4da"/>` : ''}<path d="M${x(0)} 17V38" stroke="currentColor" stroke-width="2"/><path d="M${x(card.arrivalInHours)} 27l-5 -8h10z" fill="#101d2a"/><text x="${x(0)}" y="51" text-anchor="middle">Now</text><text x="${x(card.arrivalInHours)}" y="11" text-anchor="middle">Arrival</text></svg><small>${bands ? `Archive error band: ${(bands[0] / 12).toFixed(1)} to +${(bands[1] / 12).toFixed(1)} shifts. Not a guarantee.` : 'Flight Director: uncertainty band hidden.'}</small>${card.issueHour != null ? `<p class="comms-note">Mara decodes: issued ${(-card.issueHour / 12).toFixed(1)} shifts ago${card.kpRange ? ` · predicted Earth Kp ${card.kpRange.join('–')}` : ''}.</p>` : ''}${stamp(card, 'Predicted UTC')}${card.issuedUtc ? `<small>Issued UTC: ${escape(card.issuedUtc)}</small>` : ''}</article>`;
 }
 function radioPanel(view) {
+  const sensor = view.electronWarnings?.length
+    ? `<section class="journal-radio sensor-note"><h2>${icon('dosimeter')}MODEL sensor</h2>${view.electronWarnings.map((row) => `<article><p>${escape(row.text)}</p><small>Recorded MODEL lead: ${row.modelLeadMin} minutes. Not a guarantee.</small>${stamp(row, 'MODEL UTC (derived)')}</article>`).join('')}</section>`
+    : '';
+  return sensor + receivedRadioPanel(view);
+}
+function receivedRadioPanel(view) {
   if (!view.radio)
     return `<section class="journal-radio blind-note" aria-labelledby="radio-heading"><h2 id="radio-heading">${icon('radio')}No radio…</h2><p>You're on your own! Watch how the crew feels${view.dosimeter ? ' and check your dosimeter' : ''}.</p><small>No forecasts or flare warnings. GAME symptoms still help.</small></section>`;
   const messages = view.radioMessages
@@ -185,6 +192,8 @@ export function renderJournal(view, selection, slots, logs, sound) {
   ${view.interrupt ? interruptDialog(view.interrupt) : view.pendingEvent ? `<dialog class="journal-dialog" aria-labelledby="decision-heading"><p class="game-tag">GAME · CREW STORY</p><h2 id="decision-heading">A little Moon moment</h2><p>${escape(view.pendingEvent.text)}</p><div class="decision-buttons">${view.pendingEvent.choices.map((choice, index) => `<button type="button" data-choice="${index}" data-key="choice-${index}">${escape(choice)}</button>`).join('')}</div></dialog>` : view.phase === 'ending' ? `<dialog class="journal-dialog" aria-labelledby="decision-heading"><p class="game-tag">GAME · JOURNAL CLOSED</p><h2 id="decision-heading">Time for a ride home.</h2><p>${view.crew.some((c) => c.status === 'medevac') ? 'A crew member needs care back home.' : view.power <= 0 ? 'The shelter needs more power.' : 'The resupply lander has reached your mission boundary.'} Your journal is complete.</p><div class="decision-buttons"><button type="button" data-action="replay" data-key="replay">New mission</button><button type="button" data-action="exit" data-key="ending-exit">Back to title</button></div></dialog>` : ''}`;
 }
 function interruptDialog(interrupt) {
+  if (interrupt.kind === 'model')
+    return `<dialog class="journal-dialog rush-back" aria-labelledby="decision-heading"><p class="journal-eyebrow">MODEL / EARLY WARNING</p><h2 id="decision-heading">A model sees a clue</h2><p>A recorded MODEL prediction arrived. This is not a particle detection or a guarantee. Recall crew or keep working?</p>${stamp(interrupt, 'MODEL UTC')}<div class="decision-buttons"><button type="button" data-action="recall" data-key="recall">RECALL NOW</button><button type="button" data-action="keep" data-key="keep">KEEP WORKING</button></div></dialog>`;
   const flare = interrupt.kind === 'flare';
   return `<dialog class="journal-dialog rush-back" aria-labelledby="decision-heading"><p class="journal-eyebrow">${flare ? 'SUN WATCH / RUSH BACK' : 'DOSIMETER / PARTICLES'}</p><h2 id="decision-heading">${flare ? 'Rush back?' : 'Particles detected!'}</h2><p class="interrupt-class">${icon(flare ? 'solar' : 'dosimeter')}${flare ? `${escape(interrupt.class)} flare · REAL` : 'Dosimeter alarm · REAL event'}</p><p>${flare ? escape(rateHint(interrupt.class, interrupt.associationRate)) : 'The meter has spotted particles. Being inside cuts GAME dose; working outside adds more.'}</p><p>Recall brings the human crew inside for the rest of this shift. Work already done stays done. BOLT keeps its own task.</p>${stamp(interrupt)}<div class="decision-buttons"><button type="button" data-action="recall" data-key="recall">RECALL NOW</button><button type="button" data-action="keep" data-key="keep">KEEP WORKING</button></div></dialog>`;
 }

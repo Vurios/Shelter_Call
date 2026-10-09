@@ -54,12 +54,16 @@ export function validMission(value) {
       return false;
     const run = value.run;
     if (!run || !finiteTree(run) || !Array.isArray(run.crew)) return false;
+    // Existing prompt 7 checkpoints keep their original timeline/cursor order.
+    if (run.sensorVersion === undefined) run.sensorVersion = 0;
+    if (![0, 1].includes(run.sensorVersion)) return false;
     const template = createRun({
       seed: run.seed,
       difficulty: run.difficulty,
       mode: run.mode,
       windowId: run.windowId,
       crewIds: run.crew.map((c) => c.id),
+      sourceData: run.sourceData,
     });
     // Explicit window IDs skip the window-selection RNG draw. Check the four
     // legal resupply boundaries, rather than re-drawing a different boundary.
@@ -303,6 +307,8 @@ export function createStorage(provider = () => globalThis.localStorage) {
       return result;
     },
     saveProgress: (value) => write(PROGRESS_KEY, value),
+    readExtra: (key) => read(`shelter-call.${key}.v1`),
+    writeExtra: (key, value) => write(`shelter-call.${key}.v1`, value),
     isBlocked: () => blocked,
   };
 }

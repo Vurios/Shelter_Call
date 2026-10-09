@@ -1,3 +1,4 @@
+import { itemIcon } from '../../art/items.js';
 import {
   createRun,
   getScrambleSetup,
@@ -206,7 +207,7 @@ export function mountScramble({
       const item = state.items.find((i) => i.id === id);
       for (let n = 0; n < item.slots; n++)
         slotHtml.push(
-          `<button type="button" data-drop="${id}" aria-label="Put down ${item.name}"><img src="/assets/icons/${item.type}.svg" alt="">${n ? '2 of 2' : item.type === 'dosimeter' ? 'Dose' : item.type}</button>`,
+          `<button type="button" data-drop="${id}" aria-label="Put down ${item.name}"><img src="/assets/icons/${itemIcon(item.type)}.svg" alt="">${n ? '2 of 2' : item.type === 'dosimeter' ? 'Dose' : item.type}</button>`,
         );
     }
     while (slotHtml.length < C.carrySlots)
@@ -275,7 +276,7 @@ export function mountScramble({
             .getBoundingClientRect();
           const icon = document.createElement('img');
           icon.className = 'stash-flight';
-          icon.src = `/assets/icons/${event.types[0]}.svg`;
+          icon.src = `/assets/icons/${itemIcon(event.types[0])}.svg`;
           icon.alt = '';
           icon.style.left = `${map.left + map.width / 2 - 20}px`;
           icon.style.top = `${map.top + map.height / 2 - 20}px`;
@@ -549,7 +550,7 @@ export function mountScramble({
       Object.entries(counts)
         .map(
           ([type, count]) =>
-            `<li><img src="/assets/icons/${type}.svg" alt="">${ITEM_TYPES[type].name} × ${count}</li>`,
+            `<li><img src="/assets/icons/${itemIcon(type)}.svg" alt="">${ITEM_TYPES[type].name} × ${count}</li>`,
         )
         .join('') ||
       '<li>No supplies stashed this time. Try a quick trip back to the hatch.</li>'

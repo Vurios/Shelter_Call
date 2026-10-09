@@ -735,5 +735,19 @@
   "Verified records from this mission": "Verified records from this mission",
   "New record": "New record",
   "Already collected": "Already collected",
-  "{newCount} new records; {count} verified records from this mission.": "{newCount} new records; {count} verified records from this mission."
+  "{newCount} new records; {count} verified records from this mission.": "{newCount} new records; {count} verified records from this mission.",
+  "electron": "electron",
+  "Electron early-warning sensor": "Electron early-warning sensor",
+  "model": "model",
+  "MODEL sensor": "MODEL sensor",
+  "MODEL early warning. Particles may follow; a prediction is not a detection.": "MODEL early warning. Particles may follow; a prediction is not a detection.",
+  "MODEL early warning. Prediction, not a detection.": "MODEL early warning. Prediction, not a detection.",
+  "MODEL early warning. Recall crew or keep working?": "MODEL early warning. Recall crew or keep working?",
+  "MODEL / EARLY WARNING": "MODEL / EARLY WARNING",
+  "A model sees a clue": "A model sees a clue",
+  "A recorded MODEL prediction arrived. This is not a particle detection or a guarantee. Recall crew or keep working?": "A recorded MODEL prediction arrived. This is not a particle detection or a guarantee. Recall crew or keep working?",
+  "Recorded MODEL lead: {value} minutes. Not a guarantee.": "Recorded MODEL lead: {value} minutes. Not a guarantee.",
+  "MODEL UTC": "MODEL UTC",
+  "MODEL UTC (derived)": "MODEL UTC (derived)",
+  "GAME electron sensor maps recorded MODEL lead minutes onto the journal clock. MODEL hints are predictions, not detections or guarantees.": "GAME electron sensor maps recorded MODEL lead minutes onto the journal clock. MODEL hints are predictions, not detections or guarantees."
 }

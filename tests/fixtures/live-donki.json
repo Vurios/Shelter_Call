@@ -1,0 +1,361 @@
+{
+  "FLR": [
+    {
+      "flrID": "2024-05-11T01:10:00-FLR-001",
+      "catalog": "M2M_CATALOG",
+      "instruments": [
+        {
+          "displayName": "GOES-P: EXIS 1.0-8.0"
+        }
+      ],
+      "beginTime": "2024-05-11T01:10Z",
+      "peakTime": "2024-05-11T01:23Z",
+      "endTime": "2024-05-11T01:39Z",
+      "classType": "X5.8",
+      "sourceLocation": "S17W47",
+      "activeRegionNum": 13664,
+      "note": "",
+      "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/FLR/30711/-1",
+      "linkedEvents": [
+        {
+          "activityID": "2024-05-11T01:36:00-CME-001"
+        },
+        {
+          "activityID": "2024-05-11T02:10:00-SEP-001"
+        },
+        {
+          "activityID": "2024-05-11T04:07:00-SEP-001"
+        }
+      ],
+      "sentNotifications": [
+        {
+          "messageID": "20240511-AL-004",
+          "messageIssueTime": "2024-05-11T01:27Z",
+          "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30712/1"
+        },
+        {
+          "messageID": "20240511-AL-005",
+          "messageIssueTime": "2024-05-11T01:49Z",
+          "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30713/1"
+        }
+      ],
+      "submissionTime": "2024-05-11T02:34Z",
+      "versionId": 3
+    }
+  ],
+  "SEP": [
+    {
+      "sepID": "2024-05-11T02:10:00-SEP-001",
+      "eventTime": "2024-05-11T02:10Z",
+      "instruments": [
+        {
+          "displayName": "GOES-P: SEISS >100 MeV"
+        }
+      ],
+      "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/SEP/30714/-1",
+      "linkedEvents": [
+        {
+          "activityID": "2024-05-11T01:10:00-FLR-001"
+        },
+        {
+          "activityID": "2024-05-11T01:36:00-CME-001"
+        }
+      ],
+      "sentNotifications": [
+        {
+          "messageID": "20240511-AL-006",
+          "messageIssueTime": "2024-05-11T02:30Z",
+          "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30715/1"
+        },
+        {
+          "messageID": "20240511-AL-007",
+          "messageIssueTime": "2024-05-11T02:46Z",
+          "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30716/1"
+        }
+      ],
+      "submissionTime": "2024-05-11T02:30Z",
+      "versionId": 1
+    },
+    {
+      "sepID": "2024-05-11T04:07:00-SEP-001",
+      "eventTime": "2024-05-11T04:07Z",
+      "instruments": [
+        {
+          "displayName": "STEREO A: IMPACT 13-100 MeV"
+        }
+      ],
+      "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/SEP/30717/-1",
+      "linkedEvents": [
+        {
+          "activityID": "2024-05-11T01:10:00-FLR-001"
+        },
+        {
+          "activityID": "2024-05-11T01:36:00-CME-001"
+        }
+      ],
+      "sentNotifications": [
+        {
+          "messageID": "20240511-AL-008",
+          "messageIssueTime": "2024-05-11T04:13Z",
+          "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30718/1"
+        },
+        {
+          "messageID": "20240511-AL-013",
+          "messageIssueTime": "2024-05-11T15:03Z",
+          "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30728/1"
+        }
+      ],
+      "submissionTime": "2024-05-11T04:13Z",
+      "versionId": 1
+    }
+  ],
+  "WSAEnlilSimulations": [
+    {
+      "simulationID": "WSA-ENLIL/30858/1",
+      "modelCompletionTime": "2024-05-14T18:45Z",
+      "au": 2.0,
+      "cmeInputs": [
+        {
+          "cmeStartTime": "2024-05-14T10:09Z",
+          "latitude": 41.0,
+          "longitude": -34.0,
+          "speed": 744.0,
+          "halfAngle": 34.0,
+          "time21_5": "2024-05-14T14:54Z",
+          "featureCode": "LE",
+          "isMostAccurate": true,
+          "levelOfData": 0,
+          "ipsList": [
+            {
+              "catalog": null,
+              "activityID": "2024-05-17T12:40:00-IPS-001",
+              "location": "Earth",
+              "eventTime": "2024-05-17T12:40Z",
+              "instruments": [
+                {
+                  "displayName": "ACE: MAG"
+                },
+                {
+                  "displayName": "ACE: SWEPAM"
+                },
+                {
+                  "displayName": "DSCOVR: PLASMAG"
+                }
+              ],
+              "linkedEvents": [],
+              "sentNotifications": [],
+              "link": null,
+              "submissionTime": null,
+              "versionId": 0
+            },
+            {
+              "catalog": null,
+              "activityID": "2024-05-17T11:48:00-IPS-001",
+              "location": "STEREO A",
+              "eventTime": "2024-05-17T11:48Z",
+              "instruments": [
+                {
+                  "displayName": "STEREO A: IMPACT"
+                },
+                {
+                  "displayName": "STEREO A: PLASTIC"
+                }
+              ],
+              "linkedEvents": [],
+              "sentNotifications": [],
+              "link": null,
+              "submissionTime": null,
+              "versionId": 0
+            }
+          ],
+          "CMEID": "2024-05-14T10:09:00-CME-001"
+        }
+      ],
+      "estimatedShockArrivalTime": "2024-05-17T23:00Z",
+      "isEarthGB": true,
+      "isEarthMinorImpact": false,
+      "rmin_re": null,
+      "kp_18": null,
+      "kp_90": 2,
+      "kp_135": 3,
+      "kp_180": 3,
+      "estimatedDuration": null,
+      "impactList": null,
+      "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/WSA-ENLIL/30858/-1"
+    }
+  ],
+  "CME": [
+    {
+      "activityID": "2024-05-14T10:09:00-CME-001",
+      "catalog": "M2M_CATALOG",
+      "startTime": "2024-05-14T10:09Z",
+      "instruments": [
+        {
+          "displayName": "STEREO A: SECCHI/COR2"
+        },
+        {
+          "displayName": "SOHO: LASCO/C2"
+        },
+        {
+          "displayName": "SOHO: LASCO/C3"
+        }
+      ],
+      "sourceLocation": "N25E35",
+      "activeRegionNum": null,
+      "note": "Wide CME seen to the NE in all coronagraphs (STEREO A gets first visible frame). Source is an unnumbered region of the solar disk, centered around N23E35. Starting around 2024-05-14T09:07Z, field line movement is observed in SDO AIA 171/193/211 alongside a diagonal region of light dimming spanning approximately N40E60 -> N15E30 across that center point. A distinct post-eruptive arcade forms around 2024-05-14T10:47Z across SDO AIA 131/171/193/211.",
+      "cmeAnalyses": [
+        {
+          "isMostAccurate": true,
+          "levelOfData": 0,
+          "time21_5": "2024-05-14T14:54Z",
+          "latitude": 41.0,
+          "longitude": -34.0,
+          "halfAngle": 34.0,
+          "speed": 744.0,
+          "type": "C",
+          "featureCode": "LE",
+          "imageType": "running difference",
+          "measurementTechnique": "SWPC_CAT",
+          "note": "Measurement using the central source of the dimming ~N25E35 as a start, finding a good triangulated fit between SOHO and STEREO imagery with some northward deflection.",
+          "minorHalfWidth": null,
+          "speedMeasuredAtHeight": 19.0,
+          "tilt": null,
+          "submissionTime": "2024-05-14T18:41Z",
+          "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/CMEAnalysis/30857/-1",
+          "enlilList": [
+            {
+              "modelCompletionTime": "2024-05-14T18:45Z",
+              "au": 2.0,
+              "estimatedShockArrivalTime": "2024-05-17T23:00Z",
+              "isEarthGB": true,
+              "isEarthMinorImpact": false,
+              "rmin_re": null,
+              "kp_18": null,
+              "kp_90": 2,
+              "kp_135": 3,
+              "kp_180": 3,
+              "estimatedDuration": null,
+              "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/WSA-ENLIL/30858/-1",
+              "impactList": [],
+              "cmeIDs": ["2024-05-14T10:09:00-CME-001"]
+            }
+          ]
+        }
+      ],
+      "linkedEvents": [
+        {
+          "activityID": "2024-05-17T11:48:00-IPS-001"
+        },
+        {
+          "activityID": "2024-05-17T12:40:00-IPS-001"
+        }
+      ],
+      "sentNotifications": [
+        {
+          "messageID": "20240514-AL-008",
+          "messageIssueTime": "2024-05-14T18:58Z",
+          "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30859/1"
+        }
+      ],
+      "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/CME/30856/-1",
+      "submissionTime": "2024-05-14T18:39Z",
+      "versionId": 1
+    }
+  ],
+  "IPS": [
+    {
+      "catalog": "M2M_CATALOG",
+      "activityID": "2024-05-17T11:48:00-IPS-001",
+      "location": "STEREO A",
+      "eventTime": "2024-05-17T11:48Z",
+      "instruments": [
+        {
+          "displayName": "STEREO A: IMPACT"
+        },
+        {
+          "displayName": "STEREO A: PLASTIC"
+        }
+      ],
+      "linkedEvents": [
+        {
+          "activityID": "2024-05-14T10:09:00-CME-001"
+        }
+      ],
+      "sentNotifications": null,
+      "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/IPS/31026/-1",
+      "submissionTime": "2024-05-20T16:25Z",
+      "versionId": 3
+    },
+    {
+      "catalog": "M2M_CATALOG",
+      "activityID": "2024-05-17T12:40:00-IPS-001",
+      "location": "Earth",
+      "eventTime": "2024-05-17T12:40Z",
+      "instruments": [
+        {
+          "displayName": "ACE: MAG"
+        },
+        {
+          "displayName": "ACE: SWEPAM"
+        },
+        {
+          "displayName": "DSCOVR: PLASMAG"
+        }
+      ],
+      "linkedEvents": [
+        {
+          "activityID": "2024-05-14T10:09:00-CME-001"
+        },
+        {
+          "activityID": "2024-05-17T18:00:00-GST-001"
+        }
+      ],
+      "sentNotifications": [
+        {
+          "messageID": "20240517-AL-002",
+          "messageIssueTime": "2024-05-17T13:37Z",
+          "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30967/1"
+        }
+      ],
+      "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/IPS/30966/-1",
+      "submissionTime": "2024-05-20T16:20Z",
+      "versionId": 2
+    }
+  ],
+  "_provenance": {
+    "source": "NASA/CCMC DONKI",
+    "purpose": "Archived official raw records for transform parity; not a LIVE network response.",
+    "files": [
+      {
+        "endpoint": "WSAEnlilSimulations",
+        "cache": "2024-04-17_2024-05-16.json",
+        "sha256": "5adda6457b5f1f764831d18c15179c67cbee40cc664a6f550b6d696acb7274dd"
+      },
+      {
+        "endpoint": "WSAEnlilSimulations",
+        "cache": "2024-05-17_2024-06-15.json",
+        "sha256": "96f9eaf66517815dedc8e0a107707d7a061f952f70291fb2c72c9fa7497bb9e4"
+      },
+      {
+        "endpoint": "CME",
+        "cache": "2024-04-17_2024-05-16.json",
+        "sha256": "8280408d807a33a062bbdc24aa1578b0feac9f9902498a12d2e3a4e580c0fac4"
+      },
+      {
+        "endpoint": "CME",
+        "cache": "2024-05-17_2024-06-15.json",
+        "sha256": "88e3c8cef80eacc87363395803e9dd01fb1d43c9e797f6ce03186122b9fc7154"
+      },
+      {
+        "endpoint": "IPS",
+        "cache": "2024-04-17_2024-05-16.json",
+        "sha256": "cc58b2c05d285513dc685a2a93b63a4ece5487c1678daf9456aef0f6b8f8fd64"
+      },
+      {
+        "endpoint": "IPS",
+        "cache": "2024-05-17_2024-06-15.json",
+        "sha256": "a2028590bba1b4fc3e8bc04b3e95a10f5db4be0bfc929395e30cb983329d5436"
+      }
+    ]
+  }
+}

@@ -105,6 +105,7 @@ export const ITEM_TYPES = {
   guitar: { name: 'Guitar', slots: 1, mass: 1 },
   game: { name: 'Board game', slots: 1, mass: 1 },
   bolt: { name: 'BOLT robot', slots: 2, mass: 1 },
+  electron: { name: 'Electron early-warning sensor', slots: 1, mass: 1 },
 };
 export const TASKS = [
   'shelter',

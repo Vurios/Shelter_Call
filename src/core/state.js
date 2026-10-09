@@ -1,6 +1,7 @@
 import { CONFIG, DIFFICULTIES, CREW, ITEM_TYPES } from './config.js';
 import { draw, seedValue } from './rng.js';
 import { windows, windowData, timeline, HOUR } from './data.js';
+import { validLiveArchive } from '../data/live.js';
 export function addItem(state, type, count = 1) {
   for (let n = 0; n < count; n++)
     state.pantry.push({
@@ -36,6 +37,7 @@ export function create(options) {
     seed,
     difficulty,
     mode,
+    sensorVersion: 1,
     rng: seedValue(seed),
     config: {
       ...CONFIG,
@@ -44,12 +46,19 @@ export function create(options) {
     },
     rules: { ...DIFFICULTIES[difficulty] },
   };
+  if (options.sourceData != null) {
+    if (mode !== 'live' || !validLiveArchive(options.sourceData))
+      throw new Error('Invalid live source snapshot.');
+    state.sourceData = structuredClone(options.sourceData);
+  }
+  const available =
+    state.sourceData?.windows.map((window) => window.id) ?? windows;
   state.windowId =
     options.windowId ??
     (mode === 'judge'
       ? '2024-05-11T02:10:00-WINDOW-001'
-      : windows[Math.floor(draw(state) * windows.length)]);
-  const w = windowData(state.windowId);
+      : available[Math.floor(draw(state) * available.length)]);
+  const w = windowData(state.windowId, state.sourceData);
   state.now = Date.parse(w.start);
   // Four shift-end boundaries in the last two UTC mission days, including a partial first day.
   state.resupply =
@@ -119,7 +128,11 @@ export function create(options) {
     .forEach((type) => addItem(state, type));
   state.items = state.pantry;
   state.pantry = [];
-  const events = timeline(state.windowId);
+  const events = timeline(
+    state.windowId,
+    state.sourceData,
+    state.sensorVersion !== 0,
+  );
   while (state.cursor < events.length && events[state.cursor].time <= state.now)
     state.cursor++;
   state.hazards = w.sepEvents

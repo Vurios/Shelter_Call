@@ -1,3 +1,4 @@
+import { itemModel } from '../../art/items.js';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
@@ -133,9 +134,7 @@ export async function create3DRenderer(host, state) {
       'crew-pip',
       ...state.stations.map((s) => `station-${s.id}`),
       ...state.crew.map((c) => `crew-${c.id}`),
-      ...state.items.map((i) =>
-        i.type === 'bolt' ? 'bolt' : `item-${i.type}`,
-      ),
+      ...state.items.map((i) => itemModel(i.type)),
     ]),
   ];
   const loaded = await Promise.allSettled(
@@ -205,7 +204,7 @@ export async function create3DRenderer(host, state) {
   instance('crater', state.craters, 1.8);
   for (const type of new Set(state.items.map((i) => i.type)))
     instance(
-      type === 'bolt' ? 'bolt' : `item-${type}`,
+      itemModel(type),
       state.items.filter((i) => i.type === type),
       0.65,
       true,

@@ -1,0 +1,94 @@
+.almanac-progress {
+  width: 100%;
+  height: 24px;
+  accent-color: var(--leaf);
+}
+.almanac-filter {
+  display: flex;
+  align-items: end;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin: 28px 0;
+}
+.almanac-filter select {
+  min-width: 200px;
+}
+.almanac-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.almanac-card {
+  border: 2px solid var(--blue);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  position: relative;
+}
+.almanac-card.locked {
+  border: 2px dashed var(--regolith);
+  background: #192e3f;
+  color: var(--paper);
+  padding: 20px;
+}
+.almanac-card.rarity-2 {
+  border-style: double;
+  border-width: 4px;
+}
+.almanac-card.rarity-3 {
+  border-style: dashed;
+  border-color: var(--amber);
+}
+.app-screen .card-flip {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  padding: 22px;
+  text-align: left;
+  background: transparent;
+}
+.card-flip strong {
+  font-size: 1.35em;
+  overflow-wrap: anywhere;
+}
+.card-flip time {
+  font-size: 0.85em;
+}
+.card-fact {
+  padding: 0 22px 20px;
+  overflow-wrap: anywhere;
+}
+.flipped {
+  animation: card-unlock 0.55s ease;
+}
+.flipped::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent 25%,
+    #fff7 50%,
+    transparent 75%
+  );
+  transform: translateX(-100%);
+  animation: holo-pass 1s ease forwards;
+}
+@keyframes holo-pass {
+  to {
+    transform: translateX(100%);
+  }
+}
+@media (max-width: 700px) {
+  .almanac-grid {
+    grid-template-columns: 1fr;
+  }
+  .almanac-filter {
+    align-items: stretch;
+  }
+  .almanac-filter label {
+    width: 100%;
+  }
+}

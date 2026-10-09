@@ -1,5 +1,13 @@
 # Decision log
 
+## 2026-10-09 - Prompt 8 in progress: replay and source foundations
+
+- Add pure UTC daily setups and versioned checked friend codes carrying window, seed, crew and difficulty. Reuse the balance simulator's fixed GAME score for sharing. Live snapshots are not encoded as short friend codes.
+- Port conservative Python joins to JavaScript and compare complete output with Python on archived official raw records. Keep MODEL and STEREO separate from near-Earth detections, first Earth forecasts, documented shock links, revisions, censoring and complete fourteen-day windows. Fetch only the last thirty calendar dates through `/api/donki/`; validated recent snapshots or the existing archive are fallbacks.
+- Live source snapshots are explicit immutable run inputs, never a global replacement of archived records. Preserve the eight public core exports and validate source snapshots on save/reload. The source cache is optional, as all browser storage is.
+- Add an electron prediction sensor using original meter art. Publish eighteen previously audited MODEL links/timestamps from `join-audit.json` as SEP `modelId`/`modelTime` fields, checking each against its existing recorded lead minutes. Update the Python builder to retain the same fields. MODEL records remain predictions, never detections. The proper MODEL source ID avoids exposing a future detection's ID as a warning.
+- Preserve existing prompt 7 saves with `sensorVersion: 0`, retaining their original timeline order/cursors; new runs use version 1 with deduplicated MODEL events. Survival tuning remains unchanged. Full replay menus, classroom feedback, final browser acceptance and simulator/deployment verification remain in progress.
+
 ## 2026-10-09 - Prompt 7 complete mission flow
 
 - Reuse the pure core, existing 3D/2D scramble and journal, collection ledger, local art and audio. Add an application controller for Title → draft → skippable 15-second briefing → optional 25-second GAME practice → real scramble → Shelter Days → Ending → Reveal → verified source-card unlocks → one-tap new seed. Cadet auto-drafts; the other modes choose four of eight. Keep Daily Sun and full Almanac menus as explicit placeholders until prompt 8.

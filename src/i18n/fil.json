@@ -735,5 +735,19 @@
   "Verified records from this mission": "Napatunayang tala mula sa misyong ito",
   "New record": "Bagong tala",
   "Already collected": "Nakolekta na",
-  "{newCount} new records; {count} verified records from this mission.": "{newCount} bagong tala; {count} napatunayang tala mula sa misyong ito."
+  "{newCount} new records; {count} verified records from this mission.": "{newCount} bagong tala; {count} napatunayang tala mula sa misyong ito.",
+  "electron": "Sensor",
+  "Electron early-warning sensor": "Sensor ng maagang babala ng electron",
+  "model": "Hula ng MODEL",
+  "MODEL sensor": "Sensor ng MODEL",
+  "MODEL early warning. Particles may follow; a prediction is not a detection.": "Maagang babala ng MODEL. Maaaring may sumunod na mga particle; hula ito, hindi pagtukoy.",
+  "MODEL early warning. Prediction, not a detection.": "Maagang babala ng MODEL. Hula ito, hindi pagtukoy.",
+  "MODEL early warning. Recall crew or keep working?": "Maagang babala ng MODEL. Pauwiin ang mga kasama o ipagpatuloy ang trabaho?",
+  "MODEL / EARLY WARNING": "MODEL / MAAGANG BABALA",
+  "A model sees a clue": "May nakitang palatandaan ang modelo",
+  "A recorded MODEL prediction arrived. This is not a particle detection or a guarantee. Recall crew or keep working?": "Dumating ang naitalang hula ng MODEL. Hindi ito pagtukoy ng particle o pangako. Pauwiin ang mga kasama o ituloy ang trabaho?",
+  "Recorded MODEL lead: {value} minutes. Not a guarantee.": "Naitalang agwat ng MODEL: {value} minuto. Hindi ito pangako.",
+  "MODEL UTC": "MODEL UTC",
+  "MODEL UTC (derived)": "MODEL UTC (mula sa datos)",
+  "GAME electron sensor maps recorded MODEL lead minutes onto the journal clock. MODEL hints are predictions, not detections or guarantees.": "GAME: Inilalapat ng electron sensor ang naitalang agwat ng MODEL sa oras ng talaarawan. Hula ang mga palatandaan ng MODEL, hindi pagtukoy o pangako."
 }

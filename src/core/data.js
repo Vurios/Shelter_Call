@@ -7,9 +7,9 @@ export const stats = structuredClone(episodes.stats);
 export const allRealIds = Object.freeze(
   [
     ...new Set(
-      ['flares', 'sepEvents', 'cmeForecasts', 'surpriseArrivals'].flatMap(
-        (key) => episodes[key].map((e) => e.id),
-      ),
+      ['flares', 'sepEvents', 'cmeForecasts', 'surpriseArrivals']
+        .flatMap((key) => episodes[key].map((e) => e.id))
+        .concat(episodes.sepEvents.map((row) => row.modelId).filter(Boolean)),
     ),
   ].sort(),
 );
@@ -21,6 +21,26 @@ const tables = Object.fromEntries(
 Object.freeze(windows);
 const windowCache = new Map();
 const timelineCache = new Map();
+const liveCaches = new WeakMap();
+const archiveCache = { tables, windowCache, timelineCache };
+function cacheFor(source) {
+  if (!source) return archiveCache;
+  if (!liveCaches.has(source))
+    liveCaches.set(source, {
+      tables: Object.fromEntries(
+        [
+          'windows',
+          'flares',
+          'sepEvents',
+          'cmeForecasts',
+          'surpriseArrivals',
+        ].map((key) => [key, new Map(source[key].map((row) => [row.id, row]))]),
+      ),
+      windowCache: new Map(),
+      timelineCache: new Map(),
+    });
+  return liveCaches.get(source);
+}
 function freeze(value) {
   if (value && typeof value === 'object' && !Object.isFrozen(value)) {
     Object.values(value).forEach(freeze);
@@ -29,11 +49,12 @@ function freeze(value) {
   return value;
 }
 freeze(stats);
-export function windowData(id) {
+export function windowData(id, source) {
+  const { tables, windowCache } = cacheFor(source);
   if (windowCache.has(id)) return windowCache.get(id);
   const w = tables.windows.get(id);
   if (!w) throw new Error('Unknown real window.');
-  const result = freeze({
+  const value = {
     ...w,
     sep: tables.sepEvents.get(w.sepId),
     ...Object.fromEntries(
@@ -42,13 +63,16 @@ export function windowData(id) {
         ids.map((ref) => tables[key].get(ref)),
       ]),
     ),
-  });
+  };
+  const result = freeze(source ? structuredClone(value) : value);
   windowCache.set(id, result);
   return result;
 }
-export function timeline(id) {
-  if (timelineCache.has(id)) return timelineCache.get(id);
-  const w = windowData(id);
+export function timeline(id, source, withModels = true) {
+  const { timelineCache } = cacheFor(source);
+  const cacheKey = `${id}:${withModels}`;
+  if (timelineCache.has(cacheKey)) return timelineCache.get(cacheKey);
+  const w = windowData(id, source);
   const events = [];
   const add = (row, kind, utc) => {
     if (utc)
@@ -63,6 +87,8 @@ export function timeline(id) {
   };
   w.flares.forEach((row) => add(row, 'flare', row.begin));
   w.sepEvents.forEach((row) => {
+    if (withModels && row.modelLeadMin > 0 && row.modelId && row.modelTime)
+      add({ ...row, id: row.modelId }, 'model', row.modelTime);
     add(row, 'particles', row.onset);
     add(row, 'alert', row.alertTime);
   });
@@ -74,14 +100,21 @@ export function timeline(id) {
     add(row, 'shock', row.time ?? row.arrival),
   );
   const result = freeze(
-    events.sort(
+    [
+      ...new Map(
+        events.map((event) => [
+          `${event.kind}:${event.donkiId}:${event.utc}`,
+          event,
+        ]),
+      ).values(),
+    ].sort(
       (a, b) =>
         a.time - b.time ||
         a.kind.localeCompare(b.kind) ||
         a.donkiId.localeCompare(b.donkiId),
     ),
   );
-  timelineCache.set(id, result);
+  timelineCache.set(cacheKey, result);
   return result;
 }
 

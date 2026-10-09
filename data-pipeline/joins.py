@@ -111,7 +111,7 @@ def build_seps(rows, flares, raw_flares, audit, detail):
         alert = min(alerts) if alerts else None
         predictions = [model for model in models if model["time"] and model["time"] <= onset and model["flares"] & flare_ids]
         model = max(predictions, key=lambda value: value["time"]) if predictions else None
-        event = {"id": group[0]["row"]["sepID"], "onset": iso(onset), "tier": tier, "flareId": flare_id, "countdownMin": round((onset - dt(by_id[flare_id]["begin"])).total_seconds() / 60, 3) if flare_id else None, "alertTime": iso(alert), "alertLagMin": round((alert - onset).total_seconds() / 60, 3) if alert else None, "modelLeadMin": round((onset - model["time"]).total_seconds() / 60, 3) if model else None, "instruments": instruments}
+        event = {"id": group[0]["row"]["sepID"], "onset": iso(onset), "tier": tier, "flareId": flare_id, "countdownMin": round((onset - dt(by_id[flare_id]["begin"])).total_seconds() / 60, 3) if flare_id else None, "alertTime": iso(alert), "alertLagMin": round((alert - onset).total_seconds() / 60, 3) if alert else None, "modelLeadMin": round((onset - model["time"]).total_seconds() / 60, 3) if model else None, "modelId": model["row"]["sepID"] if model else None, "modelTime": iso(model["time"]) if model else None, "instruments": instruments}
         events.append(event)
         detail["sepGroups"].append({"id": event["id"], "members": [entry["row"]["sepID"] for entry in group], "flareIds": sorted(flare_ids), "modelId": model["row"]["sepID"] if model else None})
         if not flare_id:

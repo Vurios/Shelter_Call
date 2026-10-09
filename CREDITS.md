@@ -28,6 +28,10 @@ Dependencies are installed through npm and locked in package-lock.json; retain t
 
 ## Original art and audio
 
+| File                             | Source URL                        | License / terms                        | Author           | Use                                                                                             |
+| -------------------------------- | --------------------------------- | -------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------- |
+| `tests/fixtures/live-donki.json` | https://ccmc.gsfc.nasa.gov/DONKI/ | NASA public data; attribution retained | NASA GSFC / CCMC | Archived official raw records for Python/JavaScript join parity; cache checksums in the fixture |
+
 All GLBs, SVGs, PNG app icons and procedural sound/music in this kit are original project work. Sources: [model factories](src/art/models.js), [SVG/GLB generator](tools/generate-art.mjs), [PNG rasterizer](tools/generate-icons.py), and [audio synthesis](src/audio/synth.js). Ownership follows the project owner; no third-party asset-pack license is claimed for original work. Every output is listed with byte size, provenance and SHA-256 in `public/assets/manifest.json`. The duplicate favicon is generated from the same original icon source.
 
 Font downloads are pinned to Google Fonts revision `2eb0b48d5f760f62e286216f0859a8c540dbc1bd`; files are retained without conversion or subsetting. Restore them with `python tools/fetch-fonts.py`. Both copyright notices and full OFL text ship in the offline cache.
