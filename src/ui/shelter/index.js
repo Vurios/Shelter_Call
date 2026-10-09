@@ -1,7 +1,7 @@
 import { getShiftView, act, resolveShift } from '../../core/api.js';
 import { createAudio } from '../../audio/index.js';
 import { localize, phrase, t } from '../../i18n/index.js';
-import { renderJournal, TASK_LABELS } from './view.js';
+import { renderJournal, TASK_LABELS, forecastCard } from './view.js';
 import './style.css';
 
 /** The journal owns presentation, never hidden engine fields or survival rules. */
@@ -45,6 +45,12 @@ export function mountShelter({
       )
     : [];
   let coachStep = Number.isInteger(journal.coachStep) ? journal.coachStep : 0;
+  const classroomSeen = new Set(
+    Array.isArray(journal.classroomSeen)
+      ? journal.classroomSeen.filter((id) => typeof id === 'string')
+      : [],
+  );
+  let classroomPending = null;
   const coachLines = [
     '① Tap a crew card, then a task. Outside work brings supplies; shelter cuts GAME dose.',
     '② Tap a supply on the shelf, then Put in wall. If you have none, ice drill or salvage can bring some.',
@@ -69,7 +75,7 @@ export function mountShelter({
   function render({ flip = false } = {}) {
     if (disposed) return;
     if (view.phase === 'ending' && onComplete) {
-      onSave?.({ slots, logs, coachStep });
+      onSave?.({ slots, logs, coachStep, classroomSeen: [...classroomSeen] });
       dispose();
       onComplete(run);
       return;
@@ -79,6 +85,32 @@ export function mountShelter({
     const dialogScroll = oldDialog?.scrollTop ?? 0;
     syncSlots();
     page.innerHTML = renderJournal(view, selection, slots, logs, sound);
+    if (run.mode === 'live' || run.liveStatus) {
+      const badge = document.createElement('p');
+      badge.className = 'mission-source';
+      badge.textContent =
+        run.mode === 'live' ? 'LIVE / NASA DONKI' : t('ARCHIVE FALLBACK');
+      page.querySelector('.journal-header').after(badge);
+    }
+    if (view.interrupt?.kind === 'forecast') {
+      const card = view.forecastCards.find(
+        (row) => row.donkiId === view.interrupt.donkiId,
+      );
+      if (card)
+        page.querySelector('.classroom-prediction').innerHTML =
+          forecastCard(card);
+    }
+    if (view.interrupt?.kind === 'forecast')
+      classroomSeen.add(view.interrupt.donkiId);
+    classroomPending =
+      run.classroom && !view.resolving && !view.interrupt && !view.pendingEvent
+        ? view.forecastCards.find((card) => !classroomSeen.has(card.donkiId))
+        : null;
+    if (classroomPending)
+      page.insertAdjacentHTML(
+        'beforeend',
+        `<dialog class="journal-dialog classroom-vote" aria-labelledby="decision-heading"><p class="journal-eyebrow">${t('CLASSROOM / REAL FORECAST')}</p><h2 id="decision-heading">${t('CLASS VOTE: shelter or keep working?')}</h2><p>${t('Read the forecast together. Shelter brings crew inside; keeping tasks preserves your current plan.')}</p>${forecastCard(classroomPending)}<div class="decision-buttons"><button data-class-vote="shelter">${t('Shelter the crew')}</button><button data-class-vote="work">${t('Keep current tasks')}</button></div></dialog>`,
+      );
     if (
       settings.tutorial &&
       view.day === 1 &&
@@ -137,11 +169,30 @@ export function mountShelter({
       turnTimer = setTimeout(() => page.classList.remove('page-turn'), 650);
     }
     audio.setShield(view.shield);
-    onSave?.({ slots: [...slots], logs: structuredClone(logs), coachStep });
+    onSave?.({
+      slots: [...slots],
+      logs: structuredClone(logs),
+      coachStep,
+      classroomSeen: [...classroomSeen],
+    });
   }
   function refresh(before, text, flip = false) {
     view = getShiftView(run);
     render({ flip });
+    root.classList.remove('shield-up', 'shield-down', 'dose-rising');
+    if (before.shield !== view.shield)
+      root.classList.add(
+        view.shield > before.shield ? 'shield-up' : 'shield-down',
+      );
+    if (view.crew.some((crew, index) => crew.dose > before.crew[index]?.dose))
+      root.classList.add('dose-rising');
+    if (
+      settings.haptics &&
+      document.documentElement.dataset.motion !== 'reduced' &&
+      !matchMedia('(prefers-reduced-motion: reduce)').matches &&
+      before.shield !== view.shield
+    )
+      navigator.vibrate?.(10);
     if (text) announce(text);
     else if (wallMeal(before, view))
       announce(
@@ -189,7 +240,13 @@ export function mountShelter({
       refresh(before, null, getShiftView(run).shiftIndex !== before.shiftIndex);
       if (view.interrupt) {
         if (view.interrupt.class) audio.alarm(view.interrupt.class);
-        else audio.play('storm');
+        else
+          audio.play(
+            view.interrupt.kind === 'forecast' ||
+              view.interrupt.kind === 'model'
+              ? 'radio'
+              : 'storm',
+          );
         announce(
           view.interrupt.kind === 'model'
             ? 'MODEL early warning. Prediction, not a detection.'
@@ -229,6 +286,14 @@ export function mountShelter({
     }
   }
   page.addEventListener(
+    'toggle',
+    (event) => {
+      if (event.target.classList.contains('source-stamp') && event.target.open)
+        audio.play('radio');
+    },
+    { capture: true, signal: lifecycle.signal },
+  );
+  page.addEventListener(
     'change',
     (event) => {
       if (event.target.id === 'item-recipient')
@@ -241,7 +306,17 @@ export function mountShelter({
     (event) => {
       const button = event.target.closest('button');
       if (!button || button.disabled) return;
-      if (button.dataset.crew) {
+      if (button.dataset.classVote && classroomPending) {
+        classroomSeen.add(classroomPending.donkiId);
+        if (button.dataset.classVote === 'shelter')
+          for (const crew of view.crew.filter(
+            (crew) => crew.status !== 'medevac',
+          ))
+            act(run, { type: 'assignCrew', crewId: crew.id, task: 'shelter' });
+        view = getShiftView(run);
+        render();
+        page.querySelector('[data-action="end"]')?.focus();
+      } else if (button.dataset.crew) {
         selection.crew = button.dataset.crew;
         render();
         announce(

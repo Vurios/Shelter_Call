@@ -8,7 +8,13 @@ export function endingCard(name) {
   return `<article class="ending-card"><img src="/assets/endings/${endingSlug(name)}.svg" alt="${e(t(name))}"><div><p class="eyebrow">${t('YOUR ENDING · GAME')}</p><h1 tabindex="-1">${t(name)}</h1><p>${t(`epilogue.${endingSlug(name)}`)}</p></div></article>`;
 }
 const utc = (time) => new Date(time).toISOString().replace('.000Z', 'Z');
-export function mountReveal({ reveal, crewIds, onUnlock, onExit }) {
+export function mountReveal({
+  reveal,
+  crewIds,
+  onUnlock,
+  onExit,
+  classroom = false,
+}) {
   const app = document.querySelector('#app');
   const rows = timelineRows(reveal, crewIds);
   const start = Math.min(
@@ -56,6 +62,11 @@ export function mountReveal({ reveal, crewIds, onUnlock, onExit }) {
       '',
     )}</section>${endingCard(reveal.ending)}<details class="real-panel"><summary>${t("What's real?")}</summary><h2>${t('REAL · NASA DONKI records')}</h2><p>${t('NASA near-Earth records are used as a timing proxy for the Moon. This is not a radiation safety tool.')}</p><ul>${reveal.timeline.reality.map((row) => `<li><strong>REAL · ${t(row.kind)}</strong> <time>${e(row.utc)} UTC</time><code>${e(row.donkiId)}</code></li>`).join('')}${reveal.timeline.nasaForecast.map((row) => `<li><strong>REAL · ${t('forecast')}</strong><code>${e(row.donkiId)}</code><span>${t('Issued UTC')}: ${e(row.issued)}</span><span>${t('Predicted UTC')}: ${e(row.predicted)}</span><span>${t('Observed UTC')}: ${row.actual ? e(row.actual) : t('No matched arrival in the archive')}</span><small>${t('An arrival after your journal closed is archive context, not an event you experienced.')}</small></li>`).join('')}</ul><h2>${t('GAME · approximations')}</h2><ul>${reveal.approximations.map((line) => `<li>${t(line)}</li>`).join('')}</ul></details><div class="app-actions"><button data-unlock>${t('Open Almanac unlocks')} →</button><button data-exit>${t('Title')}</button></div></main>`;
   const root = app.querySelector('main');
+  if (classroom)
+    root.insertAdjacentHTML(
+      'beforeend',
+      `<section class="classroom-questions"><h2>${t('Talk about your Sun')}</h2><ol><li>${t('Which recorded clue changed your shelter call?')}</li><li>${t('How did a forecast differ from the observed arrival?')}</li><li>${t('What happened when supplies were used from the wall? Which parts were GAME rules?')}</li></ol></section>`,
+    );
   if (!reveal.timeline.nasaForecast.length) {
     const note = document.createElement('p');
     note.className = 'quiet-copy';

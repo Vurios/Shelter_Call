@@ -7,7 +7,19 @@ import { t, setLanguage } from '../i18n/index.js';
 import { escape as e } from '../ui/shelter/view.js';
 import { endingCard, endingSlug, mountReveal } from '../ui/reveal/index.js';
 import { createAudio } from '../audio/index.js';
+import { ACHIEVEMENTS, encodeSeed, shareResult } from './replay.js';
+import { claimDaily, completeDaily } from './daily.js';
+import {
+  mountDaily,
+  mountSeedCode,
+  mountHistoric,
+  mountLive,
+  shareText,
+} from './replay-menus.js';
+import { mountAlmanac, sourceCards } from '../ui/almanac/index.js';
+import { validLiveArchive } from '../data/live.js';
 import '../ui/styles/app.css';
+import '../ui/styles/feedback.css';
 
 const store = createStorage();
 const route = new URLSearchParams(location.search);
@@ -27,7 +39,10 @@ let crewIds = current?.run.crew.map((crew) => crew.id) ?? [
 const newSeed = () => crypto.randomUUID();
 export function applySettings() {
   setLanguage(settings.language);
-  document.documentElement.dataset.textSize = settings.textSize;
+  document.documentElement.dataset.textSize =
+    settings.classroom || current?.run.classroom
+      ? 'largest'
+      : settings.textSize;
   document.documentElement.dataset.motion = settings.motion;
 }
 export const getSettings = () => ({ ...settings });
@@ -39,8 +54,19 @@ function leave() {
 function save(screen = current?.screen, journal = current?.journal ?? {}) {
   if (!current) return;
   current.screen = screen;
-  current.journal = journal;
-  store.saveMission(current.run, screen, journal);
+  current.journal = { ...current.journal, ...journal };
+  store.saveMission(current.run, screen, current.journal);
+}
+function sourceBadge(root) {
+  if (!current || (current.run.mode !== 'live' && !current.run.liveStatus))
+    return;
+  const badge = document.createElement('p');
+  badge.className = 'mission-source';
+  badge.textContent =
+    current.run.mode === 'live' ? 'LIVE / NASA DONKI' : t('ARCHIVE FALLBACK');
+  const scrambleHeader = root.querySelector('.scramble-header > div');
+  if (scrambleHeader) scrambleHeader.append(badge);
+  else root.querySelector('header, h1')?.after(badge);
 }
 function shell(title, content, { focus = true } = {}) {
   leave();
@@ -71,6 +97,10 @@ function title() {
       ['how', 'How it works'],
       ['settings', 'Settings'],
       ['credits', 'Credits'],
+      ['seed', 'Play a friend’s Sun'],
+      ['historic', 'Historic Storms'],
+      ['live', 'Live Sun'],
+      ['classroom', 'Classroom mode'],
     ]
       .map(([id, label]) => `<button data-nav="${id}">${t(label)}</button>`)
       .join(
@@ -146,12 +176,14 @@ function title() {
     { signal },
   );
 }
-function confirmReplace() {
+function confirmReplace(next = draft) {
   const { root, signal } = shell(
     'Start a new mission?',
     `<p>${t('Your current mission will be replaced. Your collected endings stay safe.')}</p><div class="app-actions"><button data-new>${t('Start new mission')}</button><button data-continue>${t('Continue current mission')}</button></div>`,
   );
-  root.querySelector('[data-new]').addEventListener('click', draft, { signal });
+  root
+    .querySelector('[data-new]')
+    .addEventListener('click', () => next(), { signal });
   root
     .querySelector('[data-continue]')
     .addEventListener('click', resume, { signal });
@@ -203,22 +235,27 @@ function draft() {
     { signal },
   );
 }
-function briefing() {
+function briefing(setup) {
   current = {
     run: createRun({
       seed: route.get('seed') || newSeed(),
       difficulty,
       crewIds,
+      classroom: settings.classroom,
+      ...(setup ?? {}),
     }),
     screen: 'scramble',
     journal: {},
   };
+  current.run.dailyDate = setup?.dailyDate ?? null;
+  current.run.liveStatus = setup?.liveStatus ?? null;
   save();
   const { root, signal } = shell(
     'One rule: the Sun is real.',
     `<div class="briefing-art"><img src="/assets/icons/solar.svg" alt=""><span>→</span><img src="/assets/icons/shelter.svg" alt=""></div><p class="hero-line">${t('The records are real. The survival rules are a GAME.')}</p><ol class="briefing-steps"><li>${t('Find crew and supplies. Return to the hatch to save them.')}</li><li>${t('In the journal, assign tasks and put supplies in your wall.')}</li><li>${t('Read the radio. Recall crew when you choose. Eat your wall carefully!')}</li></ol><p class="quiet-copy" id="briefing-count"></p><div class="app-actions"><button data-start>${t('Skip briefing · let’s go')}</button><button data-skip-tutorial>${t('Skip practice and coaching')}</button></div>`,
   );
   let seconds = 15;
+  sourceBadge(root);
   const update = () => {
     root.querySelector('#briefing-count').textContent = t(
       'Starting in {seconds} seconds',
@@ -286,6 +323,7 @@ async function scramble() {
       onSave: () => save('shelter'),
       onComplete: () => shelter(),
     });
+    sourceBadge(document.querySelector('.scramble-screen'));
   } catch {
     errorScreen(scramble);
   }
@@ -315,22 +353,54 @@ async function shelter() {
 }
 function ending() {
   const reveal = buildReveal(current.run);
+  const liveCollection = store.readExtra('live-collection');
+  const liveIds = Array.isArray(liveCollection?.ids) ? liveCollection.ids : [];
   const missionIds = [
     ...new Set(reveal.timeline.reality.map((row) => row.donkiId)),
   ];
   current.journal.newCards = Array.isArray(current.journal.newCards)
     ? current.journal.newCards.filter((id) => missionIds.includes(id))
-    : missionIds.filter((id) => !progress.cards.includes(id));
+    : missionIds.filter(
+        (id) => !progress.cards.includes(id) && !liveIds.includes(id),
+      );
+  const previousAchievements = new Set(progress.achievements);
   progress = collect(progress, reveal, {
     mode: current.run.mode,
     windowId: current.run.windowId,
+    dailyDate: current.run.dailyDate,
   });
   store.saveProgress(progress);
+  if (current.run.dailyDate)
+    completeDaily(
+      store,
+      current.run.dailyDate,
+      reveal,
+      shareResult(reveal, current.run),
+    );
+  if (current.run.sourceData) {
+    const collection = store.readExtra('live-collection') ?? {
+      archives: [],
+      ids: [],
+    };
+    collection.archives = Array.isArray(collection.archives)
+      ? collection.archives.filter(validLiveArchive)
+      : [];
+    if (!Array.isArray(collection.ids)) collection.ids = [];
+    if (
+      !collection.archives.some(
+        (data) => data.meta.generated === current.run.sourceData.meta.generated,
+      )
+    )
+      collection.archives.push(current.run.sourceData);
+    collection.ids = [...new Set(collection.ids.concat(missionIds))];
+    store.writeExtra('live-collection', collection);
+  }
   save('ending');
   const { root, signal } = shell(
     'Your Moon story',
     `${endingCard(reveal.ending)}<p>${t('The crew is on the way home. Now meet the real Sun behind your mission.')}</p><div class="app-actions"><button data-reveal>${t('Reveal the real dates')} →</button></div>${store.isBlocked() ? `<p role="status">${t('Storage is unavailable. You can play; this tab keeps your progress until it closes.')}</p>` : ''}`,
   );
+  sourceBadge(root);
   const audio = createAudio();
   audio.setSettings({ master: settings.volume, mute: !settings.sound });
   const old = disposeScreen;
@@ -355,6 +425,25 @@ function ending() {
   root
     .querySelector('[data-reveal]')
     .addEventListener('click', showReveal, { signal });
+  const newAchievements = progress.achievements.filter(
+    (name) => !previousAchievements.has(name),
+  );
+  if (newAchievements.length) {
+    const toast = document.createElement('aside');
+    toast.className = 'achievement-toast';
+    toast.setAttribute('role', 'status');
+    toast.textContent = t('Achievement unlocked: {name}', {
+      name: newAchievements.map((name) => t(name)).join(' / '),
+    });
+    document.body.append(toast);
+    const timeout = setTimeout(() => toast.remove(), 6000),
+      old = disposeScreen;
+    disposeScreen = () => {
+      clearTimeout(timeout);
+      toast.remove();
+      old();
+    };
+  }
 }
 function showReveal() {
   leave();
@@ -365,20 +454,23 @@ function showReveal() {
     crewIds: current.run.crew.map((c) => c.id),
     onExit: title,
     onUnlock: unlocks,
+    classroom: current.run.classroom,
   });
+  sourceBadge(document.querySelector('.reveal-screen'));
 }
 function unlocks() {
   const reveal = buildReveal(current.run);
   progress = collect(progress, reveal, {
     mode: current.run.mode,
     windowId: current.run.windowId,
+    dailyDate: current.run.dailyDate,
   });
   store.saveProgress(progress);
   save('unlocks');
   const cards = [...new Set(reveal.timeline.reality.map((row) => row.donkiId))];
   const { root, signal } = shell(
     'A page for your Sun Almanac',
-    `<div class="unlock-mark">${t('REAL')}</div><p class="hero-line">${t('{newCount} new records; {count} verified records from this mission.', { newCount: current.journal.newCards?.length ?? 0, count: cards.length })}</p><p>${t('Your ending and achievements are saved. The full Sun Almanac opens in the next update.')}</p><details><summary>${t('See source IDs')}</summary><ul class="source-id-list">${cards.map((id) => `<li><code>${e(id)}</code></li>`).join('')}</ul></details><h2>${t('Achievements')}</h2><div class="achievement-list">${reveal.achievements.map((name) => `<span>★ ${t(name)}</span>`).join('') || `<p>${t('Every mission teaches a new call.')}</p>`}</div><div class="app-actions"><button data-again>${t('Play again · new Sun')}</button><button data-nav="endings">${t('View endings')}</button></div>`,
+    `<div class="unlock-mark">${t('REAL')}</div><p class="hero-line">${t('{newCount} new records; {count} verified records from this mission.', { newCount: current.journal.newCards?.length ?? 0, count: cards.length })}</p><p>${t('Your ending and achievements are saved. Open your Sun Almanac to flip the verified records.')}</p><details><summary>${t('See source IDs')}</summary><ul class="source-id-list">${cards.map((id) => `<li><code>${e(id)}</code></li>`).join('')}</ul></details><h2>${t('Achievements')}</h2><div class="achievement-list">${reveal.achievements.map((name) => `<span>★ ${t(name)}</span>`).join('') || `<p>${t('Every mission teaches a new call.')}</p>`}</div><div class="app-actions"><button data-again>${t('Play again · new Sun')}</button><button data-nav="endings">${t('View endings')}</button></div>`,
   );
   root
     .querySelector('[data-again]')
@@ -394,6 +486,28 @@ function unlocks() {
     })
     .join('');
   root.querySelector('.unlock-mark').after(previews);
+  root
+    .querySelector('[data-nav="endings"]')
+    .insertAdjacentHTML(
+      'afterend',
+      `<button data-nav="almanac">${t('Open Sun Almanac')}</button>`,
+    );
+  const code = encodeSeed(current.run),
+    text = shareResult(reveal, current.run);
+  root.insertAdjacentHTML(
+    'beforeend',
+    `<section class="share-panel"><h2>${t('Share your Sun')}</h2><p>${t('Friend-code replays are practice. The same setup can have a different ending.')}</p><textarea class="share-text" readonly aria-label="${t('Share result')}">${e(text)}</textarea><div class="app-actions"><button data-share>${t('Share result')}</button>${code ? `<button data-copy-code>${t('Copy seed code')}</button>` : ''}</div><p class="share-status" role="status"></p></section>`,
+  );
+  root
+    .querySelector('[data-share]')
+    .addEventListener('click', () => shareText(root, text), { signal });
+  root
+    .querySelector('[data-copy-code]')
+    ?.addEventListener(
+      'click',
+      () => shareText(root, code, { copyOnly: true }),
+      { signal },
+    );
 }
 function playAgain() {
   current = {
@@ -401,6 +515,7 @@ function playAgain() {
       seed: newSeed(),
       difficulty: current?.run.difficulty ?? difficulty,
       crewIds: current?.run.crew.map((c) => c.id) ?? crewIds,
+      classroom: settings.classroom,
     }),
     screen: 'scramble',
     journal: {},
@@ -430,15 +545,69 @@ function menu(name) {
   if (name === 'how') return howScreen();
   if (name === 'endings') return endingsScreen();
   if (name === 'credits') return creditsScreen();
+  const hooks = {
+    shell,
+    store,
+    current,
+    progress,
+    start: startSpecial,
+    continueMission: resume,
+  };
+  if (name === 'daily') return mountDaily(hooks);
+  if (name === 'seed') return mountSeedCode(hooks);
+  if (name === 'historic') return mountHistoric(hooks);
+  if (name === 'live') return mountLive(hooks);
+  if (name === 'classroom') {
+    settings.classroom = true;
+    settings.textSize = 'largest';
+    store.saveSettings(settings);
+    applySettings();
+    return startSpecial({
+      seed: newSeed(),
+      mode: 'normal',
+      difficulty: 'Commander',
+      crewIds: ['ria', 'dom', 'mara', 'aiko'],
+    });
+  }
+  if (name === 'almanac') {
+    const view = shell('Sun Almanac', '');
+    const collection = store.readExtra('live-collection');
+    const liveCards = (
+      Array.isArray(collection?.archives) ? collection.archives : []
+    )
+      .filter(validLiveArchive)
+      .flatMap((data) => sourceCards(data))
+      .filter(
+        (card) =>
+          Array.isArray(collection.ids) && collection.ids.includes(card.id),
+      )
+      .map((card) => ({ ...card, live: true }));
+    return mountAlmanac({ ...view, progress, liveCards });
+  }
   shell(
     name === 'daily' ? 'Daily Sun' : 'Sun Almanac',
     `<img class="placeholder-icon" src="/assets/icons/${name === 'daily' ? 'solar' : 'radio'}.svg" alt=""><p class="hero-line">${t('Coming in the next update.')}</p><p>${t('You can play normal missions now. Your endings and verified source records are already being collected.')}</p><button data-nav="title">${t('Back to title')}</button>`,
   );
 }
+function startSpecial(setup) {
+  const begin = async () => {
+    if (setup.mode === 'daily' && !(await claimDaily(store, setup.dailyDate)))
+      return menu('daily');
+    difficulty = setup.difficulty;
+    crewIds = [...setup.crewIds];
+    briefing(setup);
+  };
+  if (current && current.run.phase !== 'ending') confirmReplace(begin);
+  else void begin();
+}
 function endingsScreen() {
-  shell(
+  const { root } = shell(
     'Endings',
     `<p>${t('{count} of 10 endings collected', { count: progress.endings.length })}</p><div class="ending-grid">${ENDINGS.map((name) => `<article class="collected-ending ${progress.endings.includes(name) ? 'collected' : 'uncollected'}"><img src="/assets/endings/${endingSlug(name)}.svg" alt=""><span>${progress.endings.includes(name) ? '★' : '◇'} ${t(progress.endings.includes(name) ? 'Collected' : 'Still to discover')}</span><h2>${t(name)}</h2><p>${t(`epilogue.${endingSlug(name)}`)}</p></article>`).join('')}</div><h2>${t('Achievements')}</h2><div class="achievement-list">${progress.achievements.map((name) => `<span>★ ${t(name)}</span>`).join('') || `<p>${t('Every mission teaches a new call.')}</p>`}</div>`,
+  );
+  root.insertAdjacentHTML(
+    'beforeend',
+    `<h2>${t('All 12 achievements')}</h2><div class="achievement-grid">${ACHIEVEMENTS.map((name) => `<article class="${progress.achievements.includes(name) ? 'earned' : 'locked'}"><h3>${progress.achievements.includes(name) ? '★' : '◇'} ${t(name)}</h3><p>${t(`achievement.condition.${name}`)}</p><small>${t(progress.achievements.includes(name) ? 'Collected' : 'Still to discover')}</small></article>`).join('')}</div>`,
   );
 }
 function settingsScreen() {
@@ -446,6 +615,12 @@ function settingsScreen() {
     'Settings',
     `<form class="settings-form"><label>${t('Language')}<select name="language"><option value="en" ${settings.language === 'en' ? 'selected' : ''}>English</option><option value="fil" ${settings.language === 'fil' ? 'selected' : ''}>Filipino</option></select></label><label>${t('Text size')}<select name="textSize">${['normal', 'large', 'largest'].map((value) => `<option value="${value}" ${settings.textSize === value ? 'selected' : ''}>${t(value)}</option>`).join('')}</select></label><label>${t('Motion')}<select name="motion"><option value="system" ${settings.motion === 'system' ? 'selected' : ''}>${t('Follow device')}</option><option value="reduced" ${settings.motion === 'reduced' ? 'selected' : ''}>${t('Reduce motion')}</option></select></label><label class="check-setting"><input type="checkbox" name="sound" ${settings.sound ? 'checked' : ''}>${t('Sound (captions always available)')}</label><label>${t('Volume')}<input type="range" name="volume" min="0" max="1" step="0.05" value="${settings.volume}"></label><label class="check-setting"><input type="checkbox" name="flat" ${settings.flat ? 'checked' : ''}>${t('Prefer the 2D map')}</label><label class="check-setting"><input type="checkbox" name="tutorial" ${settings.tutorial ? 'checked' : ''}>${t('Show practice and Day 1 coaching')}</label><p>${t('Shapes and labels distinguish events without relying on color. All menus and journal actions work with Tab and Enter. Use arrows or WASD on the map.')}</p><div class="app-actions"><button type="button" data-practice>${t('Practice again')}</button><button type="button" data-nav="title">${t('Done')}</button></div></form><p role="status" class="settings-status"></p>`,
   );
+  root
+    .querySelector('form')
+    .insertAdjacentHTML(
+      'afterbegin',
+      `<label class="check-setting"><input type="checkbox" name="classroom" ${settings.classroom ? 'checked' : ''}>${t('Classroom votes on forecasts')}</label><label class="check-setting"><input type="checkbox" name="haptics" ${settings.haptics ? 'checked' : ''}>${t('Gentle vibration (supported phones)')}</label>`,
+    );
   root.querySelector('form').addEventListener(
     'change',
     (event) => {
@@ -459,8 +634,14 @@ function settingsScreen() {
         volume: Number(form.elements.volume.value),
         flat: form.elements.flat.checked,
         tutorial: form.elements.tutorial.checked,
+        classroom: form.elements.classroom.checked,
+        haptics: form.elements.haptics.checked,
       };
       store.saveSettings(settings);
+      if (current) {
+        current.run.classroom = settings.classroom;
+        save();
+      }
       applySettings();
       if (focusName === 'language') {
         settingsScreen();

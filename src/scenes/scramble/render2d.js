@@ -20,6 +20,10 @@ export function create2DRenderer(host) {
     view = 30;
   const center = { x: 0, z: 0 };
   const labels = [];
+  let visualTime = 0,
+    waveStarted = -Infinity,
+    landUntil = 0;
+  const dust = [];
   function resize() {
     width = host.clientWidth;
     height = host.clientHeight;
@@ -52,6 +56,7 @@ export function create2DRenderer(host) {
     labels.push({ text, x, z, color });
   }
   function render(state, delta, { reducedMotion = false } = {}) {
+    visualTime += delta;
     labels.length = 0;
     const ease = reducedMotion ? 1 : 1 - Math.exp(-delta * 3);
     center.x += (state.player.x * 0.35 - center.x) * ease;
@@ -59,6 +64,30 @@ export function create2DRenderer(host) {
     context.fillStyle = P.ink;
     context.fillRect(0, 0, width, height);
     circle(0, 0, 23, P.regolith);
+    if (!reducedMotion) {
+      for (const particle of dust)
+        if (visualTime - particle.at < 0.5)
+          circle(
+            particle.x + particle.dx * (visualTime - particle.at),
+            particle.z + particle.dz * (visualTime - particle.at),
+            0.05,
+            P.paper,
+          );
+      if (visualTime - waveStarted < 1.6) {
+        const point = project(0, 0);
+        context.beginPath();
+        context.arc(
+          point.x,
+          point.y,
+          (1 + (visualTime - waveStarted) * 18) * scale,
+          0,
+          Math.PI * 2,
+        );
+        context.strokeStyle = P.blue;
+        context.lineWidth = 3;
+        context.stroke();
+      }
+    }
     for (const crater of state.craters)
       circle(crater.x, crater.z, crater.scale * 1.3, '#6c8290', '#758c99');
     for (const rock of state.rocks) circle(rock.x, rock.z, rock.scale, P.ink);
@@ -121,7 +150,12 @@ export function create2DRenderer(host) {
     circle(
       state.player.x,
       state.player.z - playerHeight * 0.7,
-      0.72,
+      0.72 *
+        (reducedMotion
+          ? 1
+          : visualTime < landUntil
+            ? 1.12
+            : 1 + Math.min(0.08, state.player.y * 0.05)),
       P.white,
       P.amber,
     );
@@ -191,7 +225,23 @@ export function create2DRenderer(host) {
   return {
     canvas,
     render,
-    effects() {},
+    effects(events) {
+      for (const event of events) {
+        if (event.kind === 'storm') waveStarted = visualTime;
+        if (event.kind === 'land') {
+          landUntil = visualTime + 0.18;
+          dust.splice(0, Math.max(0, dust.length - 24));
+          for (let i = 0; i < 6; i++)
+            dust.push({
+              at: visualTime,
+              x: event.x,
+              z: event.z,
+              dx: Math.cos((i * Math.PI) / 3),
+              dz: Math.sin((i * Math.PI) / 3),
+            });
+        }
+      }
+    },
     point(clientX, clientY) {
       const rect = canvas.getBoundingClientRect();
       return {

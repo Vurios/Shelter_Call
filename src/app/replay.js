@@ -1,6 +1,7 @@
 import { createRng } from '../core/rng.js';
 import { CREW, DIFFICULTIES } from '../core/config.js';
 import { windows } from '../core/data.js';
+import { t } from '../i18n/index.js';
 
 export const ACHIEVEMENTS = [
   'Outguessed the Model',
@@ -61,6 +62,7 @@ export function encodeSeed(setup) {
     setup.windowId,
     setup.difficulty,
     setup.crewIds ?? setup.crew.map((crew) => crew.id),
+    setup.windowDraw ?? setup.consumeWindowDraw ?? false,
   ]);
   const encoded = btoa(String.fromCharCode(...new TextEncoder().encode(text)))
     .replaceAll('+', '-')
@@ -82,13 +84,21 @@ export function decodeSeed(code) {
       ),
     );
     if (checksum(text) !== check) throw new Error();
-    const [version, seed, windowId, difficulty, crewIds] = JSON.parse(text);
+    const [
+      version,
+      seed,
+      windowId,
+      difficulty,
+      crewIds,
+      consumeWindowDraw = false,
+    ] = JSON.parse(text);
     if (
       version !== 1 ||
       typeof seed !== 'string' ||
       !seed.length ||
       seed.length > 64 ||
       !windows.includes(windowId) ||
+      typeof consumeWindowDraw !== 'boolean' ||
       !Object.hasOwn(DIFFICULTIES, difficulty) ||
       !Array.isArray(crewIds) ||
       crewIds.length !== 4 ||
@@ -96,7 +106,14 @@ export function decodeSeed(code) {
       crewIds.some((id) => !CREW.some((crew) => crew.id === id))
     )
       throw new Error();
-    return { seed, windowId, difficulty, crewIds, mode: 'normal' };
+    return {
+      seed,
+      windowId,
+      difficulty,
+      crewIds,
+      consumeWindowDraw,
+      mode: 'normal',
+    };
   } catch {
     throw new Error('Invalid seed code.');
   }
@@ -118,5 +135,5 @@ export function shareResult(reveal, setup) {
   const crewGrid = Array.from({ length: 4 }, (_, index) =>
     index < saved ? '🟩' : '🟨',
   ).join('');
-  return `SHELTER CALL${setup.dailyDate ? ` / ${setup.dailyDate} UTC` : ''}\n${crewGrid}\n${reveal.ending} / ${missionScore(reveal)} GAME points\n${code ?? 'LIVE source snapshot'}\nhttps://shelter-call.pages.dev/`;
+  return `SHELTER CALL${setup.dailyDate ? ` / ${setup.dailyDate} UTC` : ''}\n${crewGrid}\n${t(reveal.ending)} / ${missionScore(reveal)} ${t('GAME points')}\n${code ?? t('LIVE source snapshot')}\nhttps://shelter-call.pages.dev/`;
 }

@@ -222,6 +222,7 @@ export async function create3DRenderer(host, state) {
   ];
   const shadowGeometry = new THREE.CircleGeometry(0.52, 20);
   for (const a of actors) {
+    a.baseScale = a.object.scale.clone();
     const shadow = new THREE.Mesh(
       shadowGeometry,
       new THREE.MeshBasicMaterial({
@@ -298,6 +299,19 @@ export async function create3DRenderer(host, state) {
     }),
   );
   scene.add(storm);
+  const wave = new THREE.Mesh(
+    new THREE.RingGeometry(1, 1.08, 64),
+    new THREE.MeshBasicMaterial({
+      color: P.blue,
+      transparent: true,
+      opacity: 0.6,
+      side: THREE.DoubleSide,
+    }),
+  );
+  wave.rotation.x = -Math.PI / 2;
+  wave.position.y = 0.04;
+  scene.add(wave);
+  let waveStarted = -Infinity;
   storm.visible = false;
   function resize() {
     width = host.clientWidth;
@@ -349,6 +363,16 @@ export async function create3DRenderer(host, state) {
       a.shadow.visible = a.object.visible;
       a.object.position.set(b.x, reducedMotion ? b.y * 0.15 : b.y, b.z);
       a.object.rotation.y = b.heading;
+      const squash = reducedMotion
+        ? 0
+        : a.landUntil > visualTime
+          ? -0.08
+          : Math.min(0.08, (b.y ?? 0) * 0.05);
+      a.object.scale.set(
+        a.baseScale.x * (1 - squash),
+        a.baseScale.y * (1 + squash),
+        a.baseScale.z * (1 - squash),
+      );
       a.shadow.position.set(b.x, 0.012, b.z);
       a.shadow.scale.setScalar(1 + b.y * 0.45);
       a.shadow.material.opacity = 0.35 / (1 + b.y);
@@ -415,10 +439,19 @@ export async function create3DRenderer(host, state) {
     storm.visible =
       s.phase === 'finished' && s.result.timeLeft === 0 && !reducedMotion;
     storm.rotation.y = visualTime * 0.06;
+    const waveAge = visualTime - waveStarted;
+    wave.visible = !reducedMotion && waveAge >= 0 && waveAge < 1.6;
+    wave.scale.setScalar(1 + Math.max(0, Math.min(waveAge, 1.6)) * 18);
+    wave.material.opacity = Math.max(0, 0.6 - waveAge * 0.35);
     hatch.rotation.y = 0;
     renderer.render(scene, camera);
   }
   function effects(events) {
+    for (const event of events) {
+      if (event.kind === 'storm') waveStarted = visualTime;
+      if (event.kind === 'land')
+        actors.find((actor) => actor.player).landUntil = visualTime + 0.18;
+    }
     for (const event of events)
       if (event.kind === 'land')
         for (let i = 0; i < 8; i++) {

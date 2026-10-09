@@ -2,6 +2,8 @@ import { windowData, stats, HOUR } from './data.js';
 import { has } from './rules.js';
 export function forecasts(state) {
   if (!has(state, 'radio')) return [];
+  const error = (state.sourceData?.stats ?? stats).cmeErrorHours;
+  const hasBand = Number.isFinite(error.p25) && Number.isFinite(error.p75);
   const mara = state.crew.some(
     (c) => c.trait === 'Comms Officer' && c.status !== 'medevac',
   );
@@ -15,12 +17,10 @@ export function forecasts(state) {
       issueHour: mara ? (Date.parse(f.issued) - state.now) / HOUR : null,
       arrivalInHours: (Date.parse(f.predicted) - state.now) / HOUR,
       bandHours:
-        state.difficulty === 'Flight Director'
+        state.difficulty === 'Flight Director' || !hasBand
           ? null
-          : [
-              (state.sourceData?.stats ?? stats).cmeErrorHours.p25,
-              (state.sourceData?.stats ?? stats).cmeErrorHours.p75,
-            ],
+          : [error.p25, error.p75],
+      bandReason: !hasBand ? 'unknown' : 'difficulty',
       kpRange: mara ? f.kpRange : null,
     }));
 }

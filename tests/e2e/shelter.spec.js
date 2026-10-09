@@ -50,6 +50,52 @@ function observe(page) {
   });
   return errors;
 }
+test('classroom votes show received predictions and survive reload without advancing time', async ({
+  page,
+}, testInfo) => {
+  await fixture(page, 'classroom');
+  for (
+    let n = 0;
+    n < 8 && !(await page.locator('.classroom-vote').count());
+    n++
+  ) {
+    await page.locator('[data-action="end"]').click();
+    while (await page.locator('.rush-back').count())
+      await page.locator('[data-action="recall"]').click();
+    if (await page.locator('[data-choice="1"]').count())
+      await page.locator('[data-choice="1"]').click();
+  }
+  await expect(page.locator('.classroom-vote')).toBeVisible();
+  await expect(page.locator('.classroom-vote .forecast-card')).toContainText(
+    'predicted arrival',
+  );
+  const before = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem('shelter-call.mission.v1')),
+  );
+  await page.goto('./');
+  await expect(page.locator('.classroom-vote')).toBeVisible();
+  await page.reload();
+  const after = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem('shelter-call.mission.v1')),
+  );
+  expect(after.run.now).toBe(before.run.now);
+  expect(after.run.cursor).toBe(before.run.cursor);
+  await page.screenshot({
+    path: testInfo.outputPath('classroom-vote.png'),
+    animations: 'disabled',
+  });
+  await page
+    .locator('[data-action="recall"], [data-class-vote="shelter"]')
+    .click();
+  // Further received forecasts can still require their own vote.
+  expect(
+    await page.evaluate(
+      () =>
+        JSON.parse(localStorage.getItem('shelter-call.mission.v1')).journal
+          .classroomSeen.length,
+    ),
+  ).toBeGreaterThan(0);
+});
 test('reload preserves an unanswered REAL warning and continues the same partial shift', async ({
   page,
 }) => {

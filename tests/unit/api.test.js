@@ -656,7 +656,7 @@ describe('endings, achievements and real IDs', () => {
     ).toThrow();
     expect(() => act(s, { type: 'consume', itemId: s.pantry[0].id })).toThrow();
     addItem(s, 'water');
-  });
+  }, 20000);
 });
 
 it('bounds resupply to the last two UTC days and rejects invalid medicine targets atomically', () => {

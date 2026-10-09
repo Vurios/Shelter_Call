@@ -10,7 +10,7 @@
 7. Food and water can be shelter walls, so consuming them costs shielding.
 8. A saved radio relays verified NASA forecasts and warnings.
 9. Reveal compares player choices, forecasts, and actual events.
-10. Prompt 7 completes draft, briefing, practice, saved Shelter Days, all endings, Reveal, collection handoff, settings and English/Filipino menus; prompt 8 awaits approval.
+10. Prompt 8 adds Daily Sun, friend codes, Sun Almanac, achievements, Historic Storms, verified Live Sun, the MODEL sensor, classroom votes and motion-aware feedback; prompt 9 awaits approval.
 
 ===== AUTHORIZATION & RULES (copy verbatim into CLAUDE.md) =====
 AUTONOMY
@@ -92,10 +92,11 @@ CLAUDE.md  CREDITS.md  README.md
 - `src/core` is PURE: no DOM, no Three.js, no Math.random; use the seeded RNG.
 - Core functions consume explicit state and input. No network, storage, timers, or current-clock reads in core.
 - Preserve DESIGN §12.1 API exports. Prompt 1 mutators update and return state; views return detached snapshots.
-- Never mark mock fixture events REAL. Real records must originate in `public/data/episodes.json`.
+- Never mark mock fixture events REAL. Archived records originate in `public/data/episodes.json`; optional Live Sun records must come from the same NASA DONKI source through the verified Python-parity transform and carry an explicit source snapshot.
 - Browser persistence lives in `src/app/storage.js`; versioned mission saves include pending decisions, RNG/cursor and journal wall slots. Keep storage optional and validate before resuming.
 - UI copy lives in `src/i18n/en.json` and `fil.json`; localize engine presentation without changing source IDs, UTC or core state.
 - Prompt 7 difficulty supplies are GAME rules: Cadet gets 25% more food/water pickups plus four food and four water in a shelter reserve; Flight Director gets 25% fewer pickups. Commander tuning stays unchanged.
+- Prompt 8 scores one Daily Sun attempt per UTC date in optional browser storage. Friend codes are practice and preserve the window-selection RNG draw. Live snapshots carry their own verified source data; no global archive replacement. Classroom votes pause forecasts without changing survival rules.
 - Canonical specifications live in `docs/`; root source copies remain for the user's existing IDE tabs.
 - Plan and complete each requested prompt autonomously. The user waived separate plan approval on October 9, 2026. Stop after that prompt and ask before starting the next prompt.
 

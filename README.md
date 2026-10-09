@@ -2,7 +2,7 @@
 
 A lunar-outpost game for ages 10–14: gather crew and supplies, decide when to shelter, then compare your calls with the Sun's history.
 
-**Current stage: prompt 7 complete mission flow.** Choose four of eight crew (automatic on Cadet), skip or read the briefing, practice for 25 seconds, play the real scramble and Shelter Days, then see an illustrated ending and the real dates. Reveal compares your calls, NASA forecasts and observed events, with source IDs, UTC and explicit GAME approximations. Endings, achievements and source records persist locally; Settings switches English/Filipino, text size, motion, sound and map mode. Daily Sun and the full Sun Almanac remain placeholders for prompt 8. Original models, portraits and sounds remain in [the offline art journal](https://shelter-call.pages.dev/?gallery=1).
+**Current stage: prompt 8 replay and feedback.** Play the complete scramble, Shelter Days, Ending and Reveal flow in English or Filipino. Daily Sun gives everyone the same UTC-date seed, window and four-person crew, with one local scored attempt and an emoji share grid. Enter a checked friend code to repeat its setup as practice. Flip source-derived Sun Almanac cards, collect twelve achievements, and unlock Historic Storms with your first win. Live Sun loads verified recent NASA records with a quiet cached/archived fallback. Classroom mode pauses forecasts for a class vote and adds three Reveal questions. Motion-aware feedback and optional phone vibration use the original local art and audio. Original models, portraits and sounds remain in [the offline art journal](https://shelter-call.pages.dev/?gallery=1).
 
 [Play on Cloudflare Pages](https://shelter-call.pages.dev/) · [GitHub repository](https://github.com/Vurios/Shelter_Call)
 
@@ -35,7 +35,7 @@ The simulator assumes every pickup was saved. Its single-item ablations remove o
 
 The eight synchronous engine calls remain in `src/core/api.js`. Save/reload the JSON run state to preserve RNG, timeline cursor and paused decisions. After `resolveShift`, handle a pending GAME event with `chooseEvent` or a REAL interrupt with `recallAll` / `keepWorking`, then continue the same shift. Views hide future actual arrivals, observed forecast outcomes, mission calendar dates, and exact dose without a dosimeter. Known REAL records carry source UTC tooltips; forecast timestamps describe predictions. Dose thresholds use the chosen difficulty and remain hidden without a dosimeter. `buildReveal` requires the ending phase.
 
-`src/core/collections.js` tracks all collection achievements without storage or a clock; a future UI supplies prior progress and a UTC daily date. The final reveal includes prior source context used by the mission, with no reality events after its ending. Almanac completion counts 1,266 reachable IDs from the current 1,289-record archive; 23 late context records remain available for source checks. The application stores the run after every action and shift, including pending decisions. Live missions remain future work.
+`src/core/collections.js` tracks collection achievements without storage or a clock; the browser supplies prior progress and a UTC daily date. The final reveal includes prior source context used by the mission, with no reality events after its ending. Almanac completion counts 1,280 reachable IDs from the current 1,305-source-ID archive (including previously audited MODEL links); late context records remain available for source checks. The application stores the run after every action and shift, including pending decisions. Live missions save their explicit verified source snapshot.
 
 ## Play the scramble
 
@@ -43,7 +43,7 @@ Choose **Play** on the title and a difficulty, draft four crew, then skip or rea
 
 Crew buttons and Find supply set a destination; Hop to hatch brings you home. Close hatch finishes early only while grounded at the hatch. P / Escape pauses, and switching tabs pauses automatically. Use 2D / Use 3D preserves the same run and clock. Missing WebGL opens 2D automatically; sustained frame rates below 25 fps offer that mode. Sound off keeps important text captions.
 
-At zero, unsaved crew are exposed and join the shelter with the engine's labeled GAME dose bump. The hatch report shows saved crew and pantry; choose **Open shelter journal** to continue the same run. Title keeps the current mission available through Continue. Add `?seed=orbit-a` to select a starting seed for development; exact friend-code replay belongs to prompt 8. The `?scramble=1&seed=orbit-a` developer entry still opens the standalone briefing.
+At zero, unsaved crew are exposed and join the shelter with the engine's labeled GAME dose bump. The hatch report shows saved crew and pantry; choose **Open shelter journal** to continue the same run. Title keeps the current mission available through Continue. Add `?seed=orbit-a` to select a starting seed for development; use the friend-code menu for exact setup replay. The `?scramble=1&seed=orbit-a` developer entry still opens the standalone briefing.
 
 The browser suite plays three seeds at both desktop 1280x720 and mobile 360x640, checks actual rescue/deposit and storm results, offline first scene load, renderer switching, keyboard/tap controls and fallback. Isolated Chrome samples measured median 180 fps on desktop and 40.35 fps at 360x640 with fourfold CPU throttling and render ratio capped at 1.5. This uses a desktop GPU; physical Android frame rate remains unverified. Evidence is recorded with screenshots in test-results/performance/.
 
@@ -66,6 +66,18 @@ Commander remains the default and retains its prior supplies. Cadet (age 8+) has
 Settings supports natural Filipino and English, three text sizes, device/explicit reduced motion, optional sound with captions and a 2D preference. Labels, shapes and patterns supplement color. Map movement, carry/drop, crew tasks, wall supplies, decisions and timeline scrubbing have keyboard controls and visible focus. The five illustrated teaching panels use the research already recorded in DESIGN sections 1 and 16.
 
 The acceptance suite covers three different complete seeded missions, shift/decision reloads, first offline visits to Reveal, blocked storage, Filipino, reduced motion and keyboard-only play at 360x640 and 1280x720. Those early-return missions prove flow, not successful survival. A separate genuine `journal-0` Cadet walkthrough rescued all four crew, physically collected 14-15 pickups, saved/reloaded and reached resupply after 17 shifts with a Blind Luck ending at both sizes. It is a concrete winning route, not an overall balance claim. Screenshots and its detailed report are in ignored `playwright-report/prompt7-local/`.
+
+## Replay your Sun
+
+Daily Sun uses the current UTC date and Commander rules. Its crew pool, window, map and resupply RNG are shared. The attempt is reserved before play and resumes from the saved mission; finishing records one score. Scores live in this browser, with cross-tab coordination where Web Locks is supported. Clearing browser storage resets this local record; there is no server leaderboard. Share uses Web Share or the clipboard, with selectable text if either is unavailable. Green squares mean crew returned without needing care; yellow squares mean care was needed. The score is a GAME measure, not a scientific risk score.
+
+A `SC1` code includes the seed, archived window, crew, difficulty and window-selection RNG flag, plus a damage checksum. It repeats the exact setup and future event deck; your choices can change the ending. Codes are practice and cannot earn another daily score. Live source snapshots are too large for short codes; their result grid can still be shared.
+
+The Almanac displays every encountered source ID from Reveal, with type, recorded class/instrument, UTC date, forecast/observed comparison and one field-derived fact. Flips work by keyboard or touch; filters and pagination keep the grid manageable. Rarity is a GAME category based on recorded class/tier. Completion achievements count only reachable archived IDs; extra collected LIVE records remain available separately. Historic Storms comes from the verified showcase and shows dates before play. Win five different historic windows for Historian; win seven consecutive UTC Daily Suns for Sun Streak. Endings shows all twelve conditions.
+
+Live Sun asks the same-origin Cloudflare relay for five DONKI endpoints over the last thirty UTC calendar dates. Its tested JavaScript transform matches the conservative Python joins on committed official raw records. Only complete fourteen-day windows with a linked flare/particle countdown and an issued Earth forecast are playable. The mission preserves a validated source snapshot in its save, labels it LIVE through Reveal and uses its own source-derived rates/error band. A missing measured band stays unknown. Quiet/offline requests use the last verified snapshot or the archived Sun, with one friendly explanation. API responses are never permanently cached by the service worker.
+
+Save the electron early-warning sensor to receive recorded MODEL predictions at their actual source times. These use audited MODEL IDs and lead minutes and never claim to detect particles or guarantee an arrival. The original dosimeter art is shared; the item name and MODEL labels distinguish the sensor. Classroom mode uses the largest text, pauses each newly received forecast for a shelter/work vote, saves the pending vote and asks three discussion questions on Reveal. Both reduced-motion settings disable spatial effects and vibration. Haptics are optional and only available on supporting phones.
 
 ## Art and sound
 
@@ -107,4 +119,4 @@ After the first service-worker cache completes, the full title-to-Reveal flow, m
 - [Art and sound direction](docs/ART_DIRECTION.md)
 - [Credits](CREDITS.md)
 
-Original root Markdown files remain for existing IDE tabs; use the `docs/` copies for future specification edits. Prompts 1?7 were built with OpenAI Codex assistance. No agency insignia or commercial-game assets are used.
+Original root Markdown files remain for existing IDE tabs; use the `docs/` copies for future specification edits. Prompts 1-8 were built with OpenAI Codex assistance. No agency insignia or commercial-game assets are used.

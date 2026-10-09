@@ -260,6 +260,54 @@ export function mountScramble({
       if (event.kind === 'tag') sound(`crew-${event.crewId}`);
       else if (cue) sound(cue);
       if (event.text) say(event.text);
+      if (
+        settings.haptics &&
+        !reducedMotion.matches &&
+        ['pickup', 'tag', 'saveCrew', 'hatch'].includes(event.kind)
+      )
+        navigator.vibrate?.(12);
+      if (event.kind === 'tag') {
+        const bubble = document.createElement('span');
+        bubble.className = 'crew-tag-bubble';
+        bubble.textContent = `✦ ${state.crew.find((crew) => crew.id === event.crewId)?.name ?? ''}`;
+        host.append(bubble);
+        setTimeout(() => bubble.remove(), 1000);
+      }
+      if (event.kind === 'pickup') {
+        const item = state.items.find((item) => item.type === event.type);
+        updateHud();
+        const slot = root.querySelector('.carry-slots');
+        slot.classList.remove('pickup-pop');
+        void slot.offsetWidth;
+        slot.classList.add('pickup-pop');
+        if (item && !reducedMotion.matches) {
+          const map = host.getBoundingClientRect(),
+            target =
+              slot
+                .querySelector(
+                  `[data-drop="${state.carried.findLast((id) => state.items.find((row) => row.id === id)?.type === event.type)}"]`,
+                )
+                ?.getBoundingClientRect() ?? slot.getBoundingClientRect();
+          const image = document.createElement('img');
+          image.className = 'pickup-flight';
+          image.src = `/assets/icons/${itemIcon(item.type)}.svg`;
+          image.alt = '';
+          const x = map.left + map.width / 2 - 16,
+            y = map.top + map.height / 2 - 16;
+          image.style.left = `${x}px`;
+          image.style.top = `${y}px`;
+          image.style.setProperty(
+            '--pickup-x',
+            `${target.left + target.width / 2 - 16 - x}px`,
+          );
+          image.style.setProperty(
+            '--pickup-y',
+            `${target.top + target.height / 2 - 16 - y}px`,
+          );
+          root.append(image);
+          setTimeout(() => image.remove(), 700);
+        }
+      }
       if (event.kind === 'deposit' || event.kind === 'saveCrew') {
         const pop = document.createElement('span');
         pop.className = 'deposit-pop';
@@ -313,6 +361,7 @@ export function mountScramble({
         handleEvents();
         if (state.phase === 'finished') {
           root.dataset.phase = 'finished';
+          root.classList.toggle('hatch-slam', state.result.timeLeft > 0);
           audio.stopAll();
           sound(state.result.timeLeft ? 'hatch' : 'storm');
           root.classList.toggle('storm-arrived', state.result.timeLeft === 0);
@@ -561,6 +610,13 @@ export function mountScramble({
     root.dataset.corePhase = run.phase;
     root.dataset.timeLeft = state.result.timeLeft.toFixed(2);
     root.querySelector('h1').tabIndex = -1;
+    if (run.mode === 'live' || run.liveStatus) {
+      const badge = document.createElement('p');
+      badge.className = 'mission-source';
+      badge.textContent =
+        run.mode === 'live' ? 'LIVE / NASA DONKI' : t('ARCHIVE FALLBACK');
+      root.querySelector('h1').after(badge);
+    }
     root.querySelector('h1').focus();
     if (run.rules.reserve) {
       const reserve = document.createElement('p');

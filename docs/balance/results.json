@@ -65,21 +65,27 @@
       "tolerance": 1.5,
       "goal": 12,
       "grace": 3,
-      "timer": 1.5
+      "timer": 1.5,
+      "supplies": 1.25,
+      "reserve": 4
     },
     "Commander": {
       "days": 12,
       "tolerance": 1,
       "goal": 18,
       "grace": 2,
-      "timer": 1
+      "timer": 1,
+      "supplies": 1,
+      "reserve": 0
     },
     "Flight Director": {
       "days": 14,
       "tolerance": 0.85,
       "goal": 24,
       "grace": 2,
-      "timer": 1
+      "timer": 1,
+      "supplies": 0.75,
+      "reserve": 0
     }
   },
   "itemDefinitions": {
@@ -136,6 +142,11 @@
     "bolt": {
       "name": "BOLT robot",
       "slots": 2,
+      "mass": 1
+    },
+    "electron": {
+      "name": "Electron early-warning sensor",
+      "slots": 1,
       "mass": 1
     }
   },
@@ -282,20 +293,20 @@
       },
       "Random": {
         "runs": 5000,
-        "winRate": 0.7372,
-        "medevacRate": 0.2628,
-        "scienceLegendRate": 0.3688,
-        "score": 215.66681332209026,
-        "science": 54.079861111111114,
-        "dose": 150.8280745442708,
+        "winRate": 0.7374,
+        "medevacRate": 0.2626,
+        "scienceLegendRate": 0.3652,
+        "score": 215.66217458145022,
+        "science": 54.078125,
+        "dose": 151.2886478678385,
         "shifts": 17,
         "scramble": 90,
         "endings": {
           "Close Call": 528,
-          "Early Ride Home": 1314,
-          "Forecast Whisperer": 176,
-          "Mission Complete": 1138,
-          "Science Legend": 1844
+          "Early Ride Home": 1313,
+          "Forecast Whisperer": 181,
+          "Mission Complete": 1152,
+          "Science Legend": 1826
         }
       }
     },
@@ -387,124 +398,121 @@
       },
       "Random": {
         "runs": 5000,
-        "winRate": 0.4978,
-        "medevacRate": 0.5022,
-        "scienceLegendRate": 0.2162,
-        "score": 178.67601982866876,
-        "science": 48.76215277777777,
-        "dose": 152.87099670410157,
+        "winRate": 0.496,
+        "medevacRate": 0.504,
+        "scienceLegendRate": 0.2172,
+        "score": 178.50841425039332,
+        "science": 48.80208333333333,
+        "dose": 153.07532118055553,
         "shifts": 20,
         "scramble": 60,
         "endings": {
-          "Close Call": 63,
-          "Early Ride Home": 2511,
-          "Forecast Whisperer": 202,
-          "Mission Complete": 1143,
-          "Science Legend": 1081
+          "Close Call": 61,
+          "Early Ride Home": 2520,
+          "Forecast Whisperer": 203,
+          "Mission Complete": 1130,
+          "Science Legend": 1086
         }
       }
     },
     "Flight Director": {
       "AlwaysShelter": {
         "runs": 5000,
-        "winRate": 1,
-        "medevacRate": 0,
+        "winRate": 0,
+        "medevacRate": 1,
         "scienceLegendRate": 0,
-        "score": 190.71123353698982,
+        "score": 39.99746514178478,
         "science": 0,
-        "dose": 44.656898656853514,
-        "shifts": 26,
+        "dose": 52.80855048022721,
+        "shifts": 23,
         "scramble": 60,
         "endings": {
-          "Kamote Kingdom": 5000
+          "Early Ride Home": 5000
         }
       },
       "NeverShelter": {
         "runs": 5000,
-        "winRate": 0.0968,
-        "medevacRate": 0.9032,
-        "scienceLegendRate": 0.0238,
-        "score": 131.86524595616362,
+        "winRate": 0.0666,
+        "medevacRate": 0.9334,
+        "scienceLegendRate": 0.0164,
+        "score": 127.38034485850726,
         "science": 117.17013888888887,
         "dose": 155.6416666666667,
         "shifts": 6,
         "scramble": 60,
         "endings": {
-          "Early Ride Home": 4516,
-          "Forecast Whisperer": 145,
-          "Mission Complete": 220,
-          "Science Legend": 119
+          "Early Ride Home": 4667,
+          "Forecast Whisperer": 97,
+          "Mission Complete": 154,
+          "Science Legend": 82
         }
       },
       "TrustForecast": {
         "runs": 5000,
-        "winRate": 0.3474,
-        "medevacRate": 0.6526,
-        "scienceLegendRate": 0.0682,
-        "score": 173.03847375305705,
+        "winRate": 0.0854,
+        "medevacRate": 0.9146,
+        "scienceLegendRate": 0.0364,
+        "score": 131.91874771416218,
         "science": 129.99305555555554,
-        "dose": 142.2075,
+        "dose": 142.19375,
         "shifts": 15,
         "scramble": 60,
         "endings": {
-          "Early Ride Home": 3263,
-          "Forecast Whisperer": 350,
-          "Mission Complete": 1046,
-          "Science Legend": 341
+          "Early Ride Home": 4505,
+          "Forecast Whisperer": 42,
+          "Mission Complete": 203,
+          "Science Legend": 182,
+          "Snack Attack": 68
         }
       },
       "Cautious": {
         "runs": 5000,
-        "winRate": 0.9862,
-        "medevacRate": 0.0138,
-        "scienceLegendRate": 0.5126,
-        "score": 270.35300155487244,
-        "science": 57.22222222222222,
-        "dose": 65.57396240234375,
-        "shifts": 26,
+        "winRate": 0.034,
+        "medevacRate": 0.966,
+        "scienceLegendRate": 0.0256,
+        "score": 120.48179453378172,
+        "science": 55.38541666666666,
+        "dose": 67.05260011898554,
+        "shifts": 23,
         "scramble": 60,
         "endings": {
-          "Close Call": 1153,
-          "Early Ride Home": 69,
-          "Forecast Whisperer": 295,
-          "Kamote Kingdom": 138,
-          "Mission Complete": 782,
-          "Science Legend": 2563
+          "Early Ride Home": 4825,
+          "Forecast Whisperer": 42,
+          "Science Legend": 128,
+          "Snack Attack": 5
         }
       },
       "Greedy": {
         "runs": 5000,
-        "winRate": 0.0968,
-        "medevacRate": 0.9032,
-        "scienceLegendRate": 0.0238,
-        "score": 131.86524595616362,
+        "winRate": 0,
+        "medevacRate": 1,
+        "scienceLegendRate": 0,
+        "score": 117.52284010867018,
         "science": 117.17013888888887,
         "dose": 155.6416666666667,
         "shifts": 6,
         "scramble": 60,
         "endings": {
-          "Early Ride Home": 4516,
-          "Forecast Whisperer": 145,
-          "Mission Complete": 220,
-          "Science Legend": 119
+          "Early Ride Home": 5000
         }
       },
       "Random": {
         "runs": 5000,
-        "winRate": 0.383,
-        "medevacRate": 0.617,
-        "scienceLegendRate": 0.1762,
-        "score": 159.0238509046527,
-        "science": 43.44270833333334,
-        "dose": 141.63611111111112,
+        "winRate": 0.1554,
+        "medevacRate": 0.8446,
+        "scienceLegendRate": 0.08,
+        "score": 122.11158701119548,
+        "science": 40.78645833333333,
+        "dose": 141.53034722222222,
         "shifts": 12,
         "scramble": 60,
         "endings": {
-          "Close Call": 26,
-          "Early Ride Home": 3085,
-          "Forecast Whisperer": 198,
-          "Mission Complete": 810,
-          "Science Legend": 881
+          "Close Call": 2,
+          "Early Ride Home": 4208,
+          "Forecast Whisperer": 64,
+          "Mission Complete": 311,
+          "Science Legend": 400,
+          "Snack Attack": 15
         }
       }
     }
@@ -515,7 +523,7 @@
       "winRate": 0.7426,
       "medevacRate": 0.2574,
       "scienceLegendRate": 0,
-      "score": 141.37630486076492,
+      "score": 141.37717911692314,
       "science": 0,
       "dose": 28.43007304359604,
       "shifts": 22,
@@ -547,7 +555,7 @@
       "winRate": 0.7156,
       "medevacRate": 0.2844,
       "scienceLegendRate": 0.393,
-      "score": 218.1325611006821,
+      "score": 218.14114533937288,
       "science": 55.59027777777778,
       "dose": 80.18222638531786,
       "shifts": 22,
@@ -565,7 +573,7 @@
       "winRate": 0.7568,
       "medevacRate": 0.2432,
       "scienceLegendRate": 0.43,
-      "score": 199.5536619572593,
+      "score": 199.56089706996767,
       "science": 31.579166666666666,
       "dose": 75.4329927190515,
       "shifts": 22,
@@ -598,21 +606,21 @@
     },
     "Random": {
       "runs": 5000,
-      "winRate": 0.655,
-      "medevacRate": 0.345,
-      "scienceLegendRate": 0.3536,
-      "score": 178.3650071981613,
-      "science": 24.796527777777776,
-      "dose": 92.41696922011559,
+      "winRate": 0.6538,
+      "medevacRate": 0.3462,
+      "scienceLegendRate": 0.3506,
+      "score": 178.0480620166772,
+      "science": 24.802083333333336,
+      "dose": 92.04099416533643,
       "shifts": 21,
       "scramble": 90,
       "endings": {
-        "Close Call": 261,
-        "Early Ride Home": 1724,
-        "Forecast Whisperer": 274,
-        "Mission Complete": 972,
-        "Science Legend": 1768,
-        "Snack Attack": 1
+        "Close Call": 263,
+        "Early Ride Home": 1729,
+        "Forecast Whisperer": 275,
+        "Mission Complete": 978,
+        "Science Legend": 1753,
+        "Snack Attack": 2
       }
     }
   },
@@ -832,26 +840,46 @@
         "Science Legend": 2498
       },
       "benefitPoints": 0
+    },
+    "electron": {
+      "runs": 5000,
+      "winRate": 0.9862,
+      "medevacRate": 0.0138,
+      "scienceLegendRate": 0.5132,
+      "score": 262.8603321324197,
+      "science": 55.385416666666664,
+      "dose": 78.84322428385417,
+      "shifts": 22,
+      "scramble": 60,
+      "endings": {
+        "Close Call": 1036,
+        "Early Ride Home": 69,
+        "Forecast Whisperer": 220,
+        "Kamote Kingdom": 255,
+        "Mission Complete": 854,
+        "Science Legend": 2566
+      },
+      "benefitPoints": 0
     }
   },
   "variety": {
     "runs": 1000,
-    "winRate": 0.507,
-    "medevacRate": 0.493,
-    "scienceLegendRate": 0.142,
-    "score": 176.43018657979295,
-    "science": 90.08680555555554,
-    "dose": 150.5607332356771,
+    "winRate": 0.51,
+    "medevacRate": 0.49,
+    "scienceLegendRate": 0.139,
+    "score": 176.63914494561058,
+    "science": 90.72916666666666,
+    "dose": 148.9277986653646,
     "shifts": 20,
     "scramble": 60,
     "endings": {
-      "Blind Luck": 33,
+      "Blind Luck": 34,
       "Close Call": 27,
-      "Early Ride Home": 493,
-      "Forecast Whisperer": 20,
+      "Early Ride Home": 490,
+      "Forecast Whisperer": 17,
       "Kamote Kingdom": 163,
-      "Mission Complete": 95,
-      "Science Legend": 142,
+      "Mission Complete": 103,
+      "Science Legend": 139,
       "Skeleton Crew": 27
     }
   },

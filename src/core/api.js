@@ -387,7 +387,8 @@ export function resolveShift(state) {
           (c) => c.status !== 'medevac' && c.assignment !== 'shelter',
         )) ||
       (event.kind === 'particles' && has(state, 'dosimeter')) ||
-      (event.kind === 'model' && has(state, 'electron'))
+      (event.kind === 'model' && has(state, 'electron')) ||
+      (event.kind === 'forecast' && has(state, 'radio') && state.classroom)
     ) {
       state.interrupt = {
         source: 'REAL',
@@ -405,9 +406,11 @@ export function resolveShift(state) {
         text:
           event.kind === 'flare'
             ? `Flare ${event.row.class}. Recall crew or keep working?`
-            : event.kind === 'model'
-              ? 'MODEL early warning. Recall crew or keep working?'
-              : 'Dosimeter alarm. Recall crew or keep working?',
+            : event.kind === 'forecast'
+              ? 'CLASS VOTE: shelter or keep working?'
+              : event.kind === 'model'
+                ? 'MODEL early warning. Recall crew or keep working?'
+                : 'Dosimeter alarm. Recall crew or keep working?',
       };
       return copy(state.log.slice(firstLog));
     }

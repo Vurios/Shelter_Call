@@ -36,6 +36,8 @@ it('checked codes reproduce the map, window, crew and difficulty and reject edit
   expect(() => decodeSeed(code + 'x')).toThrow('Invalid seed code.');
   expect(() => decodeSeed('SC1.garbage.1')).toThrow();
   expect(encodeSeed({ ...setup, sourceData: {} })).toBeNull();
+  const randomWindow = createRun({ seed: 'coded-normal-window' });
+  expect(createRun(decodeSeed(encodeSeed(randomWindow)))).toEqual(randomWindow);
 });
 it('shares the fixed GAME score and readable result grid with an exact seed code', () => {
   const setup = dailySetup('2026-10-09');

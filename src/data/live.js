@@ -395,6 +395,13 @@ export function validLiveArchive(data) {
       data.sepEvents.some(
         (row) =>
           time(row.onset) == null ||
+          !Array.isArray(row.instruments) ||
+          row.instruments.some((value) => typeof value !== 'string') ||
+          ((row.modelId != null || row.modelTime != null) &&
+            (typeof row.modelId !== 'string' ||
+              time(row.modelTime) == null ||
+              !(row.modelLeadMin > 0) ||
+              time(row.modelTime) >= time(row.onset))) ||
           ![1, 2, 3].includes(row.tier) ||
           (!Number.isFinite(row.countdownMin) && row.countdownMin !== null) ||
           (row.modelLeadMin !== null &&
@@ -448,7 +455,11 @@ export async function loadLive({
       names.map(async (name) => {
         const response = await fetcher(
           `/api/donki/${name}?startDate=${startDate}&endDate=${endDate}`,
-          { signal: signal ?? AbortSignal.timeout(20000) },
+          {
+            signal: signal
+              ? AbortSignal.any([signal, AbortSignal.timeout(20000)])
+              : AbortSignal.timeout(20000),
+          },
         );
         if (!response.ok) throw new Error('DONKI unavailable.');
         return [name, await response.json()];
@@ -456,6 +467,9 @@ export async function loadLive({
     );
     const data = transformLive(Object.fromEntries(rows), { endDate, asOf });
     data.meta.range = [startDate, endDate];
+    data.windows = data.windows.filter(
+      (window) => time(window.start) >= time(`${startDate}T00:00Z`),
+    );
     if (validLiveArchive(data)) {
       cache?.write(data);
       return { data, status: 'fresh' };

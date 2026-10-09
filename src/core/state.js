@@ -38,6 +38,10 @@ export function create(options) {
     difficulty,
     mode,
     sensorVersion: 1,
+    classroom: options.classroom === true,
+    windowDraw:
+      options.consumeWindowDraw ??
+      (options.windowId == null && mode !== 'judge'),
     rng: seedValue(seed),
     config: {
       ...CONFIG,
@@ -53,6 +57,7 @@ export function create(options) {
   }
   const available =
     state.sourceData?.windows.map((window) => window.id) ?? windows;
+  if (options.windowId && state.windowDraw) draw(state);
   state.windowId =
     options.windowId ??
     (mode === 'judge'

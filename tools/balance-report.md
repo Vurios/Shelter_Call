@@ -15,7 +15,7 @@ Fixed GAME score: 100 for win + 25 per crew home + min(100, science*2) - total G
 | TrustForecast | 88.6% | 252.5 | 171.5 | 143.2 | 18 | Close Call: 682, Early Ride Home: 569, Forecast Whisperer: 454, Mission Complete: 1571, Science Legend: 1724 |
 | Cautious | 100.0% | 261.8 | 55.4 | 93.9 | 18 | Close Call: 1184, Forecast Whisperer: 141, Kamote Kingdom: 308, Science Legend: 3367 |
 | Greedy | 33.6% | 147.9 | 191.8 | 273.8 | 10 | Early Ride Home: 3318, Forecast Whisperer: 337, Mission Complete: 973, Science Legend: 372 |
-| Random | 73.7% | 215.7 | 54.1 | 150.8 | 17 | Close Call: 528, Early Ride Home: 1314, Forecast Whisperer: 176, Mission Complete: 1138, Science Legend: 1844 |
+| Random | 73.7% | 215.7 | 54.1 | 151.3 | 17 | Close Call: 528, Early Ride Home: 1313, Forecast Whisperer: 181, Mission Complete: 1152, Science Legend: 1826 |
 
 ## Commander
 
@@ -26,18 +26,18 @@ Fixed GAME score: 100 for win + 25 per crew home + min(100, science*2) - total G
 | TrustForecast | 57.0% | 208.4 | 152.3 | 139.3 | 21 | Close Call: 188, Early Ride Home: 2149, Forecast Whisperer: 381, Mission Complete: 1415, Science Legend: 867 |
 | Cautious | 98.6% | 262.9 | 55.4 | 78.8 | 22 | Close Call: 1036, Early Ride Home: 69, Forecast Whisperer: 220, Kamote Kingdom: 255, Mission Complete: 854, Science Legend: 2566 |
 | Greedy | 9.7% | 126.0 | 130.8 | 185.8 | 7 | Early Ride Home: 4516, Forecast Whisperer: 145, Mission Complete: 122, Science Legend: 217 |
-| Random | 49.8% | 178.7 | 48.8 | 152.9 | 20 | Close Call: 63, Early Ride Home: 2511, Forecast Whisperer: 202, Mission Complete: 1143, Science Legend: 1081 |
+| Random | 49.6% | 178.5 | 48.8 | 153.1 | 20 | Close Call: 61, Early Ride Home: 2520, Forecast Whisperer: 203, Mission Complete: 1130, Science Legend: 1086 |
 
 ## Flight Director
 
 | Bot | Win | Mean score | Median science | Median dose | Median shifts | Endings |
 |---|---:|---:|---:|---:|---:|---|
-| AlwaysShelter | 100.0% | 190.7 | 0.0 | 44.7 | 26 | Kamote Kingdom: 5000 |
-| NeverShelter | 9.7% | 131.9 | 117.2 | 155.6 | 6 | Early Ride Home: 4516, Forecast Whisperer: 145, Mission Complete: 220, Science Legend: 119 |
-| TrustForecast | 34.7% | 173.0 | 130.0 | 142.2 | 15 | Early Ride Home: 3263, Forecast Whisperer: 350, Mission Complete: 1046, Science Legend: 341 |
-| Cautious | 98.6% | 270.4 | 57.2 | 65.6 | 26 | Close Call: 1153, Early Ride Home: 69, Forecast Whisperer: 295, Kamote Kingdom: 138, Mission Complete: 782, Science Legend: 2563 |
-| Greedy | 9.7% | 131.9 | 117.2 | 155.6 | 6 | Early Ride Home: 4516, Forecast Whisperer: 145, Mission Complete: 220, Science Legend: 119 |
-| Random | 38.3% | 159.0 | 43.4 | 141.6 | 12 | Close Call: 26, Early Ride Home: 3085, Forecast Whisperer: 198, Mission Complete: 810, Science Legend: 881 |
+| AlwaysShelter | 0.0% | 40.0 | 0.0 | 52.8 | 23 | Early Ride Home: 5000 |
+| NeverShelter | 6.7% | 127.4 | 117.2 | 155.6 | 6 | Early Ride Home: 4667, Forecast Whisperer: 97, Mission Complete: 154, Science Legend: 82 |
+| TrustForecast | 8.5% | 131.9 | 130.0 | 142.2 | 15 | Early Ride Home: 4505, Forecast Whisperer: 42, Mission Complete: 203, Science Legend: 182, Snack Attack: 68 |
+| Cautious | 3.4% | 120.5 | 55.4 | 67.1 | 23 | Early Ride Home: 4825, Forecast Whisperer: 42, Science Legend: 128, Snack Attack: 5 |
+| Greedy | 0.0% | 117.5 | 117.2 | 155.6 | 6 | Early Ride Home: 5000 |
+| Random | 15.5% | 122.1 | 40.8 | 141.5 | 12 | Close Call: 2, Early Ride Home: 4208, Forecast Whisperer: 64, Mission Complete: 311, Science Legend: 400, Snack Attack: 15 |
 
 ## Starting GAME configuration (Commander)
 
@@ -48,7 +48,7 @@ Fixed GAME score: 100 for win + 25 per crew home + min(100, science*2) - total G
 | TrustForecast | 71.6% | 218.1 | 55.6 | 80.2 | 22 | Close Call: 376, Early Ride Home: 1422, Forecast Whisperer: 439, Mission Complete: 798, Science Legend: 1965 |
 | Cautious | 75.7% | 199.6 | 31.6 | 75.4 | 22 | Close Call: 912, Early Ride Home: 1216, Forecast Whisperer: 183, Kamote Kingdom: 54, Mission Complete: 485, Science Legend: 2150 |
 | Greedy | 18.9% | 139.5 | 78.4 | 173.1 | 10 | Early Ride Home: 4054, Forecast Whisperer: 144, Mission Complete: 572, Science Legend: 230 |
-| Random | 65.5% | 178.4 | 24.8 | 92.4 | 21 | Close Call: 261, Early Ride Home: 1724, Forecast Whisperer: 274, Mission Complete: 972, Science Legend: 1768, Snack Attack: 1 |
+| Random | 65.4% | 178.0 | 24.8 | 92.0 | 21 | Close Call: 263, Early Ride Home: 1729, Forecast Whisperer: 275, Mission Complete: 978, Science Legend: 1753, Snack Attack: 2 |
 
 ## Paired item ablations
 
@@ -65,6 +65,7 @@ Fixed GAME score: 100 for win + 25 per crew home + min(100, science*2) - total G
 | guitar | 98.6% | 0.0 |
 | game | 98.6% | 0.0 |
 | bolt | 98.6% | 0.0 |
+| electron | 98.6% | 0.0 |
 
 ## Acceptance
 
@@ -77,7 +78,7 @@ Fixed GAME score: 100 for win + 25 per crew home + min(100, science*2) - total G
 | Distinct endings / 1,000 variety runs | >=6 | 8 | PASS |
 | Commander median shifts | 20-28 | 21 | PASS |
 | Commander median scramble seconds | 30-60 | 60 | PASS |
-| Difficulty survival (Cadet / Commander / Flight Director) | Cadet easier; Director harder | 88.6% / 57.0% / 34.7% | PASS |
+| Difficulty survival (Cadet / Commander / Flight Director) | Cadet easier; Director harder | 88.6% / 57.0% / 8.5% | PASS |
 | Largest single-item win benefit | <=25 percentage points | 0.9 points | PASS |
 | No-radio good-play survival | >=5% | 97.7% | PASS |
 | Radio strongest item benefit | At least every other type | 0.9 points | PASS |

@@ -56,6 +56,8 @@ export function validMission(value) {
     if (!run || !finiteTree(run) || !Array.isArray(run.crew)) return false;
     // Existing prompt 7 checkpoints keep their original timeline/cursor order.
     if (run.sensorVersion === undefined) run.sensorVersion = 0;
+    if (run.classroom === undefined) run.classroom = false;
+    if (run.windowDraw === undefined) run.windowDraw = run.mode !== 'judge';
     if (![0, 1].includes(run.sensorVersion)) return false;
     const template = createRun({
       seed: run.seed,
@@ -64,6 +66,8 @@ export function validMission(value) {
       windowId: run.windowId,
       crewIds: run.crew.map((c) => c.id),
       sourceData: run.sourceData,
+      classroom: run.classroom,
+      consumeWindowDraw: run.windowDraw,
     });
     // Explicit window IDs skip the window-selection RNG draw. Check the four
     // legal resupply boundaries, rather than re-drawing a different boundary.
@@ -219,14 +223,14 @@ export function validMission(value) {
 export function createStorage(provider = () => globalThis.localStorage) {
   const memory = new Map();
   let blocked = false;
-  function read(key) {
-    if (memory.has(key)) return structuredClone(memory.get(key));
+  function read(key, fresh = false) {
+    if (!fresh && memory.has(key)) return structuredClone(memory.get(key));
     try {
       const raw = provider().getItem(key);
       return raw ? JSON.parse(raw) : null;
     } catch {
       blocked = true;
-      return null;
+      return memory.has(key) ? structuredClone(memory.get(key)) : null;
     }
   }
   function write(key, value) {
@@ -262,6 +266,8 @@ export function createStorage(provider = () => globalThis.localStorage) {
           : 0.55,
         flat: value.flat === true,
         tutorial: value.tutorial !== false,
+        classroom: value.classroom === true,
+        haptics: value.haptics === true,
       };
     },
     saveSettings: (value) => write(SETTINGS_KEY, value),
@@ -307,7 +313,7 @@ export function createStorage(provider = () => globalThis.localStorage) {
       return result;
     },
     saveProgress: (value) => write(PROGRESS_KEY, value),
-    readExtra: (key) => read(`shelter-call.${key}.v1`),
+    readExtra: (key) => read(`shelter-call.${key}.v1`, true),
     writeExtra: (key, value) => write(`shelter-call.${key}.v1`, value),
     isBlocked: () => blocked,
   };

@@ -14,6 +14,7 @@ const run = createRun({
   seed: 'journal-acceptance',
   mode: 'judge',
   difficulty: scenario === 'director' ? 'Flight Director' : 'Cadet',
+  classroom: scenario === 'classroom',
   ...(['interrupt', 'persist'].includes(scenario)
     ? { windowId: '2011-09-24T20:45:00-WINDOW-001' }
     : {}),
@@ -38,7 +39,8 @@ if (scenario === 'persist')
 const storage = createStorage();
 mountShelter({
   run,
-  ...(scenario === 'persist'
+  settings: { classroom: scenario === 'classroom' },
+  ...(['persist', 'classroom'].includes(scenario)
     ? {
         onSave: (journal) =>
           storage.saveMission(

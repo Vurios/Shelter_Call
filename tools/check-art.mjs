@@ -7,6 +7,7 @@ import { CREW, ITEM_TYPES, TASKS } from '../src/core/config.js';
 import { ENDINGS } from '../src/core/endings.js';
 import { PALETTE } from '../src/art/palette.js';
 import { MODEL_IDS } from '../src/art/models.js';
+import { itemIcon } from '../src/art/items.js';
 
 const manifest = JSON.parse(
   await readFile('public/assets/manifest.json', 'utf8'),
@@ -34,7 +35,7 @@ for (const id of [
   ...[0, 1, 2, 3].map((n) => `tier-${n}`),
   ...CREW.map((crew) => `trait-${crew.id}`),
 ])
-  assert(ids(manifest.icons).has(id), id);
+  assert(ids(manifest.icons).has(itemIcon(id)), id);
 let total = 0;
 for (const file of manifest.files) {
   const bytes = await readFile(`public/${file.path}`);

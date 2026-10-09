@@ -110,6 +110,42 @@ it('plays and saves a live snapshot without registering it globally or changing 
     createRun({ seed: 'bad', mode: 'normal', sourceData: data }),
   ).toThrow();
 });
+it('keeps a missing live error distribution unknown, never a zero-width band', () => {
+  const data = transformLive(raw, { endDate: '2024-05-31' });
+  data.stats.cmeErrorHours = { median: null, p25: null, p75: null };
+  const run = createRun({
+    seed: 'missing-band',
+    mode: 'live',
+    sourceData: data,
+  });
+  const setup = getScrambleSetup(run);
+  applyScrambleResult(run, {
+    crewSaved: setup.crewSpawns.map((c) => c.id),
+    crewExposed: [],
+    itemsSaved: setup.itemSpawns.map((i) => i.id),
+    timeLeft: 0,
+  });
+  run.now = Date.parse(data.cmeForecasts[0].issued);
+  expect(getShiftView(run).forecastCards[0]).toMatchObject({
+    bandHours: null,
+    bandReason: 'unknown',
+  });
+});
+it('rejects corrupt instrument or MODEL cache fields before a mission can use them', () => {
+  const source = transformLive(raw, { endDate: '2024-05-31' });
+  for (const mutation of [
+    (row) => (row.instruments = null),
+    (row) => {
+      row.modelId = 'broken';
+      row.modelTime = 'not-a-date';
+      row.modelLeadMin = 5;
+    },
+  ]) {
+    const data = structuredClone(source);
+    mutation(data.sepEvents[0]);
+    expect(validLiveArchive(data)).toBe(false);
+  }
+});
 it('falls back to a validated cache or the archive for offline/quiet responses', async () => {
   const cached = transformLive(raw, { endDate: '2024-05-31' }),
     cache = { read: () => cached, write: () => {} };

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { CREW, ITEM_TYPES } from '../core/config.js';
 import { PALETTE as P, CREW_STYLE } from './palette.js';
+import { itemModel } from './items.js';
 
 export const STATIONS = [
   'hatch',
@@ -16,9 +17,11 @@ export const MODEL_IDS = [
   'bolt',
   'kamote',
   ...STATIONS.map((station) => `station-${station}`),
-  ...Object.keys(ITEM_TYPES)
-    .filter((id) => id !== 'bolt')
-    .map((id) => `item-${id}`),
+  ...new Set(
+    Object.keys(ITEM_TYPES)
+      .filter((id) => id !== 'bolt')
+      .map(itemModel),
+  ),
   'rock',
   'crater',
 ];
