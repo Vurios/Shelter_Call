@@ -19,21 +19,30 @@
     "test:coverage": "vitest run --coverage",
     "deploy:setup": "node tools/setup-cloudflare.mjs",
     "deploy": "wrangler pages deploy dist --project-name=shelter-call --branch=main",
-    "preview:cloudflare": "wrangler pages dev dist"
+    "preview:cloudflare": "wrangler pages dev dist",
+    "performance": "node tools/performance.mjs",
+    "capture:submission": "node tools/capture-submission.mjs",
+    "record:gameplay": "node tools/record-gameplay.mjs",
+    "android:sync": "npm run build && cap sync android"
   },
   "engines": {
     "node": ">=22.12.0"
   },
   "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/core": "^8.5.3",
     "three": "^0.186.1"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.4.3",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.64.0",
     "@vitest/coverage-v8": "^5.0.3",
     "eslint": "^10.12.0",
     "globals": "^17.13.0",
     "libsodium-wrappers": "^0.8.4",
+    "lighthouse": "^13.5.0",
     "prettier": "^3.9.9",
     "vite": "^8.3.4",
     "vite-plugin-pwa": "^2.0.0",

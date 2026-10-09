@@ -14,6 +14,7 @@ export function mountReveal({
   onUnlock,
   onExit,
   classroom = false,
+  judge = false,
 }) {
   const app = document.querySelector('#app');
   const rows = timelineRows(reveal, crewIds);
@@ -62,6 +63,7 @@ export function mountReveal({
       '',
     )}</section>${endingCard(reveal.ending)}<details class="real-panel"><summary>${t("What's real?")}</summary><h2>${t('REAL · NASA DONKI records')}</h2><p>${t('NASA near-Earth records are used as a timing proxy for the Moon. This is not a radiation safety tool.')}</p><ul>${reveal.timeline.reality.map((row) => `<li><strong>REAL · ${t(row.kind)}</strong> <time>${e(row.utc)} UTC</time><code>${e(row.donkiId)}</code></li>`).join('')}${reveal.timeline.nasaForecast.map((row) => `<li><strong>REAL · ${t('forecast')}</strong><code>${e(row.donkiId)}</code><span>${t('Issued UTC')}: ${e(row.issued)}</span><span>${t('Predicted UTC')}: ${e(row.predicted)}</span><span>${t('Observed UTC')}: ${row.actual ? e(row.actual) : t('No matched arrival in the archive')}</span><small>${t('An arrival after your journal closed is archive context, not an event you experienced.')}</small></li>`).join('')}</ul><h2>${t('GAME · approximations')}</h2><ul>${reveal.approximations.map((line) => `<li>${t(line)}</li>`).join('')}</ul></details><div class="app-actions"><button data-unlock>${t('Open Almanac unlocks')} →</button><button data-exit>${t('Title')}</button></div></main>`;
   const root = app.querySelector('main');
+  if (judge) root.querySelector('.real-panel').open = true;
   if (classroom)
     root.insertAdjacentHTML(
       'beforeend',

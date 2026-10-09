@@ -500,7 +500,7 @@ export function mountScramble({
     setTarget(state, item.x, item.z);
     say(
       usedSlots(state) + item.slots > C.carrySlots
-        ? 'Make room: tap a carried supply to put it down.'
+        ? 'Bag full: hop to hatch to deposit, or tap a carried supply to put it down. Water takes two slots.'
         : `Hopping toward ${item.name}.`,
     );
   });

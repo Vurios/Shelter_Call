@@ -3,6 +3,8 @@ import { t } from './i18n/index.js';
 import './ui/styles/main.css';
 
 const route = new URLSearchParams(location.search);
+if (window.Capacitor?.isNativePlatform?.())
+  void import('./app/native.js').then(({ setupNative }) => setupNative());
 applySettings();
 if (route.get('scramble') === '1') {
   const { mountScramble } = await import('./scenes/scramble/index.js');

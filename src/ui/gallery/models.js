@@ -32,7 +32,7 @@ export async function mountModels(cards, { reducedMotion, status }) {
   });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
   renderer.setClearColor(0, 0);
   renderer.setScissorTest(true);
   document.body.append(canvas);

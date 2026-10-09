@@ -56,7 +56,7 @@ export async function create3DRenderer(host, state) {
   });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
   renderer.setClearColor(P.ink, 1);
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(-16, 16, 16, -16, 0.1, 100);

@@ -781,6 +781,12 @@
       "provenance": "SIL OFL 1.1; see CREDITS.md"
     },
     {
+      "path": "assets/fonts/AtkinsonHyperlegible-Bold.woff2",
+      "bytes": 23776,
+      "sha256": "da8fce41a04f8498fbf79076f92d304b12e70c76f71b143c5dcfb6536c93c075",
+      "provenance": "SIL OFL 1.1; see CREDITS.md"
+    },
+    {
       "path": "assets/fonts/atkinsonhyperlegible-OFL.txt",
       "bytes": 4352,
       "sha256": "f32d22b3908fcad2c86a74000614ec22e6a7f66ea7e867e616026a27aebdc143",
@@ -793,6 +799,12 @@
       "provenance": "SIL OFL 1.1; see CREDITS.md"
     },
     {
+      "path": "assets/fonts/AtkinsonHyperlegible-Regular.woff2",
+      "bytes": 23196,
+      "sha256": "2df4ba17804bc7a36f123127966075d8427bff2df58d0d76820c1130bb1a4150",
+      "provenance": "SIL OFL 1.1; see CREDITS.md"
+    },
+    {
       "path": "assets/fonts/patrickhand-OFL.txt",
       "bytes": 4376,
       "sha256": "377f4f9c19e935228552478eb68cc2ed82910988a60ba60e2ac73b09f32d02d1",
@@ -802,6 +814,12 @@
       "path": "assets/fonts/PatrickHand-Regular.ttf",
       "bytes": 214772,
       "sha256": "0f173b3e6cb6d1af25babf7f0057c5ac4ee11f9992b0469bb817e967ef4ad0fc",
+      "provenance": "SIL OFL 1.1; see CREDITS.md"
+    },
+    {
+      "path": "assets/fonts/PatrickHand-Regular.woff2",
+      "bytes": 62744,
+      "sha256": "3453e54e140302947a240227741393ce80e3a4ae9e317e9172ad258762f4a833",
       "provenance": "SIL OFL 1.1; see CREDITS.md"
     },
     {
@@ -1483,7 +1501,7 @@
       "provenance": "Original project art"
     }
   ],
-  "totalBytes": 952160,
+  "totalBytes": 1061876,
   "counts": {
     "crew": 8,
     "models": 29,

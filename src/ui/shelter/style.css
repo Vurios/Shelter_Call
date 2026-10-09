@@ -549,6 +549,11 @@
   justify-content: space-between;
   border-top: 2px solid #101d2a;
   padding-top: 16px;
+  position: sticky;
+  bottom: 48px;
+  z-index: 3;
+  background: var(--paper);
+  box-shadow: 0 -6px 12px #101d2a0a;
 }
 .shelter-screen .end-shift {
   background: #101d2a;
@@ -592,7 +597,8 @@
   background: #101d2adb;
 }
 .journal-dialog h2 {
-  font-size: 3rem;
+  font-size: clamp(1.5rem, 4vw, 2.3rem);
+  line-height: 1.15;
 }
 .journal-dialog p {
   font-size: 1rem;
@@ -769,7 +775,7 @@
     padding: 22px;
   }
   .journal-dialog h2 {
-    font-size: 2.5rem;
+    font-size: 1.6rem;
   }
 }
 @media (prefers-reduced-motion: reduce) {

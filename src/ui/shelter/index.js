@@ -3,6 +3,7 @@ import { createAudio } from '../../audio/index.js';
 import { localize, phrase, t } from '../../i18n/index.js';
 import { renderJournal, TASK_LABELS, forecastCard } from './view.js';
 import './style.css';
+import { judgeGuide } from '../../app/judge.js';
 
 /** The journal owns presentation, never hidden engine fields or survival rules. */
 export function mountShelter({
@@ -85,6 +86,10 @@ export function mountShelter({
     const dialogScroll = oldDialog?.scrollTop ?? 0;
     syncSlots();
     page.innerHTML = renderJournal(view, selection, slots, logs, sound);
+    if (run.mode === 'judge')
+      page
+        .querySelector('.journal-header')
+        .insertAdjacentHTML('afterend', judgeGuide('shelter'));
     if (run.mode === 'live' || run.liveStatus) {
       const badge = document.createElement('p');
       badge.className = 'mission-source';

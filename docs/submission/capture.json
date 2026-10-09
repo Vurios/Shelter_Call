@@ -1,0 +1,64 @@
+{
+  "base": "http://127.0.0.1:4173",
+  "results": [
+    {
+      "width": 1280,
+      "physical": {
+        "itemsSaved": [
+          "water-41",
+          "radio-141",
+          "water-48",
+          "food-94",
+          "seeds-143",
+          "water-7",
+          "electron-150",
+          "food-95",
+          "food-138",
+          "water-65",
+          "water-32"
+        ],
+        "crewSaved": [
+          "ria",
+          "dom",
+          "aiko",
+          "tunde"
+        ],
+        "crewExposed": [],
+        "timeLeft": 67.56710000000132
+      },
+      "forecasts": 5,
+      "shifts": 8,
+      "errors": []
+    },
+    {
+      "width": 360,
+      "physical": {
+        "itemsSaved": [
+          "water-41",
+          "radio-141",
+          "water-48",
+          "food-96",
+          "seeds-143",
+          "electron-150",
+          "water-7",
+          "food-71",
+          "food-138",
+          "water-65",
+          "food-95",
+          "food-122"
+        ],
+        "crewSaved": [
+          "ria",
+          "dom",
+          "aiko",
+          "tunde"
+        ],
+        "crewExposed": [],
+        "timeLeft": 67.92830000000174
+      },
+      "forecasts": 5,
+      "shifts": 8,
+      "errors": []
+    }
+  ]
+}

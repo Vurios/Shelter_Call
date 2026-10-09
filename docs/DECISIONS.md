@@ -1,5 +1,17 @@
 # Decision log
 
+## 2026-10-09 - Prompt 9 shipping decisions
+
+- User's “proceed” after prompt 8 authorizes prompt 9. Work directly on main, commit/push working steps, use Cloudflare Pages. No further numbered prompt is started.
+- Five physical browser runs identify ten clarity/performance fixes; document all early endings and distinguish machine timing from human pacing in PLAYTEST.md. Human notes are none yet unless supplied.
+- Keep survival configuration unchanged when the complete simulator passes §10.2. Do not tune NASA timestamps, joins or classifications.
+- Judge presentation uses `best_judge` in showcase.json, fixed seed `shelter-call-judge-2024`, Cadet and the ordinary engine/control path. It skips coaching without changing the user's saved tutorial preference. No injected loadout, accelerated clock, revealed future hazard or fabricated success. Reveal opens What's real and cites REPORT's 74/77/124 gates.
+- Preserve all original TTF glyphs and licenses; ship lossless WOFF2 copies with font preloads. Separate lazy Three core/addon chunks with Rolldown's codeSplitting groups. Original compact GLBs need no destructive quality reduction.
+- Installing Lighthouse exposed a known sharp/miniflare/Wrangler advisory. `npm audit fix` updates the compatible lockfile to Wrangler 4.149.0; deployment action uses the same version. Audit reports zero vulnerabilities.
+- The new warning-sensitive offline judge test exposed Three.js 0.186's removed PCFSoftShadowMap mode in the scramble and gallery. Select PCFShadowMap directly, matching Three's previous fallback; keep shadows and visual behavior, remove the runtime warning.
+- Judge screenshots and actual browser gameplay video are submission artifacts; generated images or simulated gameplay footage are unnecessary. No agency branding or external art is introduced.
+- Space Apps guide URL returned 502. Draft all fields visible on a public official project page; exact 2026 form, limits, challenge selection and team identity stay UNVERIFIED until the real team form is available. Do not submit a project externally or message other people.
+
 ## 2026-10-09 - Prompt 8 replay, classroom and feedback complete
 
 - Reuse the application controller and pure core. Daily Sun fixes the UTC-date window, map, four-person crew and Commander rules. Reserve the attempt before play with optional local storage and Web Locks; resume saves and score each date once. There is no server leaderboard. Friend codes carry a checksum and preserve the window-selection RNG draw so map, resupply and event deck match; friend replays are practice. Share uses Web Share, clipboard or selectable text and the existing fixed GAME score. Live snapshots receive a share grid but cannot fit a short friend code.

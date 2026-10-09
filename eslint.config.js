@@ -11,6 +11,7 @@ export default [
       'test-results/**',
       'playwright-report/**',
       '.wrangler/**',
+      'android/**',
     ],
   },
   js.configs.recommended,

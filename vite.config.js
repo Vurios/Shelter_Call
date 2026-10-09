@@ -4,7 +4,28 @@ import { VitePWA } from 'vite-plugin-pwa';
 export default defineConfig({
   // Keep hashed Vite chunks separate from unhashed public art. Workbox must
   // revision art/fonts, and manifest icons must not get conflicting cache keys.
-  build: { assetsDir: 'bundles' },
+  build: {
+    assetsDir: 'bundles',
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              name: 'three-core',
+              test: /three[\\/]build[\\/]three\.core/,
+              priority: 30,
+            },
+            { name: 'three-addons', test: /three[\\/]examples/, priority: 20 },
+            {
+              name: 'three-renderer',
+              test: /node_modules[\\/]three/,
+              priority: 10,
+            },
+          ],
+        },
+      },
+    },
+  },
   plugins: [
     VitePWA({
       registerType: 'autoUpdate',
@@ -38,7 +59,9 @@ export default defineConfig({
       },
       // Assets and lazy chunks are available offline after the first cache completes.
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,json,glb,ttf,png,txt}'],
+        globPatterns: [
+          '**/*.{js,css,html,svg,json,glb,ttf,woff2,png,txt,webmanifest}',
+        ],
         navigateFallbackDenylist: [/^\/api\//],
         runtimeCaching: [{ urlPattern: /\/api\//, handler: 'NetworkOnly' }],
       },

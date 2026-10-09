@@ -18,6 +18,7 @@ import {
 } from './replay-menus.js';
 import { mountAlmanac, sourceCards } from '../ui/almanac/index.js';
 import { validLiveArchive } from '../data/live.js';
+import { judgeSetup, judgeGuide, judgeClosing } from './judge.js';
 import '../ui/styles/app.css';
 import '../ui/styles/feedback.css';
 
@@ -46,6 +47,8 @@ export function applySettings() {
   document.documentElement.dataset.motion = settings.motion;
 }
 export const getSettings = () => ({ ...settings });
+const missionSettings = () =>
+  current?.run.mode === 'judge' ? { ...settings, tutorial: false } : settings;
 function leave() {
   disposeScreen();
   disposeScreen = () => {};
@@ -318,12 +321,19 @@ async function scramble() {
     disposeScreen = mountScramble({
       run: current.run,
       autoStart: true,
-      settings,
+      settings: missionSettings(),
       onExit: title,
       onSave: () => save('shelter'),
       onComplete: () => shelter(),
     });
     sourceBadge(document.querySelector('.scramble-screen'));
+    if (current.run.mode === 'judge')
+      document
+        .querySelector('.scramble-header')
+        .insertAdjacentHTML(
+          'afterend',
+          judgeGuide('scramble', { compact: true }),
+        );
   } catch {
     errorScreen(scramble);
   }
@@ -339,7 +349,7 @@ async function shelter() {
     if (generation !== screenGeneration) return;
     disposeScreen = mountShelter({
       run: current.run,
-      settings,
+      settings: missionSettings(),
       journal: current.journal,
       onExit: title,
       onReplay: playAgain,
@@ -401,6 +411,12 @@ function ending() {
     `${endingCard(reveal.ending)}<p>${t('The crew is on the way home. Now meet the real Sun behind your mission.')}</p><div class="app-actions"><button data-reveal>${t('Reveal the real dates')} →</button></div>${store.isBlocked() ? `<p role="status">${t('Storage is unavailable. You can play; this tab keeps your progress until it closes.')}</p>` : ''}`,
   );
   sourceBadge(root);
+  if (current.run.mode === 'judge')
+    root
+      .querySelector('h1')
+      .after(
+        document.createRange().createContextualFragment(judgeGuide('ending')),
+      );
   const audio = createAudio();
   audio.setSettings({ master: settings.volume, mute: !settings.sound });
   const old = disposeScreen;
@@ -455,7 +471,15 @@ function showReveal() {
     onExit: title,
     onUnlock: unlocks,
     classroom: current.run.classroom,
+    judge: current.run.mode === 'judge',
   });
+  if (current.run.mode === 'judge') {
+    const root = document.querySelector('.reveal-screen');
+    root
+      .querySelector('.date-reveal')
+      .insertAdjacentHTML('afterend', judgeGuide('reveal'));
+    root.insertAdjacentHTML('beforeend', judgeClosing());
+  }
   sourceBadge(document.querySelector('.reveal-screen'));
 }
 function unlocks() {
@@ -706,7 +730,29 @@ function creditsScreen() {
 }
 export function startApp() {
   applySettings();
-  if (current) resume();
+  if (route.get('judge') === '1' && current?.run.mode !== 'judge') {
+    const { root, signal } = shell(
+      'Judge guide',
+      `${judgeGuide('intro')}${judgeGuide('scramble')}<button data-judge-start>${t('Start the guided mission')}</button>`,
+    );
+    root.querySelector('[data-judge-start]').addEventListener(
+      'click',
+      () => {
+        const begin = () => {
+          current = {
+            run: createRun(judgeSetup),
+            screen: 'scramble',
+            journal: {},
+          };
+          applySettings();
+          void scramble();
+        };
+        if (current && current.run.phase !== 'ending') confirmReplace(begin);
+        else begin();
+      },
+      { signal },
+    );
+  } else if (current) resume();
   else title();
   if (appStarted) return;
   appStarted = true;
@@ -720,4 +766,17 @@ export function startApp() {
       else title();
     }
   });
+}
+
+/** Android Back pauses the timed map; other screens return to saved Title. */
+export function navigateBack() {
+  if (document.querySelector('.game-title')) return false;
+  const pause = document.querySelector('.scramble-screen #pause');
+  if (pause) {
+    const resume = document.querySelector('.scramble-screen #resume');
+    if (!resume || !resume.checkVisibility()) pause.click();
+    return true;
+  }
+  title();
+  return true;
 }

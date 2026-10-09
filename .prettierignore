@@ -1,4 +1,6 @@
 node_modules
+android
+release
 .venv
 dist
 package-lock.json
@@ -16,6 +18,7 @@ data-pipeline/report/*.json
 data-pipeline/REPORT.md
 
 docs/balance/*.json
+docs/submission/*.json
 tools/balance-report.md
 public/assets/
 public/favicon.svg
