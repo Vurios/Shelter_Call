@@ -1,5 +1,11 @@
 # Decision log
 
+## 2026-10-11 - HTML validation scope and formatter compatibility
+
+- Generated Istanbul coverage reports caused more than 1,000 HTML-Validate diagnostics in Antigravity. Add a root `.htmlvalidateignore` for coverage, build output, installed dependencies, test artifacts and generated Android web assets. Keep generated reports intact so coverage regeneration does not recreate manual fixes.
+- Keep source HTML validation active with `html-validate:recommended` and the [official Prettier compatibility preset](https://html-validate.org/usage/). This avoids formatter conflicts without disabling semantic or accessibility checks. The installed HTML-Validate extension watches both configuration files and revalidates open documents when they change.
+- Verification: HTML-Validate passes `index.html` and skips `coverage/api.js.html`; an in-memory source document with a missing image alternative still fails `wcag/h37`. Lint and formatting pass. Both existing title/menu/music/offline-gallery browser tests pass at 1280x720 and 360x640; screenshots were reviewed. No game logic, NASA data, coverage output or global IDE settings were changed.
+
 ## 2026-10-11 - Release evidence and workstation Java repair
 
 - Final code `3f09709` passed Cloudflare CI (95 unit, 23 pipeline and 56 browser tests) and production keyboard/touch/offline routes. Production Lighthouse reached 93/100/100/100 with 2,962.95 ms interaction under the unchanged mobile 4G profile. Commit final screenshots and measurements; preserve earlier failed measurements and physical-device/human evidence limits in OVERHAUL_VERIFICATION.md.

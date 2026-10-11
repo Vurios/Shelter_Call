@@ -1,0 +1,11 @@
+# Generated files belong to their build and test tools.
+/coverage/
+/dist/
+/node_modules/
+/playwright-report/
+/test-results/
+/.wrangler/
+/.venv/
+/android/.gradle/
+/android/**/build/
+/android/app/src/main/assets/public/
