@@ -88,7 +88,7 @@ Fonts are committed; ordinary generation and builds need no network. `.gitattrib
 
 Asset checks load every GLB, verify ground pivots/normals/no textures, enforce counts and hashes, inspect actual font glyphs and calculate palette contrast. Unit tests verify every PCM buffer, distinct chirps, urgency mapping, archived flare-class compatibility, gesture gating, mute, voice caps, crossfades and cleanup. The browser suite exercises all 29 sound buttons, all loops and settings, reduced motion, unavailable WebGL and offline reloads at 1280×720 and 360×640. Screenshots include every model, every crew mood, plant moods, endings, icons, textures and typography.
 
-A real OfflineAudioContext renders an eight-effect-plus-music stress mix at maximum master/SFX gain through the compressor. Local peak is 0.8873 and all samples are finite, below clipping. This proves buffer/mix headroom for that case. It does not establish loudness on physical phone speakers, Android frame rate, real-phone installation, or Safari/in-app-browser playback. Those require device checks later. Interactive scramble, shelter and reveal remain prompts 5–7.
+A real OfflineAudioContext renders an eight-effect-plus-music stress mix at maximum master/SFX gain through the compressor. Local peak is 0.8873 and all samples are finite, below clipping. This proves buffer/mix headroom for that case. It does not establish loudness on physical phone speakers, Android frame rate, real-phone installation, or Safari/in-app-browser playback. Those require device checks later. Interactive scramble, shelter and reveal were implemented in prompts 5–7 and updated in Prompt 10; current evidence is in OVERHAUL_VERIFICATION.md.
 
 ## Living outpost and crew identity
 

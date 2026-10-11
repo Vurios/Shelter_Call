@@ -1,0 +1,33 @@
+{
+  "base": "https://shelter-call.pages.dev",
+  "script": "/bundles/index-D3Ayx0Fe.js",
+  "donki": {
+    "status": 200,
+    "records": 181,
+    "contentType": "application/json; charset=utf-8"
+  },
+  "results": [
+    {
+      "width": 1280,
+      "height": 720,
+      "input": "keyboard only (Tab/Enter)",
+      "keys": 74,
+      "offlineReload": true,
+      "offlineEnding": true,
+      "shifts": 4,
+      "ending": "Early Ride Home",
+      "errors": []
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "input": "touch",
+      "keys": 0,
+      "offlineReload": true,
+      "offlineEnding": true,
+      "shifts": 4,
+      "ending": "Early Ride Home",
+      "errors": []
+    }
+  ]
+}

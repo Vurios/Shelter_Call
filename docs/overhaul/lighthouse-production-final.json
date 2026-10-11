@@ -1,0 +1,23 @@
+{
+  "url": "https://shelter-call.pages.dev/",
+  "fetched": "2026-10-09T22:12:10.217Z",
+  "lighthouse": "13.5.0",
+  "scores": {
+    "performance": 93,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "interactionMs": 2962.9480000000003,
+  "lcpMs": 2955.4480000000003,
+  "blockingMs": 19,
+  "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+  },
+  "passed": true
+}

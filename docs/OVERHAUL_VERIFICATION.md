@@ -2,7 +2,7 @@
 
 The overhaul replaces the journal-only main view with an original living lunar cutaway, articulated crew, an illustrated fallback and one contextual inspector. Supply previews show exact immediate costs; production estimates remain conditional. The core simulation, archived NASA records, scoring and scramble physics are unchanged.
 
-Baseline: `8237f366668ecfd9a93a4d4f52d29ea512f54377`. Main implementation: `ac22e342fbb76fadf818fc34ab99eead6e720843`. Work is committed directly to `main`; Cloudflare Pages deploys only after its validation job passes. Production verification is recorded below when complete.
+Baseline: `8237f366668ecfd9a93a4d4f52d29ea512f54377`. Main implementation: `ac22e342fbb76fadf818fc34ab99eead6e720843`. Final verified code: `3f097094155ad6f4a5236f6b9379dac73dd53d44`. Work is committed directly to `main`; Cloudflare Pages deploys only after its validation job passes. Production verification is recorded below.
 
 ## Same-state visual comparison
 
@@ -38,6 +38,10 @@ Direct inspection covered room/crew/supply slots at all four sizes, full crew an
 
 [Exact parity transcript](overhaul/parity.json), [full routes](overhaul/after/fulljourney.json), [same-state renderer captures](overhaul/after/capture.json), [video record](overhaul/after/video.json).
 
+The complete local suite passed **56/56 in 8.9 minutes**. Cloudflare validation for `2346190` passed **56/56 in 16.5 minutes**, plus 95 unit tests, 23 pipeline tests, lint, formatting, art and build. The final supply-preview ordering change passed all six overhaul checks; the title loading change passed both title/offline checks. Those narrow follow-ups preserve the earlier gameplay evidence.
+
+Supply costs now precede their action buttons. [Before using wall water](overhaul/after/decision-before-use.png), [after use](overhaul/after/decision-after-use.png), [outside assignment](overhaul/after/decision-outside.png), [interruption](overhaul/after/decision-interrupt.png) and [recall](overhaul/after/decision-recalled.png) show the actual state changes. [Decision evidence](overhaul/after/decisions.json) records shielding falling from 31% to 0% and 0.58 power already earned before an interruption; the latter survives reload unchanged.
+
 The existing full browser suite exercises complete Cadet, Commander and Flight Director missions, all replay modes, tutorial, Live snapshots, offline reload, translated controls and ending/source displays. CI result and production checks are recorded in the release section below. Tests are automated walkthroughs, not child playtesting.
 
 A broader intermediate run passed 48 and failed six scramble checks at 419, then 221 draw calls. Art was batched by joint/finish using linear vertex colors. The unchanged 220-call limit then passed. An earlier shadow constant was removed in installed Three.js; PCF shadow mode fixed the warning. Failed/interrupted runs are not counted as successful gates.
@@ -59,6 +63,8 @@ Environment: Windows, Chrome 154.0.8037.99 headless, NVIDIA RTX 4050 Laptop GPU 
 | Offline precache               | 171 entries, about 4.17 MiB; lazy scenes/assets/fonts included, `/api/*` excluded                                                       |
 
 [Raw frame/GPU measurements](overhaul/performance.json), [local Lighthouse summary](overhaul/lighthouse-local.json). These short, refresh-limited laptop samples satisfy the desktop target for the observed states; they do not establish sustained mid-range Android performance. Lighthouse measures loading, not gameplay frame rate. No post-processing stack or runtime decoder was introduced.
+
+The final build contains approximately **4.40 MB across 171 files**, including the service worker. A [first production Lighthouse check](overhaul/lighthouse-production-initial.json) scored 85/100/100/100 with 3,207.99 ms interaction, missing the 3-second target. Its trace identified delayed title content. Removing the decorative title-entry mask made Play visible on the first paint. The [production recheck](overhaul/lighthouse-production-title.json) improved to 92/100/100/100 and 3,020.98 ms, still missing the target by 20.98 ms. The remaining critical font request was discovered after CSS; preloading the existing bold font removes that request dependency. The [local font-preload check](overhaul/lighthouse-local-font.json) measured 95/100/100/100 and 2,714.88 ms. Final production evidence is recorded below; earlier misses remain visible and a local score is not substituted for production evidence.
 
 ## Reproduction
 
@@ -91,4 +97,14 @@ For full route captures, run `tools/capture-submission.mjs` with an explicit out
 
 ## Release verification
 
-Final CI and production checks are in progress. Play at [Cloudflare Pages](https://shelter-call.pages.dev/) after the release result is recorded here; [judge mode](https://shelter-call.pages.dev/?judge=1) follows the real mission path.
+**Passed.** [CI run 37996180837](https://github.com/Vurios/Shelter_Call/actions/runs/37996180837) validated code commit `3f09709`: 95 unit tests, 23 pipeline tests, 56 browser tests in 16.0 minutes, lint, formatting, art and build. Wrangler deployed it to [2207df45.shelter-call.pages.dev](https://2207df45.shelter-call.pages.dev). Play at [Cloudflare Pages](https://shelter-call.pages.dev/); [judge mode](https://shelter-call.pages.dev/?judge=1) follows the real mission path.
+
+The [final production Lighthouse measurement](overhaul/lighthouse-production-final.json), captured on October 10 in Manila time, scored **93 performance, 100 accessibility, 100 best practices and 100 SEO**. Interaction was **2,962.95 ms**, LCP **2,955.45 ms** and blocking **19 ms** with the unchanged simulated mobile 4G/4× CPU profile. This passes the 85 score and under-three-second interaction gates for that measurement. It is a laboratory loading measurement, not a guarantee for every real network/device.
+
+[Production route evidence](overhaul/production/verification.json) verifies the deployed `/bundles/index-D3Ayx0Fe.js` entry and font preloads. Both 1280×720 keyboard-only (74 Tab/Enter inputs) and 360×640 touch routes passed actual Scramble/Shelter controls, a wall decision, offline reload and four offline shifts through Early Ride Home, with zero browser errors. `/api/donki/FLR?startDate=2024-05-01&endDate=2024-05-31` returned HTTP 200, JSON and 181 records. Screenshots include the actual root title, room, supplies, ending, reflection and science notes at both sizes. Earlier failed production measurements remain above.
+
+- Title: [1280×720](overhaul/production/title-1280.png), [360×640](overhaul/production/title-360.png).
+- Living shelter: [1280×720](overhaul/production/room-1280.png), [360×640](overhaul/production/room-360.png).
+- Reflection and science: [reflection](overhaul/production/reflection-360.png), [What's real](overhaul/production/science-360.png).
+
+The remaining repository changes record this completed release and correct stale documentation. They do not alter the validated runtime. The evidence limits above remain open for physical devices, human playtesting and missing challenge/team metadata.

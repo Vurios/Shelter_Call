@@ -135,10 +135,10 @@ We build without a clock. Quality beats speed, but we still build in layers so t
 ---
 
 
-Rule: never start a layer until the one below is playable. Prompt 3 establishes headless rules; the full playable UI remains later work.
+Rule: never start a layer until the one below is playable. Prompts 1–9 are implemented; Prompt 10 evolves their playable UI while preserving the headless rules.
 
 @docs/DESIGN.md
 
 ## Prompt 10 implementation status
 
-Overhaul implementation is complete; final release verification is tracked in docs/OVERHAUL_VERIFICATION.md and docs/OVERHAUL_PROGRESS.md. New presentation modules: `src/scenes/shelter/`, `src/ui/shelter/habitat.js`, `src/art/crew.js`, `src/core/preview.js`. Renderer data stays detached and equipment-gated; immediate costs and conditional output estimates remain separate. Existing mission v1 and typed actions are preserved, with exact baseline parity across 100 recorded actions. Maintain direct-main Cloudflare Pages deployment. Physical Android, human pacing and challenge/team metadata remain unverified; the optional local APK remains Prompt 9 unless rebuilt explicitly.
+Overhaul implementation and production release verification are complete; evidence is tracked in docs/OVERHAUL_VERIFICATION.md and docs/OVERHAUL_PROGRESS.md. New presentation modules: `src/scenes/shelter/`, `src/ui/shelter/habitat.js`, `src/art/crew.js`, `src/core/preview.js`. Renderer data stays detached and equipment-gated; immediate costs and conditional output estimates remain separate. Existing mission v1 and typed actions are preserved, with exact baseline parity across 100 recorded actions. Maintain direct-main Cloudflare Pages deployment. Physical Android, human pacing and challenge/team metadata remain unverified; the optional local APK remains Prompt 9 unless rebuilt explicitly.

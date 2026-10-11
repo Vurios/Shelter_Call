@@ -1,7 +1,13 @@
 # Decision log
 
+## 2026-10-11 - Release evidence and workstation Java repair
+
+- Final code `3f09709` passed Cloudflare CI (95 unit, 23 pipeline and 56 browser tests) and production keyboard/touch/offline routes. Production Lighthouse reached 93/100/100/100 with 2,962.95 ms interaction under the unchanged mobile 4G profile. Commit final screenshots and measurements; preserve earlier failed measurements and physical-device/human evidence limits in OVERHAUL_VERIFICATION.md.
+- The workstation's Oracle Java extension inherited a deleted JDK 17 location from machine `JAVA_HOME`. Keep the installed, validated JDK 21: set user `JAVA_HOME` and Oracle `jdk.jdkhome` to it. Preserve every other IDE setting. The extension restarts automatically and its log reaches `Language Client: Ready`; this is a local environment repair and adds no Java dependency to the browser game. Machine-wide environment changes require elevation, so the user override supplies the valid value without an administrator prompt.
+
 ## 2026-10-09 - Prompt 10 living shelter overhaul
 
+- Final acceptance on October 10: keep known supply costs before action buttons, size the sticky action bar against the actual status-message height, and translate dynamic shift/day labels explicitly. Remove the decorative title-entry mask and preload the existing bold font after production traces exposed first-paint/request delays. Preserve failed measurements alongside final results in OVERHAUL_VERIFICATION.md; do not relax the three-second loading target or infer physical Android performance from laptop emulation.
 - Preserve the Vite/vanilla/Three stack and survival configuration. Replace the three competing journal columns with a fixed-camera cutaway, persistent crew selector, and Crew/Supplies/Sun Watch/Journal inspector. Existing typed actions still own every decision. The scene receives only detached `getShiftView` data and saved wall slot IDs; no hidden run/timeline enters rendering.
 - Original offset airlock, eight supply pockets, telemetry bench, plant and crew work positions use warm pressure-shell materials against cool regolith. Reference study uses official Robot Gentleman descriptions/screenshots for observable principles; no commercial assets, layout tracing or claimed source access. See OVERHAUL_AUDIT.md.
 - Add `src/core/preview.js` as an additive pure presentation API. Immediate supply/event previews apply only the current deterministic action to a clone; production estimates use current known conditions, preserve accumulated work, exclude future events and separate uncertain BOLT/salvage output. No resolve, RNG rewind, staged consumption or gameplay retuning. Tests compare previews with actual actions and assert equipment gates and state/RNG preservation.
@@ -10,7 +16,7 @@
 - Independent master/music/SFX preferences extend optional settings storage without changing mission v1. `audioSettings` consistently maps preferences to existing buses; zero is respected and sound still needs a gesture.
 - Three revision 186 uses direct rendering with sRGB output and ACES interior tone mapping, no post-processing stack or duplicate output conversion. Current official references: [WebGLRenderer](https://threejs.org/docs/pages/WebGLRenderer.html), [color management](https://threejs.org/manual/pages/color-management.html). Removed PCFSoftShadowMap was caught by browser checks and replaced with PCFShadowMap.
 - Post-mission reflection explains recorded choices without reconstructing unrecorded knowledge. Explicit science notes distinguish retrospective Earth timing, Earth Kp, CME versus particles, mass-shielding abstraction, invisible radiation and scheduling shifts. [NASA's lunar radiation overview](https://science.nasa.gov/science-research/heliophysics/how-nasa-will-protect-astronauts-from-space-radiation-at-the-moon/) supports the inspiration of using onboard supplies as shielding; our formula remains GAME only. Official challenge/year is still unknown and eligibility claims are not invented.
-- Validation is ongoing in OVERHAUL_PROGRESS.md. Physical-phone performance and human comprehension are separate from automated browser evidence. The previous optional APK is not evidence of this new build.
+- Validation and production release are complete in OVERHAUL_VERIFICATION.md and OVERHAUL_PROGRESS.md. Physical-phone performance and human comprehension are separate from automated browser evidence. The previous optional APK is not evidence of this new build.
 
 ## 2026-10-09 - Prompt 9 shipping decisions
 
