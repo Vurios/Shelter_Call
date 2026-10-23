@@ -1088,50 +1088,50 @@
     },
     {
       "path": "assets/models/crew-aiko.glb",
-      "bytes": 200404,
-      "sha256": "d3b71dde5b27643a40846a80a9640fcc26fb32ea357e9091efeb68133baae33b",
+      "bytes": 234132,
+      "sha256": "05637e1f2d4d51d2d4a3a664f975f3c9a2472da69e093eda006434e50be4c63e",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/crew-dom.glb",
-      "bytes": 209724,
-      "sha256": "1f301656a8d686abce69871980c31ddd14b1c4109b76e427a82efa7a3007128b",
+      "bytes": 243452,
+      "sha256": "6917a1d53be0ff21bc48b35f964a93c44fdab8fe35144c3f9ac52db8e18adb62",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/crew-iggy.glb",
-      "bytes": 206772,
-      "sha256": "99d19adc8105a0f405a350bd95bd5b8b9a4f19b02f7cdd9266352cad25f5ee01",
+      "bytes": 240496,
+      "sha256": "7bfbc3abfec4a90727e06136b57be387f0fb3648d11c70e18dbb70157335e68c",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/crew-mara.glb",
-      "bytes": 209868,
-      "sha256": "de5c139f72b2ac83cd9bfdae5431aac12d0e5316bb33456c91ce027778ef7561",
+      "bytes": 243592,
+      "sha256": "a5e21141c373bf7e3a3df302de07a0f6c3b49786b74cf47189114403de71bbe0",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/crew-pip.glb",
-      "bytes": 192924,
-      "sha256": "13841cc5f6f423f382551fe1550cf760ce11c1144d519797b2e8a7478b2e5ed7",
+      "bytes": 226652,
+      "sha256": "08f5476eb6395d5b4bf942a7532864cd42dce9ee0432abb60172ffd947de39ec",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/crew-ria.glb",
-      "bytes": 200432,
-      "sha256": "415f8bb280bc153667bd942b70ed241d1d9ada43ef24c61916ab154d1c1e47cf",
+      "bytes": 234160,
+      "sha256": "d47dce587bd3f99e8c458953419b9700890ead31e518d849e477abd985e25694",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/crew-sol.glb",
-      "bytes": 206820,
-      "sha256": "a85bf104a6df6b31dda7c6f6f2051400cea891f6207e0e75b563fb1dc93d811b",
+      "bytes": 240544,
+      "sha256": "96b62f417ea3434342ecfa6a8611e8a9d12f683b9eaed709d91c8f9cc23e5261",
       "provenance": "Original project art"
     },
     {
       "path": "assets/models/crew-tunde.glb",
-      "bytes": 215904,
-      "sha256": "9839e3e3277102ad09c9aa5a5084dcb5666aa5d26a4b0c16f6e68bb30d4cc143",
+      "bytes": 249628,
+      "sha256": "8f39c5aa6896b844de4a53aaab50ac2a8111e1bc2fba506876bdcde13bcfd32c",
       "provenance": "Original project art"
     },
     {
@@ -1501,7 +1501,7 @@
       "provenance": "Original project art"
     }
   ],
-  "totalBytes": 2764404,
+  "totalBytes": 3034212,
   "counts": {
     "crew": 8,
     "models": 29,
