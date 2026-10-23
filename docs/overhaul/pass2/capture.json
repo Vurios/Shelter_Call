@@ -1,0 +1,76 @@
+[
+  {
+    "size": "1280x720",
+    "room": {
+      "framing": "room",
+      "drawCalls": "210",
+      "triangles": "61802",
+      "geometries": "122",
+      "quality": "high",
+      "crewCount": "4",
+      "outside": "2",
+      "gaps": "5",
+      "lighting": "normal",
+      "overflow": false
+    },
+    "errors": []
+  },
+  {
+    "size": "1920x1080",
+    "room": {
+      "framing": "room",
+      "drawCalls": "210",
+      "triangles": "61802",
+      "geometries": "122",
+      "quality": "high",
+      "crewCount": "4",
+      "outside": "2",
+      "gaps": "5",
+      "lighting": "normal",
+      "overflow": false
+    },
+    "errors": []
+  },
+  {
+    "size": "360x640",
+    "room": {
+      "framing": "pod",
+      "drawCalls": "152",
+      "triangles": "47512",
+      "geometries": "119",
+      "quality": "high",
+      "crewCount": "4",
+      "outside": "2",
+      "gaps": "5",
+      "lighting": "normal",
+      "overflow": false
+    },
+    "errors": []
+  },
+  {
+    "size": "390x844",
+    "room": {
+      "framing": "pod",
+      "drawCalls": "152",
+      "triangles": "47512",
+      "geometries": "119",
+      "quality": "high",
+      "crewCount": "4",
+      "outside": "2",
+      "gaps": "5",
+      "lighting": "normal",
+      "overflow": false
+    },
+    "errors": []
+  },
+  {
+    "size": "1280x720",
+    "screens": "title/illustrated/scramble",
+    "errors": []
+  },
+  {
+    "size": "360x640",
+    "screens": "title/illustrated/scramble",
+    "errors": []
+  }
+]
