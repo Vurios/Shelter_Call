@@ -67,7 +67,13 @@ const NEEDS = (crew) =>
 /** A fixed-camera cutaway. Only the public, equipment-gated view enters this module. */
 export function createRoom(
   host,
-  { quality = 'auto', reducedMotion = false, onLoss, onPick } = {},
+  {
+    quality = 'auto',
+    reducedMotion = false,
+    onLoss,
+    onPick,
+    framing = 'auto',
+  } = {},
 ) {
   const renderer = new THREE.WebGLRenderer({
     antialias: quality !== 'low',
@@ -710,7 +716,7 @@ export function createRoom(
     renderer.setSize(width, height, false);
     const aspect = width / height;
     // Narrow stages crop to the pod; wide stages include the outside work area.
-    const pod = aspect < 1.25;
+    const pod = framing === 'auto' ? aspect < 1.25 : framing === 'pod';
     const frame = pod ? FRAME.pod : FRAME.room;
     const half = Math.max(frame.minHalf, frame.halfWidth / aspect);
     camera.left = -half * aspect;

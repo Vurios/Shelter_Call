@@ -53,7 +53,7 @@ export function createScramble(setup) {
     const angle = porch
       ? rotation + (id === 'porch-a' ? 0.5 : 3.6)
       : anchor(id).angle + (place() - 0.5) * 0.3;
-    const radius = porch ? 3.7 : C.stationRadius - 3;
+    const radius = porch ? 3.7 : C.stationRadius - 3.4;
     return {
       id: `${id}-${i < PALLETS.food.length ? 'food' : 'water'}`,
       type: i < PALLETS.food.length ? 'food' : 'water',
@@ -78,7 +78,7 @@ export function createScramble(setup) {
       const station = anchor(HOME[row.trait] ?? 'lab');
       const n = crowd.get(station.id) ?? 0;
       crowd.set(station.id, n + 1);
-      at = near(station, 2.1, n % 2 ? -1.3 : 1.3);
+      at = near(station, 1.4, n % 2 ? -1.9 : 1.9);
     } else if (PALLETS[row.type]) {
       const pallets = caches.filter((cache) => cache.type === row.type);
       const cache = pallets.reduce((a, b) => (b.count < a.count ? b : a));
@@ -100,7 +100,7 @@ export function createScramble(setup) {
       const station = anchor(GEAR[row.type] ?? 'lander');
       const n = crowd.get(`gear-${station.id}`) ?? 0;
       crowd.set(`gear-${station.id}`, n + 1);
-      at = near(station, 2.4, (n - 1) * 0.75);
+      at = near(station, 1.9, (n - 1) * 0.7);
       at.angle = -station.angle;
     }
     return {

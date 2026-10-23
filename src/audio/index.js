@@ -140,7 +140,9 @@ export function createAudio({
     if (!cue) throw new Error(`Unknown sound: ${id}`);
     const now = context?.currentTime || 0;
     // Repeated timer ticks must not erase a warning before it can be read.
-    if (!timerTick || now >= captionUntil) onCaption(cue.caption);
+    // A calm early tick needs no caption; only the final seconds say time is short.
+    if (!timerTick || (now >= captionUntil && remaining <= 10))
+      onCaption(cue.caption);
     if (id !== 'tick') captionUntil = now + 1.5;
     if (!context || context.state !== 'running' || disposed || settings.mute)
       return false;

@@ -134,6 +134,11 @@ describe('gesture-owned controller', () => {
       'Particles detected. Shelter now.',
     );
     context.currentTime = 2;
+    caption.mockClear();
+    audio.startTicks();
+    // Early ticks stay quiet; the caption appears only in the final seconds.
+    expect(caption).not.toHaveBeenCalled();
+    audio.setTimer(8, 60);
     audio.startTicks();
     expect(caption).toHaveBeenLastCalledWith('Time is running short.');
     await audio.dispose();

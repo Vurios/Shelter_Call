@@ -338,14 +338,32 @@ export function create2DRenderer(host) {
         label('HATCH', 0, -2.35, P.paper);
       },
     });
+    // Pallets sit under their stacks; tinted by contents with an icon on the deck.
+    for (const cache of state.caches ?? [])
+      layers.push({
+        z: cache.z - 0.9,
+        draw() {
+          const p = project(cache.x, cache.z);
+          shadow(cache.x, cache.z, 1.25, 0.3);
+          panel(
+            p.x - 1.05 * scale,
+            p.y - 0.75 * scale,
+            2.1 * scale,
+            1.3 * scale,
+            cache.type === 'water' ? P.blue : P.amber,
+            6,
+          );
+        },
+      });
     for (const item of state.items)
       if (item.status === 'outside')
         layers.push({
-          z: item.z,
+          z: item.z + (item.lift ?? 0) * 0.01,
           draw() {
             const p = project(item.x, item.z),
               size = Math.max(14, scale * (item.slots === 2 ? 1.1 : 0.9));
-            shadow(item.x, item.z, 0.5);
+            p.y -= (item.lift ?? 0) * scale * 1.4;
+            if (!item.lift) shadow(item.x, item.z, 0.5);
             panel(p.x - size / 2, p.y - size, size, size, P.paper, 3);
             const icon = illustration(`icons/${itemIcon(item.type)}`);
             if (icon)

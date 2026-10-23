@@ -92,6 +92,75 @@ function shell(title, content, { focus = true } = {}) {
   window.scrollTo(0, 0);
   return { root, signal: lifecycle.signal };
 }
+// A calm, fixed demo view of the shelter: decorative GAME art, not a mission state.
+const TITLE_VIEW = {
+  crew: ['ria', 'dom', 'aiko', 'tunde'].map((id) => ({
+    id,
+    name: id[0].toUpperCase() + id.slice(1),
+    status: 'healthy',
+    assignment: 'shelter',
+    hunger: 0,
+    thirst: 0,
+  })),
+  wall: ['water', 'food', 'water', 'water', 'food', 'food', 'water', 'food'].map(
+    (type, i) => ({ id: `title-${i}`, type }),
+  ),
+  pantry: [{ id: 'title-seeds', type: 'seeds' }],
+  radio: true,
+  dosimeter: true,
+  power: 8,
+  plant: 6,
+  morale: 7,
+  shield: 0.85,
+  boltTask: 'shelter',
+};
+function stageTitle(landscape, signal) {
+  const motionOff =
+    settings.motion === 'reduced' ||
+    matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (
+    !landscape ||
+    settings.flat ||
+    settings.graphics === 'illustrated' ||
+    navigator.connection?.saveData
+  )
+    return;
+  const host = document.createElement('div');
+  host.className = 'title-stage';
+  landscape.append(host);
+  let room = null;
+  const start = () => {
+    if (signal.aborted) return;
+    import('../scenes/shelter/room3d.js')
+      .then(({ createRoom }) => {
+        if (signal.aborted) return;
+        room = createRoom(host, {
+          quality: settings.graphics === 'low' ? 'low' : 'auto',
+          reducedMotion: motionOff,
+          framing: 'pod',
+          onLoss: () => {
+            room?.dispose();
+            room = null;
+            landscape.classList.remove('has-stage');
+          },
+        });
+        room.update(
+          TITLE_VIEW,
+          TITLE_VIEW.wall.map((item) => item.id),
+          null,
+        );
+        landscape.classList.add('has-stage');
+      })
+      .catch(() => host.remove());
+  };
+  // Title controls come first; the decorative scene loads when the page is idle.
+  const idle = window.requestIdleCallback ?? ((fn) => setTimeout(fn, 600));
+  idle(start, { timeout: 2500 });
+  signal.addEventListener('abort', () => {
+    room?.dispose();
+    room = null;
+  });
+}
 function title() {
   const { root, signal } = shell(
     'SHELTER CALL',
@@ -116,6 +185,7 @@ function title() {
       )}</nav><div class="title-tools"><button data-practice>${t('Practice again')}</button><button data-music aria-pressed="false">${t('Play title music')}</button><a href="/?gallery=1">${t('Open the art & sound journal')}</a></div><p class="quiet-copy">${t('REAL records. GAME survival rules. No one dies; an early ride home brings care.')}</p>${store.isBlocked() ? `<p role="status">${t('Storage is unavailable. You can play; this tab keeps your progress until it closes.')}</p>` : ''}`,
   );
   root.classList.add('game-title');
+  stageTitle(root.querySelector('.title-landscape'), signal);
   const intro = root.querySelector('.title-intro');
   for (const selector of [
     '.title-primary',
