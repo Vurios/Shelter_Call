@@ -4,6 +4,34 @@ import { SCRAMBLE_CONFIG as C } from '../../core/config.js';
 const distance = (a, b) => Math.hypot(a.x - b.x, a.z - b.z);
 const STATIONS = ['greenhouse', 'solar', 'drill', 'lander', 'rover-bay', 'lab'];
 const actor = (x, z) => ({ x, z, y: 0, vx: 0, vz: 0, vy: 0, heading: 0 });
+// GAME layout: each crew member waits by their workplace; gear sits where it is used.
+const HOME = {
+  Botanist: 'greenhouse',
+  Engineer: 'solar',
+  Medic: 'lander',
+  Geologist: 'drill',
+  'Comms Officer': 'lab',
+  'Rover Pilot': 'rover-bay',
+  Chef: 'greenhouse',
+  Rookie: 'lab',
+};
+const GEAR = {
+  radio: 'lab',
+  dosimeter: 'lab',
+  electron: 'lab',
+  seeds: 'greenhouse',
+  battery: 'solar',
+  repair: 'rover-bay',
+  bolt: 'rover-bay',
+  med: 'lander',
+  guitar: 'lander',
+  game: 'lander',
+};
+// Food and water wait on pallets between the modules and the hatch.
+const PALLETS = {
+  food: ['greenhouse', 'lander', 'rover-bay', 'porch-a'],
+  water: ['drill', 'solar', 'lab', 'porch-b'],
+};
 /** Render-agnostic GAME motion; no browser, network, clock or unseeded RNG. */
 export function createScramble(setup) {
   const random = createRng(`${setup.layoutSeed}:outpost`);
@@ -18,25 +46,68 @@ export function createScramble(setup) {
       angle,
     };
   });
+  const place = createRng(`${setup.layoutSeed}:caches`);
+  const anchor = (id) => stations.find((station) => station.id === id);
+  const caches = [...PALLETS.food, ...PALLETS.water].map((id, i) => {
+    const porch = id.startsWith('porch');
+    const angle = porch
+      ? rotation + (id === 'porch-a' ? 0.5 : 3.6)
+      : anchor(id).angle + (place() - 0.5) * 0.3;
+    const radius = porch ? 3.7 : C.stationRadius - 3;
+    return {
+      id: `${id}-${i < PALLETS.food.length ? 'food' : 'water'}`,
+      type: i < PALLETS.food.length ? 'food' : 'water',
+      x: Math.cos(angle) * radius,
+      z: Math.sin(angle) * radius,
+      angle,
+      count: 0,
+    };
+  });
+  const near = (station, inward, side) => {
+    const ux = Math.cos(station.angle),
+      uz = Math.sin(station.angle);
+    return {
+      x: station.x - ux * inward - uz * side,
+      z: station.z - uz * inward + ux * side,
+    };
+  };
+  const crowd = new Map();
   const spawn = (row) => {
-    let x = row.x + (random() - 0.5) * 0.7;
-    let z = row.z + (random() - 0.5) * 0.7;
-    if (Math.hypot(x, z) < 2.8) {
-      const angle = random() * Math.PI * 2;
-      x = Math.cos(angle) * 3.4;
-      z = Math.sin(angle) * 3.4;
-    }
-    for (const station of stations) {
-      const d = Math.hypot(x - station.x, z - station.z);
-      if (d < 2) {
-        const angle = Math.atan2(z - station.z, x - station.x);
-        x = station.x + Math.cos(angle) * 2.2;
-        z = station.z + Math.sin(angle) * 2.2;
-      }
+    let at;
+    if (row.trait) {
+      const station = anchor(HOME[row.trait] ?? 'lab');
+      const n = crowd.get(station.id) ?? 0;
+      crowd.set(station.id, n + 1);
+      at = near(station, 2.1, n % 2 ? -1.3 : 1.3);
+    } else if (PALLETS[row.type]) {
+      const pallets = caches.filter((cache) => cache.type === row.type);
+      const cache = pallets.reduce((a, b) => (b.count < a.count ? b : a));
+      const k = cache.count++;
+      const layer = Math.floor(k / 6),
+        cell = k % 6,
+        gap = row.type === 'water' ? 0.62 : 0.5;
+      const across = ((cell % 3) - 1) * gap,
+        along = (Math.floor(cell / 3) - 0.5) * gap;
+      const c = Math.cos(cache.angle),
+        n = Math.sin(cache.angle);
+      at = {
+        x: cache.x + c * along - n * across,
+        z: cache.z + n * along + c * across,
+        lift: 0.12 + layer * (row.type === 'water' ? 0.42 : 0.3),
+        angle: -cache.angle,
+      };
+    } else {
+      const station = anchor(GEAR[row.type] ?? 'lander');
+      const n = crowd.get(`gear-${station.id}`) ?? 0;
+      crowd.set(`gear-${station.id}`, n + 1);
+      at = near(station, 2.4, (n - 1) * 0.75);
+      at.angle = -station.angle;
     }
     return {
       ...structuredClone(row),
-      ...actor(x, z),
+      ...actor(at.x, at.z),
+      lift: at.lift ?? 0,
+      angle: at.angle ?? 0,
       status: 'outside',
       pickupAt: 0,
     };
@@ -60,6 +131,7 @@ export function createScramble(setup) {
     player: actor(0, 2.5),
     items: setup.itemSpawns.map(spawn),
     crew: setup.crewSpawns.map(spawn),
+    caches: caches.filter((cache) => cache.count),
     carried: [],
     savedItems: [],
     savedCrew: [],
@@ -93,6 +165,7 @@ export function dropCarried(state, id) {
   Object.assign(item, {
     x: state.player.x + 0.5,
     z: state.player.z + 0.5,
+    lift: 0,
     status: 'outside',
     pickupAt: state.elapsed + C.dropCooldown,
   });
@@ -187,9 +260,12 @@ function physics(state, dt, input) {
     true,
   );
   const atHatch = distance(p, { x: 0, z: 0 }) <= C.hatchRadius;
-  for (const item of state.items) {
+  // Top of a pallet stack comes off first.
+  const reachable = state.items
+    .filter((item) => item.status === 'outside')
+    .sort((a, b) => b.lift - a.lift);
+  for (const item of reachable) {
     if (
-      item.status === 'outside' &&
       item.pickupAt <= state.elapsed &&
       distance(p, item) <= C.pickupRadius &&
       usedSlots(state) + item.slots <= C.carrySlots

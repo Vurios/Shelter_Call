@@ -58,6 +58,7 @@ function mergeRigid(root) {
   return result;
 }
 
+const ARROWS = ['→', '↘', '↓', '↙', '←', '↖', '↑', '↗'];
 /** Original local GLBs, one sun and one renderer. No runtime CDN or textures. */
 export async function create3DRenderer(host, state, { quality = 'high' } = {}) {
   const canvas = document.createElement('canvas');
@@ -87,7 +88,7 @@ export async function create3DRenderer(host, state, { quality = 'high' } = {}) {
   const cameraFocus = new THREE.Vector3();
   let width = 1,
     height = 1,
-    view = 32,
+    view = 23,
     visualTime = 0;
   const assets = new Map();
   let observer;
@@ -150,7 +151,7 @@ export async function create3DRenderer(host, state, { quality = 'high' } = {}) {
     element.className = player ? 'map-label player-label' : 'map-label';
     element.textContent = t(text);
     labelsHost.append(element);
-    labels.push({ element, body, offset });
+    labels.push({ element, body, offset, name: element.textContent });
   }
   const loader = new GLTFLoader();
   const ids = [
@@ -205,6 +206,32 @@ export async function create3DRenderer(host, state, { quality = 'high' } = {}) {
       2.6,
     );
   }
+  // Supply pallets: a deck, corner posts and a label stripe per food/water cache.
+  const palletGeometry = mergeGeometries([
+    new THREE.BoxGeometry(1.9, 0.12, 1.55).translate(0, 0.06, 0),
+    ...[-1, 1].flatMap((a) =>
+      [-1, 1].map((b) =>
+        new THREE.BoxGeometry(0.08, 0.5, 0.08).translate(
+          a * 0.9,
+          0.25,
+          b * 0.73,
+        ),
+      ),
+    ),
+  ]);
+  for (const cache of state.caches ?? []) {
+    const pallet = new THREE.Mesh(
+      palletGeometry,
+      new THREE.MeshStandardMaterial({
+        color: cache.type === 'water' ? P.blue : P.amber,
+        roughness: 0.85,
+      }),
+    );
+    pallet.position.set(cache.x, 0, cache.z);
+    pallet.rotation.y = -cache.angle;
+    pallet.castShadow = pallet.receiveShadow = true;
+    scene.add(pallet);
+  }
   const matrix = new THREE.Matrix4(),
     placement = new THREE.Matrix4();
   const position = new THREE.Vector3(),
@@ -250,6 +277,10 @@ export async function create3DRenderer(host, state, { quality = 'high' } = {}) {
       object: model(`crew-${c.id}`, c.x, c.z, 0.85),
     })),
   ];
+  // Carried supplies ride on the player's back so capacity is visible in the world.
+  const pack = { group: new THREE.Group(), signature: null };
+  pack.group.position.set(0, 1.25, -0.55);
+  actors[0].object.add(pack.group);
   const shadowGeometry = new THREE.CircleGeometry(0.52, 20);
   for (const a of actors) {
     a.baseScale = a.object.scale.clone();
@@ -364,7 +395,8 @@ export async function create3DRenderer(host, state, { quality = 'high' } = {}) {
   const vector = new THREE.Vector3();
   function render(s, delta, { reducedMotion = false } = {}) {
     visualTime += delta;
-    const follow = width / height < 0.8 ? 0.7 : 0.35;
+    // The camera follows the player closely; the hatch cue covers off-screen space.
+    const follow = 0.85;
     const focus = new THREE.Vector3(
       s.player.x * follow,
       0,
@@ -382,7 +414,7 @@ export async function create3DRenderer(host, state, { quality = 'high' } = {}) {
       batch.signature = signature;
       batch.rows.forEach((row, i) => {
         const visible = !batch.pickups || row.status === 'outside';
-        position.set(row.x, 0, row.z);
+        position.set(row.x, row.lift ?? 0, row.z);
         rotation.setFromAxisAngle(THREE.Object3D.DEFAULT_UP, row.angle || 0);
         scale.setScalar(visible ? batch.size * (row.scale || 1) : 0);
         placement.compose(position, rotation, scale);
@@ -393,6 +425,21 @@ export async function create3DRenderer(host, state, { quality = 'high' } = {}) {
       });
       for (const { mesh } of batch.objects)
         mesh.instanceMatrix.needsUpdate = true;
+    }
+    const packSignature = s.carried.join('|');
+    if (packSignature !== pack.signature) {
+      pack.signature = packSignature;
+      pack.group.clear();
+      let height = 0;
+      for (const id of s.carried) {
+        const item = s.items.find((row) => row.id === id);
+        const model = assets.get(itemModel(item.type))?.clone(true);
+        if (!model) continue;
+        model.scale.setScalar(0.5);
+        model.position.set(0, height, 0);
+        height += item.slots === 2 ? 0.5 : 0.32;
+        pack.group.add(model);
+      }
     }
     for (const a of actors) {
       const b = a.body;
@@ -466,6 +513,21 @@ export async function create3DRenderer(host, state, { quality = 'high' } = {}) {
         occupied.push(box);
         return true;
       });
+      const lost =
+        b.status === 'outside' && (x < 0 || x > width || y < 0 || y > height);
+      if (lost) {
+        // Untagged crew off screen get an edge arrow, like the hatch cue.
+        const angle = Math.atan2(y - height / 2, x - width / 2);
+        label.element.textContent = `${ARROWS[(Math.round(angle / (Math.PI / 4)) + 8) % 8]} ${label.name}`;
+        label.element.classList.add('edge-cue');
+        label.element.hidden = false;
+        label.element.style.transform = `translate(${Math.max(50, Math.min(width - 50, x))}px,${Math.max(30, Math.min(height - 30, y))}px) translate(-50%,-50%)`;
+        continue;
+      }
+      if (label.element.classList.contains('edge-cue')) {
+        label.element.textContent = label.name;
+        label.element.classList.remove('edge-cue');
+      }
       label.element.hidden = b.status === 'saved' || offset === undefined;
       label.element.style.transform = `translate(${x}px,${y + (offset || 0)}px) translate(-50%,-100%)`;
     }
@@ -476,8 +538,7 @@ export async function create3DRenderer(host, state, { quality = 'high' } = {}) {
       hatchX > 45 && hatchX < width - 45 && hatchY > 32 && hatchY < height - 32;
     if (!hatchCue.hidden) {
       const angle = Math.atan2(hatchY - height / 2, hatchX - width / 2);
-      const arrows = ['→', '↘', '↓', '↙', '←', '↖', '↑', '↗'];
-      hatchCue.textContent = `${arrows[(Math.round(angle / (Math.PI / 4)) + 8) % 8]} ${t('HATCH')}`;
+      hatchCue.textContent = `${ARROWS[(Math.round(angle / (Math.PI / 4)) + 8) % 8]} ${t('HATCH')}`;
       hatchCue.style.transform = `translate(${Math.max(48, Math.min(width - 48, hatchX))}px,${Math.max(30, Math.min(height - 30, hatchY))}px) translate(-50%,-50%)`;
     }
     targetMarker.visible = Boolean(s.target);
@@ -573,7 +634,7 @@ export async function create3DRenderer(host, state, { quality = 'high' } = {}) {
       return { x: (x + z) / Math.SQRT2, z: (z - x) / Math.SQRT2 };
     },
     zoom(factor) {
-      view = Math.max(18, Math.min(38, view * factor));
+      view = Math.max(15, Math.min(34, view * factor));
       resize();
     },
     metrics() {

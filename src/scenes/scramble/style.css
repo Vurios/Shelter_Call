@@ -771,3 +771,9 @@
   outline: 4px dashed #edb96f;
   outline-offset: 3px;
 }
+/* Off-screen crew still waiting outside: an edge arrow with their name. */
+.map-label.edge-cue {
+  border: 2px solid var(--amber, #edb96f);
+  background: #101d2aee;
+  color: #fff2d5;
+}
