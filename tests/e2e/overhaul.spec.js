@@ -48,9 +48,11 @@ test('3D scene changes release canvases, animation loops and geometry', async ({
     ).toBeLessThanOrEqual(1);
     await page.locator('[data-action="exit"]').click();
     await expect(page.locator('.habitat-webgl canvas')).toHaveCount(0);
+    // The title may run its own single decorative diorama loop; shelter loops must not leak.
     await expect
       .poll(() => page.evaluate(() => window.animationAudit()))
-      .toBe(0);
+      .toBeLessThanOrEqual(1);
+    expect(await page.locator('canvas').count()).toBeLessThanOrEqual(1);
     await page.locator('[data-continue]').click();
   }
   expect(new Set(counts).size).toBe(1);

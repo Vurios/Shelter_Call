@@ -84,10 +84,7 @@ export function optimizeCrew(source) {
       const source = joint.getObjectByName(name);
       const merged = mergeGeometries(geometries);
       geometries.forEach((g) => g.dispose());
-      const mesh = new THREE.Mesh(
-        merged,
-        finishes.get(source.userData.finish),
-      );
+      const mesh = new THREE.Mesh(merged, finishes.get(source.userData.finish));
       mesh.name = name;
       mesh.visible = source.visible;
       target.add(mesh);

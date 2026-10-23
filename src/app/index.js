@@ -102,9 +102,16 @@ const TITLE_VIEW = {
     hunger: 0,
     thirst: 0,
   })),
-  wall: ['water', 'food', 'water', 'water', 'food', 'food', 'water', 'food'].map(
-    (type, i) => ({ id: `title-${i}`, type }),
-  ),
+  wall: [
+    'water',
+    'food',
+    'water',
+    'water',
+    'food',
+    'food',
+    'water',
+    'food',
+  ].map((type, i) => ({ id: `title-${i}`, type })),
   pantry: [{ id: 'title-seeds', type: 'seeds' }],
   radio: true,
   dosimeter: true,
@@ -114,6 +121,16 @@ const TITLE_VIEW = {
   shield: 0.85,
   boltTask: 'shelter',
 };
+function webglAvailable() {
+  try {
+    const probe = document.createElement('canvas');
+    const gl = probe.getContext('webgl2') ?? probe.getContext('webgl');
+    gl?.getExtension('WEBGL_lose_context')?.loseContext();
+    return Boolean(gl);
+  } catch {
+    return false;
+  }
+}
 function stageTitle(landscape, signal) {
   const motionOff =
     settings.motion === 'reduced' ||
@@ -122,7 +139,8 @@ function stageTitle(landscape, signal) {
     !landscape ||
     settings.flat ||
     settings.graphics === 'illustrated' ||
-    navigator.connection?.saveData
+    navigator.connection?.saveData ||
+    !webglAvailable()
   )
     return;
   const host = document.createElement('div');
@@ -290,9 +308,11 @@ function draft() {
     `<p class="mission-kicker">${t('CREW MANIFEST')}</p><p>${t('Four friends. Eight useful talents. Tap a card to add or remove it.')}</p><p class="draft-count" role="status"></p><div class="draft-grid">${CREW.map((crew) => `<button data-draft="${crew.id}" aria-pressed="${selected.has(crew.id)}"><span class="draft-portrait"><img src="/assets/portraits/${crew.id}-calm.svg" alt=""><span class="draft-check" aria-hidden="true">&#10003;</span></span><strong>${crew.name}</strong><span>${t(crew.trait)}</span><small>${t(`trait.${crew.id}`)}</small></button>`).join('')}</div><div class="app-actions"><button data-briefing>${t('Meet at the hatch')} →</button></div>`,
   );
   function update() {
-    root.querySelector('.draft-count').textContent = t('{count} of 4 chosen', {
-      count: selected.size,
-    });
+    root.querySelector('.draft-count').textContent =
+      t('{count} of 4 chosen', { count: selected.size }) +
+      (selected.size === 4
+        ? ` · ${t('Tap a chosen friend to make room for another.')}`
+        : '');
     root.querySelector('[data-briefing]').disabled = selected.size !== 4;
     root.querySelectorAll('[data-draft]').forEach((button) => {
       button.setAttribute(

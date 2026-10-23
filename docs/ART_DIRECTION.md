@@ -92,7 +92,17 @@ A real OfflineAudioContext renders an eight-effect-plus-music stress mix at maxi
 
 ## Living outpost and crew identity
 
-The original cutaway uses an offset left airlock, eight rear supply pockets, a separate right telemetry bench, warm deck and a cold unroofed EVA apron. One economical shadow-casting light plus cool fill gives readable contact; no bloom, depth-of-field or post-processing obscures play. Power changes indicators, supply use exposes real empty pockets, and crew walk between task/rest positions using cosmetic interpolation. The illustrated fallback reuses the same identities and item glyphs.
+**Shelter composition (second pass).** A regolith-covered half-cylinder module, cut away at the front, fills most of the screen. Read it left to right: outside work area and airlock hatch, then the crew pod in the middle wrapped by eight stowage pockets, then the radio desk, pantry rack and Kamote's planter. Back pockets are tall, side pockets medium and front pockets low so faces stay visible over them. Filled pockets are soft canvas bags (blue-grey for water, sand for food) with straps and the supply on top; an emptied pocket is a bare rack with coral stripes. A thin amber floor ring around the pod follows the GAME shield value. Ribs, the thick cut edge, end caps and a few roof rocks show wall depth without clutter.
+
+**Value and light.** Night navy surround, mid-grey shell, warm deck and amber lamp in the middle. One shadow-casting key light; the warm lamp and the cool exterior fill cast no shadows. Low power dims the lamp to about 40% and lights a coral emergency strip along the back wall; faces and pockets stay readable. The radio screen glows green only with a saved radio and power.
+
+**Crew presence.** Crew sit on floor cushions inside the pod with a slow glance cycle. Faces switch between calm smile, worry (raised inner brows, small round mouth) and tired (half lids, flat mouth) from public status and morale only. Crew on EVA walk out through the airlock to the work area and wear a task tag; recalled crew walk back and give a short relief gesture. Projected tags carry names, task and need icons; on narrow stages they show only crew who need attention or are outside.
+
+**Scramble staging.** Supplies sit on colour-coded pallets (amber food, blue water) between modules and the hatch. Gear waits at the module that uses it, and each crew member waits at their own workplace, so the map tells who works where. Carried supplies ride on the player's back. The camera stays close and follows; off-screen crew and the hatch get edge arrows.
+
+**Title.** The title shows the same shelter as a calm decorative demo (four crew, full wall, BOLT docked, Kamote proud). It is art, not a mission state.
+
+**Interface frame.** Dark glass top bar and action dock, resource chips with paper icon badges, and one paper logbook inspector with an amber binding edge. Paper is for reading and deciding; the dark frame is for the world. Shift reports are taped paper notes over the room.
 
 Ria has a bun and seed vial; Dom broad shoulders, glasses and a wrench; Aiko a bob and medical pouch; Tunde tall proportions, curls and geology tool; Mara swept hair, glasses and boom microphone; Iggy swept crest/goggles; Sol a broad frame, moustache and spoon; Pip a small frame, tuft and field notebook. Matching SVG portraits preserve these identities at small size. BOLT has softened tread housings and a screen face; Kamote has a rimmed pot and branching leaves. Supplies have distinct caps, handles, packet seams, knobs and terminals. Art is authored in `src/art/` and reproducibly exported by `tools/generate-art.mjs`; no commercial asset or agency insignia is used.
 

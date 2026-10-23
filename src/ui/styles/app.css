@@ -713,3 +713,15 @@ summary {
 [data-motion='reduced'] .title-stage {
   transition: none;
 }
+/* A full crew dims the others gently; they stay readable for comparison. */
+.app-screen .draft-grid button:disabled {
+  opacity: 1;
+  border-style: dashed;
+}
+.draft-grid button:disabled .draft-portrait img {
+  opacity: 0.7;
+}
+.draft-grid button:disabled small,
+.draft-grid button:disabled span {
+  color: #c7d4dc;
+}

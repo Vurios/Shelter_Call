@@ -39,3 +39,13 @@ Status: **implemented, verified and deployed**. Prompts 1–10 are complete with
 - Human playtesting and representative physical Android frame rate are unavailable so far. Desktop Chrome/touch emulation are separate evidence.
 - Linked YouTube trailers failed in the web reader. Official descriptions and screenshots were inspected; no video timing or internal-engine claims are made.
 - Publication of code commit `3f09709` is verified. Final documentation/evidence updates contain no runtime changes; their push uses the same validation/deploy workflow.
+
+## Second pass (October 23, 2026)
+
+Requested: redo and improve the overhaul toward the room storytelling of 60 Seconds!/60 Parsecs!, and clear the VS Code Gradle notices. Baseline `237a82d` (clean `main`). No `src/core` change; mission v1, typed actions, RNG and survival configuration unchanged.
+
+1. **Complete:** Capacitor CLI aligned to 8.5.3 (`cap doctor` clean, `cap sync android`, `gradlew assembleDebug` succeeded with JDK 21). `.vscode/settings.json` makes the Java extension apply Gradle changes automatically.
+2. **Complete:** diorama-first shelter (`68d97be`): habitat module, pod wrapped by eight pockets, crew sitting/walking/expressions, scene hotspots pressing DOM controls, full-viewport desktop layout, shift report and time-passing dim.
+3. **Complete:** staged scramble (pallets, gear at modules, crew at workplaces, closer follow camera, carried pack, off-screen crew arrows); regenerated crew GLBs with expressions.
+4. **Complete:** title diorama, 2D pallets, matching illustrated shelter, tick-caption fix, readable draft cards.
+5. **Evidence:** see the commands below and `overhaul/pass2/`.
