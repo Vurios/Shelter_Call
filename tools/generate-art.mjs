@@ -188,7 +188,8 @@ for (const id of MODEL_IDS) {
   const model = createModel(id);
   const binary = await new GLTFExporter().parseAsync(model, {
     binary: true,
-    onlyVisible: true,
+    // Crew keep hidden expression groups; poseCrew switches them at runtime.
+    onlyVisible: !id.startsWith('crew-'),
   });
   await save(`models/${id}.glb`, Buffer.from(binary));
   const name = id.startsWith('crew-')

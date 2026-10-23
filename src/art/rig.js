@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
-/** Merge static surfaces per joint/material, preserving the six articulated joints. */
+/** Merge static surfaces per joint/material, preserving six joints and switchable faces. */
 export function optimizeCrew(source) {
   source.updateMatrixWorld(true);
   const root = new THREE.Group();
@@ -29,8 +29,16 @@ export function optimizeCrew(source) {
     root.add(target);
     const inverse = joint.matrixWorld.clone().invert();
     const groups = new Map();
+    // Expression groups stay separate so poseCrew can switch faces.
+    const faces = new Map();
+    const faceOf = (node) => {
+      for (let n = node; n && n !== joint; n = n.parent)
+        if (n.name.startsWith('expr-')) return n;
+      return null;
+    };
     joint.traverse((node) => {
       if (!node.isMesh) return;
+      const face = faceOf(node);
       originals.add(node.geometry);
       const mat = node.material;
       originalMaterials.add(mat);
@@ -46,7 +54,9 @@ export function optimizeCrew(source) {
             transparent: mat.transparent,
           }),
         );
-      if (!groups.has(key)) groups.set(key, []);
+      const bucket = face ? faces : groups;
+      const id = face ? face.name : key;
+      if (!bucket.has(id)) bucket.set(id, []);
       const geometry = node.geometry.index
         ? node.geometry.toNonIndexed()
         : node.geometry.clone();
@@ -60,13 +70,26 @@ export function optimizeCrew(source) {
         colors[i + 2] = mat.color.b;
       }
       geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-      groups.get(key).push(geometry);
+      bucket.get(id).push(geometry);
+      if (face) face.userData.finish = key;
     });
     for (const [key, geometries] of groups) {
       const merged = mergeGeometries(geometries);
       geometries.forEach((g) => g.dispose());
       const mesh = new THREE.Mesh(merged, finishes.get(key));
       mesh.castShadow = mesh.receiveShadow = true;
+      target.add(mesh);
+    }
+    for (const [name, geometries] of faces) {
+      const source = joint.getObjectByName(name);
+      const merged = mergeGeometries(geometries);
+      geometries.forEach((g) => g.dispose());
+      const mesh = new THREE.Mesh(
+        merged,
+        finishes.get(source.userData.finish),
+      );
+      mesh.name = name;
+      mesh.visible = source.visible;
       target.add(mesh);
     }
   }

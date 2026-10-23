@@ -7,6 +7,7 @@ import {
   getEventPreviews,
 } from '../../core/preview.js';
 import { renderPreviews } from './previews.js';
+import { shiftReport } from './report.js';
 import { localize, phrase, t } from '../../i18n/index.js';
 import { renderJournal, TASK_LABELS, forecastCard } from './view.js';
 import './style.css';
@@ -54,7 +55,9 @@ export function mountShelter({
   let view = getShiftView(run),
     sound = settings.sound === true,
     disposed = false,
-    turnTimer;
+    turnTimer,
+    timeTimer,
+    report = null;
   const selection = {
     crew: view.crew[0].id,
     item: null,
@@ -85,6 +88,10 @@ export function mountShelter({
     '② Tap a supply on the shelf, then Put in wall. If you have none, ice drill or salvage can bring some.',
     '③ Read the radio forecast before you finish a shift. No radio? Watch symptoms and your dosimeter, if saved.',
   ];
+  const reducedMotion = () =>
+    settings.motion === 'reduced' ||
+    document.documentElement.dataset.motion === 'reduced' ||
+    matchMedia('(prefers-reduced-motion: reduce)').matches;
   function announce(text) {
     announcement.textContent = phrase(text);
   }
@@ -125,7 +132,11 @@ export function mountShelter({
       getEventPreviews(run),
       shiftStart,
     );
-    habitat.arrange(page, view, slots, inspector);
+    habitat.arrange(page, view, slots, inspector, selection.crew);
+    if (report)
+      page
+        .querySelector('.habitat-main')
+        ?.insertAdjacentHTML('beforeend', report);
     if (run.mode === 'judge')
       page
         .querySelector('.journal-header')
@@ -259,6 +270,7 @@ export function mountShelter({
     const before = view;
     try {
       act(run, value);
+      report = null;
       refresh(before, text);
       return true;
     } catch (error) {
@@ -288,7 +300,20 @@ export function mountShelter({
               (after.dosimeter && row.text === 'particles.'),
         ),
       );
-      refresh(before, null, getShiftView(run).shiftIndex !== before.shiftIndex);
+      const turned = after.shiftIndex !== before.shiftIndex;
+      report =
+        turned && !after.interrupt
+          ? shiftReport(before, after, shiftStart, logs)
+          : null;
+      refresh(before, null, turned);
+      if (turned && !reducedMotion()) {
+        root.classList.add('time-passing');
+        clearTimeout(timeTimer);
+        timeTimer = setTimeout(
+          () => root.classList.remove('time-passing'),
+          1100,
+        );
+      }
       if (view.interrupt) {
         if (view.interrupt.class) audio.alarm(view.interrupt.class);
         else
@@ -417,6 +442,11 @@ export function mountShelter({
         }
       } else {
         switch (button.dataset.action) {
+          case 'report-close':
+            report = null;
+            render();
+            page.querySelector('[data-action="end"]')?.focus();
+            break;
           case 'coach-next':
             coachStep++;
             render();
@@ -530,6 +560,7 @@ export function mountShelter({
     habitat.dispose();
     lifecycle.abort();
     clearTimeout(turnTimer);
+    clearTimeout(timeTimer);
     page.querySelector('dialog')?.close();
     void audio.dispose();
   }

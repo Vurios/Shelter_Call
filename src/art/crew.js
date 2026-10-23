@@ -139,34 +139,71 @@ export function createCrew(id) {
     ball(arm, 'glove', suit, [side * 0.07, -0.59, 0.04], [0.15, 0.15, 0.17]);
     ball(arm, 'thumb', suit, [side * -0.02, -0.55, 0.15], [0.08, 0.09, 0.08]);
   }
-  const head = joint('head', [0, 1.97, 0]);
+  // Slightly larger helmets keep faces readable at gameplay scale.
+  const head = joint('head', [0, 2.02, 0]);
+  head.scale.setScalar(1.14);
   ball(head, 'helmet-shell', P.white, [0, 0, 0], [0.55, 0.57, 0.49]);
   ball(head, 'visor-gasket', P.ink, [0, -0.01, 0.29], [0.47, 0.44, 0.29]);
   ball(head, 'face', style.skin, [0, -0.03, 0.42], [0.37, 0.35, 0.21]);
   ball(head, 'nose', style.skin, [0, -0.035, 0.635], [0.065, 0.065, 0.052]);
   for (const x of [-0.135, 0.135]) {
-    ball(head, 'eye-white', P.paper, [x, 0.04, 0.606], [0.055, 0.065, 0.025]);
-    ball(head, 'eye', P.ink, [x + 0.005, 0.04, 0.63], [0.027, 0.041, 0.015]);
-    box(
+    ball(head, 'eye-white', P.paper, [x, 0.04, 0.606], [0.062, 0.072, 0.025]);
+    ball(head, 'eye', P.ink, [x + 0.005, 0.035, 0.63], [0.032, 0.046, 0.015]);
+    ball(
       head,
-      'brow',
-      style.hair,
-      [x, 0.145, 0.6],
-      [0.12, 0.035, 0.024],
-    ).rotation.z = x < 0 ? 0.12 : -0.12;
+      'eye-glint',
+      P.white,
+      [x + 0.02, 0.06, 0.643],
+      [0.011, 0.013, 0.006],
+    );
   }
-  const smile = new THREE.QuadraticBezierCurve3(
-    new THREE.Vector3(-0.09, -0.17, 0.61),
-    new THREE.Vector3(0, -0.23, 0.635),
-    new THREE.Vector3(0.09, -0.17, 0.61),
-  );
-  mesh(
-    head,
-    'mouth',
-    new THREE.TubeGeometry(smile, 8, 0.016, 4, false),
-    P.ink,
-    [0, 0, 0],
-  );
+  // Expressions are separate groups so the rig can show calm, worry or tiredness.
+  const expression = (name) => {
+    const g = new THREE.Group();
+    g.name = `expr-${name}`;
+    head.add(g);
+    return g;
+  };
+  const brows = (parent, tilt, lift = 0) => {
+    for (const x of [-0.135, 0.135])
+      box(
+        parent,
+        'brow',
+        style.hair,
+        [x, 0.145 + lift, 0.6],
+        [0.12, 0.035, 0.024],
+      ).rotation.z = x < 0 ? tilt : -tilt;
+  };
+  const curve = (parent, a, b, c) =>
+    mesh(
+      parent,
+      'mouth',
+      new THREE.TubeGeometry(
+        new THREE.QuadraticBezierCurve3(
+          new THREE.Vector3(...a),
+          new THREE.Vector3(...b),
+          new THREE.Vector3(...c),
+        ),
+        8,
+        0.016,
+        4,
+        false,
+      ),
+      P.ink,
+      [0, 0, 0],
+    );
+  const smile = expression('smile');
+  brows(smile, 0.12);
+  curve(smile, [-0.09, -0.17, 0.61], [0, -0.23, 0.635], [0.09, -0.17, 0.61]);
+  const worry = expression('worry');
+  brows(worry, -0.32, 0.03);
+  ring(worry, 'mouth-o', P.ink, [0, -0.19, 0.62], 0.035, 0.014);
+  const tired = expression('tired');
+  brows(tired, 0, -0.02);
+  for (const x of [-0.135, 0.135])
+    ball(tired, 'eyelid', style.skin, [x, 0.07, 0.615], [0.07, 0.05, 0.03]);
+  curve(tired, [-0.07, -0.19, 0.615], [0, -0.17, 0.63], [0.07, -0.19, 0.615]);
+  worry.visible = tired.visible = false;
   // Small, separate locks and visors retain their real material distinction.
   for (const x of [-0.5, 0.5])
     ball(head, 'helmet-hinge', suit, [x, -0.03, 0.12], [0.09, 0.12, 0.14]);
@@ -270,7 +307,11 @@ export function createCrew(id) {
 }
 
 const rigs = new WeakMap();
-/** Cosmetic only. No engine state, clock reads or RNG consumption. */
+const FACES = { tired: 'tired', rest: 'tired', concern: 'worry' };
+/**
+ * Cosmetic only. No engine state, clock reads or RNG consumption.
+ * `seated` folds the legs forward for floor cushions inside the crew pod.
+ */
 export function poseCrew(
   root,
   {
@@ -280,29 +321,42 @@ export function poseCrew(
     airborne = 0,
     reduced = false,
     phase = 0,
+    seated = false,
   } = {},
 ) {
-  if (!rigs.has(root))
-    rigs.set(
-      root,
-      Object.fromEntries(
-        ['head', 'torso', 'arm-left', 'arm-right', 'leg-left', 'leg-right'].map(
-          (n) => [n, root.getObjectByName(n)],
-        ),
+  if (!rigs.has(root)) {
+    const parts = Object.fromEntries(
+      ['head', 'torso', 'arm-left', 'arm-right', 'leg-left', 'leg-right'].map(
+        (n) => [n, root.getObjectByName(n)],
       ),
     );
+    parts.faces = Object.fromEntries(
+      ['smile', 'worry', 'tired'].map((n) => [
+        n,
+        root.getObjectByName(`expr-${n}`),
+      ]),
+    );
+    rigs.set(root, parts);
+  }
   const r = rigs.get(root),
     wave = reduced ? 0 : Math.sin(time * 2 + phase),
-    stride = reduced ? 0 : Math.sin(time * 7 + phase);
+    stride = reduced ? 0 : Math.sin(time * 7 + phase),
+    // Slow glance cycle; each crew member has its own phase.
+    glance = reduced ? 0 : Math.sin(time * 0.45 + phase * 1.7);
   const work = pose === 'work',
     rest = pose === 'rest' || pose === 'tired',
     concern = pose === 'concern',
     celebrate = pose === 'celebrate';
+  const face = FACES[pose] ?? 'smile';
+  for (const [name, node] of Object.entries(r.faces))
+    if (node) node.visible = name === face;
   if (r.head) {
-    r.head.rotation.x = rest ? 0.14 : concern ? 0.1 : wave * 0.018;
-    r.head.rotation.z = concern ? -0.1 : 0;
+    r.head.rotation.x = rest ? 0.2 : concern ? 0.1 : wave * 0.018;
+    r.head.rotation.y = seated && !rest ? glance * 0.35 : 0;
+    r.head.rotation.z = concern ? -0.1 : rest ? 0.08 : 0;
   }
-  if (r.torso) r.torso.rotation.x = rest ? 0.08 : 0;
+  if (r.torso)
+    r.torso.rotation.x = rest ? 0.1 : seated ? 0.04 + wave * 0.01 : 0;
   for (const [side, sign] of [
     ['left', -1],
     ['right', 1],
@@ -314,16 +368,22 @@ export function poseCrew(
         ? stride * 0.28 * sign
         : work
           ? -0.65 + wave * 0.12
-          : 0;
+          : seated
+            ? -0.55 + (concern ? -0.25 : 0)
+            : 0;
       arm.rotation.z = celebrate
-        ? sign * -1.9
-        : sign * (airborne ? 0.24 : 0.045);
+        ? sign * -1.9 + (reduced ? 0 : Math.sin(time * 6) * 0.15)
+        : sign * (airborne ? 0.24 : seated ? 0.12 : 0.045);
     }
-    if (leg)
-      leg.rotation.x = moving
-        ? stride * -0.22 * sign
-        : airborne
-          ? 0.12 * sign
-          : 0;
+    if (leg) {
+      leg.rotation.x = seated
+        ? -1.42
+        : moving
+          ? stride * -0.22 * sign
+          : airborne
+            ? 0.12 * sign
+            : 0;
+      leg.rotation.z = seated ? sign * -0.08 : 0;
+    }
   }
 }

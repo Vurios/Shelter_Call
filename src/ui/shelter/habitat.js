@@ -18,7 +18,17 @@ export function createHabitat(settings) {
   let scene,
     disposed = false,
     latest,
-    signature;
+    signature,
+    currentPage;
+  // Scene hotspots press the same labeled DOM controls; no alternate action path.
+  const onPick = ({ kind, id }) => {
+    const selector =
+      kind === 'crew'
+        ? `[data-crew="${id}"]`
+        : `[data-room-inspector="${kind === 'radio' ? 'radio' : 'wall'}"]`;
+    const control = currentPage?.querySelector(selector);
+    if (control && !control.disabled) control.click();
+  };
   const reduced =
     settings.motion === 'reduced' ||
     (settings.motion !== 'full' &&
@@ -31,6 +41,7 @@ export function createHabitat(settings) {
         scene = createRoom(stage, {
           quality: settings.graphics ?? 'auto',
           reducedMotion: reduced,
+          onPick,
           onLoss: () => {
             scene?.dispose();
             scene = null;
@@ -38,7 +49,7 @@ export function createHabitat(settings) {
             host.dataset.renderer = 'illustrated';
           },
         });
-        if (latest) scene.update(latest.view, latest.slots);
+        if (latest) scene.update(latest.view, latest.slots, latest.selected);
         drawing.hidden = true;
         host.dataset.renderer = '3d';
       })
@@ -49,8 +60,9 @@ export function createHabitat(settings) {
         host.dataset.renderer = 'illustrated';
       });
   return {
-    arrange(page, view, slots, tab) {
-      latest = { view, slots: [...slots] };
+    arrange(page, view, slots, tab, selected) {
+      currentPage = page;
+      latest = { view, slots: [...slots], selected };
       const nextSignature = JSON.stringify([
         view.crew,
         view.wall,
@@ -60,11 +72,15 @@ export function createHabitat(settings) {
         view.broken,
         view.morale,
         view.boltTask,
+        view.radio,
+        view.dosimeter,
+        view.shield,
         slots,
+        selected,
       ]);
       if (signature !== nextSignature) {
         drawing.innerHTML = illustratedRoom(view, slots);
-        scene?.update(view, slots);
+        scene?.update(view, slots, selected);
         signature = nextSignature;
       }
       host.dataset.outside = view.crew.filter(
@@ -88,8 +104,10 @@ export function createHabitat(settings) {
       left.setAttribute('aria-label', t('Living shelter'));
       const roomTitle = document.createElement('div');
       roomTitle.className = 'habitat-caption';
-      roomTitle.innerHTML = `<strong>${t('LUNAR FIELD STATION')}</strong><span>${t('A small home. A shared plan.')}</span>`;
-      left.append(roomTitle, host, strip);
+      roomTitle.innerHTML = `<strong>${t('LUNAR FIELD STATION')}</strong><span class="habitat-shield"><img src="/assets/icons/shield.svg" alt="">${t('Shield')} ${Math.round(view.shield * 100)}% · ${t('GAME')}</span>`;
+      host.querySelector('.habitat-caption')?.remove();
+      host.append(roomTitle);
+      left.append(host, strip);
       const inspector = document.createElement('aside');
       inspector.className = 'habitat-inspector';
       inspector.setAttribute('aria-label', t('Shelter inspector'));
